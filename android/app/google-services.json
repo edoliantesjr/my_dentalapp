@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "205587505303",
+    "project_id": "mydentalapp-cadd8",
+    "storage_bucket": "mydentalapp-cadd8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205587505303:android:bd790ea0655847be9c09d2",
+        "android_client_info": {
+          "package_name": "com.cagape.dental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205587505303-gnmn4lt0mdg64rk1oe8nmi7frbiahq3k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cagape.dental",
+            "certificate_hash": "d25025f5e984f473cd9cdd96c969c6726e984512"
+          }
+        },
+        {
+          "client_id": "205587505303-1841vsq8j6objpovmke58urh9ueijuba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnp1tfuhQbgDU4AYhjyqI3KV6JsPXCG3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205587505303-1841vsq8j6objpovmke58urh9ueijuba.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,354 @@
+import 'package:dentalapp/constants/font_name/font_name.dart';
+import 'package:dentalapp/constants/styles/palette_color.dart';
+import 'package:dentalapp/constants/styles/text_styles.dart';
+import 'package:dentalapp/core/service/validator/validator_service.dart';
+import 'package:dentalapp/ui/views/register/register_view.form.dart';
+import 'package:dentalapp/ui/views/register/register_view_viewmodel.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
+
+@FormView(fields: [
+  FormTextField(name: 'email'),
+  FormTextField(name: 'password'),
+  FormTextField(name: 'confirmPass'),
+])
+class RegisterView extends StatelessWidget with $RegisterView {
+  RegisterView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<RegisterViewModel>.reactive(
+      onModelReady: (model) => listenToFormUpdated(model),
+      onDispose: (model) {
+        disposeForm();
+        model.log.d('form disposed');
+      },
+      viewModelBuilder: () => RegisterViewModel(),
+      builder: (context, model, child) {
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              width: screenWidth(context),
+              height: screenHeight(context),
+              color: Palettes.kcBlueMain1,
+              child: Stack(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      model.navigationService.pop();
+                    },
+                    color: Colors.white,
+                    icon: SvgPicture.asset(
+                      'assets/icons/arrow-back-white.svg',
+                      height: 24,
+                      width: 24,
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: double.infinity,
+                    margin: EdgeInsets.only(top: 150.h),
+                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30),
+                      ),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          RegisterFields(
+                              emailController: emailController,
+                              passwordController: passwordController,
+                              confirmPassController: confirmPassController,
+                              emailFNode: emailFocusNode,
+                              passFNode: passwordFocusNode,
+                              confirmPassFNode: confirmPassFocusNode,
+                              validatorService: model.validatorService,
+                              formKey: model.registerFormKey,
+                              register: () {
+                                if (model.registerFormKey.currentState!
+                                    .validate()) {
+                                  model.registerAccount();
+                                }
+                              }),
+                          SocialLogin(
+                            goToRegister: model.goToLogin,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  LoginOverlay()
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+//Required Fields For Register View
+class RegisterFields extends StatelessWidget {
+  final emailController;
+  final passwordController;
+  final confirmPassController;
+  final emailFNode;
+  final passFNode;
+  final confirmPassFNode;
+  final ValidatorService validatorService;
+  final VoidCallback register;
+  final formKey;
+
+  const RegisterFields(
+      {Key? key,
+      required this.emailController,
+      required this.passwordController,
+      required this.confirmPassController,
+      required this.emailFNode,
+      required this.passFNode,
+      required this.confirmPassFNode,
+      required this.validatorService,
+      required this.register,
+      required this.formKey})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 20.h),
+          Text(
+            'Register',
+            style: TextStyles.tsHeading3(),
+          ),
+          SizedBox(height: 2.h),
+          Text(
+            'Register To Continue',
+            style: TextStyles.tsHeading4(color: Palettes.kcNeutral2),
+          ),
+          SizedBox(height: 15.h),
+
+          //EMAIL TEXT FIELD
+          TextFormField(
+            controller: emailController,
+            focusNode: emailFNode,
+            textInputAction: TextInputAction.next,
+            validator: (value) => validatorService.validateEmailAddress(value!),
+            style: TextStyles.tsBody1(),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(top: 5),
+              prefixIconConstraints: BoxConstraints(minWidth: 20),
+              prefixIcon: Container(
+                margin: EdgeInsets.only(right: 10),
+                height: 24.h,
+                width: 24.w,
+                child: SvgPicture.asset(
+                  'assets/icons/Message.svg',
+                  color: emailFNode.hasFocus
+                      ? Palettes.kcBlueMain1
+                      : Palettes.kcNeutral2,
+                ),
+              ),
+              hintText: 'Your Email Account',
+              hintStyle: TextStyles.ktsHintTextStyle,
+            ),
+          ),
+          SizedBox(height: 10.h),
+
+          //PASSWORD TEXT FIELD
+          TextFormField(
+            controller: passwordController,
+            focusNode: passFNode,
+            validator: (value) => validatorService.validatePassword(value!),
+            onEditingComplete: () => confirmPassFNode.requestFocus(),
+            textInputAction: TextInputAction.next,
+            obscureText: true,
+            style: TextStyles.tsBody1(),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(top: 16),
+              prefixIconConstraints: BoxConstraints(minWidth: 20),
+              prefixIcon: Container(
+                margin: EdgeInsets.only(right: 10),
+                height: 25.h,
+                width: 25.w,
+                child: SvgPicture.asset(
+                  'assets/icons/Lock.svg',
+                  color: passFNode.hasFocus
+                      ? Palettes.kcBlueMain1
+                      : Palettes.kcNeutral2,
+                ),
+              ),
+              suffixIcon: IconButton(
+                  onPressed: () {},
+                  padding: EdgeInsets.zero,
+                  icon: SvgPicture.asset(
+                    'assets/icons/Show.svg',
+                  )),
+              hintText: 'Your Password',
+              hintStyle: TextStyles.ktsHintTextStyle,
+            ),
+          ),
+          SizedBox(height: 20.h),
+
+          //CONFIRM PASS TEXT FIELD
+          TextFormField(
+            controller: confirmPassController,
+            focusNode: confirmPassFNode,
+            validator: (value) => validatorService.validateConfirmPassword(
+                value!, passwordController.text),
+            textInputAction: TextInputAction.go,
+            obscureText: true,
+            style: TextStyles.tsBody1(),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(top: 16),
+              prefixIconConstraints: BoxConstraints(minWidth: 20),
+              prefixIcon: Container(
+                margin: EdgeInsets.only(right: 10),
+                height: 25.h,
+                width: 25.w,
+                child: SvgPicture.asset(
+                  'assets/icons/Lock.svg',
+                  color: confirmPassFNode.hasFocus
+                      ? Palettes.kcBlueMain1
+                      : Palettes.kcNeutral2,
+                ),
+              ),
+              suffixIcon: IconButton(
+                  onPressed: () {},
+                  padding: EdgeInsets.zero,
+                  icon: SvgPicture.asset(
+                    'assets/icons/Show.svg',
+                  )),
+              hintText: 'Confirm Password',
+              hintStyle: TextStyles.ktsHintTextStyle,
+            ),
+          ),
+          SizedBox(height: 20.h),
+          Container(
+            height: 45.sp,
+            width: screenWidth(context),
+            child: ElevatedButton(
+              onPressed: () => register(),
+              child: Text('Register'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SocialLogin extends StatelessWidget {
+  final VoidCallback goToRegister;
+
+  const SocialLogin({Key? key, required this.goToRegister}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(top: 20.h),
+      child: Column(
+        children: [
+          Text(
+            'Or login with..',
+            style: TextStyles.tsBody2(color: Palettes.kcNeutral2),
+          ),
+          SizedBox(height: 20.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  height: 50.h,
+                  width: 100.w,
+                  padding: EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Palettes.kcNeutral5),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: SvgPicture.asset(
+                    'assets/icons/google.svg',
+                  ),
+                ),
+              ),
+              SizedBox(width: 20.h),
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  height: 50.h,
+                  width: 100.w,
+                  padding: EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Palettes.kcNeutral5),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Image(image: AssetImage('assets/icons/facebook.png')),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 15.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Already have an account? ",
+                style: TextStyles.tsHeading5(),
+              ),
+              GestureDetector(
+                onTap: () => goToRegister(),
+                child: Container(
+                  height: 40.h,
+                  alignment: Alignment.center,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: Palettes.kcBlueMain2))),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                          fontFamily: FontNames.gilRoy,
+                          fontWeight: FontWeight.w600,
+                          fontSize: kfsHeading5.sp,
+                          color: Palettes.kcBlueMain2),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 13.h)
+        ],
+      ),
+    );
+  }
+}
+
+class LoginOverlay extends StatelessWidget {
+  const LoginOverlay({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: -12.5.h,
+      right: 60,
+      child: Image(
+        image: AssetImage('assets/images/register-overlay.png'),
+        height: 180.h,
+        width: 180.h,
+      ),
+    );
+  }
+}
