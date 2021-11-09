@@ -12,4 +12,6 @@ abstract class DialogService {
     required String message,
     required bool willPop,
   });
+
+  Future<dynamic>? showDefaultLoadingDialog();
 }

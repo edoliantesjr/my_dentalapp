@@ -139,7 +139,7 @@ class SetUpUserView extends StatelessWidget with $SetUpUserView {
                                 DropdownButtonFormField<String>(
                                   value: model.genderValue,
                                   validator: (value) => model.validatorService
-                                      .validateGender(value!),
+                                      .validateGender(value ?? ''),
                                   iconEnabledColor: Palettes.kcBlueMain1,
                                   elevation: 1,
                                   decoration: InputDecoration(

@@ -1,5 +1,7 @@
+import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'dialog_service.dart';
@@ -49,6 +51,29 @@ class DialogServiceImpl extends DialogService {
       textCancel: 'Cancel',
       textConfirm: textConfirm,
       confirmTextColor: Colors.white,
+    );
+  }
+
+  @override
+  Future? showDefaultLoadingDialog() {
+    return Get.dialog(
+      Center(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Palettes.kcNeutral1,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: EdgeInsets.all(8.sp),
+          height: 75.sp,
+          width: 70.sp,
+          child: Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      barrierColor: Palettes.kcLightAccentColor,
     );
   }
 }
