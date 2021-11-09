@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:205587505303:android:bd790ea0655847be9c09d2",
+        "mobilesdk_app_id": "1:205587505303:android:6907b227e43ebec29c09d2",
         "android_client_info": {
-          "package_name": "com.cagape.dental"
+          "package_name": "com.cagape.dentalapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "205587505303-gnmn4lt0mdg64rk1oe8nmi7frbiahq3k.apps.googleusercontent.com",
+          "client_id": "205587505303-83huius5uk58iamkk4v8du035bi3fjjh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.cagape.dental",
+            "package_name": "com.cagape.dentalapp",
             "certificate_hash": "d25025f5e984f473cd9cdd96c969c6726e984512"
           }
         },
