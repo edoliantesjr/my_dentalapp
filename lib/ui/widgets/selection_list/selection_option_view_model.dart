@@ -3,7 +3,7 @@ import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
-class SelectionListViewModel extends BaseViewModel {
+class SelectionOptionViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
 
   String? selectedOption;

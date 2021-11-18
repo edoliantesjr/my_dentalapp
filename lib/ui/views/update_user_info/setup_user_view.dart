@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_form_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
@@ -67,21 +69,41 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Header(),
+                    SizedBox(height: 20),
+                    Text(
+                      'Profile Picture*',
+                    ),
+                    SizedBox(height: 10),
                     Container(
-                      height: 100,
-                      width: 100,
-                      margin: EdgeInsets.only(top: 20),
+                      height: 120,
+                      width: 120,
                       decoration: BoxDecoration(
-                          color: Palettes.kcLightGreyAccentColor,
-                          borderRadius: BorderRadius.circular(100)),
+                        color: Palettes.kcLightGreyAccentColor,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Palettes.kcNeutral3,
+                              blurRadius: 3,
+                              offset: Offset(1, 2))
+                        ],
+                      ),
                       child: IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset(
-                          'assets/icons/Camera.svg',
-                          height: 35,
-                          width: 35,
-                          fit: BoxFit.cover,
-                        ),
+                        padding: EdgeInsets.zero,
+                        onPressed: model.selectImageSource,
+                        icon: model.selectedImage != null
+                            ? CircleAvatar(
+                                radius: 59,
+                                backgroundColor: Palettes.kcLightGreyAccentColor,
+                                backgroundImage: FileImage(
+                                  File(model.selectedImage!.path),
+                                ),
+                              )
+                            : SvgPicture.asset(
+                                'assets/icons/Camera.svg',
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
 
