@@ -64,20 +64,28 @@ class RegisterView extends StatelessWidget with $RegisterView {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           RegisterFields(
-                              emailController: emailController,
-                              passwordController: passwordController,
-                              confirmPassController: confirmPassController,
-                              emailFNode: emailFocusNode,
-                              passFNode: passwordFocusNode,
-                              confirmPassFNode: confirmPassFocusNode,
-                              validatorService: model.validatorService,
-                              formKey: model.registerFormKey,
-                              register: () {
-                                if (model.registerFormKey.currentState!
-                                    .validate()) {
-                                  model.registerAccount();
-                                }
-                              }),
+                            emailController: emailController,
+                            passwordController: passwordController,
+                            confirmPassController: confirmPassController,
+                            emailFNode: emailFocusNode,
+                            passFNode: passwordFocusNode,
+                            confirmPassFNode: confirmPassFocusNode,
+                            validatorService: model.validatorService,
+                            formKey: model.registerFormKey,
+                            setShowIconVisibility: model.setShowIconVisibility,
+                            isVisible: model.isShowIconVisible,
+                            isObscure: model.isObscure,
+                            showHidePassword: model.showHidePassword,
+                            autoValidate: model.autoValidate,
+                            register: () {
+                              if (model.registerFormKey.currentState!
+                                  .validate()) {
+                                model.registerAccount();
+                              } else {
+                                model.setAutoValidate();
+                              }
+                            },
+                          ),
                           SocialLogin(
                             goToRegister: model.goToLogin,
                           ),
@@ -98,28 +106,38 @@ class RegisterView extends StatelessWidget with $RegisterView {
 
 //Required Fields For Register View
 class RegisterFields extends StatelessWidget {
-  final emailController;
-  final passwordController;
-  final confirmPassController;
-  final emailFNode;
-  final passFNode;
-  final confirmPassFNode;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController confirmPassController;
+  final FocusNode emailFNode;
+  final FocusNode passFNode;
+  final FocusNode confirmPassFNode;
   final ValidatorService validatorService;
   final VoidCallback register;
   final formKey;
+  final bool isVisible;
+  final bool isObscure;
+  final VoidCallback showHidePassword;
+  final bool autoValidate;
+  final VoidCallback setShowIconVisibility;
 
-  const RegisterFields(
-      {Key? key,
-      required this.emailController,
-      required this.passwordController,
-      required this.confirmPassController,
-      required this.emailFNode,
-      required this.passFNode,
-      required this.confirmPassFNode,
-      required this.validatorService,
-      required this.register,
-      required this.formKey})
-      : super(key: key);
+  const RegisterFields({
+    Key? key,
+    required this.emailController,
+    required this.passwordController,
+    required this.confirmPassController,
+    required this.emailFNode,
+    required this.passFNode,
+    required this.confirmPassFNode,
+    required this.validatorService,
+    required this.register,
+    required this.formKey,
+    required this.isVisible,
+    required this.isObscure,
+    required this.showHidePassword,
+    required this.autoValidate,
+    required this.setShowIconVisibility,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +162,11 @@ class RegisterFields extends StatelessWidget {
           TextFormField(
             controller: emailController,
             focusNode: emailFNode,
+            autovalidateMode: autoValidate
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
             textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
             validator: (value) => validatorService.validateEmailAddress(value!),
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
@@ -171,10 +193,14 @@ class RegisterFields extends StatelessWidget {
           TextFormField(
             controller: passwordController,
             focusNode: passFNode,
+            autovalidateMode: autoValidate
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
             validator: (value) => validatorService.validatePassword(value!),
             onEditingComplete: () => confirmPassFNode.requestFocus(),
+            onChanged: (value) => setShowIconVisibility(),
             textInputAction: TextInputAction.next,
-            obscureText: true,
+            obscureText: isObscure,
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 16),
@@ -190,12 +216,18 @@ class RegisterFields extends StatelessWidget {
                       : Palettes.kcNeutral2,
                 ),
               ),
-              suffixIcon: IconButton(
-                  onPressed: () {},
-                  padding: EdgeInsets.zero,
-                  icon: SvgPicture.asset(
-                    'assets/icons/Show.svg',
-                  )),
+              suffixIcon: Visibility(
+                visible: isVisible,
+                child: IconButton(
+                    onPressed: () => showHidePassword(),
+                    padding: EdgeInsets.zero,
+                    icon: SvgPicture.asset(
+                      isObscure
+                          ? 'assets/icons/Show.svg'
+                          : 'assets/icons/Hide.svg',
+                      color: Palettes.kcBlueMain1,
+                    )),
+              ),
               hintText: 'Your Password',
               hintStyle: TextStyles.ktsHintTextStyle,
             ),
@@ -206,10 +238,14 @@ class RegisterFields extends StatelessWidget {
           TextFormField(
             controller: confirmPassController,
             focusNode: confirmPassFNode,
+            autovalidateMode: autoValidate
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
             validator: (value) => validatorService.validateConfirmPassword(
                 value!, passwordController.text),
+            onChanged: (value) => setShowIconVisibility(),
             textInputAction: TextInputAction.go,
-            obscureText: true,
+            obscureText: isObscure,
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 16),
@@ -225,12 +261,18 @@ class RegisterFields extends StatelessWidget {
                       : Palettes.kcNeutral2,
                 ),
               ),
-              suffixIcon: IconButton(
-                  onPressed: () {},
-                  padding: EdgeInsets.zero,
-                  icon: SvgPicture.asset(
-                    'assets/icons/Show.svg',
-                  )),
+              suffixIcon: Visibility(
+                visible: isVisible,
+                child: IconButton(
+                    onPressed: () => showHidePassword(),
+                    padding: EdgeInsets.zero,
+                    icon: SvgPicture.asset(
+                      isObscure
+                          ? 'assets/icons/Show.svg'
+                          : 'assets/icons/Hide.svg',
+                      color: Palettes.kcBlueMain1,
+                    )),
+              ),
               hintText: 'Confirm Password',
               hintStyle: TextStyles.ktsHintTextStyle,
             ),

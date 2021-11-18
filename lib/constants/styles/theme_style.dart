@@ -10,27 +10,27 @@ class ThemeStyles {
   ThemeStyles._();
 
   static ThemeData themeLight = ThemeData(
-    fontFamily: FontNames.sfPro,
-    backgroundColor: Color(0xcb4987f5),
-    colorScheme: ColorScheme.fromSwatch(
-      accentColor: Palettes.kcBlueMain1,
-      primarySwatch: primaryColorSwatch,
-      primaryColorDark: primaryColorSwatch[900],
-    ),
-    splashColor: Palettes.kcBlueAccentColor,
-    hintColor: Palettes.kcHintColor,
-    dividerColor: Palettes.kcHintColor,
-    textTheme: TextTheme(
-      bodyText2: TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: kfsBody2.sp,
-        letterSpacing: 0.5,
+      fontFamily: FontNames.sfPro,
+      backgroundColor: Color(0xcb4987f5),
+      colorScheme: ColorScheme.fromSwatch(
+        accentColor: Palettes.kcBlueMain1,
+        primarySwatch: primaryColorSwatch,
+        primaryColorDark: primaryColorSwatch[900],
       ),
-    ),
-    scaffoldBackgroundColor: Colors.white,
-    elevatedButtonTheme: ButtonStyles.elevatedButtonThemeDataLight,
-    outlinedButtonTheme: ButtonStyles.outlinedButtonThemeDataLight,
-  );
+      splashColor: Palettes.kcBlueAccentColor,
+      hintColor: Palettes.kcHintColor,
+      dividerColor: Palettes.kcHintColor,
+      textTheme: TextTheme(
+        bodyText2: TextStyle(
+          fontWeight: FontWeight.w400,
+          fontSize: kfsBody2.sp,
+          letterSpacing: 0.5,
+        ),
+      ),
+      scaffoldBackgroundColor: Colors.white,
+      elevatedButtonTheme: ButtonStyles.elevatedButtonThemeDataLight,
+      outlinedButtonTheme: ButtonStyles.outlinedButtonThemeDataLight,
+      shadowColor: Palettes.kcBlueMain1);
 }
 
 final mainColor = 0xff0065FF;

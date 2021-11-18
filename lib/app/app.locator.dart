@@ -9,6 +9,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../core/service/bottom_sheet/bottom_sheet_service.dart';
 import '../core/service/dialog/dialog_service.dart';
 import '../core/service/dialog/dialog_service_imp.dart';
 import '../core/service/firebase_auth/firebase_auth_service.dart';
@@ -34,4 +35,5 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton<FirebaseAuthService>(
       () => FirebaseAuthServiceImpl());
   locator.registerLazySingleton<ValidatorService>(() => ValidatorServiceImpl());
+  locator.registerLazySingleton(() => BottomSheetService());
 }

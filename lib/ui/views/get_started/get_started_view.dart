@@ -34,9 +34,6 @@ class GetStartedView extends StatelessWidget {
                       style: TextButton.styleFrom(primary: Colors.white),
                     ),
                   ),
-                  Spacer(
-                    flex: 1,
-                  ),
                   Expanded(
                     flex: 8,
                     child: PageView.builder(
@@ -91,8 +88,8 @@ class CarouselItem extends StatelessWidget {
         children: [
           Image(
             image: AssetImage(image),
-            height: 300.h,
-            width: 300.w,
+            height: 270.h,
+            width: 270.w,
           ),
           Text(
             title,

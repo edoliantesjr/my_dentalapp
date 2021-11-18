@@ -14,4 +14,6 @@ abstract class ValidatorService {
   String? validateDate(String value);
 
   String? validateGender(String value);
+
+  String? validatePosition(String value);
 }

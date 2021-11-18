@@ -60,12 +60,14 @@ class LoginViewModel extends FormViewModel {
   }
 
   void setShowIconVisibility() {
-    if (passwordValue != null && passwordValue!.length > 1) {
-      isShowIconVisible = true;
-      notifyListeners();
-    } else {
-      isShowIconVisible = false;
-      notifyListeners();
+    if (hasPassword) {
+      if (passwordValue != null && passwordValue!.length > 0) {
+        isShowIconVisible = true;
+        notifyListeners();
+      } else {
+        isShowIconVisible = false;
+        notifyListeners();
+      }
     }
   }
 

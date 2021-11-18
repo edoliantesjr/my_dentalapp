@@ -102,4 +102,6 @@ class TextStyles {
       fontFamily: FontNames.gilRoy,
       fontSize: kfsBody2.sp,
       color: Palettes.kcHintColor);
+
+  static const errorTextStyle = TextStyle(color: Color(0xFFD32F2F));
 }

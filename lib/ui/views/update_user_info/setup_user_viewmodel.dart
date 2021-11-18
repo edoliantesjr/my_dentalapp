@@ -1,39 +1,45 @@
 import 'package:dentalapp/app/app.locator.dart';
+import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
+import 'package:dentalapp/ui/widgets/selection_date/selection_date.dart';
+import 'package:dentalapp/ui/widgets/selection_list/selection_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class SetupUserViewModel extends FormViewModel {
+class SetupUserViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
-
-  final dateOfBirth = TextEditingController();
-  final setupFormKey = GlobalKey<FormState>();
   final validatorService = locator<ValidatorService>();
-  @override
-  void dispose() {
-    dateOfBirth.dispose();
-    super.dispose();
+  final bottomSheetService = locator<BottomSheetService>();
+
+  final setupFormKey = GlobalKey<FormState>();
+
+  final List<String> genderOptions = ['Male', 'Female'];
+  final List<String> positionOptions = ['Admin/Doctor', 'Staff'];
+
+  Future<void> setGenderValue(
+      TextEditingController textEditingController) async {
+    textEditingController.text =
+        await bottomSheetService.openBottomSheet(SelectionList(
+      options: genderOptions,
+    ));
+    notifyListeners();
   }
 
-  Future<void> selectDateOfBirth(
-      {required BuildContext context,
-      required DateTime initialDate,
-      required DateTime firstDate,
-      required DateTime lastDate}) async {
-    final selectedDate = await showDatePicker(
-        context: context,
-        initialDate: initialDate,
-        firstDate: firstDate,
-        lastDate: lastDate);
-    if (selectedDate != null) {
-      dateOfBirth.text = selectedDate.toString();
-    }
+  Future<void> setPositionValue(
+      TextEditingController textEditingController) async {
+    textEditingController.text =
+        await bottomSheetService.openBottomSheet(SelectionList(
+      options: positionOptions,
+    ));
+    notifyListeners();
   }
 
-  @override
-  void setFormStatus() {
-    // TODO: implement setFormStatus
+  Future<void> setBirthDateValue(
+      TextEditingController textEditingController) async {
+    textEditingController.text =
+        await bottomSheetService.openBottomSheet(SelectionDate());
+    notifyListeners();
   }
 }

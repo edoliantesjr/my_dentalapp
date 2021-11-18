@@ -22,6 +22,9 @@ class RegisterViewModel extends FormViewModel {
   final log = getLogger('RegisterViewModel');
 
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
+  bool isObscure = false;
+  bool isShowIconVisible = false;
+  bool autoValidate = false;
 
   void goToLogin() {
     navigationService.pop();
@@ -42,6 +45,33 @@ class RegisterViewModel extends FormViewModel {
         snackBarService.showSnackBar(authResponse.errorMessage!);
       }
     }
+  }
+
+  void showHidePassword() {
+    if (isObscure == true) {
+      isObscure = false;
+      notifyListeners();
+    } else {
+      isObscure = true;
+      notifyListeners();
+    }
+  }
+
+  void setShowIconVisibility() {
+    if (hasPassword) {
+      if (passwordValue != null && passwordValue!.length > 0) {
+        isShowIconVisible = true;
+        notifyListeners();
+      } else {
+        isShowIconVisible = false;
+        notifyListeners();
+      }
+    }
+  }
+
+  void setAutoValidate() {
+    autoValidate = true;
+    notifyListeners();
   }
 
   @override

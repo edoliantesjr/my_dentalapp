@@ -1,5 +1,6 @@
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ValidatorServiceImpl extends ValidatorService {
   @override
@@ -54,7 +55,7 @@ class ValidatorServiceImpl extends ValidatorService {
   String? validateDate(String value) {
     if (value.isEmpty) {
       return 'Birthdate is empty';
-    } else if (!value.isDateTime) {
+    } else if (DateFormat.yMMMd().parse(value) == null) {
       return 'Birthdate is not valid';
     }
   }
@@ -63,6 +64,13 @@ class ValidatorServiceImpl extends ValidatorService {
   String? validateGender(String value) {
     if (value.isEmpty) {
       return 'Gender is empty';
+    }
+  }
+
+  @override
+  String? validatePosition(String value) {
+    if (value.isEmpty) {
+      return 'Position is empty';
     }
   }
 }
