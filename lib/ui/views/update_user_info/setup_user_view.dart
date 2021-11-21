@@ -45,7 +45,19 @@ class _SetUpUserViewState extends State<SetUpUserView> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  if (model.setupFormKey.currentState!.validate()) {}
+                  if (model.setupFormKey.currentState!.validate()) {
+                    if (model.selectedImage == null) {
+                      model.snackBarService.showSnackBar(
+                          'Error: No Profile Image Selected. Please Try Again!');
+                    } else {
+                      model.saveUser(
+                          firstNameController.text,
+                          lastNameController.text,
+                          dateOfBirthController.text,
+                          genderController.text,
+                          positionController.text);
+                    }
+                  }
                 },
                 child: Text('Save'),
               ),
@@ -93,7 +105,8 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                         icon: model.selectedImage != null
                             ? CircleAvatar(
                                 radius: 59,
-                                backgroundColor: Palettes.kcLightGreyAccentColor,
+                                backgroundColor:
+                                    Palettes.kcLightGreyAccentColor,
                                 backgroundImage: FileImage(
                                   File(model.selectedImage!.path),
                                 ),
@@ -263,10 +276,14 @@ class Header extends StatelessWidget {
           onTap: () {},
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 15),
-            child: SvgPicture.asset('assets/icons/arrow-back.svg'),
+            // child: SvgPicture.asset('assets/icons/arrow-back.svg'),
+            child: Text(
+              'Account setup',
+              style: TextStyles.tsHeading4(color: Palettes.kcNeutral1),
+            ),
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 1),
         Text(
           'Setup User Information!',
           style: TextStyles.tsHeading2(),

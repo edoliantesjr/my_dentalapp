@@ -1,13 +1,13 @@
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/constants/styles/theme_style.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
-import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'app/app.router.dart';
 import 'constants/styles/palette_color.dart';
 
 final navigationService = locator<NavigationService>();
@@ -36,8 +36,8 @@ class DentalApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               navigatorKey: navigationService.navigatorKey,
               title: 'Dental App',
-              home: SetUpUserView(),
-              // onGenerateRoute: StackedRouter().onGenerateRoute,
+              // home: SetUpUserView(),
+              onGenerateRoute: StackedRouter().onGenerateRoute,
               themeMode: ThemeMode.light,
               theme: ThemeStyles.themeLight,
               //theme: ThemeData(),

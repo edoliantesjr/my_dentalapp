@@ -1,9 +1,17 @@
+import 'dart:io';
+
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/app/app.logger.dart';
+import 'package:dentalapp/app/app.router.dart';
+import 'package:dentalapp/constants/database_strings/database_collection.dart';
+import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
+import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
+import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:dentalapp/ui/widgets/selection_date/selection_date.dart';
 import 'package:dentalapp/ui/widgets/selection_list/selection_option.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +25,9 @@ class SetupUserViewModel extends BaseViewModel {
   final bottomSheetService = locator<BottomSheetService>();
   final imageSelectorService = locator<ImageSelector>();
   final logger = getLogger('SetupUserViewModel');
+  final apiService = locator<ApiService>();
+  final snackBarService = locator<SnackBarService>();
+  final dialogService = locator<DialogService>();
 
   final setupFormKey = GlobalKey<FormState>();
 
@@ -94,5 +105,42 @@ class SetupUserViewModel extends BaseViewModel {
     }
     imageCache!.clear();
     logger.i('image cache cleared');
+  }
+
+  Future<void> saveUser(String firstName, String lastName, String dateOfBirth,
+      String gender, String position) async {
+    dialogService.showDefaultLoadingDialog(barrierDismissible: false);
+
+    final imageUploadResult = await apiService.uploadProfileImage(
+        imageToUpload: File(selectedImage!.path),
+        imageFileName: selectedImage!.name);
+    logger.i('image uploading');
+
+    final userProfile = UserModel(currentFirebaseUser!.uid,
+        firstName: firstName,
+        lastName: lastName,
+        email: currentFirebaseUser!.email!,
+        image: imageUploadResult.imageUrl!,
+        position: position,
+        appointments: [],
+        fcmToken: []);
+
+    try {
+      if (imageUploadResult.isUploaded) {
+        logger.i('Image Uploaded');
+        await apiService.createUser(userProfile);
+        navigationService.closeOverlay();
+        // snackBarService.showSnackBar('User Created Successfully!');
+        navigationService.popAllAndPushNamed(Routes.Success);
+        logger.i('User Created Successfully');
+      } else {
+        navigationService.closeOverlay();
+        logger.e('Upload Image Failed');
+        snackBarService.showSnackBar(imageUploadResult.message!);
+      }
+    } catch (e) {
+      snackBarService.showSnackBar(
+          "There's an error encountered on our end. Please try again later.");
+    }
   }
 }

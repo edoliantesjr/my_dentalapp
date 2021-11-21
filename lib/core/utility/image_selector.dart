@@ -4,11 +4,11 @@ class ImageSelector {
   final ImagePicker _imagePicker = ImagePicker();
   Future<XFile?> selectImageWithGallery() async {
     return await _imagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 50);
+        source: ImageSource.gallery, imageQuality: 30);
   }
 
   Future<XFile?> selectImageWithCamera() async {
     return await _imagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
+        source: ImageSource.camera, imageQuality: 30);
   }
 }

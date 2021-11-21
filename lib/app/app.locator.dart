@@ -9,6 +9,8 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../core/service/api/api_service.dart';
+import '../core/service/api/api_service_impl.dart';
 import '../core/service/bottom_sheet/bottom_sheet_service.dart';
 import '../core/service/dialog/dialog_service.dart';
 import '../core/service/dialog/dialog_service_imp.dart';
@@ -40,4 +42,5 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => ConnectivityStateCheck());
   locator.registerLazySingleton(() => ImageSelector());
+  locator.registerLazySingleton<ApiService>(() => ApiServiceImpl());
 }

@@ -32,8 +32,7 @@ class RegisterViewModel extends FormViewModel {
 
   void registerAccount() async {
     if (emailValue != null && passwordValue != null) {
-      dialogService.showLoadingDialog(
-          message: 'Please wait...', willPop: false);
+      dialogService.showDefaultLoadingDialog();
       final authResponse = await firebaseAuthService.signUpWithEmail(
           email: emailValue!, password: passwordValue!);
       if (authResponse.success) {

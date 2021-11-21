@@ -1,6 +1,5 @@
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
-import 'package:dentalapp/models/auth_response/auth_response_model.dart';
-import 'package:dentalapp/models/user_model/user_model.dart';
+import 'package:dentalapp/models/response_model/auth_response_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -109,17 +108,5 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
     if (_firebaseAuth.currentUser != null) {
       _firebaseAuth.signOut();
     }
-  }
-
-  @override
-  Future<void> createUserIfNotExist(UserModel user) {
-    // TODO: implement createUserIfNotExist
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> saveTokenToDatabase({required String token}) {
-    // TODO: implement saveTokenToDatabase
-    throw UnimplementedError();
   }
 }

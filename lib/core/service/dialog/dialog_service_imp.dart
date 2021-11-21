@@ -55,7 +55,7 @@ class DialogServiceImpl extends DialogService {
   }
 
   @override
-  Future? showDefaultLoadingDialog() {
+  Future? showDefaultLoadingDialog({bool? barrierDismissible}) {
     return Get.dialog(
       Center(
         child: Container(
@@ -73,6 +73,7 @@ class DialogServiceImpl extends DialogService {
           ),
         ),
       ),
+      barrierDismissible: barrierDismissible ?? true,
       barrierColor: Palettes.kcLightAccentColor,
     );
   }

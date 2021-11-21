@@ -22,7 +22,7 @@ class LoginView extends StatelessWidget with $LoginView {
       onModelReady: (model) => listenToFormUpdated(model),
       onDispose: (model) {
         disposeForm();
-        model.log.d('login form disposed');
+        model.logger.d('login form disposed');
       },
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) {

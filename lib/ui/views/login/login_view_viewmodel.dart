@@ -1,6 +1,7 @@
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/app/app.logger.dart';
 import 'package:dentalapp/app/app.router.dart';
+import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
@@ -17,9 +18,10 @@ class LoginViewModel extends FormViewModel {
   final firebaseAuthService = locator<FirebaseAuthService>();
   final snackBarService = locator<SnackBarService>();
   final dialogService = locator<DialogService>();
+  final apiService = locator<ApiService>();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final log = getLogger('LoginViewModel');
+  final logger = getLogger('LoginViewModel');
   bool autoValidate = false;
   bool isObscure = true;
   bool isShowIconVisible = false;
@@ -31,7 +33,13 @@ class LoginViewModel extends FormViewModel {
           email: emailValue ?? '', password: passwordValue ?? '');
       navigationService.closeOverlay();
       if (loginResult.success) {
-        goToRegisterView();
+        final isAccountSetupDone = await apiService.checkUserStatus();
+        logger.i('Checking User Account Details');
+        if (isAccountSetupDone) {
+          navigationService.popAllAndPushNamed(Routes.Homepage);
+        } else {
+          navigationService.popAllAndPushNamed(Routes.SetUpUserView);
+        }
       } else {
         snackBarService.showSnackBar(loginResult.errorMessage!);
       }

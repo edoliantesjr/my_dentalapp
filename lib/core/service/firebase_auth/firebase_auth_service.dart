@@ -1,5 +1,4 @@
-import 'package:dentalapp/models/auth_response/auth_response_model.dart';
-import 'package:dentalapp/models/user_model/user_model.dart';
+import 'package:dentalapp/models/response_model/auth_response_model.dart';
 
 abstract class FirebaseAuthService {
   Future<AuthResponse> loginWithEmail(
@@ -17,8 +16,4 @@ abstract class FirebaseAuthService {
   Future<void> logOut();
 
   Future<bool> sendEmailVerification();
-
-  Future<void> createUserIfNotExist(UserModel user);
-
-  Future<void> saveTokenToDatabase({required String token});
 }

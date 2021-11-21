@@ -9,7 +9,7 @@ class SnackBarServiceImpl extends SnackBarService {
   Future<dynamic>? showSnackBar(String message, {TextButton? mainButton}) {
     return GetBar(
             message: message,
-            duration: Duration(seconds: 2, milliseconds: 200),
+            duration: Duration(seconds: 2, milliseconds: 300),
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             backgroundColor: Colors.grey[800]!,
             snackStyle: SnackStyle.FLOATING,
