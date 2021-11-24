@@ -17,7 +17,7 @@ class ThemeStyles {
         primarySwatch: primaryColorSwatch,
         primaryColorDark: primaryColorSwatch[900],
       ),
-      splashColor: Palettes.kcBlueAccentColor,
+      splashColor: Palettes.kcBlueMain1.withOpacity(0.2),
       hintColor: Palettes.kcHintColor,
       dividerColor: Palettes.kcHintColor,
       textTheme: TextTheme(

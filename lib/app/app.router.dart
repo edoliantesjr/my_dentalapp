@@ -12,7 +12,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 import '../ui/views/get_started/get_started_view.dart';
-import '../ui/views/homepage/homepage_view.dart';
+import '../ui/views/landing_page/landing_page_view.dart';
 import '../ui/views/login/login_view.dart';
 import '../ui/views/pre_loader/pre_loader_view.dart';
 import '../ui/views/register/register_view.dart';
@@ -28,7 +28,7 @@ class Routes {
   static const String VerifyEmail = '/verify-email-view';
   static const String SetUpUserView = '/set-up-user-view';
   static const String Success = '/success-view';
-  static const String Homepage = '/home-page-view';
+  static const String LandingPage = '/landing-page-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -37,7 +37,7 @@ class Routes {
     VerifyEmail,
     SetUpUserView,
     Success,
-    Homepage,
+    LandingPage,
   };
 }
 
@@ -52,7 +52,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.VerifyEmail, page: VerifyEmailView),
     RouteDef(Routes.SetUpUserView, page: SetUpUserView),
     RouteDef(Routes.Success, page: SuccessView),
-    RouteDef(Routes.Homepage, page: HomePageView),
+    RouteDef(Routes.LandingPage, page: LandingPageView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -108,9 +108,9 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    HomePageView: (data) {
+    LandingPageView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const HomePageView(),
+        builder: (context) => const LandingPageView(),
         settings: data,
       );
     },

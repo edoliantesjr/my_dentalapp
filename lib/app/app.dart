@@ -7,14 +7,16 @@ import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart'
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service_impl.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service_impl.dart';
+import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service_impl.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service_impl.dart';
 import 'package:dentalapp/core/utility/connectivity_state.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
+import 'package:dentalapp/models/session/session_service_impl.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
-import 'package:dentalapp/ui/views/homepage/homepage_view.dart';
+import 'package:dentalapp/ui/views/landing_page/landing_page_view.dart';
 import 'package:dentalapp/ui/views/login/login_view.dart';
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
@@ -32,7 +34,7 @@ import 'package:stacked/stacked_annotations.dart';
     CupertinoRoute(page: VerifyEmailView, name: 'VerifyEmail'),
     CupertinoRoute(page: SetUpUserView, name: 'SetUpUserView'),
     CupertinoRoute(page: SuccessView, name: 'Success'),
-    CupertinoRoute(page: HomePageView, name: 'Homepage'),
+    CupertinoRoute(page: LandingPageView, name: 'LandingPage'),
   ],
   dependencies: [
     Singleton(classType: NavigationServiceImpl, asType: NavigationService),
@@ -45,6 +47,7 @@ import 'package:stacked/stacked_annotations.dart';
     LazySingleton(classType: ConnectivityStateCheck),
     LazySingleton(classType: ImageSelector),
     LazySingleton(classType: ApiServiceImpl, asType: ApiService),
+    LazySingleton(classType: SessionServiceImpl, asType: SessionService),
   ],
   logger: StackedLogger(),
 )

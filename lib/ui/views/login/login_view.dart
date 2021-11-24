@@ -1,29 +1,37 @@
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
-import 'package:dentalapp/ui/views/login/login_view.form.dart';
 import 'package:dentalapp/ui/views/login/login_view_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
 
-@FormView(fields: [
-  FormTextField(name: 'email'),
-  FormTextField(name: 'password'),
-])
-class LoginView extends StatelessWidget with $LoginView {
+class LoginView extends StatefulWidget {
   LoginView({Key? key}) : super(key: key);
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final emailFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
-      onModelReady: (model) => listenToFormUpdated(model),
-      onDispose: (model) {
-        disposeForm();
-        model.logger.d('login form disposed');
-      },
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) {
         return Scaffold(
@@ -118,8 +126,11 @@ class LoginView extends StatelessWidget with $LoginView {
                                     : AutovalidateMode.disabled,
                                 textInputAction: TextInputAction.go,
                                 onChanged: (value) =>
-                                    model.setShowIconVisibility(),
-                                onEditingComplete: () => model.loginNow(),
+                                    model.setShowIconVisibility(
+                                        passwordController.text),
+                                onEditingComplete: () => model.loginNow(
+                                    emailValue: emailController.text,
+                                    passwordValue: passwordController.text),
                                 validator: (value) => model.validatorService
                                     .validatePassword(value!),
                                 decoration: InputDecoration(
@@ -165,7 +176,9 @@ class LoginView extends StatelessWidget with $LoginView {
                                 width: screenWidth(context),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    model.loginNow();
+                                    model.loginNow(
+                                        emailValue: emailController.text,
+                                        passwordValue: passwordController.text);
                                   },
                                   child: Text('Login'),
                                 ),

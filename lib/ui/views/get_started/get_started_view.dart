@@ -29,7 +29,7 @@ class GetStartedView extends StatelessWidget {
                   Container(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: model.goToLoginView,
                       child: Text('Skip'),
                       style: TextButton.styleFrom(primary: Colors.white),
                     ),
@@ -72,6 +72,7 @@ class CarouselItem extends StatelessWidget {
   final String image;
   final String title;
   final String description;
+
   const CarouselItem(
       {Key? key,
       required this.image,
@@ -110,6 +111,7 @@ class CarouselItem extends StatelessWidget {
 //Row Page Indicator
 class RowPageIndicator extends StatelessWidget {
   final int index;
+
   const RowPageIndicator({Key? key, required this.index}) : super(key: key);
 
   @override

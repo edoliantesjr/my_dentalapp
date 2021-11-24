@@ -2,12 +2,14 @@ import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/app/app.logger.dart';
 import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/models/get_started_model/get_started_model.dart';
 import 'package:stacked/stacked.dart';
 
 class GetStartedViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final log = getLogger('GetStartedViewModel');
+  final sessionService = locator<SessionService>();
 
   int index = 0;
   List<GetStartedModel> listOfDetails = [
@@ -37,6 +39,7 @@ class GetStartedViewModel extends BaseViewModel {
 
   void goToLoginView() {
     log.d('root route is now login');
+    sessionService.saveSession(isRunFirstTime: false, isLoggedIn: false);
     navigationService.pushReplacementNamed(Routes.Login);
   }
 }

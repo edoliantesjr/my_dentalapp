@@ -17,7 +17,7 @@ class SuccessView extends StatelessWidget {
         return WillPopScope(
           onWillPop: () async {
             var willPop = await model.navigationService
-                .popAllAndPushNamed(Routes.Homepage);
+                .popAllAndPushNamed(Routes.LandingPage);
             return willPop != null ? true : false;
           },
           child: Scaffold(
@@ -54,7 +54,7 @@ class SuccessView extends StatelessWidget {
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () => model.navigationService
-                          .popAllAndPushNamed(Routes.Homepage),
+                          .popAllAndPushNamed(Routes.LandingPage),
                       child: Text(
                         "Let's start the app",
                         textAlign: TextAlign.center,

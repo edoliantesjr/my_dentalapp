@@ -4,6 +4,7 @@ import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:flutter/widgets.dart';
@@ -20,6 +21,7 @@ class RegisterViewModel extends FormViewModel {
   final dialogService = locator<DialogService>();
   final validatorService = locator<ValidatorService>();
   final log = getLogger('RegisterViewModel');
+  final sessionService = locator<SessionService>();
 
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
   bool isObscure = false;
@@ -38,6 +40,7 @@ class RegisterViewModel extends FormViewModel {
       if (authResponse.success) {
         navigationService.closeOverlay();
         firebaseAuthService.sendEmailVerification();
+        sessionService.saveSession(isRunFirstTime: false, isLoggedIn: true);
         navigationService.pushReplacementNamed(Routes.SetUpUserView);
       } else {
         Get.back(canPop: false);
