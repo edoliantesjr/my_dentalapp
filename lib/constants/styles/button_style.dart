@@ -10,8 +10,9 @@ class ButtonStyles {
   static ElevatedButtonThemeData elevatedButtonThemeDataLight =
       ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
+      elevation: 1,
       primary: Palettes.kcBlueMain1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       textStyle: TextStyle(
         fontSize: kfsButton1.sp,
         letterSpacing: 0.5,
@@ -23,7 +24,7 @@ class ButtonStyles {
       OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
       ),
       textStyle: TextStyle(
         fontSize: kfsButton1.sp,

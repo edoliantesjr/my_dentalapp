@@ -38,6 +38,8 @@ class GetStartedView extends StatelessWidget {
                     flex: 8,
                     child: PageView.builder(
                       itemCount: model.listOfDetails.length,
+                      physics: BouncingScrollPhysics(),
+                      clipBehavior: Clip.none,
                       onPageChanged: (index) => model.indexChange(index),
                       itemBuilder: (context, index) => CarouselItem(
                           image: model.listOfDetails[index].image,
@@ -125,7 +127,7 @@ class RowPageIndicator extends StatelessWidget {
           width: 8.w,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: index == 0 ? Colors.white : Colors.blue[200]),
+              color: index == 0 ? Colors.white : Colors.purple[200]),
         ),
         Container(
           margin: EdgeInsets.only(right: 5),
@@ -133,14 +135,14 @@ class RowPageIndicator extends StatelessWidget {
           width: 8.w,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: index == 1 ? Colors.white : Colors.blue[200]),
+              color: index == 1 ? Colors.white : Colors.purple[200]),
         ),
         Container(
           height: 8.h,
           width: 8.w,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: index == 2 ? Colors.white : Colors.blue[200]),
+              color: index == 2 ? Colors.white : Colors.purple[200]),
         )
       ],
     );

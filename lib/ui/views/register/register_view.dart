@@ -1,5 +1,6 @@
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
+import 'package:dentalapp/constants/styles/text_border_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/ui/views/register/register_view.form.dart';
@@ -56,7 +57,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
+                        topRight: Radius.circular(65),
                       ),
                     ),
                     child: SingleChildScrollView(
@@ -171,6 +172,7 @@ class RegisterFields extends StatelessWidget {
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 5),
+              focusedBorder: TextBorderStyles.focusedBorder,
               prefixIconConstraints: BoxConstraints(minWidth: 20),
               prefixIcon: Container(
                 margin: EdgeInsets.only(right: 10),
@@ -204,6 +206,7 @@ class RegisterFields extends StatelessWidget {
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 16),
+              focusedBorder: TextBorderStyles.focusedBorder,
               prefixIconConstraints: BoxConstraints(minWidth: 20),
               prefixIcon: Container(
                 margin: EdgeInsets.only(right: 10),
@@ -249,6 +252,7 @@ class RegisterFields extends StatelessWidget {
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 16),
+              focusedBorder: TextBorderStyles.focusedBorder,
               prefixIconConstraints: BoxConstraints(minWidth: 20),
               prefixIcon: Container(
                 margin: EdgeInsets.only(right: 10),

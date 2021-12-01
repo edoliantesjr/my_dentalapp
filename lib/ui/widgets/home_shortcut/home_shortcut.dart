@@ -1,0 +1,231 @@
+import 'package:dentalapp/constants/styles/palette_color.dart';
+import 'package:dentalapp/constants/styles/text_styles.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+class HomeShortcut extends StatelessWidget {
+  const HomeShortcut({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: Container(
+            height: 120,
+            decoration: BoxDecoration(
+                color: Palettes.kcBlueMain1,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30))),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/icons/Star Line.svg',
+                    height: 20,
+                    width: 20,
+                    color: Colors.white,
+                  ),
+                  SizedBox(width: 2),
+                  Text(
+                    'Shortcuts',
+                    style: TextStyles.tsHeading4(color: Colors.white),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Container(
+                height: 150,
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 4,
+                          offset: Offset(0, 1))
+                    ]),
+                child: Material(
+                  color: Colors.white,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/icons/Plus.svg',
+                                        height: 25,
+                                        width: 25,
+                                        color: Palettes.kcNeutral1,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text('Add Services',
+                                          style: TextStyles.tsBody4())
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            VerticalDivider(width: 1),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/icons/Clients.svg',
+                                        height: 25,
+                                        width: 25,
+                                        color: Palettes.kcNeutral1,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        'Add Patient',
+                                        style: TextStyles.tsBody4(),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            VerticalDivider(width: 1),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/icons/Pills.svg',
+                                        height: 25,
+                                        width: 25,
+                                        color: Palettes.kcNeutral1,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        'Add Medicine',
+                                        style: TextStyles.tsBody4(),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Divider(height: 1),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/icons/Graph.svg',
+                                        height: 25,
+                                        width: 25,
+                                        color: Palettes.kcNeutral1,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        'Sales',
+                                        style: TextStyles.tsBody4(),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            VerticalDivider(width: 1),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/icons/Wallet.svg',
+                                        height: 25,
+                                        width: 25,
+                                        color: Palettes.kcNeutral1,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        'Add Payment',
+                                        style: TextStyles.tsBody4(),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            VerticalDivider(width: 1),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/icons/Ticket.svg',
+                                        height: 25,
+                                        width: 25,
+                                        color: Palettes.kcNeutral1,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        'Add Expenses',
+                                        style: TextStyles.tsBody4(),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}

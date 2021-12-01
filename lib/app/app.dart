@@ -16,8 +16,8 @@ import 'package:dentalapp/core/utility/connectivity_state.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
 import 'package:dentalapp/models/session/session_service_impl.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
-import 'package:dentalapp/ui/views/landing_page/landing_page_view.dart';
 import 'package:dentalapp/ui/views/login/login_view.dart';
+import 'package:dentalapp/ui/views/main_body/main_body_view.dart';
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
@@ -34,7 +34,7 @@ import 'package:stacked/stacked_annotations.dart';
     CupertinoRoute(page: VerifyEmailView, name: 'VerifyEmail'),
     CupertinoRoute(page: SetUpUserView, name: 'SetUpUserView'),
     CupertinoRoute(page: SuccessView, name: 'Success'),
-    CupertinoRoute(page: LandingPageView, name: 'LandingPage'),
+    CupertinoRoute(page: MainBodyView, name: 'MainBodyView'),
   ],
   dependencies: [
     Singleton(classType: NavigationServiceImpl, asType: NavigationService),

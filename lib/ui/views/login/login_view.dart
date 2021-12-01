@@ -1,5 +1,6 @@
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
+import 'package:dentalapp/constants/styles/text_border_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/login/login_view_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class _LoginViewState extends State<LoginView> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
+                        topRight: Radius.circular(65),
                       ),
                     ),
                     child: Column(
@@ -75,7 +76,14 @@ class _LoginViewState extends State<LoginView> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              SizedBox(height: 60.h),
+                              SizedBox(height: 30.h),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Login',
+                                  style: TextStyles.tsHeading3(),
+                                ),
+                              ),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
@@ -99,6 +107,7 @@ class _LoginViewState extends State<LoginView> {
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   hintText: 'Your Email Account',
+                                  focusedBorder: TextBorderStyles.focusedBorder,
                                   prefixIconConstraints:
                                       BoxConstraints(minWidth: 20),
                                   prefixIcon: Container(
@@ -134,6 +143,7 @@ class _LoginViewState extends State<LoginView> {
                                 validator: (value) => model.validatorService
                                     .validatePassword(value!),
                                 decoration: InputDecoration(
+                                  focusedBorder: TextBorderStyles.focusedBorder,
                                   hintText: 'Your Password',
                                   prefixIconConstraints:
                                       BoxConstraints(minWidth: 20),
@@ -293,7 +303,7 @@ class LoginOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 11.h,
+      top: 9.5.h,
       left: 80.w,
       child: Image(
         image: AssetImage('assets/images/loginoverlay.png'),

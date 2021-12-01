@@ -489,6 +489,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0+2"
+  flutter_staggered_animations:
+    dependency: "direct main"
+    description:
+      name: flutter_staggered_animations
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -496,6 +503,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.23.0+1"
+  flutter_swipe_action_cell:
+    dependency: "direct main"
+    description:
+      name: flutter_swipe_action_cell
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -653,6 +667,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.0"
+  loading_animation_widget:
+    dependency: "direct main"
+    description:
+      name: loading_animation_widget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2+2"
   logger:
     dependency: "direct main"
     description:

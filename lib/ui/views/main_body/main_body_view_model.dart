@@ -1,6 +1,6 @@
 import 'package:stacked/stacked.dart';
 
-class LandingPageViewModel extends BaseViewModel {
+class MainBodyViewModel extends BaseViewModel {
   int selectedIndex = 0;
 
   void setSelectedIndex(int index) {

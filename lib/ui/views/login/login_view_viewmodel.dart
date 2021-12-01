@@ -39,7 +39,7 @@ class LoginViewModel extends FormViewModel {
         final isAccountSetupDone = await apiService.checkUserStatus();
         logger.i('Checking User Account Details');
         if (isAccountSetupDone) {
-          navigationService.popAllAndPushNamed(Routes.LandingPage);
+          navigationService.popAllAndPushNamed(Routes.MainBodyView);
         } else {
           navigationService.popAllAndPushNamed(Routes.SetUpUserView);
         }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'dialog_service.dart';
 
@@ -67,14 +68,12 @@ class DialogServiceImpl extends DialogService {
           height: 75.sp,
           width: 70.sp,
           child: Center(
-            child: CircularProgressIndicator(
-              color: Colors.white,
-            ),
-          ),
+              child: LoadingAnimationWidget.staggeredDotWave(
+                  time: 800, size: 40, color: Colors.white)),
         ),
       ),
       barrierDismissible: barrierDismissible ?? true,
-      barrierColor: Palettes.kcLightAccentColor,
+      barrierColor: Palettes.kcBlueMain1.withOpacity(0.2),
     );
   }
 }
