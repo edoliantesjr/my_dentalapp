@@ -85,7 +85,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
               ),
               IconButton(
                 onPressed: () {
-                  Get.offAllNamed(Routes.MainBodyView);
+                  Get.offAllNamed(Routes.HomePageView, id: 0);
                 },
                 padding: EdgeInsets.zero,
                 icon: SvgPicture.asset(

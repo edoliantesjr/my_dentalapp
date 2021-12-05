@@ -7,7 +7,8 @@ import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 
 class SelectionDate extends StatelessWidget {
-  const SelectionDate({Key? key}) : super(key: key);
+  final String? title;
+  const SelectionDate({Key? key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,10 @@ class SelectionDate extends StatelessWidget {
                       'Cancel',
                       style: TextStyles.tsButton1(color: Colors.red[700]),
                     ),
+                  ),
+                  Text(
+                    title ?? '',
+                    style: TextStyle(fontSize: 18),
                   ),
                   TextButton(
                     onPressed: model.setReturnDate,

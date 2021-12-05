@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Palettes {
   //main colors
   static const kcBlueMain2 = Color(0xff0065FF);
-  static const kcBlueMain1 = Color(0xFF5B35BB);
+  static const kcBlueMain1 = Color(0xFF956CFB);
   static const kcBlueDark = Color(0xff0F3D91);
 
 //Neutral Colors

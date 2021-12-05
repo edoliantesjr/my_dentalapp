@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:stacked/stacked.dart';
 
 class GetStartedView extends StatelessWidget {
@@ -41,10 +42,25 @@ class GetStartedView extends StatelessWidget {
                       physics: BouncingScrollPhysics(),
                       clipBehavior: Clip.none,
                       onPageChanged: (index) => model.indexChange(index),
-                      itemBuilder: (context, index) => CarouselItem(
-                          image: model.listOfDetails[index].image,
-                          title: model.listOfDetails[index].title,
-                          description: model.listOfDetails[index].description),
+                      itemBuilder: (context, index) =>
+                          AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: Duration(milliseconds: 800),
+                        child: SlideAnimation(
+                          curve: Curves.easeInOut,
+                          verticalOffset: 50,
+                          duration: Duration(milliseconds: 800),
+                          child: FadeInAnimation(
+                            curve: Curves.easeIn,
+                            duration: Duration(milliseconds: 500),
+                            child: CarouselItem(
+                                image: model.listOfDetails[index].image,
+                                title: model.listOfDetails[index].title,
+                                description:
+                                    model.listOfDetails[index].description),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   Spacer(),
@@ -85,6 +101,7 @@ class CarouselItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8),
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,4 +1,5 @@
 import 'package:dentalapp/constants/styles/palette_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -16,7 +17,7 @@ class CustomBottomNavigation extends StatelessWidget {
       elevation: 0,
       color: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
           decoration: BoxDecoration(
@@ -122,4 +123,86 @@ class CustomBottomNavigation extends StatelessWidget {
       ),
     );
   }
+}
+
+class BottomNavigationCupertino extends CupertinoTabBar {
+  final int selectedIndex;
+  BottomNavigationCupertino({Key? key, required this.selectedIndex})
+      : super(key: key, backgroundColor: Colors.white, currentIndex: 0, items: [
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: CircleAvatar(
+                radius: 20,
+                backgroundColor: selectedIndex == 0
+                    ? Palettes.kcBlueMain1.withOpacity(0.1)
+                    : Colors.transparent,
+                child: SvgPicture.asset(
+                  'assets/icons/Home.svg',
+                  height: 23,
+                  color: selectedIndex == 0
+                      ? Palettes.kcBlueMain1
+                      : Palettes.kcNeutral1,
+                )),
+          ),
+          BottomNavigationBarItem(
+            label: 'Appointment',
+            icon: CircleAvatar(
+                radius: 20,
+                backgroundColor: selectedIndex == 1
+                    ? Palettes.kcBlueMain1.withOpacity(0.1)
+                    : Colors.transparent,
+                child: SvgPicture.asset(
+                  'assets/icons/Calendar.svg',
+                  height: 23,
+                  color: selectedIndex == 1
+                      ? Palettes.kcBlueMain1
+                      : Palettes.kcNeutral1,
+                )),
+          ),
+          BottomNavigationBarItem(
+            label: 'Patients',
+            icon: CircleAvatar(
+                radius: 20,
+                backgroundColor: selectedIndex == 2
+                    ? Palettes.kcBlueMain1.withOpacity(0.1)
+                    : Colors.transparent,
+                child: SvgPicture.asset(
+                  'assets/icons/Clients.svg',
+                  height: 23,
+                  color: selectedIndex == 2
+                      ? Palettes.kcBlueMain1
+                      : Palettes.kcNeutral1,
+                )),
+          ),
+          BottomNavigationBarItem(
+            label: 'Services',
+            icon: CircleAvatar(
+                radius: 20,
+                backgroundColor: selectedIndex == 3
+                    ? Palettes.kcBlueMain1.withOpacity(0.1)
+                    : Colors.transparent,
+                child: SvgPicture.asset(
+                  'assets/icons/Filter.svg',
+                  height: 23,
+                  color: selectedIndex == 3
+                      ? Palettes.kcBlueMain1
+                      : Palettes.kcNeutral1,
+                )),
+          ),
+          BottomNavigationBarItem(
+            label: 'Medicine',
+            icon: CircleAvatar(
+                radius: 20,
+                backgroundColor: selectedIndex == 4
+                    ? Palettes.kcBlueMain1.withOpacity(0.1)
+                    : Colors.transparent,
+                child: SvgPicture.asset(
+                  'assets/icons/Work.svg',
+                  height: 23,
+                  color: selectedIndex == 4
+                      ? Palettes.kcBlueMain1
+                      : Palettes.kcNeutral1,
+                )),
+          ),
+        ]);
 }

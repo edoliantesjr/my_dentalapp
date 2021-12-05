@@ -1,20 +1,208 @@
+import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
+import 'package:dentalapp/enums/appointment_status.dart';
+import 'package:dentalapp/ui/views/home/home_view_model.dart';
+import 'package:dentalapp/ui/widgets/appointment_card/appointment_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AppointmentView extends StatelessWidget {
   const AppointmentView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Center(
-        child: Text(
-          'Appointments View',
-          style: TextStyles.tsHeading1(),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Clinic Appointments',
+          style: TextStyles.tsHeading3(color: Colors.white),
+        ),
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.all(8.0),
+        //     child: TextButton.icon(
+        //       onPressed: () {},
+        //       style: ElevatedButton.styleFrom(
+        //         padding: EdgeInsets.only(right: 8),
+        //         primary: Colors.white,
+        //         shape: RoundedRectangleBorder(
+        //             borderRadius: BorderRadius.circular(20)),
+        //       ),
+        //       label: Text(
+        //         'Appointment',
+        //         style: TextStyles.tsBody2(color: Palettes.kcNeutral1),
+        //       ),
+        //       icon: SvgPicture.asset('assets/icons/Plus.svg'),
+        //     ),
+        //   ),
+        // ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+      floatingActionButton: Container(
+        height: 40,
+        margin: EdgeInsets.only(bottom: 0),
+        child: ElevatedButton(
+          onPressed: () {},
+          child: Text('+ Appointment'),
+          style: ElevatedButton.styleFrom(
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
         ),
       ),
+      body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.grey.shade50,
+          padding: EdgeInsets.symmetric(horizontal: 7),
+          child: RefreshIndicator(
+            color: Palettes.kcBlueMain1,
+            onRefresh: () async {
+              await Future.delayed(Duration(seconds: 1));
+            },
+            child: CustomScrollView(
+              physics: ScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              slivers: [
+                SliverStickyHeader(
+                    sticky: true,
+                    overlapsContent: false,
+                    header: Container(
+                      color: Colors.grey.shade50,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          CalendarTimeline(
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.utc(2021, 12),
+                            lastDate: DateTime(2026, 12),
+                            onDateSelected: (date) {},
+                            monthColor: Palettes.kcNeutral1,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, bottom: 8),
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade50,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.shade300,
+                                      blurRadius: 2,
+                                      offset: Offset(0, 2))
+                                ]),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Result',
+                                  style: TextStyles.tsHeading4(),
+                                ),
+                                SizedBox(width: 8),
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.shade600,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Text(
+                                    'Done',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Container(
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              shape: BoxShape.circle,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Palettes.kcBlueMain2,
+                                                    blurRadius: 1)
+                                              ]),
+                                          child: SvgPicture.asset(
+                                            'assets/icons/Search.svg',
+                                            color: Palettes.kcNeutral1,
+                                            height: 18,
+                                            width: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 15),
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Container(
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              shape: BoxShape.circle,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Palettes.kcBlueMain2,
+                                                    blurRadius: 1)
+                                              ]),
+                                          child: SvgPicture.asset(
+                                            'assets/icons/Filter.svg',
+                                            color: Palettes.kcNeutral1,
+                                            height: 18,
+                                            width: 18,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 5)
+                        ],
+                      ),
+                    ),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          return AppointmentCard(
+                            key: ObjectKey(
+                                HomePageViewModel().mockAppointment[index]),
+                            dateDay: HomePageViewModel()
+                                .mockAppointment[index]
+                                .dateDay,
+                            dateMonth: HomePageViewModel()
+                                .mockAppointment[index]
+                                .dateMonth,
+                            doctor: HomePageViewModel()
+                                .mockAppointment[index]
+                                .doctor,
+                            patient: HomePageViewModel()
+                                .mockAppointment[index]
+                                .patient,
+                            appointmentStatus: getAppointmentStatus(
+                                HomePageViewModel()
+                                    .mockAppointment[index]
+                                    .status),
+                            serviceTitle: HomePageViewModel()
+                                .mockAppointment[index]
+                                .serviceTitle,
+                            onDelete: () {},
+                          );
+                        },
+                        childCount: HomePageViewModel().mockAppointment.length,
+                      ),
+                    ))
+              ],
+            ),
+          )),
     );
   }
 }

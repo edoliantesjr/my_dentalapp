@@ -74,7 +74,10 @@ class SetupUserViewModel extends BaseViewModel {
   Future<void> setBirthDateValue(
       TextEditingController textEditingController) async {
     String selectedBirthDate =
-        await bottomSheetService.openBottomSheet(SelectionDate()) ?? '';
+        await bottomSheetService.openBottomSheet(SelectionDate(
+              title: 'Select birth date',
+            )) ??
+            '';
     tempBirthDate =
         selectedBirthDate != '' ? selectedBirthDate : tempBirthDate ?? '';
     selectedBirthDate = tempBirthDate!;

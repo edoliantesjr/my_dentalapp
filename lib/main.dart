@@ -1,6 +1,7 @@
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/constants/styles/theme_style.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/core/utility/custom_scroll_behaviour.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,9 +40,11 @@ class DentalApp extends StatelessWidget {
         navigatorKey: navigationService.navigatorKey,
         title: 'Dental App',
         // home: MainBodyView(),
+        initialRoute: Routes.MainBodyView,
         onGenerateRoute: StackedRouter().onGenerateRoute,
         themeMode: ThemeMode.light,
         theme: ThemeStyles.themeLight,
+        scrollBehavior: CustomScrollBehaviour(),
       ),
     );
   }

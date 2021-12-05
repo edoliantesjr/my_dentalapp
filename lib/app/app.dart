@@ -15,11 +15,16 @@ import 'package:dentalapp/core/service/validator/validator_service_impl.dart';
 import 'package:dentalapp/core/utility/connectivity_state.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
 import 'package:dentalapp/models/session/session_service_impl.dart';
+import 'package:dentalapp/ui/views/appointment/appointment_view.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
+import 'package:dentalapp/ui/views/home/home_view.dart';
 import 'package:dentalapp/ui/views/login/login_view.dart';
 import 'package:dentalapp/ui/views/main_body/main_body_view.dart';
+import 'package:dentalapp/ui/views/medicine/medicine_view.dart';
+import 'package:dentalapp/ui/views/patients/patients_view.dart';
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
+import 'package:dentalapp/ui/views/services/services_view.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:dentalapp/ui/views/verify_email/verify_email_view.dart';
 import 'package:dentalapp/ui/widgets/success_view/success.dart';
@@ -28,13 +33,18 @@ import 'package:stacked/stacked_annotations.dart';
 @StackedApp(
   routes: [
     CupertinoRoute(page: PreLoaderView, name: 'PreLoader'),
-    CupertinoRoute(page: GetStartedView, name: 'GetStarted', initial: true),
+    CupertinoRoute(page: GetStartedView, name: 'GetStarted'),
     CupertinoRoute(page: LoginView, name: 'Login'),
     CupertinoRoute(page: RegisterView, name: 'Register'),
     CupertinoRoute(page: VerifyEmailView, name: 'VerifyEmail'),
     CupertinoRoute(page: SetUpUserView, name: 'SetUpUserView'),
     CupertinoRoute(page: SuccessView, name: 'Success'),
     CupertinoRoute(page: MainBodyView, name: 'MainBodyView'),
+    CupertinoRoute(page: HomePageView, name: 'HomePageView'),
+    CupertinoRoute(page: AppointmentView, name: 'AppointmentView'),
+    CupertinoRoute(page: MedicineView, name: 'MedicineView'),
+    CupertinoRoute(page: PatientsView, name: 'PatientsView'),
+    CupertinoRoute(page: ServicesView, name: 'ServicesView'),
   ],
   dependencies: [
     Singleton(classType: NavigationServiceImpl, asType: NavigationService),

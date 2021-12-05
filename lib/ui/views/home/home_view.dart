@@ -1,3 +1,4 @@
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/ui/views/home/home_view_model.dart';
 import 'package:dentalapp/ui/widgets/custom_app_bar/custom_app_bar.dart';
@@ -19,19 +20,16 @@ class HomePageView extends StatelessWidget {
         appBar: CustomHomePageAppBar(),
         body: RefreshIndicator(
           color: Palettes.kcBlueMain1,
-          triggerMode: RefreshIndicatorTriggerMode.onEdge,
           onRefresh: () async {
             model.init();
           },
           child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
+            physics: ScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HomeShortcut(),
+                HomeShortcut(
+                    addServiceOnTap: () => model.navigationService
+                        .pushNamed(Routes.AppointmentView, id: 0)),
                 HomeAppointment(
                   deleteItem: (index) => model.deleteThisFromList(index),
                   myAppointments: model.mockAppointment,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TextBorderStyles {
   static const normalBorder = UnderlineInputBorder(
       borderRadius: BorderRadius.zero,
-      borderSide: BorderSide(color: Colors.grey, width: 1));
+      borderSide: BorderSide(color: Palettes.kcBlueMain1, width: 0.9));
 
   static const errorBorder = UnderlineInputBorder(
       borderRadius: BorderRadius.zero,

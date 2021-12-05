@@ -11,24 +11,34 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../ui/views/appointment/appointment_view.dart';
 import '../ui/views/get_started/get_started_view.dart';
+import '../ui/views/home/home_view.dart';
 import '../ui/views/login/login_view.dart';
 import '../ui/views/main_body/main_body_view.dart';
+import '../ui/views/medicine/medicine_view.dart';
+import '../ui/views/patients/patients_view.dart';
 import '../ui/views/pre_loader/pre_loader_view.dart';
 import '../ui/views/register/register_view.dart';
+import '../ui/views/services/services_view.dart';
 import '../ui/views/update_user_info/setup_user_view.dart';
 import '../ui/views/verify_email/verify_email_view.dart';
 import '../ui/widgets/success_view/success.dart';
 
 class Routes {
   static const String PreLoader = '/pre-loader-view';
-  static const String GetStarted = '/';
+  static const String GetStarted = '/get-started-view';
   static const String Login = '/login-view';
   static const String Register = '/register-view';
   static const String VerifyEmail = '/verify-email-view';
   static const String SetUpUserView = '/set-up-user-view';
   static const String Success = '/success-view';
   static const String MainBodyView = '/main-body-view';
+  static const String HomePageView = '/home-page-view';
+  static const String AppointmentView = '/appointment-view';
+  static const String MedicineView = '/medicine-view';
+  static const String PatientsView = '/patients-view';
+  static const String ServicesView = '/services-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -38,6 +48,11 @@ class Routes {
     SetUpUserView,
     Success,
     MainBodyView,
+    HomePageView,
+    AppointmentView,
+    MedicineView,
+    PatientsView,
+    ServicesView,
   };
 }
 
@@ -53,6 +68,11 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.SetUpUserView, page: SetUpUserView),
     RouteDef(Routes.Success, page: SuccessView),
     RouteDef(Routes.MainBodyView, page: MainBodyView),
+    RouteDef(Routes.HomePageView, page: HomePageView),
+    RouteDef(Routes.AppointmentView, page: AppointmentView),
+    RouteDef(Routes.MedicineView, page: MedicineView),
+    RouteDef(Routes.PatientsView, page: PatientsView),
+    RouteDef(Routes.ServicesView, page: ServicesView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -111,6 +131,36 @@ class StackedRouter extends RouterBase {
     MainBodyView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const MainBodyView(),
+        settings: data,
+      );
+    },
+    HomePageView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const HomePageView(),
+        settings: data,
+      );
+    },
+    AppointmentView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const AppointmentView(),
+        settings: data,
+      );
+    },
+    MedicineView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const MedicineView(),
+        settings: data,
+      );
+    },
+    PatientsView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const PatientsView(),
+        settings: data,
+      );
+    },
+    ServicesView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ServicesView(),
         settings: data,
       );
     },

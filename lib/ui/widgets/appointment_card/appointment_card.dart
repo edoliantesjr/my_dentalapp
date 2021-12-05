@@ -36,7 +36,7 @@ class AppointmentCard extends StatelessWidget {
       trailingActions: [
         SwipeAction(
           widthSpace: 60,
-          color: Palettes.kcNeutral5,
+          color: Colors.transparent,
           onTap: (handler) async {
             await handler(true);
             this.onDelete();
@@ -89,7 +89,7 @@ class AppointmentCard extends StatelessWidget {
         ),
         SwipeAction(
           widthSpace: 60,
-          color: Palettes.kcNeutral5,
+          color: Colors.transparent,
           onTap: (handler) {},
           content: Container(
             height: 50,
@@ -110,7 +110,7 @@ class AppointmentCard extends StatelessWidget {
       child: Container(
         color: Colors.grey.shade50,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2),
+          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 2),
           child: Container(
             padding: EdgeInsets.only(top: 8, left: 8, right: 8),
             height: 135,
@@ -199,9 +199,9 @@ class DateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 70,
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       decoration: BoxDecoration(
-          color: Color(0xFF4EFECA), borderRadius: BorderRadius.circular(10)),
+          color: Color(0xff7A9DE9), borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
           Expanded(

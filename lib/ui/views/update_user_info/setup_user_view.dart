@@ -137,6 +137,7 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                   labelText: 'First Name*',
                                   labelStyle: TextStyles.tsBody1(
                                       color: Palettes.kcNeutral1),
+                                  enabledBorder: TextBorderStyles.normalBorder,
                                   focusedBorder: TextBorderStyles.focusedBorder,
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
@@ -153,6 +154,7 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                   labelText: 'Last Name*',
                                   labelStyle: TextStyles.tsBody1(
                                       color: Palettes.kcNeutral1),
+                                  enabledBorder: TextBorderStyles.normalBorder,
                                   focusedBorder: TextBorderStyles.focusedBorder,
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,

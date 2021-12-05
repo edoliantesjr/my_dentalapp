@@ -172,6 +172,7 @@ class RegisterFields extends StatelessWidget {
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 5),
+              enabledBorder: TextBorderStyles.normalBorder,
               focusedBorder: TextBorderStyles.focusedBorder,
               prefixIconConstraints: BoxConstraints(minWidth: 20),
               prefixIcon: Container(
@@ -206,6 +207,7 @@ class RegisterFields extends StatelessWidget {
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 16),
+              enabledBorder: TextBorderStyles.normalBorder,
               focusedBorder: TextBorderStyles.focusedBorder,
               prefixIconConstraints: BoxConstraints(minWidth: 20),
               prefixIcon: Container(
@@ -252,6 +254,7 @@ class RegisterFields extends StatelessWidget {
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 16),
+              enabledBorder: TextBorderStyles.normalBorder,
               focusedBorder: TextBorderStyles.focusedBorder,
               prefixIconConstraints: BoxConstraints(minWidth: 20),
               prefixIcon: Container(

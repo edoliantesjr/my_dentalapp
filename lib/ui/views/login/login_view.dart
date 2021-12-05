@@ -27,6 +27,7 @@ class _LoginViewState extends State<LoginView> {
     passwordController.dispose();
     emailFocusNode.dispose();
     passwordFocusNode.dispose();
+    debugPrint('login_view.dart was disposed');
     super.dispose();
   }
 
@@ -107,6 +108,7 @@ class _LoginViewState extends State<LoginView> {
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   hintText: 'Your Email Account',
+                                  enabledBorder: TextBorderStyles.normalBorder,
                                   focusedBorder: TextBorderStyles.focusedBorder,
                                   prefixIconConstraints:
                                       BoxConstraints(minWidth: 20),
@@ -143,6 +145,7 @@ class _LoginViewState extends State<LoginView> {
                                 validator: (value) => model.validatorService
                                     .validatePassword(value!),
                                 decoration: InputDecoration(
+                                  enabledBorder: TextBorderStyles.normalBorder,
                                   focusedBorder: TextBorderStyles.focusedBorder,
                                   hintText: 'Your Password',
                                   prefixIconConstraints:

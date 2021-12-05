@@ -10,8 +10,8 @@ class NavigationServiceImpl extends NavigationService {
 
   //  Pushes [routeName] onto the navigation stack
   @override
-  Future? pushNamed(String routeName, {dynamic arguments}) {
-    return Get.toNamed(routeName, arguments: arguments);
+  Future? pushNamed(String routeName, {dynamic arguments, dynamic id}) {
+    return Get.toNamed(routeName, arguments: arguments, id: id);
   }
 
   // Replaces the current route with the [routeName]
@@ -44,8 +44,8 @@ class NavigationServiceImpl extends NavigationService {
 
   // Pops the back stack to a route name
   @override
-  void popUntilNamed(String routeName) {
-    Get.until(ModalRoute.withName(routeName));
+  void popUntilNamed(String routeName, int? id) {
+    Get.until(ModalRoute.withName(routeName), id: id);
   }
 
   // Pops the back stack until the predicate is satisfied
@@ -56,14 +56,14 @@ class NavigationServiceImpl extends NavigationService {
 
   // Pops the back stack the number of times you indicate with [popTimes]
   @override
-  void popRepeated(int times) {
-    Get.close(times);
+  void popRepeated(int times, {int? id}) {
+    Get.close(times, id);
   }
 
   // Pops the current scope and indicates if you can pop again
   @override
-  bool pop({dynamic returnValue}) {
-    Get.back(result: returnValue);
+  bool pop({dynamic returnValue, int? id}) {
+    Get.back(result: returnValue, id: id);
     return Get.key.currentState?.canPop() ?? false;
   }
 

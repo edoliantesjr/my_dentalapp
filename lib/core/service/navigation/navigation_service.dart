@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart'
 abstract class NavigationService {
   GlobalKey<NavigatorState> get navigatorKey;
 
-  Future<dynamic>? pushNamed(String routeName, {dynamic arguments});
+  Future<dynamic>? pushNamed(String routeName, {dynamic arguments, dynamic id});
 
   Future<dynamic>? pushReplacementNamed(String routeName, {dynamic arguments});
 
@@ -16,13 +16,13 @@ abstract class NavigationService {
   Future<dynamic>? pushNamedAndRemoveUntil(String routeName,
       {required RoutePredicate predicate, arguments, int? id});
 
-  void popUntilNamed(String routeName);
+  void popUntilNamed(String routeName, int? id);
 
   void popUntilPredicate(RoutePredicate routePredicate);
 
-  void popRepeated(int times);
+  void popRepeated(int times, {int? id});
 
-  bool pop({dynamic returnValue});
+  bool pop({dynamic returnValue, int? id});
 
   void closeOverlay();
 }

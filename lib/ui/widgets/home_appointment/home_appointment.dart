@@ -4,13 +4,13 @@ import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
 import 'package:dentalapp/models/appointment_model/appoinment_model.dart';
 import 'package:dentalapp/ui/widgets/appointment_card/appointment_card.dart';
+import 'package:dentalapp/ui/widgets/custom_shimmer/custom_shimmer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeAppointment extends StatelessWidget {
   final List<AppointmentModel> myAppointments;
@@ -81,30 +81,11 @@ class HomeAppointment extends StatelessWidget {
             ],
           ),
           this.isBusy
-              ? Center(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 2.1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        LoadingAnimationWidget.staggeredDotWave(
-                          color: Palettes.kcBlueMain1,
-                          time: 800,
-                          size: 40,
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Loading Appointments...',
-                          style:
-                              TextStyles.tsHeading5(color: Palettes.kcNeutral3),
-                        )
-                      ],
-                    ),
-                  ),
-                )
+              ? MyShimmer()
               : AnimationLimiter(
                   child: ListView.builder(
                     shrinkWrap: true,
+                    primary: false,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.all(5),
                     itemCount: myAppointments.length,
