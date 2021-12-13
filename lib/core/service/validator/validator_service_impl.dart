@@ -37,8 +37,9 @@ class ValidatorServiceImpl extends ValidatorService {
 
   @override
   String? validateAddress(String value) {
-    // TODO: implement validateAddress
-    throw UnimplementedError();
+    if (value.isEmpty) {
+      return 'Address is empty';
+    }
   }
 
   @override
@@ -71,6 +72,29 @@ class ValidatorServiceImpl extends ValidatorService {
   String? validatePosition(String value) {
     if (value.isEmpty) {
       return 'Position is empty';
+    }
+  }
+
+  @override
+  String? validateAllergies(String value) {
+    if (value.isEmpty) {
+      return 'List of Allergies is empty';
+    }
+  }
+
+  @override
+  String? validateContactName(String value) {
+    if (value.isEmpty) {
+      return 'Contact name is empty';
+    }
+  }
+
+  @override
+  String? validatePhoneNumber(String value) {
+    if (value.isEmpty) {
+      return 'Phone number is empty';
+    } else if (value.length < 11) {
+      return 'Phone number is not valid';
     }
   }
 }

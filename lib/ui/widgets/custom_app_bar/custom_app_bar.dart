@@ -11,7 +11,15 @@ final picture = 'https://images.pexels.com/photos/220453/'
     'pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
 
 class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
-  const CustomHomePageAppBar({Key? key}) : super(key: key);
+  final String? image;
+  final String? position;
+  final String? name;
+  const CustomHomePageAppBar(
+      {Key? key,
+      required this.image,
+      required this.position,
+      required this.name})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +50,13 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: CachedNetworkImage(
-                    imageUrl: picture,
+                    imageUrl: image!,
                     fit: BoxFit.cover,
+                    errorWidget: (context, url, error) => Image.asset(
+                      'assets/icons/Profile.svg',
+                      height: 50,
+                      width: 50,
+                    ),
                     progressIndicatorBuilder: (context, url, progress) =>
                         CircularProgressIndicator(
                       value: progress.progress,
@@ -63,7 +76,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                       style: TextStyles.tsHeading5(color: Colors.white),
                     ),
                     Text(
-                      'Doc. Juan Dela Cruz',
+                      position != 'Staff' ? 'Doc. $name' : '$name',
                       style: TextStyles.tsBody2(
                         color: Colors.white,
                       ),

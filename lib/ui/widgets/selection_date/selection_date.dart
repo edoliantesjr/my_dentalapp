@@ -50,7 +50,7 @@ class SelectionDate extends StatelessWidget {
             Expanded(
                 child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
-              initialDateTime: DateTime.now(),
+              initialDateTime: DateTime.utc(2000),
               maximumDate: DateTime.now(),
               onDateTimeChanged: (DateTime dateTime) =>
                   model.setSelectedDate(dateTime),

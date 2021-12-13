@@ -39,30 +39,35 @@ class _SetUpUserViewState extends State<SetUpUserView> {
       viewModelBuilder: () => SetupUserViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          persistentFooterButtons: [
-            Container(
-              height: 45,
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (model.setupFormKey.currentState!.validate()) {
-                    if (model.selectedImage == null) {
-                      model.snackBarService.showSnackBar(
-                          'Error: No Profile Image Selected. Please Try Again!');
-                    } else {
-                      model.saveUser(
-                          firstNameController.text,
-                          lastNameController.text,
-                          dateOfBirthController.text,
-                          genderController.text,
-                          positionController.text);
-                    }
+          bottomSheet: Container(
+            height: 45,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(top: BorderSide(color: Palettes.kcNeutral5)),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+            child: ElevatedButton(
+              onPressed: () {
+                if (model.setupFormKey.currentState!.validate()) {
+                  if (model.selectedImage == null) {
+                    model.snackBarService.showSnackBar(
+                        message:
+                            'Error: No Profile Image Selected. Please Try Again!',
+                        title: 'Missing Required Data');
+                  } else {
+                    model.saveUser(
+                        firstNameController.text,
+                        lastNameController.text,
+                        dateOfBirthController.text,
+                        genderController.text,
+                        positionController.text);
                   }
-                },
-                child: Text('Save'),
-              ),
-            )
-          ],
+                }
+              },
+              child: Text('Save'),
+            ),
+          ),
           body: Container(
             color: Palettes.kcBlueMain1,
             height: MediaQuery.of(context).size.height,

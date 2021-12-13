@@ -92,7 +92,7 @@ class HomeShortcut extends StatelessWidget {
                                         color: Palettes.kcNeutral1,
                                       ),
                                       SizedBox(height: 5),
-                                      Text('Add Services',
+                                      Text('Add Procedure',
                                           style: TextStyles.tsBody4())
                                     ],
                                   ),
@@ -102,7 +102,7 @@ class HomeShortcut extends StatelessWidget {
                             VerticalDivider(width: 1),
                             Expanded(
                               child: InkWell(
-                                onTap: () {},
+                                onTap: addPatientOnTap,
                                 child: Container(
                                   alignment: Alignment.center,
                                   child: Column(

@@ -1,8 +1,8 @@
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
-class MedicineView extends StatelessWidget {
-  const MedicineView({Key? key}) : super(key: key);
+class ProceduresView extends StatelessWidget {
+  const ProceduresView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class MedicineView extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Medicine List',
+          'Dental Procedures',
           style: TextStyles.tsHeading3(color: Colors.white),
         ),
       ),
@@ -19,7 +19,7 @@ class MedicineView extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: Center(
           child: Text(
-            'Medicine View',
+            'Procedures View',
             style: TextStyles.tsHeading1(),
           ),
         ),

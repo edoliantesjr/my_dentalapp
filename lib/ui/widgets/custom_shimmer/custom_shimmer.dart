@@ -1,6 +1,6 @@
 import 'package:dentalapp/constants/styles/palette_color.dart';
-import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
 class MyShimmer extends StatelessWidget {
   final int? itemCount;
@@ -15,8 +15,8 @@ class MyShimmer extends StatelessWidget {
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15),
-          height: 135,
+          padding: EdgeInsets.symmetric(horizontal: 18),
+          height: 130,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
@@ -27,13 +27,14 @@ class MyShimmer extends StatelessWidget {
               ]),
           child: Row(
             children: [
-              FadeShimmer(
-                width: 70,
-                height: 100,
-                highlightColor: Colors.grey.shade100,
-                millisecondsDelay: 0,
-                baseColor: Colors.grey.shade400,
-                radius: 15,
+              SkeletonLoader(
+                loading: true,
+                startColor: Colors.grey.shade400,
+                endColor: Colors.grey.shade200,
+                child: SizedBox(
+                  width: 70,
+                  height: 100,
+                ),
               ),
               SizedBox(width: 10),
               Expanded(
@@ -41,40 +42,44 @@ class MyShimmer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    FadeShimmer(
-                      height: 14,
-                      width: 100,
-                      highlightColor: Colors.grey.shade100,
-                      millisecondsDelay: 0,
-                      baseColor: Colors.grey.shade400,
-                      radius: 2,
+                    SkeletonLoader(
+                      loading: true,
+                      startColor: Colors.grey.shade400,
+                      endColor: Colors.grey.shade200,
+                      child: SizedBox(
+                        height: 14,
+                        width: 100,
+                      ),
                     ),
                     SizedBox(height: 8),
-                    FadeShimmer(
-                      height: 14,
-                      width: 100,
-                      highlightColor: Colors.grey.shade100,
-                      millisecondsDelay: 0,
-                      baseColor: Colors.grey.shade400,
-                      radius: 2,
+                    SkeletonLoader(
+                      loading: true,
+                      startColor: Colors.grey.shade400,
+                      endColor: Colors.grey.shade200,
+                      child: SizedBox(
+                        height: 14,
+                        width: 100,
+                      ),
                     ),
                     SizedBox(height: 8),
-                    FadeShimmer(
-                      height: 14,
-                      width: 100,
-                      highlightColor: Colors.grey.shade100,
-                      millisecondsDelay: 0,
-                      baseColor: Colors.grey.shade400,
-                      radius: 2,
+                    SkeletonLoader(
+                      loading: true,
+                      startColor: Colors.grey.shade400,
+                      endColor: Colors.grey.shade200,
+                      child: SizedBox(
+                        height: 14,
+                        width: 100,
+                      ),
                     ),
                     SizedBox(height: 8),
-                    FadeShimmer(
-                      height: 14,
-                      width: 100,
-                      highlightColor: Colors.grey.shade100,
-                      millisecondsDelay: 0,
-                      baseColor: Colors.grey.shade400,
-                      radius: 2,
+                    SkeletonLoader(
+                      loading: true,
+                      startColor: Colors.grey.shade400,
+                      endColor: Colors.grey.shade200,
+                      child: SizedBox(
+                        height: 14,
+                        width: 100,
+                      ),
                     ),
                   ],
                 ),

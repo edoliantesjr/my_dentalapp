@@ -44,7 +44,8 @@ class RegisterViewModel extends FormViewModel {
         navigationService.pushReplacementNamed(Routes.SetUpUserView);
       } else {
         Get.back(canPop: false);
-        snackBarService.showSnackBar(authResponse.errorMessage!);
+        snackBarService.showSnackBar(
+            title: 'Error', message: authResponse.errorMessage!);
       }
     }
   }

@@ -7,10 +7,10 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../ui/views/add_patient/add_patient_view.dart';
 import '../ui/views/appointment/appointment_view.dart';
 import '../ui/views/get_started/get_started_view.dart';
 import '../ui/views/home/home_view.dart';
@@ -19,8 +19,8 @@ import '../ui/views/main_body/main_body_view.dart';
 import '../ui/views/medicine/medicine_view.dart';
 import '../ui/views/patients/patients_view.dart';
 import '../ui/views/pre_loader/pre_loader_view.dart';
+import '../ui/views/procedures/procedure_view.dart';
 import '../ui/views/register/register_view.dart';
-import '../ui/views/services/services_view.dart';
 import '../ui/views/update_user_info/setup_user_view.dart';
 import '../ui/views/verify_email/verify_email_view.dart';
 import '../ui/widgets/success_view/success.dart';
@@ -38,7 +38,8 @@ class Routes {
   static const String AppointmentView = '/appointment-view';
   static const String MedicineView = '/medicine-view';
   static const String PatientsView = '/patients-view';
-  static const String ServicesView = '/services-view';
+  static const String ProceduresView = '/procedures-view';
+  static const String AddPatientView = '/add-patient-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -52,7 +53,8 @@ class Routes {
     AppointmentView,
     MedicineView,
     PatientsView,
-    ServicesView,
+    ProceduresView,
+    AddPatientView,
   };
 }
 
@@ -72,7 +74,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.AppointmentView, page: AppointmentView),
     RouteDef(Routes.MedicineView, page: MedicineView),
     RouteDef(Routes.PatientsView, page: PatientsView),
-    RouteDef(Routes.ServicesView, page: ServicesView),
+    RouteDef(Routes.ProceduresView, page: ProceduresView),
+    RouteDef(Routes.AddPatientView, page: AddPatientView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -158,9 +161,15 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    ServicesView: (data) {
+    ProceduresView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const ServicesView(),
+        builder: (context) => const ProceduresView(),
+        settings: data,
+      );
+    },
+    AddPatientView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const AddPatientView(),
         settings: data,
       );
     },

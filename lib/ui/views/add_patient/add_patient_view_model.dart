@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/app/app.logger.dart';
-import 'package:dentalapp/app/app.router.dart';
+import 'package:dentalapp/constants/navigator_key/navigator_key.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
@@ -10,39 +10,48 @@ import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
-import 'package:dentalapp/models/user_model/user_model.dart';
+import 'package:dentalapp/models/patient_model/patient_model.dart';
+import 'package:dentalapp/ui/views/main_body/main_body_view_model.dart';
+import 'package:dentalapp/ui/views/update_user_info/setup_user_viewmodel.dart';
 import 'package:dentalapp/ui/widgets/selection_date/selection_date.dart';
 import 'package:dentalapp/ui/widgets/selection_list/selection_option.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 
-class SetupUserViewModel extends BaseViewModel {
+class AddPatientViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final validatorService = locator<ValidatorService>();
   final bottomSheetService = locator<BottomSheetService>();
   final imageSelectorService = locator<ImageSelector>();
-  final logger = getLogger('SetupUserViewModel');
+  final logger = getLogger('AddPatientViewModel');
   final apiService = locator<ApiService>();
   final snackBarService = locator<SnackBarService>();
   final dialogService = locator<DialogService>();
 
-  final setupFormKey = GlobalKey<FormState>();
-
-  final List<String> genderOptions = ['Male', 'Female'];
-  final List<String> positionOptions = ['Admin/Doctor', 'Staff'];
-  final List<String> imageSourceOptions = ['Gallery', 'Camera'];
+  bool haveAllergies = false;
+  bool isMinor = false;
   XFile? selectedImage;
-
   String? tempGender;
+  String? tempBirthDate;
+  bool autoValidate = false;
+
+  void setAllergyVisibility(bool value) {
+    if (haveAllergies) {
+      haveAllergies = false;
+    } else {
+      haveAllergies = true;
+    }
+    notifyListeners();
+  }
 
   Future<void> setGenderValue(
       TextEditingController textEditingController) async {
     String selectedGender =
         await bottomSheetService.openBottomSheet(SelectionOption(
-              options: genderOptions,
-              title: 'Select your gender',
+              options: SetupUserViewModel().genderOptions,
+              title: 'Select gender',
             )) ??
             '';
     tempGender = selectedGender != '' ? selectedGender : tempGender ?? '';
@@ -50,25 +59,6 @@ class SetupUserViewModel extends BaseViewModel {
     textEditingController.text = selectedGender;
     notifyListeners();
   }
-
-  String? tempPosition;
-
-  Future<void> setPositionValue(
-      TextEditingController textEditingController) async {
-    String selectedPosition =
-        await bottomSheetService.openBottomSheet(SelectionOption(
-              options: positionOptions,
-              title: 'Select your position',
-            )) ??
-            '';
-    tempPosition =
-        selectedPosition != '' ? selectedPosition : tempPosition ?? '';
-    selectedPosition = tempPosition!;
-    textEditingController.text = selectedPosition;
-    notifyListeners();
-  }
-
-  String? tempBirthDate;
 
   Future<void> setBirthDateValue(
       TextEditingController textEditingController) async {
@@ -88,20 +78,18 @@ class SetupUserViewModel extends BaseViewModel {
     dynamic tempImage;
     var selectedImageSource =
         await bottomSheetService.openBottomSheet(SelectionOption(
-      options: imageSourceOptions,
+      options: SetupUserViewModel().imageSourceOptions,
       title: 'Select Image Source',
     ));
-
     //Condition to select Image Source
-    if (selectedImageSource == imageSourceOptions[0]) {
+    if (selectedImageSource == SetupUserViewModel().imageSourceOptions[0]) {
       tempImage = await imageSelectorService.selectImageWithGallery();
-    } else if (selectedImageSource == imageSourceOptions[1]) {
+    } else if (selectedImageSource ==
+        SetupUserViewModel().imageSourceOptions[1]) {
       tempImage = await imageSelectorService.selectImageWithCamera();
     }
-
     if (tempImage != null) {
       selectedImage = tempImage;
-
       setBusy(false);
       logger.i('image selected');
     }
@@ -109,43 +97,59 @@ class SetupUserViewModel extends BaseViewModel {
     logger.i('image cache cleared');
   }
 
-  Future<void> saveUser(String firstName, String lastName, String dateOfBirth,
-      String gender, String position) async {
-    dialogService.showDefaultLoadingDialog(barrierDismissible: false);
+  Future<void> savePatient({
+    required String firstName,
+    required String lastName,
+    required String gender,
+    required String birthDate,
+    required String phoneNum,
+    required String address,
+    required String allergies,
+    String? notes,
+    String? emergencyContactName,
+    String? emergencyContactNumber,
+  }) async {
+    if (selectedImage != null) {
+      dialogService.showDefaultLoadingDialog(barrierDismissible: false);
+      final imageUploadResult = await apiService.uploadPatientProfileImage(
+          patientName: '$lastName, $firstName',
+          imageToUpload: File(selectedImage!.path));
 
-    final imageUploadResult = await apiService.uploadProfileImage(
-        imageToUpload: File(selectedImage!.path),
-        imageFileName: selectedImage!.name);
-    logger.i('image uploading');
-
-    final userProfile = UserModel(apiService.currentFirebaseUser!.uid,
-        firstName: firstName,
-        lastName: lastName,
-        email: apiService.currentFirebaseUser!.email!,
-        image: imageUploadResult.imageUrl!,
-        position: position,
-        appointments: [],
-        fcmToken: []);
-
-    try {
       if (imageUploadResult.isUploaded) {
-        logger.i('Image Uploaded');
-        await apiService.createUser(userProfile);
-        navigationService.closeOverlay();
-        // snackBarService.showSnackBar('User Created Successfully!');
-        navigationService.popAllAndPushNamed(Routes.Success);
-        logger.i('User Created Successfully');
+        final result = await apiService.addPatient(
+            patient: PatientModel(
+                image: imageUploadResult.imageUrl ?? '',
+                firstName: firstName,
+                lastName: lastName,
+                gender: gender,
+                birthDate: birthDate,
+                phoneNum: phoneNum,
+                address: address,
+                allergies: allergies,
+                emergencyContactNumber: emergencyContactNumber ?? '',
+                emergencyContactName: emergencyContactName ?? '',
+                notes: notes ?? ''));
+
+        if (result == null) {
+          navigationService.closeOverlay();
+          navigationService.pop(id: NavigatorKeys.homeKey);
+          MainBodyViewModel().setSelectedIndex(2);
+          snackBarService.showSnackBar(
+              title: 'Success', message: 'New Patient Added!');
+          logger.v('patient details saved');
+        } else {
+          navigationService.closeOverlay();
+          snackBarService.showSnackBar(
+              title: 'Error',
+              message: "There's an error encountered with adding new patient!");
+        }
       } else {
         navigationService.closeOverlay();
-        logger.e('Upload Image Failed');
-        snackBarService.showSnackBar(
-            title: 'Error', message: imageUploadResult.message!);
       }
-    } catch (e) {
+    } else {
       snackBarService.showSnackBar(
-          title: 'Error',
-          message:
-              "There's an error encountered on our end. Please try again later.");
+          message: 'Patient profile image is not set',
+          title: 'Missing required Data');
     }
   }
 }

@@ -40,7 +40,7 @@ class DentalApp extends StatelessWidget {
         navigatorKey: navigationService.navigatorKey,
         title: 'Dental App',
         // home: MainBodyView(),
-        initialRoute: Routes.MainBodyView,
+        initialRoute: Routes.GetStarted,
         onGenerateRoute: StackedRouter().onGenerateRoute,
         themeMode: ThemeMode.light,
         theme: ThemeStyles.themeLight,

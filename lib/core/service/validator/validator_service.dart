@@ -16,4 +16,10 @@ abstract class ValidatorService {
   String? validateGender(String value);
 
   String? validatePosition(String value);
+
+  String? validatePhoneNumber(String value);
+
+  String? validateContactName(String value);
+
+  String? validateAllergies(String value);
 }

@@ -45,7 +45,8 @@ class LoginViewModel extends FormViewModel {
         }
       } else {
         navigationService.closeOverlay();
-        snackBarService.showSnackBar(loginResult.errorMessage!);
+        snackBarService.showSnackBar(
+            title: 'Error', message: loginResult.errorMessage!);
       }
     } else {
       setAutoValidate();

@@ -88,7 +88,7 @@ class CustomBottomNavigation extends StatelessWidget {
                     )),
               ),
               BottomNavigationBarItem(
-                label: 'Services',
+                label: 'Procedures',
                 icon: CircleAvatar(
                     radius: 20,
                     backgroundColor: selectedIndex == 3

@@ -8,11 +8,6 @@ class MainBodyViewModel extends BaseViewModel {
   bool readyToPopUntilFirst = false;
   int oldIndex = 0;
   void setSelectedIndex(int index) {
-    // if (selectedIndex == oldIndex) {
-    // if (Get.routeTree.isBlank != null && Get.routeTree.isBlank == false) {
-    //   Get.until((Route route) => route.isFirst, id: selectedIndex);
-    // }
-    // }
     selectedIndex = index;
     notifyListeners();
   }

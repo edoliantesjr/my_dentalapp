@@ -1,4 +1,5 @@
 import 'package:dentalapp/app/app.router.dart';
+import 'package:dentalapp/constants/navigator_key/navigator_key.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/ui/views/home/home_view_model.dart';
 import 'package:dentalapp/ui/widgets/custom_app_bar/custom_app_bar.dart';
@@ -13,11 +14,17 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomePageViewModel>.reactive(
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) {
+        model.init();
+      },
       viewModelBuilder: () => HomePageViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.grey.shade50,
-        appBar: CustomHomePageAppBar(),
+        appBar: CustomHomePageAppBar(
+          image: model.currentUser.image,
+          name: '${model.currentUser.firstName} ${model.currentUser.lastName}',
+          position: model.currentUser.position,
+        ),
         body: RefreshIndicator(
           color: Palettes.kcBlueMain1,
           onRefresh: () async {
@@ -28,8 +35,13 @@ class HomePageView extends StatelessWidget {
             child: Column(
               children: [
                 HomeShortcut(
-                    addServiceOnTap: () => model.navigationService
-                        .pushNamed(Routes.AppointmentView, id: 0)),
+                  addServiceOnTap: () => model.navigationService.pushNamed(
+                      Routes.SetUpUserView,
+                      id: NavigatorKeys.homeKey),
+                  addPatientOnTap: () => model.navigationService.pushNamed(
+                      Routes.AddPatientView,
+                      id: NavigatorKeys.homeKey),
+                ),
                 HomeAppointment(
                   deleteItem: (index) => model.deleteThisFromList(index),
                   myAppointments: model.mockAppointment,
