@@ -21,9 +21,9 @@ class HomePageView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.grey.shade50,
         appBar: CustomHomePageAppBar(
-          image: model.currentUser.image,
-          name: '${model.currentUser.firstName} ${model.currentUser.lastName}',
-          position: model.currentUser.position,
+          image: model.currentUser?.image ?? '',
+          name: model.currentUser?.fullName ?? '',
+          position: model.currentUser?.position ?? '',
         ),
         body: RefreshIndicator(
           color: Palettes.kcBlueMain1,
@@ -40,6 +40,9 @@ class HomePageView extends StatelessWidget {
                       id: NavigatorKeys.homeKey),
                   addPatientOnTap: () => model.navigationService.pushNamed(
                       Routes.AddPatientView,
+                      id: NavigatorKeys.homeKey),
+                  addMedicineOnTap: () => model.navigationService.pushNamed(
+                      Routes.SelectPatientView,
                       id: NavigatorKeys.homeKey),
                 ),
                 HomeAppointment(

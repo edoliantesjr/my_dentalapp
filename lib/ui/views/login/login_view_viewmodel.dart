@@ -35,8 +35,11 @@ class LoginViewModel extends FormViewModel {
           email: emailValue, password: passwordValue);
 
       if (loginResult.success) {
-        sessionService.saveSession(isRunFirstTime: false, isLoggedIn: true);
         final isAccountSetupDone = await apiService.checkUserStatus();
+        sessionService.saveSession(
+            isRunFirstTime: false,
+            isLoggedIn: true,
+            isAccountSetupDone: isAccountSetupDone);
         logger.i('Checking User Account Details');
         if (isAccountSetupDone) {
           navigationService.popAllAndPushNamed(Routes.MainBodyView);

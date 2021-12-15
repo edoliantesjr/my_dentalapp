@@ -40,13 +40,13 @@ class _SetUpUserViewState extends State<SetUpUserView> {
       builder: (context, model, child) {
         return Scaffold(
           bottomSheet: Container(
-            height: 45,
+            height: 50,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border(top: BorderSide(color: Palettes.kcNeutral5)),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: ElevatedButton(
               onPressed: () {
                 if (model.setupFormKey.currentState!.validate()) {

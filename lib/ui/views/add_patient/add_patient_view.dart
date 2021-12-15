@@ -105,6 +105,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                         autovalidateMode: model.autoValidate
                             ? AutovalidateMode.onUserInteraction
                             : AutovalidateMode.disabled,
+                        textCapitalization: TextCapitalization.words,
                         validator: (value) =>
                             model.validatorService.validateFirstName(value!),
                         textInputAction: TextInputAction.next,
@@ -125,6 +126,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                             : AutovalidateMode.disabled,
                         validator: (value) =>
                             model.validatorService.validateLastName(value!),
+                        textCapitalization: TextCapitalization.words,
                         decoration: InputDecoration(
                           hintText: 'Enter Last Name',
                           labelText: 'Last Name*',
@@ -142,6 +144,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                           autovalidateMode: model.autoValidate
                               ? AutovalidateMode.always
                               : AutovalidateMode.disabled,
+                          textCapitalization: TextCapitalization.words,
                           validator: (value) =>
                               model.validatorService.validateGender(value!),
                           textInputAction: TextInputAction.next,
@@ -173,6 +176,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                           autovalidateMode: model.autoValidate
                               ? AutovalidateMode.always
                               : AutovalidateMode.disabled,
+                          textCapitalization: TextCapitalization.words,
                           validator: (value) =>
                               model.validatorService.validateDate(value!),
                           textInputAction: TextInputAction.next,
@@ -201,6 +205,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                         autovalidateMode: model.autoValidate
                             ? AutovalidateMode.onUserInteraction
                             : AutovalidateMode.disabled,
+                        textCapitalization: TextCapitalization.words,
                         validator: (value) =>
                             model.validatorService.validatePhoneNumber(value!),
                         textInputAction: TextInputAction.next,
@@ -223,6 +228,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                         autovalidateMode: model.autoValidate
                             ? AutovalidateMode.onUserInteraction
                             : AutovalidateMode.disabled,
+                        textCapitalization: TextCapitalization.words,
                         validator: (value) =>
                             model.validatorService.validateAddress(value!),
                         textInputAction: TextInputAction.next,
@@ -263,6 +269,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                           autovalidateMode: model.autoValidate
                               ? AutovalidateMode.onUserInteraction
                               : AutovalidateMode.disabled,
+                          textCapitalization: TextCapitalization.words,
                           textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
                             hintText: 'Enter Allergies',
@@ -288,6 +295,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                             TextFormField(
                               controller: emergencyContactName,
                               textInputAction: TextInputAction.next,
+                              textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
                                 hintText: 'Enter Name',
                                 labelText: 'Emergency Contact Name',

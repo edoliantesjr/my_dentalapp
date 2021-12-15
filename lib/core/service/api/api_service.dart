@@ -25,4 +25,8 @@ abstract class ApiService {
   Future<dynamic> addPatient({required PatientModel patient});
 
   Stream<UserModel> getUserAccountDetails();
+
+  Stream<List<PatientModel>> getPatients();
+
+  Future<List<PatientModel>> searchPatient(String query);
 }

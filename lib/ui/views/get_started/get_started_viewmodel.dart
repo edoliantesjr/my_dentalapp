@@ -39,7 +39,8 @@ class GetStartedViewModel extends BaseViewModel {
 
   void goToLoginView() {
     log.i('root route is now login');
-    sessionService.saveSession(isRunFirstTime: false, isLoggedIn: false);
+    sessionService.saveSession(
+        isRunFirstTime: false, isLoggedIn: false, isAccountSetupDone: false);
     navigationService.pushReplacementNamed(Routes.Login);
   }
 }

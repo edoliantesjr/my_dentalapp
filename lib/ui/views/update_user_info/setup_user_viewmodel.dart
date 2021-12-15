@@ -7,6 +7,7 @@ import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
@@ -27,6 +28,7 @@ class SetupUserViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   final snackBarService = locator<SnackBarService>();
   final dialogService = locator<DialogService>();
+  final sessionService = locator<SessionService>();
 
   final setupFormKey = GlobalKey<FormState>();
 
@@ -133,6 +135,8 @@ class SetupUserViewModel extends BaseViewModel {
         await apiService.createUser(userProfile);
         navigationService.closeOverlay();
         // snackBarService.showSnackBar('User Created Successfully!');
+        sessionService.saveSession(
+            isRunFirstTime: false, isLoggedIn: true, isAccountSetupDone: true);
         navigationService.popAllAndPushNamed(Routes.Success);
         logger.i('User Created Successfully');
       } else {

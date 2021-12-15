@@ -19,13 +19,13 @@ import '../core/service/firebase_auth/firebase_auth_service_impl.dart';
 import '../core/service/navigation/navigation_service.dart';
 import '../core/service/navigation/navigation_service_impl.dart';
 import '../core/service/session_service/session_service.dart';
+import '../core/service/session_service/session_service_impl.dart';
 import '../core/service/snack_bar/snack_bar_service.dart';
 import '../core/service/snack_bar/snack_bar_service_impl.dart';
 import '../core/service/validator/validator_service.dart';
 import '../core/service/validator/validator_service_impl.dart';
 import '../core/utility/connectivity_state.dart';
 import '../core/utility/image_selector.dart';
-import '../models/session/session_service_impl.dart';
 
 final locator = StackedLocator.instance;
 

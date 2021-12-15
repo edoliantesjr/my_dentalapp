@@ -11,9 +11,9 @@ final picture = 'https://images.pexels.com/photos/220453/'
     'pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
 
 class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
-  final String? image;
-  final String? position;
-  final String? name;
+  final String image;
+  final String position;
+  final String name;
   const CustomHomePageAppBar(
       {Key? key,
       required this.image,
@@ -49,20 +49,17 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
-                  child: CachedNetworkImage(
-                    imageUrl: image!,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => Image.asset(
-                      'assets/icons/Profile.svg',
-                      height: 50,
-                      width: 50,
-                    ),
-                    progressIndicatorBuilder: (context, url, progress) =>
-                        CircularProgressIndicator(
-                      value: progress.progress,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
-                  ),
+                  child: image.isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl: image,
+                          fit: BoxFit.cover,
+                          progressIndicatorBuilder: (context, url, progress) =>
+                              CircularProgressIndicator(
+                            value: progress.progress,
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                          ),
+                        )
+                      : Container(),
                 ),
               ),
               SizedBox(width: 10),
@@ -75,12 +72,15 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                       'Hi, Welcome!',
                       style: TextStyles.tsHeading5(color: Colors.white),
                     ),
-                    Text(
-                      position != 'Staff' ? 'Doc. $name' : '$name',
-                      style: TextStyles.tsBody2(
-                        color: Colors.white,
+                    Visibility(
+                      visible: position.isNotEmpty,
+                      child: Text(
+                        position != 'Staff' ? 'Doc. $name' : '$name',
+                        style: TextStyles.tsBody2(
+                          color: Colors.white,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),

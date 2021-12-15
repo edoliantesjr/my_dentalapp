@@ -45,4 +45,6 @@ class UserModel {
       'fcmToken': fcmToken,
     };
   }
+
+  String get fullName => firstName + ' ' + lastName;
 }

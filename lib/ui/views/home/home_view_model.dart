@@ -51,19 +51,11 @@ class HomePageViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final apiService = locator<ApiService>();
   StreamSubscription? userSubscription;
-  UserModel currentUser = UserModel('userId',
-      firstName: 'Loading',
-      lastName: '',
-      email: 'Loading',
-      image: 'Loading',
-      position: 'Loading',
-      appointments: [],
-      fcmToken: []);
+  UserModel? currentUser;
 
   Future<void> init() async {
     setBusy(true);
     getCurrentUser();
-    await Future.delayed(Duration(milliseconds: 2000));
     setBusy(false);
   }
 

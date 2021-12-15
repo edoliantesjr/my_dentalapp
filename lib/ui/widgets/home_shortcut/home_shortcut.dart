@@ -127,7 +127,7 @@ class HomeShortcut extends StatelessWidget {
                             VerticalDivider(width: 1),
                             Expanded(
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () => addMedicineOnTap!(),
                                 child: Container(
                                   alignment: Alignment.center,
                                   child: Column(

@@ -8,13 +8,13 @@ import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service_impl.
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service_impl.dart';
 import 'package:dentalapp/core/service/session_service/session_service.dart';
+import 'package:dentalapp/core/service/session_service/session_service_impl.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service_impl.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service_impl.dart';
 import 'package:dentalapp/core/utility/connectivity_state.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
-import 'package:dentalapp/models/session/session_service_impl.dart';
 import 'package:dentalapp/ui/views/add_patient/add_patient_view.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
@@ -26,6 +26,7 @@ import 'package:dentalapp/ui/views/patients/patients_view.dart';
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
+import 'package:dentalapp/ui/views/select_patient/select_patient_view.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:dentalapp/ui/views/verify_email/verify_email_view.dart';
 import 'package:dentalapp/ui/widgets/success_view/success.dart';
@@ -47,6 +48,7 @@ import 'package:stacked/stacked_annotations.dart';
     CupertinoRoute(page: PatientsView, name: 'PatientsView'),
     CupertinoRoute(page: ProceduresView, name: 'ProceduresView'),
     CupertinoRoute(page: AddPatientView, name: 'AddPatientView'),
+    CupertinoRoute(page: SelectPatientView, name: 'SelectPatientView'),
   ],
   dependencies: [
     Singleton(classType: NavigationServiceImpl, asType: NavigationService),

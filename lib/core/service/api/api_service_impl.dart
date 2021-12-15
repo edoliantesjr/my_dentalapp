@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
+import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/upload_result/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
@@ -66,7 +67,8 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<dynamic> addPatient({required PatientModel patient}) async {
     final patientRef = await patientReference.doc();
-    return patientRef.set(patient.toJson(patientId: patientRef.id));
+    return patientRef.set(patient.toJson(
+        patientId: patientRef.id, dateCreated: FieldValue.serverTimestamp()));
   }
 
   @override
@@ -92,5 +94,27 @@ class ApiServiceImpl extends ApiService {
         .doc(currentFirebaseUser!.uid)
         .snapshots()
         .map((data) => UserModel.fromJson(data.data()!));
+  }
+
+  @override
+  Stream<List<PatientModel>> getPatients() {
+    return patientReference
+        .orderBy('dateCreated', descending: true)
+        .snapshots()
+        .map((value) => value.docs
+            .map((patient) => PatientModel.fromJson(patient.data()))
+            .toList());
+  }
+
+  @override
+  Future<List<PatientModel>> searchPatient(String query) async {
+    return await patientReference
+        .where('lastName', isGreaterThanOrEqualTo: query.toTitleCase())
+        .where('lastName', isLessThanOrEqualTo: query.toTitleCase() + '\uf8ff')
+        .orderBy('lastName', descending: true)
+        .get()
+        .then((value) => value.docs
+            .map((patient) => PatientModel.fromJson(patient.data()))
+            .toList());
   }
 }

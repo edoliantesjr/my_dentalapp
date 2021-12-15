@@ -29,7 +29,7 @@ class MyShimmer extends StatelessWidget {
             children: [
               SkeletonLoader(
                 loading: true,
-                startColor: Colors.grey.shade400,
+                startColor: Colors.grey.shade300,
                 endColor: Colors.grey.shade200,
                 child: SizedBox(
                   width: 70,

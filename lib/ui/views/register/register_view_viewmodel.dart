@@ -40,7 +40,8 @@ class RegisterViewModel extends FormViewModel {
       if (authResponse.success) {
         navigationService.closeOverlay();
         firebaseAuthService.sendEmailVerification();
-        sessionService.saveSession(isRunFirstTime: false, isLoggedIn: true);
+        sessionService.saveSession(
+            isRunFirstTime: false, isLoggedIn: true, isAccountSetupDone: false);
         navigationService.pushReplacementNamed(Routes.SetUpUserView);
       } else {
         Get.back(canPop: false);

@@ -11,6 +11,7 @@ class PatientModel {
   final dynamic notes;
   final String? emergencyContactName;
   final String? emergencyContactNumber;
+  final dynamic dateCreated;
 
   PatientModel({
     this.id,
@@ -25,14 +26,17 @@ class PatientModel {
     required this.allergies,
     this.emergencyContactName,
     this.emergencyContactNumber,
+    this.dateCreated,
   });
 
-  Map<String, dynamic> toJson({required String? patientId}) {
+  Map<String, dynamic> toJson(
+      {required String? patientId, required dynamic dateCreated}) {
     return {
       'id': patientId,
       'image': this.image,
       'firstName': this.firstName,
       'lastName': this.lastName,
+      'fullName': this.fullName,
       'gender': this.gender,
       'birthDate': this.birthDate,
       'phoneNum': this.phoneNum,
@@ -41,6 +45,7 @@ class PatientModel {
       'notes': this.notes ?? '',
       'emergencyContactName': this.emergencyContactName ?? '',
       'emergencyContactNumber': this.emergencyContactNumber ?? '',
+      'dateCreated': dateCreated,
     };
   }
 
@@ -60,4 +65,5 @@ class PatientModel {
       emergencyContactNumber: json['emergencyContactNumber'] ?? '',
     );
   }
+  String get fullName => firstName + ' ' + lastName;
 }
