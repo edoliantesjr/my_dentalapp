@@ -117,7 +117,7 @@ class AddPatientViewModel extends BaseViewModel {
 
       if (imageUploadResult.isUploaded) {
         final result = await apiService.addPatient(
-            patient: PatientModel(
+            patient: Patient(
                 image: imageUploadResult.imageUrl ?? '',
                 firstName: firstName,
                 lastName: lastName,

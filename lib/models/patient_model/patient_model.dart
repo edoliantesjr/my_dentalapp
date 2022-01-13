@@ -1,4 +1,4 @@
-class PatientModel {
+class Patient {
   final dynamic id;
   final dynamic image;
   final String firstName;
@@ -13,7 +13,7 @@ class PatientModel {
   final String? emergencyContactNumber;
   final dynamic dateCreated;
 
-  PatientModel({
+  Patient({
     this.id,
     this.image,
     this.notes,
@@ -49,8 +49,8 @@ class PatientModel {
     };
   }
 
-  factory PatientModel.fromJson(Map<String, dynamic> json) {
-    return PatientModel(
+  factory Patient.fromJson(Map<String, dynamic> json) {
+    return Patient(
       id: json['id'] as dynamic,
       image: json['image'] as dynamic,
       firstName: json['firstName'] as String,
@@ -67,3 +67,12 @@ class PatientModel {
   }
   String get fullName => firstName + ' ' + lastName;
 }
+
+final mockPatient = Patient(
+    firstName: 'firstName',
+    lastName: 'lastName',
+    gender: 'gender',
+    birthDate: '01/01/2001',
+    phoneNum: '00999',
+    address: 'address',
+    allergies: 'allergies');

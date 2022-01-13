@@ -17,6 +17,7 @@ import 'package:dentalapp/core/utility/connectivity_state.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
 import 'package:dentalapp/ui/views/add_patient/add_patient_view.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view.dart';
+import 'package:dentalapp/ui/views/create_appointment/create_appointment_view.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
 import 'package:dentalapp/ui/views/home/home_view.dart';
 import 'package:dentalapp/ui/views/login/login_view.dart';
@@ -49,6 +50,7 @@ import 'package:stacked/stacked_annotations.dart';
     CupertinoRoute(page: ProceduresView, name: 'ProceduresView'),
     CupertinoRoute(page: AddPatientView, name: 'AddPatientView'),
     CupertinoRoute(page: SelectPatientView, name: 'SelectPatientView'),
+    CupertinoRoute(page: CreateAppointmentView, name: 'CreateAppointmentView'),
   ],
   dependencies: [
     Singleton(classType: NavigationServiceImpl, asType: NavigationService),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dentalapp/app/app.locator.dart';
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
@@ -10,8 +11,8 @@ class SelectPatientViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final apiService = locator<ApiService>();
   StreamSubscription? patientSubscription;
-  List<PatientModel> patientList = [];
-  List<PatientModel> tempPatientList = [];
+  List<Patient> patientList = [];
+  List<Patient> tempPatientList = [];
 
   void init() {
     apiService.getPatients().listen((event) {
@@ -33,5 +34,10 @@ class SelectPatientViewModel extends BaseViewModel {
       init();
     }
     setBusy(false);
+  }
+
+  void selectPatient(Patient patient) {
+    navigationService.pushNamed(Routes.CreateAppointmentView,
+        arguments: CreateAppointmentViewArguments(patient: patient));
   }
 }

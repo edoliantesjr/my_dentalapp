@@ -14,15 +14,12 @@ class MedicineView extends StatelessWidget {
           style: TextStyles.tsHeading3(color: Colors.white),
         ),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Center(
-          child: Text(
-            'Medicine View',
-            style: TextStyles.tsHeading1(),
-          ),
-        ),
+      floatingActionButton: ElevatedButton(
+        child: Text('+ Medicine'),
+        onPressed: () {},
+      ),
+      body: SafeArea(
+        child: Container(),
       ),
     );
   }

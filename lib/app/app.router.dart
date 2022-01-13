@@ -11,8 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../models/patient_model/patient_model.dart';
 import '../ui/views/add_patient/add_patient_view.dart';
 import '../ui/views/appointment/appointment_view.dart';
+import '../ui/views/create_appointment/create_appointment_view.dart';
 import '../ui/views/get_started/get_started_view.dart';
 import '../ui/views/home/home_view.dart';
 import '../ui/views/login/login_view.dart';
@@ -43,6 +45,7 @@ class Routes {
   static const String ProceduresView = '/procedures-view';
   static const String AddPatientView = '/add-patient-view';
   static const String SelectPatientView = '/select-patient-view';
+  static const String CreateAppointmentView = '/create-appointment-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -59,6 +62,7 @@ class Routes {
     ProceduresView,
     AddPatientView,
     SelectPatientView,
+    CreateAppointmentView,
   };
 }
 
@@ -81,6 +85,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.ProceduresView, page: ProceduresView),
     RouteDef(Routes.AddPatientView, page: AddPatientView),
     RouteDef(Routes.SelectPatientView, page: SelectPatientView),
+    RouteDef(Routes.CreateAppointmentView, page: CreateAppointmentView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -184,6 +189,16 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    CreateAppointmentView: (data) {
+      var args = data.getArgs<CreateAppointmentViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => CreateAppointmentView(
+          patient: args.patient,
+          key: args.key,
+        ),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -207,4 +222,11 @@ class RegisterViewArguments {
 class SetUpUserViewArguments {
   final Key? key;
   SetUpUserViewArguments({this.key});
+}
+
+/// CreateAppointmentView arguments holder class
+class CreateAppointmentViewArguments {
+  final Patient patient;
+  final Key? key;
+  CreateAppointmentViewArguments({required this.patient, this.key});
 }

@@ -114,51 +114,43 @@ class SelectPatientView extends StatelessWidget {
                       ? SliverList(
                           delegate:
                               SliverChildBuilderDelegate((context, index) {
-                            if (!model.patientList.isEmpty) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                child: SlideAnimation(
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.easeIn,
-                                  horizontalOffset: 200,
-                                  child: FadeInAnimation(
-                                    duration: Duration(milliseconds: 400),
-                                    child: Container(
-                                      margin:
-                                          EdgeInsets.only(top: 8, bottom: 8),
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.shade600,
-                                            blurRadius: 1,
-                                          )
-                                        ],
-                                      ),
-                                      child: Material(
-                                        color: Colors.white,
-                                        child: InkWell(
-                                          onTap: () {},
-                                          child: SelectPatientCard(
-                                            key: ObjectKey(
-                                                model.patientList[index].id),
-                                            name: model
-                                                .patientList[index].fullName,
-                                            image:
-                                                model.patientList[index].image,
-                                            phone: model
-                                                .patientList[index].phoneNum,
-                                            address: model
-                                                .patientList[index].address,
-                                            birthDate: model
-                                                .patientList[index].birthDate,
-                                          ),
-                                        ),
+                            return AnimationConfiguration.staggeredList(
+                              position: index,
+                              child: SlideAnimation(
+                                duration: Duration(milliseconds: 400),
+                                horizontalOffset: 100,
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 8, bottom: 8),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.shade600,
+                                        blurRadius: 1,
+                                      )
+                                    ],
+                                  ),
+                                  child: Material(
+                                    color: Colors.white,
+                                    child: InkWell(
+                                      onTap: () => model.selectPatient(
+                                          model.patientList[index]),
+                                      child: SelectPatientCard(
+                                        key: ObjectKey(
+                                            model.patientList[index].id),
+                                        name: model.patientList[index].fullName,
+                                        image: model.patientList[index].image,
+                                        phone:
+                                            model.patientList[index].phoneNum,
+                                        address:
+                                            model.patientList[index].address,
+                                        birthDate:
+                                            model.patientList[index].birthDate,
                                       ),
                                     ),
                                   ),
                                 ),
-                              );
-                            }
+                              ),
+                            );
                           }, childCount: model.patientList.length),
                         )
                       : SliverToBoxAdapter(
@@ -201,7 +193,7 @@ class SelectPatientCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 12,
-        vertical: 15,
+        vertical: 10,
       ),
       child: Row(
         children: [

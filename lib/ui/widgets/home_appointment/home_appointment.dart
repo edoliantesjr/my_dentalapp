@@ -107,7 +107,7 @@ class HomeAppointment extends StatelessWidget {
                             onDelete: () => this.deleteItem(i),
                             serviceTitle: myAppointments[i].serviceTitle,
                             doctor: myAppointments[i].doctor,
-                            patient: myAppointments[i].patient,
+                            patient: myAppointments[i].patient.fullName,
                             dateDay: myAppointments[i].dateDay,
                             dateMonth: myAppointments[i].dateMonth,
                             appointmentStatus:

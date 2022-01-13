@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
+import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
+import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:dentalapp/models/upload_result/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,6 +18,11 @@ class ApiServiceImpl extends ApiService {
       FirebaseFirestore.instance.collection('appointments');
 
   final patientReference = FirebaseFirestore.instance.collection('patients');
+
+  final medicineReference = FirebaseFirestore.instance.collection('medicines');
+
+  final procedureReference =
+      FirebaseFirestore.instance.collection('procedures');
 
   @override
   User? get currentFirebaseUser => FirebaseAuth.instance.currentUser;
@@ -65,7 +72,7 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future<dynamic> addPatient({required PatientModel patient}) async {
+  Future<dynamic> addPatient({required Patient patient}) async {
     final patientRef = await patientReference.doc();
     return patientRef.set(patient.toJson(
         patientId: patientRef.id, dateCreated: FieldValue.serverTimestamp()));
@@ -97,24 +104,87 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Stream<List<PatientModel>> getPatients() {
+  Stream<List<Patient>> getPatients() {
     return patientReference
         .orderBy('dateCreated', descending: true)
         .snapshots()
         .map((value) => value.docs
-            .map((patient) => PatientModel.fromJson(patient.data()))
+            .map((patient) => Patient.fromJson(patient.data()))
             .toList());
   }
 
   @override
-  Future<List<PatientModel>> searchPatient(String query) async {
+  Future<List<Patient>> searchPatient(String query) async {
     return await patientReference
         .where('lastName', isGreaterThanOrEqualTo: query.toTitleCase())
         .where('lastName', isLessThanOrEqualTo: query.toTitleCase() + '\uf8ff')
         .orderBy('lastName', descending: true)
         .get()
         .then((value) => value.docs
-            .map((patient) => PatientModel.fromJson(patient.data()))
+            .map((patient) => Patient.fromJson(patient.data()))
+            .toList());
+  }
+
+  @override
+  Future? addMedicine({required Medicine medicine}) async {
+    final medicineRef = await medicineReference.doc();
+    return medicineRef.set(medicine.toJson(
+        id: medicineRef.id, dateCreated: FieldValue.serverTimestamp()));
+  }
+
+  @override
+  Future? addProcedure({required Procedure procedure}) async {
+    final procedureRef = await procedureReference.doc();
+    return procedureRef.set(procedure.toJson(
+        id: procedureRef.id, dateCreated: FieldValue.serverTimestamp()));
+  }
+
+  @override
+  Stream<List<Medicine>> getMedicineList() {
+    return medicineReference
+        .orderBy('dateCreated', descending: true)
+        .snapshots()
+        .map((value) => value.docs
+            .map((medicine) => Medicine.fromJson(medicine.data()))
+            .toList());
+  }
+
+  @override
+  Stream<List<Procedure>> getProcedureList() {
+    // TODO: implement getProcedureList
+    return procedureReference
+        .orderBy('dateCreated', descending: true)
+        .snapshots()
+        .map((value) => value.docs
+            .map((procedure) => Procedure.fromJson(procedure.data()))
+            .toList());
+  }
+
+  @override
+  Future<List<Medicine>> searchMedicine(String query) async {
+    //TODO: To Change in the future
+    return await medicineReference
+        .where('medicineName', isGreaterThanOrEqualTo: query.toTitleCase())
+        .where('medicineName',
+            isLessThanOrEqualTo: query.toTitleCase() + '\uf8ff')
+        .orderBy('medicineName', descending: true)
+        .get()
+        .then((value) => value.docs
+            .map((medicine) => Medicine.fromJson(medicine.data()))
+            .toList());
+  }
+
+  @override
+  Future<List<Procedure>> searchProcedure(String query) async {
+    // TODO: To Change in the future
+    return await procedureReference
+        .where('procedureName', isGreaterThanOrEqualTo: query.toTitleCase())
+        .where('procedureName',
+            isLessThanOrEqualTo: query.toTitleCase() + '\uf8ff')
+        .orderBy('procedureName', descending: true)
+        .get()
+        .then((value) => value.docs
+            .map((procedure) => Procedure.fromJson(procedure.data()))
             .toList());
   }
 }
