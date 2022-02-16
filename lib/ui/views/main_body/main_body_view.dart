@@ -1,11 +1,10 @@
-import 'package:dentalapp/core/utility/home_navigator.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view.dart';
+import 'package:dentalapp/ui/views/home/home_view.dart';
 import 'package:dentalapp/ui/views/main_body/main_body_view_model.dart';
 import 'package:dentalapp/ui/views/medicine/medicine_view.dart';
 import 'package:dentalapp/ui/views/patients/patients_view.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view.dart';
 import 'package:dentalapp/ui/widgets/bottom_navigation/bottom_navigation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,7 +17,7 @@ class MainBodyView extends StatelessWidget {
       viewModelBuilder: () => MainBodyViewModel(),
       builder: (context, model, child) => WillPopScope(
         onWillPop: () async {
-          model.navigationService.pop(id: model.selectedIndex);
+          model.navigationService.pop();
           return false;
         },
         child: Scaffold(
@@ -46,12 +45,7 @@ class IndexStackBody extends StatelessWidget {
     return IndexedStack(
       index: index,
       children: [
-        HomeNavigator(navigatorKeyId: 0),
-        // HomeNavigator(navigatorKeyId: 1),
-        // HomeNavigator(navigatorKeyId: 2),
-        // HomeNavigator(navigatorKeyId: 3),
-        // HomeNavigator(navigatorKeyId: 4),
-        // HomePageView(),
+        HomePageView(),
         AppointmentView(),
         PatientsView(),
         ProceduresView(),

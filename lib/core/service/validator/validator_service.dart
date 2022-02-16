@@ -22,4 +22,12 @@ abstract class ValidatorService {
   String? validateContactName(String value);
 
   String? validateAllergies(String value);
+
+  String? validateMedicineName(String value);
+
+  String? validateBrandName(String value);
+
+  String? validatePrice(String value);
+
+  String? validateProcedureName(String value);
 }

@@ -1,10 +1,7 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
-import 'package:dentalapp/enums/appointment_status.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view_model.dart';
-import 'package:dentalapp/ui/views/home/home_view_model.dart';
-import 'package:dentalapp/ui/widgets/appointment_card/appointment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -45,19 +42,10 @@ class AppointmentView extends StatelessWidget {
           // ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-        floatingActionButton: Container(
-          height: 40,
-          margin: EdgeInsets.only(bottom: 0),
-          child: ElevatedButton(
-            onPressed: model.goToSelectPatient,
-            child: Text('+ Appointment'),
-            style: ElevatedButton.styleFrom(
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-          ),
+        floatingActionButton: FloatingActionButton.extended(
+          heroTag: null,
+          onPressed: model.goToSelectPatient,
+          label: Text('Add Appointment'),
         ),
         body: Container(
             height: MediaQuery.of(context).size.height,
@@ -180,34 +168,37 @@ class AppointmentView extends StatelessWidget {
                       sliver: SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
-                            return AppointmentCard(
-                              key: ObjectKey(
-                                  HomePageViewModel().mockAppointment[index]),
-                              dateDay: HomePageViewModel()
-                                  .mockAppointment[index]
-                                  .dateDay,
-                              dateMonth: HomePageViewModel()
-                                  .mockAppointment[index]
-                                  .dateMonth,
-                              doctor: HomePageViewModel()
-                                  .mockAppointment[index]
-                                  .doctor,
-                              patient: HomePageViewModel()
-                                  .mockAppointment[index]
-                                  .patient
-                                  .fullName,
-                              appointmentStatus: getAppointmentStatus(
-                                  HomePageViewModel()
-                                      .mockAppointment[index]
-                                      .status),
-                              serviceTitle: HomePageViewModel()
-                                  .mockAppointment[index]
-                                  .serviceTitle,
-                              onDelete: () {},
+                            return Container(
+                              color: Colors.red,
+                              height: 30,
                             );
+                            // return AppointmentCard(
+                            //   key: ObjectKey(
+                            //       HomePageViewModel().mockAppointment[index]),
+                            //   dateDay: HomePageViewModel()
+                            //       .mockAppointment[index]
+                            //       .dateDay,
+                            //   dateMonth: HomePageViewModel()
+                            //       .mockAppointment[index]
+                            //       .dateMonth,
+                            //   doctor: HomePageViewModel()
+                            //       .mockAppointment[index]
+                            //       .doctor,
+                            //   patient: HomePageViewModel()
+                            //       .mockAppointment[index]
+                            //       .patient
+                            //       .fullName,
+                            //   appointmentStatus: getAppointmentStatus(
+                            //       HomePageViewModel()
+                            //           .mockAppointment[index]
+                            //           .status),
+                            //   serviceTitle: HomePageViewModel()
+                            //       .mockAppointment[index]
+                            //       .serviceTitle,
+                            //   onDelete: () {},
+                            // );
                           },
-                          childCount:
-                              HomePageViewModel().mockAppointment.length,
+                          childCount: 0,
                         ),
                       ))
                 ],

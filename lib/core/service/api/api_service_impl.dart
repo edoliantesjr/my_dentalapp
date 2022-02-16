@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
+import 'package:dentalapp/models/appointment_model/appoinment_model.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
@@ -126,10 +127,13 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future? addMedicine({required Medicine medicine}) async {
+  Future? addMedicine(
+      {required Medicine medicine, required String image}) async {
     final medicineRef = await medicineReference.doc();
     return medicineRef.set(medicine.toJson(
-        id: medicineRef.id, dateCreated: FieldValue.serverTimestamp()));
+        id: medicineRef.id,
+        image: image,
+        dateCreated: FieldValue.serverTimestamp()));
   }
 
   @override
@@ -186,5 +190,31 @@ class ApiServiceImpl extends ApiService {
         .then((value) => value.docs
             .map((procedure) => Procedure.fromJson(procedure.data()))
             .toList());
+  }
+
+  @override
+  Future<void> createAppointment(AppointmentModel appointment) async {
+    final appointmentRef = await appointmentReference.doc();
+
+    return await appointmentRef.set(appointment.toJson(
+        appointment_id: appointmentRef.id,
+        dateCreated: FieldValue.serverTimestamp()));
+    // TODO: implement createAppointment
+  }
+
+  @override
+  Future<ImageUploadResult> uploadMedicineImage(
+      {required File imageToUpload, required String genericName}) async {
+    try {
+      final profileImageRef =
+          await FirebaseStorage.instance.ref('medicines/').child(genericName);
+      final uploadTask = profileImageRef.putFile(imageToUpload);
+      await uploadTask;
+      final imageUrl = await uploadTask.snapshot.ref.getDownloadURL();
+
+      return ImageUploadResult.success('imageFileName', imageUrl);
+    } on FirebaseException catch (e) {
+      return ImageUploadResult.error('Image Upload Failed: ${e.code}');
+    }
   }
 }

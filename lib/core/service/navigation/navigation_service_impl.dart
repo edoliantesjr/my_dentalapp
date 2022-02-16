@@ -10,8 +10,8 @@ class NavigationServiceImpl extends NavigationService {
 
   //  Pushes [routeName] onto the navigation stack
   @override
-  Future? pushNamed(String routeName, {dynamic arguments, dynamic id}) {
-    return Get.toNamed(routeName, arguments: arguments, id: id);
+  Future? pushNamed(String routeName, {dynamic arguments}) {
+    return Get.toNamed(routeName, arguments: arguments);
   }
 
   // Replaces the current route with the [routeName]
@@ -73,6 +73,8 @@ class NavigationServiceImpl extends NavigationService {
 
   @override
   void closeOverlay() {
-    Navigator.pop(Get.overlayContext!);
+    if (!Get.isOverlaysClosed) {
+      Navigator.pop(Get.overlayContext!);
+    }
   }
 }

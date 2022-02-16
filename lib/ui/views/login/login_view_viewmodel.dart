@@ -7,6 +7,7 @@ import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart'
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
+import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -19,6 +20,7 @@ class LoginViewModel extends FormViewModel {
   final dialogService = locator<DialogService>();
   final apiService = locator<ApiService>();
   final sessionService = locator<SessionService>();
+  final toastService = locator<ToastService>();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final logger = getLogger('LoginViewModel');
@@ -29,30 +31,32 @@ class LoginViewModel extends FormViewModel {
   Future<void> loginNow(
       {required String emailValue, required String passwordValue}) async {
     if (loginFormKey.currentState!.validate()) {
-      dialogService.showDefaultLoadingDialog();
+      dialogService.showDefaultLoadingDialog(
+          barrierDismissible: false, willPop: false);
 
       var loginResult = await firebaseAuthService.loginWithEmail(
           email: emailValue, password: passwordValue);
 
-      if (loginResult.success) {
-        final isAccountSetupDone = await apiService.checkUserStatus();
-        sessionService.saveSession(
-            isRunFirstTime: false,
-            isLoggedIn: true,
-            isAccountSetupDone: isAccountSetupDone);
-        logger.i('Checking User Account Details');
-        if (isAccountSetupDone) {
-          navigationService.popAllAndPushNamed(Routes.MainBodyView);
+      if (loginResult != null) {
+        if (loginResult.success) {
+          final isAccountSetupDone = await apiService.checkUserStatus();
+          sessionService.saveSession(
+              isRunFirstTime: false,
+              isLoggedIn: true,
+              isAccountSetupDone: isAccountSetupDone);
+          logger.i('Checking User Account Details');
+          if (isAccountSetupDone) {
+            navigationService.popAllAndPushNamed(Routes.MainBodyView);
+          } else {
+            navigationService.popAllAndPushNamed(Routes.SetUpUserView);
+          }
         } else {
-          navigationService.popAllAndPushNamed(Routes.SetUpUserView);
+          navigationService.closeOverlay();
+          toastService.showToast(message: loginResult.errorMessage ?? '');
         }
       } else {
-        navigationService.closeOverlay();
-        snackBarService.showSnackBar(
-            title: 'Error', message: loginResult.errorMessage!);
+        setAutoValidate();
       }
-    } else {
-      setAutoValidate();
     }
   }
 

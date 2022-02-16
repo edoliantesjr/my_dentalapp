@@ -1,22 +1,23 @@
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
-import 'package:dentalapp/ui/widgets/selection_date/selection_date_view_model.dart';
+import 'package:dentalapp/ui/widgets/selection_time/selection_time_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:stacked/stacked.dart';
 
-class SelectionDate extends StatelessWidget {
+class SelectionTime extends StatelessWidget {
   final String? title;
-  final DateTime? initialDate;
-  final DateTime? maxDate;
-  const SelectionDate({Key? key, this.title, this.initialDate, this.maxDate})
+  final DateTime? initialDateTime;
+
+  const SelectionTime({Key? key, this.title, this.initialDateTime})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SelectionDateViewModel>.reactive(
-      viewModelBuilder: () => SelectionDateViewModel(),
+    return ViewModelBuilder<SelectionTimeViewModel>.reactive(
+      viewModelBuilder: () => SelectionTimeViewModel(),
       builder: (context, model, child) => Container(
         height: 280,
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -41,8 +42,9 @@ class SelectionDate extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   TextButton(
-                    onPressed: () =>
-                        model.setReturnDate(initialDate: initialDate),
+                    onPressed: () {},
+                    // onPressed: () =>
+                    //     model.setReturnDate(initialDate: initialDate),
                     child: Text(
                       'Done',
                       style: TextStyles.tsButton1(color: Palettes.kcBlueMain1),
@@ -53,12 +55,11 @@ class SelectionDate extends StatelessWidget {
             ),
             Expanded(
                 child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              initialDateTime: initialDate ?? model.defaultStartDate,
-              maximumDate: maxDate ?? model.dateTimeNow,
-              onDateTimeChanged: (DateTime dateTime) =>
-                  model.setSelectedDate(dateTime),
-            ))
+                    mode: CupertinoDatePickerMode.time,
+                    initialDateTime: initialDateTime ?? model.defaultStartTime,
+                    onDateTimeChanged: (DateTime dateTime) {}
+                    // model.setSelectedDate(dateTime),
+                    ))
           ],
         ),
       ),

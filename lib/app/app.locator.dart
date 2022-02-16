@@ -22,6 +22,8 @@ import '../core/service/session_service/session_service.dart';
 import '../core/service/session_service/session_service_impl.dart';
 import '../core/service/snack_bar/snack_bar_service.dart';
 import '../core/service/snack_bar/snack_bar_service_impl.dart';
+import '../core/service/toast/toast_service.dart';
+import '../core/service/toast/toast_service_impl.dart';
 import '../core/service/validator/validator_service.dart';
 import '../core/service/validator/validator_service_impl.dart';
 import '../core/utility/connectivity_state.dart';
@@ -46,4 +48,5 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton(() => ImageSelector());
   locator.registerLazySingleton<ApiService>(() => ApiServiceImpl());
   locator.registerLazySingleton<SessionService>(() => SessionServiceImpl());
+  locator.registerLazySingleton<ToastService>(() => ToastServiceImpl());
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class HomeShortcut extends StatelessWidget {
-  final VoidCallback? addServiceOnTap;
+  final VoidCallback? addProcedureOnTap;
   final VoidCallback? addPatientOnTap;
   final VoidCallback? addMedicineOnTap;
   final VoidCallback? saleOnTap;
@@ -13,7 +13,7 @@ class HomeShortcut extends StatelessWidget {
 
   const HomeShortcut(
       {Key? key,
-      this.addServiceOnTap,
+      this.addProcedureOnTap,
       this.addPatientOnTap,
       this.addMedicineOnTap,
       this.saleOnTap,
@@ -79,7 +79,7 @@ class HomeShortcut extends StatelessWidget {
                           children: [
                             Expanded(
                               child: InkWell(
-                                onTap: () => this.addServiceOnTap!(),
+                                onTap: () => this.addProcedureOnTap!(),
                                 child: Container(
                                   alignment: Alignment.center,
                                   child: Column(

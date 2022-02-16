@@ -105,11 +105,11 @@ class HomeAppointment extends StatelessWidget {
                           child: AppointmentCard(
                             key: ObjectKey(myAppointments[i]),
                             onDelete: () => this.deleteItem(i),
-                            serviceTitle: myAppointments[i].serviceTitle,
-                            doctor: myAppointments[i].doctor,
+                            serviceTitle: 'test',
+                            doctor: 'test',
                             patient: myAppointments[i].patient.fullName,
-                            dateDay: myAppointments[i].dateDay,
-                            dateMonth: myAppointments[i].dateMonth,
+                            dateDay: 'test',
+                            dateMonth: 'test',
                             appointmentStatus:
                                 getAppointmentStatus(myAppointments[i].status),
                           ),

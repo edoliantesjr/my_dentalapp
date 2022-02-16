@@ -46,7 +46,11 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
     try {
       final authResult = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      return AuthResponse.success(authResult.user!);
+      if (authResult.user != null) {
+        return AuthResponse.success(authResult.user!);
+      } else {
+        return AuthResponse.error('Unknown error');
+      }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "unknown":

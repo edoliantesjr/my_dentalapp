@@ -97,4 +97,32 @@ class ValidatorServiceImpl extends ValidatorService {
       return 'Phone number is not valid';
     }
   }
+
+  @override
+  String? validateBrandName(String value) {
+    if (value.isEmpty) {
+      return 'Brand name is empty';
+    }
+  }
+
+  @override
+  String? validateMedicineName(String value) {
+    if (value.isEmpty) {
+      return 'Medicine name is empty';
+    }
+  }
+
+  @override
+  String? validatePrice(String value) {
+    if (value.isEmpty) {
+      return 'Price is empty';
+    }
+  }
+
+  @override
+  String? validateProcedureName(String value) {
+    if (value.isEmpty) {
+      return 'Procedure Name is empty';
+    }
+  }
 }

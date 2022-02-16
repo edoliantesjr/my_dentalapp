@@ -8,6 +8,7 @@ class Payment {
   final List<Medicine?>? medicines;
   final String subTotal;
   final String total;
+  final String? status;
 
   const Payment({
     required this.payment_id,
@@ -16,5 +17,6 @@ class Payment {
     this.medicines,
     required this.subTotal,
     required this.total,
+    this.status,
   });
 }

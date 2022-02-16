@@ -1,30 +1,38 @@
 class Medicine {
-  //todo: To modify in the future
-  final int? id;
+  final String? id;
   final String medicineName;
+  final String? brandName;
   final String price;
-  final String dateCreated;
+  final String? image;
+  final dynamic dateCreated;
 
   Medicine(
       {this.id,
       required this.medicineName,
       required this.price,
-      required this.dateCreated});
+      this.brandName,
+      this.image,
+      this.dateCreated});
 
-  Map<String, dynamic> toJson({String? id, required dynamic dateCreated}) {
+  Map<String, dynamic> toJson(
+      {String? id, required String image, required dynamic dateCreated}) {
     return {
       'id': id,
       'medicineName': this.medicineName,
       'price': this.price,
+      'image': this.image,
+      'brandName': this.brandName ?? 'Not Set',
       'dateCreated': dateCreated
     };
   }
 
   factory Medicine.fromJson(Map<String, dynamic> map) {
     return Medicine(
-        id: map['id'] as int,
+        id: map['id'],
+        image: map['image'],
         medicineName: map['medicineName'] as String,
         price: map['price'] as String,
+        brandName: map['brandName'],
         dateCreated: map['dateCreated']);
   }
 }

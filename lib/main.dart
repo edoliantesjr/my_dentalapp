@@ -1,5 +1,6 @@
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/constants/styles/theme_style.dart';
+import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/utility/custom_scroll_behaviour.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ void main() async {
   runApp(DentalApp());
 }
 
+final navigationService = locator<NavigationService>();
+
 class DentalApp extends StatelessWidget {
   const DentalApp({Key? key}) : super(key: key);
 
@@ -38,9 +41,9 @@ class DentalApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: ScreenUtil.defaultSize,
       builder: () => GetMaterialApp(
+        // key: navigationService.navigatorKey,
         debugShowCheckedModeBanner: false,
         title: 'Cagape Dental Care',
-        // home: MainBodyView(),
         initialRoute: Routes.PreLoader,
         onGenerateRoute: StackedRouter().onGenerateRoute,
         themeMode: ThemeMode.light,

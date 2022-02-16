@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart'
 abstract class NavigationService {
   GlobalKey<NavigatorState> get navigatorKey;
 
-  Future<dynamic>? pushNamed(String routeName, {dynamic arguments, dynamic id});
+  Future<dynamic>? pushNamed(String routeName, {dynamic arguments});
 
   Future<dynamic>? pushReplacementNamed(String routeName, {dynamic arguments});
 

@@ -39,6 +39,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                 decoration: BoxDecoration(
                   color: Colors.grey,
                   shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),

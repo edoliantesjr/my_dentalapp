@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dentalapp/models/appointment_model/appoinment_model.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
@@ -32,7 +33,8 @@ abstract class ApiService {
 
   Future<List<Patient>> searchPatient(String query);
 
-  Future<dynamic>? addMedicine({required Medicine medicine});
+  Future<dynamic>? addMedicine(
+      {required Medicine medicine, required String image});
 
   Future<List<Medicine>> searchMedicine(String query);
 
@@ -43,4 +45,9 @@ abstract class ApiService {
   Future<List<Procedure>> searchProcedure(String query);
 
   Stream<List<Procedure>> getProcedureList();
+
+  Future<void> createAppointment(AppointmentModel appointment);
+
+  Future<ImageUploadResult> uploadMedicineImage(
+      {required File imageToUpload, required String genericName});
 }

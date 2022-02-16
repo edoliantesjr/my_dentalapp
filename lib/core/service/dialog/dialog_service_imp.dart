@@ -56,20 +56,37 @@ class DialogServiceImpl extends DialogService {
   }
 
   @override
-  Future? showDefaultLoadingDialog({bool? barrierDismissible}) {
+  Future<T?> showDefaultLoadingDialog<T>(
+      {bool? barrierDismissible, bool? willPop}) {
     return Get.dialog(
-      Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Palettes.kcNeutral1,
-            borderRadius: BorderRadius.circular(10),
+      WillPopScope(
+        onWillPop: () async {
+          if (willPop != null) {
+            if (willPop) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return true;
+          }
+        },
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Palettes.kcNeutral1,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: EdgeInsets.all(8.sp),
+            height: 75.sp,
+            width: 70.sp,
+            child: Center(
+                child: LoadingAnimationWidget.flickr(
+                    size: 30,
+                    rightDotColor: Colors.white,
+                    leftDotColor: Palettes.kcBlueMain2,
+                    time: 1000)),
           ),
-          padding: EdgeInsets.all(8.sp),
-          height: 75.sp,
-          width: 70.sp,
-          child: Center(
-              child: LoadingAnimationWidget.staggeredDotWave(
-                  time: 800, size: 40, color: Colors.white)),
         ),
       ),
       barrierDismissible: barrierDismissible ?? true,

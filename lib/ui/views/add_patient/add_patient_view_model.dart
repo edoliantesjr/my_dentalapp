@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/app/app.logger.dart';
-import 'package:dentalapp/constants/navigator_key/navigator_key.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
@@ -132,7 +131,6 @@ class AddPatientViewModel extends BaseViewModel {
 
         if (result == null) {
           navigationService.closeOverlay();
-          navigationService.pop(id: NavigatorKeys.homeKey);
           MainBodyViewModel().setSelectedIndex(2);
           snackBarService.showSnackBar(
               title: 'Success', message: 'New Patient Added!');

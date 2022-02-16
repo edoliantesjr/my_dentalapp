@@ -13,5 +13,6 @@ abstract class DialogService {
     required bool willPop,
   });
 
-  Future<dynamic>? showDefaultLoadingDialog({bool? barrierDismissible});
+  Future<T?>? showDefaultLoadingDialog<T>(
+      {bool? barrierDismissible, bool? willPop});
 }

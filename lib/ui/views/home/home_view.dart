@@ -1,9 +1,7 @@
 import 'package:dentalapp/app/app.router.dart';
-import 'package:dentalapp/constants/navigator_key/navigator_key.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/ui/views/home/home_view_model.dart';
 import 'package:dentalapp/ui/widgets/custom_app_bar/custom_app_bar.dart';
-import 'package:dentalapp/ui/widgets/home_appointment/home_appointment.dart';
 import 'package:dentalapp/ui/widgets/home_shortcut/home_shortcut.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -35,21 +33,22 @@ class HomePageView extends StatelessWidget {
             child: Column(
               children: [
                 HomeShortcut(
-                  addServiceOnTap: () => model.navigationService.pushNamed(
-                      Routes.SetUpUserView,
-                      id: NavigatorKeys.homeKey),
+                  addProcedureOnTap: () => model.navigationService.pushNamed(
+                    Routes.AddProcedureView,
+                  ),
                   addPatientOnTap: () => model.navigationService.pushNamed(
-                      Routes.AddPatientView,
-                      id: NavigatorKeys.homeKey),
+                    Routes.AddPatientView,
+                  ),
                   addMedicineOnTap: () => model.navigationService.pushNamed(
-                      Routes.SelectPatientView,
-                      id: NavigatorKeys.homeKey),
+                    Routes.AddMedicineView,
+                  ),
                 ),
-                HomeAppointment(
-                  deleteItem: (index) => model.deleteThisFromList(index),
-                  myAppointments: model.mockAppointment,
-                  isBusy: model.isBusy,
-                ),
+                //TODO: To Add Home Appointment
+                // HomeAppointment(
+                //   deleteItem: (index) => model.deleteThisFromList(index),
+                //   myAppointments: model.mockAppointment,
+                //   isBusy: model.isBusy,
+                // ),
               ],
             ),
           ),

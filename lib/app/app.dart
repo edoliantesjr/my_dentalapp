@@ -11,11 +11,15 @@ import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/core/service/session_service/session_service_impl.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service_impl.dart';
+import 'package:dentalapp/core/service/toast/toast_service.dart';
+import 'package:dentalapp/core/service/toast/toast_service_impl.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service_impl.dart';
 import 'package:dentalapp/core/utility/connectivity_state.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
+import 'package:dentalapp/ui/views/add_medicine/add_medicine_view.dart';
 import 'package:dentalapp/ui/views/add_patient/add_patient_view.dart';
+import 'package:dentalapp/ui/views/add_procedure/add_procedure_view.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view.dart';
 import 'package:dentalapp/ui/views/create_appointment/create_appointment_view.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
@@ -51,6 +55,8 @@ import 'package:stacked/stacked_annotations.dart';
     CupertinoRoute(page: AddPatientView, name: 'AddPatientView'),
     CupertinoRoute(page: SelectPatientView, name: 'SelectPatientView'),
     CupertinoRoute(page: CreateAppointmentView, name: 'CreateAppointmentView'),
+    CupertinoRoute(page: AddMedicineView, name: 'AddMedicineView'),
+    CupertinoRoute(page: AddProcedureView, name: 'AddProcedureView'),
   ],
   dependencies: [
     Singleton(classType: NavigationServiceImpl, asType: NavigationService),
@@ -64,6 +70,7 @@ import 'package:stacked/stacked_annotations.dart';
     LazySingleton(classType: ImageSelector),
     LazySingleton(classType: ApiServiceImpl, asType: ApiService),
     LazySingleton(classType: SessionServiceImpl, asType: SessionService),
+    LazySingleton(classType: ToastServiceImpl, asType: ToastService),
   ],
   logger: StackedLogger(),
 )
