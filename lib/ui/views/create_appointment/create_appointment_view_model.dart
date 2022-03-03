@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
@@ -5,13 +7,15 @@ import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/models/appointment_model/appoinment_model.dart';
+import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:dentalapp/ui/widgets/selection_date/selection_date.dart';
+import 'package:dentalapp/ui/widgets/selection_dentist/selection_dentist.dart';
+import 'package:dentalapp/ui/widgets/selection_procedure/selection_procedure.dart';
 import 'package:dentalapp/ui/widgets/selection_time/selection_time.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
 class CreateAppointmentViewModel extends BaseViewModel {
-  //TODO: Create Appointment Logic code
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
   final toastService = locator<ToastService>();
@@ -19,6 +23,7 @@ class CreateAppointmentViewModel extends BaseViewModel {
   final validatorService = locator<ValidatorService>();
 
   String? tempDate;
+  List<Procedure> selectedProcedures = [];
 
   Future<void> setAppointment(AppointmentModel appointment) async {
     //TODO: Logic code for setting an appointment
@@ -64,19 +69,39 @@ class CreateAppointmentViewModel extends BaseViewModel {
             '';
   }
 
-  void selectDentist(TextEditingController controller) {
-    //todo: code for select dentist
+  void openProcedureFullScreenModal(TextEditingController controller) async {
+    final tempProcedure =
+        await bottomSheetService.openFullScreenModal(SelectionProcedure());
+    if (tempProcedure != null) {
+      if (!(selectedProcedures
+          .map((procedure) => procedure.id)
+          .contains(tempProcedure.id))) {
+        selectedProcedures.add(tempProcedure);
+        notifyListeners();
+      } else {
+        toastService.showToast(message: 'Already Selected');
+      }
+    }
   }
 
-  void selectProcedure(TextEditingController controller) {
-    //todo: code for select procedure
+  void openDentistModal(TextEditingController controller) async {
+    final tempProcedure =
+        await bottomSheetService.openFullScreenModal(SelectionDentist());
+    // if (tempProcedure != null) {
+    //   if (!(selectedProcedures
+    //       .map((procedure) => procedure.id)
+    //       .contains(tempProcedure.id))) {
+    //     selectedProcedures.add(tempProcedure);
+    //     notifyListeners();
+    //   } else {
+    //     toastService.showToast(message: 'Already Selected');
+    //   }
+    // }
   }
 
-  void getListOfProcedure() {
-    //TOdo: get List of Procedure with stream
-  }
-
-  void getListOfDentist() {
-    //TOdo: get List of Dentist with stream
+  void deleteSelectedProcedure(Procedure procedure) {
+    selectedProcedures.removeWhere((element) => element.id == procedure.id);
+    notifyListeners();
+    toastService.showToast(message: 'Removed');
   }
 }

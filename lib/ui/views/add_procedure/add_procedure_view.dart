@@ -73,9 +73,11 @@ class _AddProcedureViewState extends State<AddProcedureView> {
                 // validator: (value) =>
                 //     model.validatorService.validateMedicineName(value!),
                 textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   errorBorder: TextBorderStyles.errorBorder,
                   errorStyle: TextStyles.errorTextStyle,
+
                   hintText: 'Procedure Amount Fee',
                   labelText: 'Price*',
                   // disabledBorder: ,

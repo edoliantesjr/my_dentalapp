@@ -33,8 +33,7 @@ abstract class ApiService {
 
   Future<List<Patient>> searchPatient(String query);
 
-  Future<dynamic>? addMedicine(
-      {required Medicine medicine, required String image});
+  Future<dynamic>? addMedicine({required Medicine medicine, String? image});
 
   Future<List<Medicine>> searchMedicine(String query);
 
@@ -50,4 +49,6 @@ abstract class ApiService {
 
   Future<ImageUploadResult> uploadMedicineImage(
       {required File imageToUpload, required String genericName});
+
+  Future<List<UserModel>> searchDentist({required String query});
 }

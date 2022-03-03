@@ -1,16 +1,16 @@
-class Procedure {
+import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
+
+class Procedure extends Equatable {
   //todo: To modify in the future
 
   final String? id;
   final String procedureName;
-  final String price;
+  final String? price;
   final dynamic dateCreated;
 
-  const Procedure(
-      {this.id,
-      required this.procedureName,
-      required this.price,
-      this.dateCreated});
+  Procedure(
+      {this.id, required this.procedureName, this.price, this.dateCreated});
 
   Map<String, dynamic> toJson({String? id, required dynamic dateCreated}) {
     return {
@@ -28,4 +28,18 @@ class Procedure {
         price: map['price'] as String,
         dateCreated: map['dateCreated']);
   }
+
+  final currency = NumberFormat("#,##0.00", "en_PH");
+  String? get priceToCurrency {
+    if (this.price != '') {
+      return ' ₱${currency.format(double.tryParse(this.price ?? '0'))}';
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props =>
+      [id, procedureName, price, priceToCurrency, dateCreated];
 }

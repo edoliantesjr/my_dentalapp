@@ -117,9 +117,7 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<List<Patient>> searchPatient(String query) async {
     return await patientReference
-        .where('lastName', isGreaterThanOrEqualTo: query.toTitleCase())
-        .where('lastName', isLessThanOrEqualTo: query.toTitleCase() + '\uf8ff')
-        .orderBy('lastName', descending: true)
+        .where("searchIndex", arrayContains: query)
         .get()
         .then((value) => value.docs
             .map((patient) => Patient.fromJson(patient.data()))
@@ -127,12 +125,11 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future? addMedicine(
-      {required Medicine medicine, required String image}) async {
+  Future? addMedicine({required Medicine medicine, String? image}) async {
     final medicineRef = await medicineReference.doc();
     return medicineRef.set(medicine.toJson(
         id: medicineRef.id,
-        image: image,
+        image: image ?? '',
         dateCreated: FieldValue.serverTimestamp()));
   }
 
@@ -155,7 +152,6 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Stream<List<Procedure>> getProcedureList() {
-    // TODO: implement getProcedureList
     return procedureReference
         .orderBy('dateCreated', descending: true)
         .snapshots()
@@ -216,5 +212,16 @@ class ApiServiceImpl extends ApiService {
     } on FirebaseException catch (e) {
       return ImageUploadResult.error('Image Upload Failed: ${e.code}');
     }
+  }
+
+  @override
+  Future<List<UserModel>> searchDentist({required String query}) async {
+    return await userReference
+        // .where("searchIndex", arrayContains: query)
+        .where('position', isNotEqualTo: 'Staff')
+        .get()
+        .then((value) => value.docs
+            .map((patient) => UserModel.fromJson(patient.data()))
+            .toList());
   }
 }

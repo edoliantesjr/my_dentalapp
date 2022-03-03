@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/select_patient/select_patient_view_model.dart';
@@ -28,7 +29,8 @@ class SelectPatientView extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () =>
+                    model.navigationService.pushNamed(Routes.AddPatientView),
                 child: Text(
                   'Add Patient',
                   style: TextStyle(fontSize: 15),
@@ -104,7 +106,7 @@ class SelectPatientView extends StatelessWidget {
                               ),
                             ),
                             constraints: BoxConstraints(maxHeight: 43),
-                            hintText: 'Search by Last Name',
+                            hintText: 'Search by Last Name, First Name',
                           ),
                         ),
                       ],

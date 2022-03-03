@@ -1,8 +1,10 @@
+import 'package:intl/intl.dart';
+
 class Medicine {
   final String? id;
   final String medicineName;
   final String? brandName;
-  final String price;
+  final String? price;
   final String? image;
   final dynamic dateCreated;
 
@@ -15,12 +17,12 @@ class Medicine {
       this.dateCreated});
 
   Map<String, dynamic> toJson(
-      {String? id, required String image, required dynamic dateCreated}) {
+      {String? id, String? image, required dynamic dateCreated}) {
     return {
       'id': id,
       'medicineName': this.medicineName,
       'price': this.price,
-      'image': this.image,
+      'image': image ?? '',
       'brandName': this.brandName ?? 'Not Set',
       'dateCreated': dateCreated
     };
@@ -34,5 +36,14 @@ class Medicine {
         price: map['price'] as String,
         brandName: map['brandName'],
         dateCreated: map['dateCreated']);
+  }
+
+  final currency = NumberFormat("#,##0.00", "en_PH");
+  String? get priceToCurrency {
+    if (this.price != '') {
+      return ' ₱${currency.format(double.tryParse(this.price ?? '0'))}';
+    } else {
+      return null;
+    }
   }
 }

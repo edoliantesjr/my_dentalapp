@@ -4,10 +4,8 @@ import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_border_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/add_patient/add_patient_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
@@ -414,17 +412,20 @@ class AddPatientHeader extends StatelessWidget {
                   Positioned(
                     right: 0,
                     bottom: 5,
-                    child: Container(
-                      height: 35,
-                      width: 35,
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Colors.grey.shade50, width: 2),
-                        shape: BoxShape.circle,
-                        color: Colors.grey.shade300,
+                    child: GestureDetector(
+                      onTap: () => this.onTap(),
+                      child: Container(
+                        height: 35,
+                        width: 35,
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border:
+                              Border.all(color: Colors.grey.shade50, width: 2),
+                          shape: BoxShape.circle,
+                          color: Colors.grey.shade300,
+                        ),
+                        child: SvgPicture.asset('assets/icons/Camera.svg'),
                       ),
-                      child: SvgPicture.asset('assets/icons/Camera.svg'),
                     ),
                   )
                 ],

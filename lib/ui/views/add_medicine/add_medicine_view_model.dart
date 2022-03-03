@@ -38,15 +38,25 @@ class AddMedicineViewModel extends BaseViewModel {
                 medicineName: medicineName,
                 brandName: brandName,
                 price: price ?? ''),
-            image: '');
-        setBusy(false);
-        navigationService.closeOverlay();
-        navigationService.pop();
-        toastService.showToast(message: 'Medicine Added');
+            image: imageUrl);
       }
-    } catch (e) {
-      debugPrint(e.toString());
+
       setBusy(false);
+      navigationService.closeOverlay();
+      navigationService.pop();
+      toastService.showToast(message: 'Medicine Added');
+    } catch (e) {
+      await apiService.addMedicine(
+        medicine: Medicine(
+            medicineName: medicineName,
+            brandName: brandName,
+            price: price ?? ''),
+      );
+
+      setBusy(false);
+      navigationService.closeOverlay();
+      navigationService.pop();
+      toastService.showToast(message: 'Medicine Added');
     }
   }
 

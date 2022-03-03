@@ -5,6 +5,7 @@ import 'package:dentalapp/app/app.logger.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/models/appointment_model/appoinment_model.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,6 +16,7 @@ class HomePageViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   StreamSubscription? userSubscription;
   UserModel? currentUser;
+  List<AppointmentModel>? mockAppointments;
 
   Future<void> init() async {
     setBusy(true);

@@ -18,6 +18,7 @@ import '../core/service/firebase_auth/firebase_auth_service.dart';
 import '../core/service/firebase_auth/firebase_auth_service_impl.dart';
 import '../core/service/navigation/navigation_service.dart';
 import '../core/service/navigation/navigation_service_impl.dart';
+import '../core/service/search_index/search_index.dart';
 import '../core/service/session_service/session_service.dart';
 import '../core/service/session_service/session_service_impl.dart';
 import '../core/service/snack_bar/snack_bar_service.dart';
@@ -49,4 +50,5 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton<ApiService>(() => ApiServiceImpl());
   locator.registerLazySingleton<SessionService>(() => SessionServiceImpl());
   locator.registerLazySingleton<ToastService>(() => ToastServiceImpl());
+  locator.registerLazySingleton(() => SearchIndexService());
 }

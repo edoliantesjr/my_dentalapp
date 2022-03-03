@@ -25,6 +25,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
   final endTimeTxtController = TextEditingController();
   final dentistTxtController = TextEditingController();
   final remarksTxtController = TextEditingController();
+  final procedureTxtController = TextEditingController();
 
   @override
   void dispose() {
@@ -118,33 +119,84 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      GestureDetector(
-                        onTap: () {},
-                        child: TextFormField(
-                          controller: dentistTxtController,
-                          // validator: (value) => model.validatorService
-                          //     .validateGender(value!),
-                          textInputAction: TextInputAction.next,
-                          enabled: false,
-                          keyboardType: TextInputType.datetime,
-                          decoration: InputDecoration(
-                              errorBorder: TextBorderStyles.errorBorder,
-                              errorStyle: TextStyles.errorTextStyle,
-                              disabledBorder: TextBorderStyles.normalBorder,
-                              hintText: 'Select Procedures/Services',
-                              labelText: 'Procedure*',
-                              labelStyle: TextStyles.tsBody1(
-                                  color: Palettes.kcNeutral1),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down,
-                                size: 24,
-                                color: Palettes.kcBlueMain1,
-                              )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Procedure*',
+                          ),
+                          ActionChip(
+                            label: Text(model.selectedProcedures.length <= 0
+                                ? 'Select'
+                                : 'Add more'),
+                            labelPadding: EdgeInsets.symmetric(horizontal: 8),
+                            labelStyle: TextStyles.tsBody2(color: Colors.white),
+                            backgroundColor: Palettes.kcBlueMain1,
+                            tooltip: 'Select Procedure',
+                            onPressed: () => model.openProcedureFullScreenModal(
+                              procedureTxtController,
+                            ),
+                          )
+                        ],
+                      ),
+                      Visibility(
+                        visible:
+                            model.selectedProcedures.length > 0 ? true : false,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Palettes.kcBlueMain1, width: 1)),
+                          padding: EdgeInsets.all(4),
+                          child: Wrap(
+                            spacing: 4,
+                            children: model.selectedProcedures
+                                .map((e) => InputChip(
+                                      label: Text(e.procedureName),
+                                      backgroundColor:
+                                          Colors.deepPurple.shade50,
+                                      labelStyle: TextStyles.tsBody2(
+                                          color: Colors.deepPurple),
+                                      labelPadding: EdgeInsets.all(1),
+                                      onDeleted: () =>
+                                          model.deleteSelectedProcedure(e),
+                                      deleteIcon: CircleAvatar(
+                                          radius: 10,
+                                          backgroundColor: Colors.red.shade700,
+                                          child: Icon(
+                                            Icons.close,
+                                            color: Colors.white,
+                                            size: 16,
+                                          )),
+                                    ))
+                                .toList(),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      // GestureDetector(
+                      //   onTap: () => model.openProcedureFullScreenModal(
+                      //       procedureTxtController),
+                      //   child: TextFormField(
+                      //     controller: procedureTxtController,
+                      //     textInputAction: TextInputAction.next,
+                      //     enabled: false,
+                      //     keyboardType: TextInputType.datetime,
+                      //     decoration: InputDecoration(
+                      //         errorBorder: TextBorderStyles.errorBorder,
+                      //         errorStyle: TextStyles.errorTextStyle,
+                      //         disabledBorder: TextBorderStyles.normalBorder,
+                      //         hintText: 'Select Procedures/Services',
+                      //         labelText: 'Procedure*',
+                      //         labelStyle: TextStyles.tsBody1(
+                      //             color: Palettes.kcNeutral1),
+                      //         floatingLabelBehavior:
+                      //             FloatingLabelBehavior.always,
+                      //         suffixIcon: Icon(
+                      //           Icons.arrow_drop_down,
+                      //           size: 24,
+                      //           color: Palettes.kcBlueMain1,
+                      //         )),
+                      //   ),
+                      // ),
                       GestureDetector(
                         onTap: () =>
                             model.selectStartTime(startTimeTxtController),
@@ -183,7 +235,8 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                       ),
                       SizedBox(height: 10),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () =>
+                            model.openDentistModal(dentistTxtController),
                         child: TextFormField(
                           controller: dentistTxtController,
                           // validator: (value) => model.validatorService

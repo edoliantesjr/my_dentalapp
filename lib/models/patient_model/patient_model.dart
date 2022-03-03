@@ -11,6 +11,7 @@ class Patient {
   final dynamic notes;
   final String? emergencyContactName;
   final String? emergencyContactNumber;
+  final List<String> searchIndex;
   final dynamic dateCreated;
 
   Patient({
@@ -27,6 +28,7 @@ class Patient {
     this.emergencyContactName,
     this.emergencyContactNumber,
     this.dateCreated,
+    required this.searchIndex,
   });
 
   Map<String, dynamic> toJson(
@@ -46,6 +48,7 @@ class Patient {
       'emergencyContactName': this.emergencyContactName ?? '',
       'emergencyContactNumber': this.emergencyContactNumber ?? '',
       'dateCreated': dateCreated,
+      'searchIndex': this.searchIndex,
     };
   }
 
@@ -63,16 +66,8 @@ class Patient {
       notes: json['notes'] as String,
       emergencyContactName: json['emergencyContactName'] ?? '',
       emergencyContactNumber: json['emergencyContactNumber'] ?? '',
+      searchIndex: [],
     );
   }
   String get fullName => firstName + ' ' + lastName;
 }
-
-final mockPatient = Patient(
-    firstName: 'firstName',
-    lastName: 'lastName',
-    gender: 'gender',
-    birthDate: '01/01/2001',
-    phoneNum: '00999',
-    address: 'address',
-    allergies: 'allergies');

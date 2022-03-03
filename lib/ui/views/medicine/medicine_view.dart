@@ -58,85 +58,103 @@ class _MedicineViewState extends State<MedicineView> {
         ),
         body: ListView(
           controller: medicineScrollController,
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          padding: EdgeInsets.symmetric(vertical: 15),
           children: [
-            Container(
-              height: 50,
-              width: double.maxFinite,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      // onChanged: (value) => model.searchPatient(value),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 5,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
-                          borderSide: BorderSide(
-                            color: Palettes.kcBlueMain1,
-                            width: 1.8,
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+              ),
+              child: Container(
+                height: 50,
+                width: double.maxFinite,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        // onChanged: (value) => model.searchPatient(value),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100),
                           ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
-                          borderSide: BorderSide(
-                            color: Palettes.kcBlueDark,
-                            width: 1,
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 5,
                           ),
-                        ),
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: SvgPicture.asset(
-                            'assets/icons/Search.svg',
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            borderSide: BorderSide(
+                              color: Palettes.kcBlueMain1,
+                              width: 1.8,
+                            ),
                           ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            borderSide: BorderSide(
+                              color: Palettes.kcBlueDark,
+                              width: 1,
+                            ),
+                          ),
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: SvgPicture.asset(
+                              'assets/icons/Search.svg',
+                            ),
+                          ),
+                          constraints: BoxConstraints(maxHeight: 43),
+                          hintText: 'Search Medicine...',
                         ),
-                        constraints: BoxConstraints(maxHeight: 43),
-                        hintText: 'Search Medicine...',
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 10),
-            Row(
+            Column(
               children: [
-                Text(
-                  'Drugs List',
-                  style: TextStyles.tsBody4(color: Colors.grey.shade800),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Drugs List',
+                        style: TextStyles.tsBody4(color: Colors.grey.shade800),
+                      ),
+                      SizedBox(width: 4),
+                      Expanded(child: Divider()),
+                    ],
+                  ),
                 ),
-                SizedBox(width: 4),
-                Expanded(child: Divider()),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  color: Colors.grey.shade100,
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: model.medicineList.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
+                      mainAxisExtent: 250,
+                    ),
+                    itemBuilder: (context, index) => MedicineCard(
+                      id: 'id',
+                      name: model.medicineList[index].medicineName,
+                      brandName: model.medicineList[index].brandName,
+                      price: model.medicineList[index].priceToCurrency,
+                      image: model.medicineList[index].image,
+                    ),
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 10),
-            GridView.builder(
-              shrinkWrap: true,
-              primary: false,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: model.medicineList.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 10.0,
-                mainAxisExtent: 150,
-              ),
-              itemBuilder: (context, index) => MedicineCard(
-                id: 'id',
-                name: model.medicineList[index].medicineName,
-                brandName: model.medicineList[index].brandName,
-                price: model.medicineList[index].price,
-                image: model.medicineList[index].image,
-              ),
-            ),
           ],
         ),
       ),

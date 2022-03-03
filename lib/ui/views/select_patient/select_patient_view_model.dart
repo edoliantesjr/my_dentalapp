@@ -14,6 +14,12 @@ class SelectPatientViewModel extends BaseViewModel {
   List<Patient> patientList = [];
   List<Patient> tempPatientList = [];
 
+  @override
+  void dispose() {
+    patientSubscription?.cancel();
+    super.dispose();
+  }
+
   void init() {
     apiService.getPatients().listen((event) {
       patientSubscription?.cancel();
@@ -28,6 +34,8 @@ class SelectPatientViewModel extends BaseViewModel {
   Future<void> searchPatient(String value) async {
     setBusy(true);
     if (value.isNotEmpty) {
+      value.trim();
+      value.toLowerCase();
       patientList = await apiService.searchPatient(value);
       notifyListeners();
     } else {

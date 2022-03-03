@@ -6,6 +6,7 @@ import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/core/service/search_index/search_index.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
@@ -28,6 +29,7 @@ class AddPatientViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   final snackBarService = locator<SnackBarService>();
   final dialogService = locator<DialogService>();
+  final searchIndexService = locator<SearchIndexService>();
 
   bool haveAllergies = false;
   bool isMinor = false;
@@ -115,6 +117,8 @@ class AddPatientViewModel extends BaseViewModel {
           imageToUpload: File(selectedImage!.path));
 
       if (imageUploadResult.isUploaded) {
+        final patientSearchIndex = await searchIndexService.setSearchIndex(
+            string: '$firstName $lastName');
         final result = await apiService.addPatient(
             patient: Patient(
                 image: imageUploadResult.imageUrl ?? '',
@@ -127,11 +131,13 @@ class AddPatientViewModel extends BaseViewModel {
                 allergies: allergies,
                 emergencyContactNumber: emergencyContactNumber ?? '',
                 emergencyContactName: emergencyContactName ?? '',
+                searchIndex: patientSearchIndex,
                 notes: notes ?? ''));
 
         if (result == null) {
           navigationService.closeOverlay();
           MainBodyViewModel().setSelectedIndex(2);
+          navigationService.pop();
           snackBarService.showSnackBar(
               title: 'Success', message: 'New Patient Added!');
           logger.v('patient details saved');

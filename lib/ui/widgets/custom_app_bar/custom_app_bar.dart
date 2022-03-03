@@ -93,20 +93,21 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                 splashColor: Colors.transparent,
                 alignment: Alignment.centerRight,
                 icon: SvgPicture.asset(
-                  'assets/icons/Search.svg',
-                  color: Colors.white,
+                  'assets/icons/Notification - Noti.svg',
                 ),
               ),
+              SizedBox(width: 10),
               IconButton(
                 onPressed: () {
                   Get.offAllNamed(Routes.HomePageView, id: 0);
                 },
                 padding: EdgeInsets.zero,
                 icon: SvgPicture.asset(
-                  'assets/icons/Notification - Noti.svg',
+                  'assets/icons/Logout.svg',
+                  color: Colors.white,
                 ),
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 10),
             ],
           ),
         ),

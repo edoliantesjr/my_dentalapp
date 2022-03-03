@@ -7,6 +7,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -31,7 +32,7 @@ import '../ui/views/verify_email/verify_email_view.dart';
 import '../ui/widgets/success_view/success.dart';
 
 class Routes {
-  static const String PreLoader = '/';
+  static const String PreLoader = '/pre-loader-view';
   static const String GetStarted = '/get-started-view';
   static const String Login = '/login-view';
   static const String Register = '/register-view';

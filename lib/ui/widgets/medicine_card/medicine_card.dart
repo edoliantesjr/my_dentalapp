@@ -22,34 +22,47 @@ class MedicineCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(5),
-      ),
+      color: Colors.white,
+      padding: EdgeInsets.all(1),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //  todo: design code for medicine card
-          SizedBox(height: 5),
           SizedBox(
-            height: 80,
-            width: 80,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: showMedImage(image),
+            height: 180,
+            width: double.maxFinite,
+            child: showMedImage(image),
+          ),
+          Divider(height: 1),
+          SizedBox(height: 1),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: FittedBox(
+              child: Text(
+                brandName ?? 'No Brand',
+                style: TextStyles.tsHeading4(),
+              ),
             ),
           ),
-          SizedBox(height: 5),
-          FittedBox(
-            child: Text(
-              brandName ?? 'No Brand',
-              style: TextStyles.tsHeading4(),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+              child: Text(
+                name,
+                style: TextStyles.tsBody2(color: Colors.grey.shade700),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
-          FittedBox(
-            child: Text(
-              name,
-              style: TextStyles.tsBody2(color: Colors.grey.shade900),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+              child: Text(
+                '${price ?? 'Not Set'}',
+                style: TextStyles.tsBody2(color: Colors.deepOrange),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
         ],
@@ -58,19 +71,28 @@ class MedicineCard extends StatelessWidget {
   }
 
   Widget showMedImage(String? image) {
-    if (image == null) {
-      // return Image.asset(
-      //   'assets/images/dev1.jpg',
-      //   fit: BoxFit.contain,
-      // );
-      return SvgPicture.asset(
-        'assets/icons/Pills.svg',
-        color: Colors.purple,
+    if (image == null || image == '') {
+      return Align(
+        alignment: Alignment.center,
+        child: SizedBox(
+          height: 50,
+          width: 50,
+          child: SvgPicture.asset(
+            'assets/icons/Pills.svg',
+            color: Colors.purple,
+          ),
+        ),
       );
     } else {
       return CachedNetworkImage(
         imageUrl: image,
         fit: BoxFit.cover,
+        progressIndicatorBuilder: (context, url, progress) =>
+            LinearProgressIndicator(
+          color: Colors.grey.shade100,
+          value: progress.progress,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+        ),
       );
     }
   }
