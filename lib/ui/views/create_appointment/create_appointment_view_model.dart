@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dentalapp/app/app.locator.dart';
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
@@ -9,8 +10,6 @@ import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/models/appointment_model/appoinment_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:dentalapp/ui/widgets/selection_date/selection_date.dart';
-import 'package:dentalapp/ui/widgets/selection_dentist/selection_dentist.dart';
-import 'package:dentalapp/ui/widgets/selection_procedure/selection_procedure.dart';
 import 'package:dentalapp/ui/widgets/selection_time/selection_time.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
@@ -71,7 +70,8 @@ class CreateAppointmentViewModel extends BaseViewModel {
 
   void openProcedureFullScreenModal(TextEditingController controller) async {
     final tempProcedure =
-        await bottomSheetService.openFullScreenModal(SelectionProcedure());
+        await navigationService.pushNamed(Routes.SelectionProcedure);
+    // await bottomSheetService.openFullScreenModal(SelectionProcedure());
     if (tempProcedure != null) {
       if (!(selectedProcedures
           .map((procedure) => procedure.id)
@@ -86,7 +86,9 @@ class CreateAppointmentViewModel extends BaseViewModel {
 
   void openDentistModal(TextEditingController controller) async {
     final tempProcedure =
-        await bottomSheetService.openFullScreenModal(SelectionDentist());
+        await navigationService.pushNamed(Routes.SelectionDentist);
+    // final tempProcedure =
+    //     await bottomSheetService.openFullScreenModal(SelectionDentist());
     // if (tempProcedure != null) {
     //   if (!(selectedProcedures
     //       .map((procedure) => procedure.id)

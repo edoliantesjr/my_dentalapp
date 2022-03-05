@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/app/app.logger.dart';
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
+import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/models/appointment_model/appoinment_model.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
@@ -14,6 +16,7 @@ class HomePageViewModel extends BaseViewModel {
   final dialogService = locator<DialogService>();
   final navigationService = locator<NavigationService>();
   final apiService = locator<ApiService>();
+  final fAuthService = locator<FirebaseAuthService>();
   StreamSubscription? userSubscription;
   UserModel? currentUser;
   List<AppointmentModel>? mockAppointments;
@@ -43,5 +46,10 @@ class HomePageViewModel extends BaseViewModel {
         notifyListeners();
       });
     });
+  }
+
+  void logOut() async {
+    await fAuthService.logOut();
+    navigationService.popAllAndPushNamed(Routes.Login);
   }
 }

@@ -7,6 +7,7 @@ import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/core/service/search_index/search_index.dart';
 import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
@@ -29,6 +30,7 @@ class SetupUserViewModel extends BaseViewModel {
   final snackBarService = locator<SnackBarService>();
   final dialogService = locator<DialogService>();
   final sessionService = locator<SessionService>();
+  final searchIndexService = locator<SearchIndexService>();
 
   final setupFormKey = GlobalKey<FormState>();
 
@@ -120,6 +122,8 @@ class SetupUserViewModel extends BaseViewModel {
         imageFileName: selectedImage!.name);
     logger.i('image uploading');
 
+    final userSearchIndex =
+        await searchIndexService.setSearchIndex(string: '$firstName $lastName');
     final userProfile = UserModel(apiService.currentFirebaseUser!.uid,
         firstName: firstName,
         lastName: lastName,
@@ -127,7 +131,8 @@ class SetupUserViewModel extends BaseViewModel {
         image: imageUploadResult.imageUrl!,
         position: position,
         appointments: [],
-        fcmToken: []);
+        fcmToken: [],
+        searchIndex: userSearchIndex);
 
     try {
       if (imageUploadResult.isUploaded) {

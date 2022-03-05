@@ -19,6 +19,9 @@ class BottomSheetService {
 
   Future<dynamic>? openFullScreenModal(Widget child) {
     return Get.bottomSheet(child,
-        elevation: 0, isScrollControlled: true, ignoreSafeArea: false);
+        persistent: true,
+        elevation: 0,
+        isScrollControlled: true,
+        ignoreSafeArea: false);
   }
 }

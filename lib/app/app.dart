@@ -35,7 +35,10 @@ import 'package:dentalapp/ui/views/register/register_view.dart';
 import 'package:dentalapp/ui/views/select_patient/select_patient_view.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:dentalapp/ui/views/verify_email/verify_email_view.dart';
+import 'package:dentalapp/ui/widgets/selection_dentist/selection_dentist.dart';
+import 'package:dentalapp/ui/widgets/selection_procedure/selection_procedure.dart';
 import 'package:dentalapp/ui/widgets/success_view/success.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @StackedApp(
@@ -58,6 +61,16 @@ import 'package:stacked/stacked_annotations.dart';
     CupertinoRoute(page: CreateAppointmentView, name: 'CreateAppointmentView'),
     CupertinoRoute(page: AddMedicineView, name: 'AddMedicineView'),
     CupertinoRoute(page: AddProcedureView, name: 'AddProcedureView'),
+    CustomRoute(
+        page: SelectionDentist,
+        name: 'SelectionDentist',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: SelectionProcedure,
+        name: 'SelectionProcedure',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
   ],
   dependencies: [
     Singleton(classType: NavigationServiceImpl, asType: NavigationService),

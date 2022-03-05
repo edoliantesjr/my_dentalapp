@@ -1,10 +1,13 @@
+import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
+import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/models/response_model/auth_response_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthServiceImpl extends FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final sessionService = locator<SessionService>();
   String errorMessage = '';
 
   // final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
@@ -111,6 +114,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
   Future<void> logOut() async {
     if (_firebaseAuth.currentUser != null) {
       _firebaseAuth.signOut();
+      sessionService.clearSession();
     }
   }
 }

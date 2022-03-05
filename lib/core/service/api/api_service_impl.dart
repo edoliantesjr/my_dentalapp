@@ -216,12 +216,23 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future<List<UserModel>> searchDentist({required String query}) async {
-    return await userReference
-        // .where("searchIndex", arrayContains: query)
-        .where('position', isNotEqualTo: 'Staff')
-        .get()
-        .then((value) => value.docs
-            .map((patient) => UserModel.fromJson(patient.data()))
-            .toList());
+    if (query != '') {
+      return await userReference
+          .where("searchIndex", arrayContains: query)
+          .where('position', isNotEqualTo: 'Staff')
+          .orderBy('position', descending: true)
+          .get()
+          .then((value) => value.docs
+              .map((patient) => UserModel.fromJson(patient.data()))
+              .toList());
+    } else {
+      return await userReference
+          .where('position', isNotEqualTo: 'Staff')
+          .orderBy('position', descending: true)
+          .get()
+          .then((value) => value.docs
+              .map((patient) => UserModel.fromJson(patient.data()))
+              .toList());
+    }
   }
 }

@@ -1,24 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-
-final picture = 'https://images.pexels.com/photos/220453/'
-    'pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
 
 class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
   final String image;
   final String position;
   final String name;
+  final VoidCallback? onLogOutTap;
   const CustomHomePageAppBar(
       {Key? key,
       required this.image,
       required this.position,
-      required this.name})
+      required this.name,
+      this.onLogOutTap})
       : super(key: key);
 
   @override
@@ -98,9 +94,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
               ),
               SizedBox(width: 10),
               IconButton(
-                onPressed: () {
-                  Get.offAllNamed(Routes.HomePageView, id: 0);
-                },
+                onPressed: () => onLogOutTap != null ? onLogOutTap!() : null,
                 padding: EdgeInsets.zero,
                 icon: SvgPicture.asset(
                   'assets/icons/Logout.svg',

@@ -29,4 +29,11 @@ class SessionServiceImpl extends SessionService {
       isAccountSetupDone: isAccountSetupDone,
     );
   }
+
+  @override
+  Future<void> clearSession() async {
+    _myStorage.write('isRunFirstTime', false);
+    _myStorage.write('isLoggedIn', false);
+    _myStorage.write('isAccountSetupDone', false);
+  }
 }

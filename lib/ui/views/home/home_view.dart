@@ -22,6 +22,7 @@ class HomePageView extends StatelessWidget {
           image: model.currentUser?.image ?? '',
           name: model.currentUser?.fullName ?? '',
           position: model.currentUser?.position ?? '',
+          onLogOutTap: () => model.logOut(),
         ),
         body: RefreshIndicator(
           color: Palettes.kcBlueMain1,

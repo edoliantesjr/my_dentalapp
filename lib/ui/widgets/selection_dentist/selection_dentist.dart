@@ -2,6 +2,7 @@ import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:dentalapp/ui/widgets/selection_dentist/selection_dentist_view_model.dart';
+import 'package:dentalapp/ui/widgets/user_card/user_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
@@ -34,7 +35,7 @@ class SelectionDentist extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   TextField(
-                    // onChanged: (value) => model.searchPatient(value),
+                    onChanged: (value) => model.searchDentist(value),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(100),
@@ -122,14 +123,14 @@ class SelectionDentist extends StatelessWidget {
         );
       } else {
         return ListView.separated(
-          itemBuilder: (context, index) => Container(
-            child: Text(dentistList[index].fullName),
-          ),
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) => UserCard(user: dentistList[index]),
           separatorBuilder: (context, index) => SizedBox(
             height: 4,
           ),
           itemCount: dentistList.length,
-          padding: EdgeInsets.only(bottom: 20, top: 5),
+          // padding: EdgeInsets.only(bottom: 20, top: 5),
         );
       }
     }

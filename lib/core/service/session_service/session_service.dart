@@ -5,4 +5,6 @@ abstract class SessionService {
       {bool? isRunFirstTime, bool? isLoggedIn, bool? isAccountSetupDone});
 
   Future<SessionModel> getSession();
+
+  Future<void> clearSession();
 }

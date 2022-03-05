@@ -6,6 +6,7 @@ class UserModel {
   String image;
   String position;
   List<String> appointments;
+  List<String> searchIndex;
   List<dynamic> fcmToken;
 
   UserModel(
@@ -17,20 +18,20 @@ class UserModel {
     required this.position,
     required this.appointments,
     required this.fcmToken,
+    required this.searchIndex,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      json['uid'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      email: json['email'],
-      image: json['image'],
-      position: json['position'],
-      appointments:
-          json['appointments'] != null ? List.from(json['appointments']) : [],
-      fcmToken: json['fcmToken'] != null ? List.from(json['fcmToken']) : [],
-    );
+    return UserModel(json['uid'],
+        firstName: json['firstName'],
+        lastName: json['lastName'],
+        email: json['email'],
+        image: json['image'],
+        position: json['position'],
+        appointments:
+            json['appointments'] != null ? List.from(json['appointments']) : [],
+        fcmToken: json['fcmToken'] != null ? List.from(json['fcmToken']) : [],
+        searchIndex: []);
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +44,7 @@ class UserModel {
       'position': position,
       'appointments': appointments,
       'fcmToken': fcmToken,
+      'searchIndex': searchIndex,
     };
   }
 

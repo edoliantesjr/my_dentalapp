@@ -7,7 +7,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -29,6 +29,8 @@ import '../ui/views/register/register_view.dart';
 import '../ui/views/select_patient/select_patient_view.dart';
 import '../ui/views/update_user_info/setup_user_view.dart';
 import '../ui/views/verify_email/verify_email_view.dart';
+import '../ui/widgets/selection_dentist/selection_dentist.dart';
+import '../ui/widgets/selection_procedure/selection_procedure.dart';
 import '../ui/widgets/success_view/success.dart';
 
 class Routes {
@@ -50,6 +52,8 @@ class Routes {
   static const String CreateAppointmentView = '/create-appointment-view';
   static const String AddMedicineView = '/add-medicine-view';
   static const String AddProcedureView = '/add-procedure-view';
+  static const String SelectionDentist = '/selection-dentist';
+  static const String SelectionProcedure = '/selection-procedure';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -69,6 +73,8 @@ class Routes {
     CreateAppointmentView,
     AddMedicineView,
     AddProcedureView,
+    SelectionDentist,
+    SelectionProcedure,
   };
 }
 
@@ -94,6 +100,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.CreateAppointmentView, page: CreateAppointmentView),
     RouteDef(Routes.AddMedicineView, page: AddMedicineView),
     RouteDef(Routes.AddProcedureView, page: AddProcedureView),
+    RouteDef(Routes.SelectionDentist, page: SelectionDentist),
+    RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -217,6 +225,24 @@ class StackedRouter extends RouterBase {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const AddProcedureView(),
         settings: data,
+      );
+    },
+    SelectionDentist: (data) {
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const SelectionDentist(),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
+    SelectionProcedure: (data) {
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const SelectionProcedure(),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
       );
     },
   };

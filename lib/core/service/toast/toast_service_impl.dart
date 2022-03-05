@@ -8,10 +8,10 @@ class ToastServiceImpl extends ToastService {
     return Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 2,
+        backgroundColor: Color(0xead50000),
         textColor: Colors.white,
-        fontSize: 16.0);
+        fontSize: 14.0);
   }
 }
