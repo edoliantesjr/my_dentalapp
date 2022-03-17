@@ -10,8 +10,10 @@ import 'package:stacked/stacked.dart';
 class SelectionTime extends StatelessWidget {
   final String? title;
   final DateTime? initialDateTime;
+  final DateTime? minimumDateTime;
 
-  const SelectionTime({Key? key, this.title, this.initialDateTime})
+  const SelectionTime(
+      {Key? key, this.title, this.initialDateTime, this.minimumDateTime})
       : super(key: key);
 
   @override
@@ -42,9 +44,8 @@ class SelectionTime extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   TextButton(
-                    onPressed: () {},
-                    // onPressed: () =>
-                    //     model.setReturnDate(initialDate: initialDate),
+                    onPressed: () =>
+                        model.setReturnDateTime(initialDate: initialDateTime),
                     child: Text(
                       'Done',
                       style: TextStyles.tsButton1(color: Palettes.kcBlueMain1),
@@ -57,9 +58,10 @@ class SelectionTime extends StatelessWidget {
                 child: CupertinoDatePicker(
                     mode: CupertinoDatePickerMode.time,
                     initialDateTime: initialDateTime ?? model.defaultStartTime,
-                    onDateTimeChanged: (DateTime dateTime) {}
-                    // model.setSelectedDate(dateTime),
-                    ))
+                    minimumDate: minimumDateTime,
+                    onDateTimeChanged: (DateTime dateTime) {
+                      model.setSelectedTime(dateTime);
+                    }))
           ],
         ),
       ),

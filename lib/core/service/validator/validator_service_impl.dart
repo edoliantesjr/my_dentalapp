@@ -125,4 +125,25 @@ class ValidatorServiceImpl extends ValidatorService {
       return 'Procedure Name is empty';
     }
   }
+
+  @override
+  String? validateStartTime(String value) {
+    if (value.isEmpty) {
+      return ' Start Time is empty';
+    }
+  }
+
+  @override
+  String? validateEndTime(String value) {
+    if (value.isEmpty) {
+      return ' End Time is empty';
+    }
+  }
+
+  @override
+  String? validateDentist(String value) {
+    if (value.isEmpty) {
+      return ' No Dentist Selected';
+    }
+  }
 }

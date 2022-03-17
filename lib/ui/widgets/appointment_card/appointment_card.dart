@@ -14,6 +14,7 @@ class AppointmentCard extends StatelessWidget {
   final String patient;
   final AppointmentStatus appointmentStatus;
   final String serviceTitle;
+  final String? time;
   final VoidCallback onDelete;
 
   const AppointmentCard({
@@ -25,6 +26,7 @@ class AppointmentCard extends StatelessWidget {
     required this.appointmentStatus,
     required this.serviceTitle,
     required this.onDelete,
+    this.time,
   }) : super(key: key);
 
   @override
@@ -152,7 +154,7 @@ class AppointmentCard extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'TIME: 09:30 AM',
+                            'TIME: ${time}',
                             style: TextStyles.tsButton2(),
                           ),
                         ),
@@ -284,9 +286,18 @@ class InfoWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10),
-          Text(
-            doctor,
-            style: TextStyles.tsHeading5(color: Palettes.kcNeutral2),
+          Row(
+            children: [
+              Text(
+                'Dentist: ',
+                style: TextStyles.tsHeading5(color: Palettes.kcNeutral2),
+              ),
+              Text(
+                doctor,
+                style: TextStyles.tsHeading5(color: Palettes.kcNeutral2),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
           SizedBox(height: 5),
           Row(

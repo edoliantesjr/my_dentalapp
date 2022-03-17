@@ -104,7 +104,7 @@ class _LoginViewState extends State<LoginView> {
                                     ? AutovalidateMode.onUserInteraction
                                     : AutovalidateMode.disabled,
                                 validator: (value) => model.validatorService
-                                    .validateEmailAddress(value!),
+                                    .validateEmailAddress(value!.trim()),
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   hintText: 'Your Email Account',

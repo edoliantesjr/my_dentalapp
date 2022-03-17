@@ -1,6 +1,8 @@
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_border_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
+import 'package:dentalapp/enums/appointment_status.dart';
+import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/ui/views/create_appointment/create_appointment_view_model.dart';
 import 'package:dentalapp/ui/views/select_patient/select_patient_view.dart';
@@ -64,7 +66,32 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                     ),
                     Expanded(
                         child: ElevatedButton(
-                            onPressed: () {}, child: Text('Save'))),
+                            onPressed: () {
+                              if (createAppointmentFormKey.currentState!
+                                  .validate()) {
+                                if (!(model.selectedProcedures.length <= 0)) {
+                                  //  todo: code here
+                                  model.setAppointment(
+                                    AppointmentModel(
+                                      patient: widget.patient,
+                                      date: dateTxtController.text,
+                                      startTime:
+                                          model.selectedStartTime.toString(),
+                                      endTime: model.selectedEndTime.toString(),
+                                      dentist: dentistTxtController.text,
+                                      procedures: model.selectedProcedures,
+                                      appointment_status:
+                                          AppointmentStatus.Pending.name,
+                                    ),
+                                  );
+                                } else {
+                                  model.snackBarService.showSnackBar(
+                                      message: 'No Procedures Selected',
+                                      title: 'Warning');
+                                }
+                              }
+                            },
+                            child: Text('Save'))),
                   ],
                 )
               ],
@@ -172,37 +199,14 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                           ),
                         ),
                       ),
-                      // GestureDetector(
-                      //   onTap: () => model.openProcedureFullScreenModal(
-                      //       procedureTxtController),
-                      //   child: TextFormField(
-                      //     controller: procedureTxtController,
-                      //     textInputAction: TextInputAction.next,
-                      //     enabled: false,
-                      //     keyboardType: TextInputType.datetime,
-                      //     decoration: InputDecoration(
-                      //         errorBorder: TextBorderStyles.errorBorder,
-                      //         errorStyle: TextStyles.errorTextStyle,
-                      //         disabledBorder: TextBorderStyles.normalBorder,
-                      //         hintText: 'Select Procedures/Services',
-                      //         labelText: 'Procedure*',
-                      //         labelStyle: TextStyles.tsBody1(
-                      //             color: Palettes.kcNeutral1),
-                      //         floatingLabelBehavior:
-                      //             FloatingLabelBehavior.always,
-                      //         suffixIcon: Icon(
-                      //           Icons.arrow_drop_down,
-                      //           size: 24,
-                      //           color: Palettes.kcBlueMain1,
-                      //         )),
-                      //   ),
-                      // ),
                       GestureDetector(
                         onTap: () =>
                             model.selectStartTime(startTimeTxtController),
                         child: TextFormField(
                           controller: startTimeTxtController,
                           enabled: false,
+                          validator: (value) =>
+                              model.validatorService.validateStartTime(value!),
                           decoration: InputDecoration(
                             hintText: 'Set Start Time',
                             labelText: 'Start Time*',
@@ -217,10 +221,12 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                       ),
                       SizedBox(height: 10),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => model.selectEndTime(endTimeTxtController),
                         child: TextFormField(
                           controller: endTimeTxtController,
                           enabled: false,
+                          validator: (value) =>
+                              model.validatorService.validateEndTime(value!),
                           decoration: InputDecoration(
                             hintText: 'Set End Time',
                             labelText: 'End Time*',
@@ -243,6 +249,8 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                           //     .validateGender(value!),
                           textInputAction: TextInputAction.next,
                           enabled: false,
+                          validator: (value) =>
+                              model.validatorService.validateDentist(value!),
                           keyboardType: TextInputType.datetime,
                           decoration: InputDecoration(
                               errorBorder: TextBorderStyles.errorBorder,
@@ -266,7 +274,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                         controller: remarksTxtController,
                         decoration: InputDecoration(
                           hintText: 'Type here',
-                          labelText: 'Remarks',
+                          labelText: 'Remarks (Optional)',
                           labelStyle:
                               TextStyles.tsBody1(color: Palettes.kcNeutral1),
                           enabledBorder: TextBorderStyles.normalBorder,

@@ -10,7 +10,6 @@ class ToastServiceImpl extends ToastService {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 2,
-        backgroundColor: Color(0xead50000),
         textColor: Colors.white,
         fontSize: 14.0);
   }

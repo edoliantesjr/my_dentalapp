@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
-import 'package:dentalapp/models/appointment_model/appoinment_model.dart';
+import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
@@ -193,9 +193,9 @@ class ApiServiceImpl extends ApiService {
     final appointmentRef = await appointmentReference.doc();
 
     return await appointmentRef.set(appointment.toJson(
+        patientId: appointment.patient.id,
         appointment_id: appointmentRef.id,
         dateCreated: FieldValue.serverTimestamp()));
-    // TODO: implement createAppointment
   }
 
   @override
@@ -234,5 +234,15 @@ class ApiServiceImpl extends ApiService {
               .map((patient) => UserModel.fromJson(patient.data()))
               .toList());
     }
+  }
+
+  @override
+  Stream<List<AppointmentModel>> searchAppointment({required String query}) {
+    return appointmentReference
+        .orderBy('dateCreated', descending: true)
+        .snapshots()
+        .map((event) => event.docs
+            .map((value) => AppointmentModel.fromJson(value.data()))
+            .toList());
   }
 }

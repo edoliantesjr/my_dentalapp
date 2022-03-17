@@ -85,18 +85,21 @@ class SelectionDentist extends StatelessWidget {
             thickness: 7,
             hoverThickness: 2,
             showTrackOnHover: true,
-            child: setProcedureSelectionBody(
-                isBusy: model.isBusy,
-                dentistList: model.isBusy ? null : model.dentistList),
+            child: setDentistSelectionBody(
+              isBusy: model.isBusy,
+              dentistList: model.isBusy ? null : model.dentistList,
+              onTap: (user) => model.setReturnDentist(user),
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget setProcedureSelectionBody({
+  Widget setDentistSelectionBody({
     required bool isBusy,
     required List<UserModel>? dentistList,
+    required Function(UserModel user) onTap,
   }) {
     if (isBusy) {
       return Center(
@@ -124,8 +127,13 @@ class SelectionDentist extends StatelessWidget {
       } else {
         return ListView.separated(
           shrinkWrap: true,
+          primary: false,
           physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => UserCard(user: dentistList[index]),
+          itemBuilder: (context, index) => UserCard(
+            user: dentistList[index],
+            onTap: () => onTap(dentistList[index]),
+          ),
+
           separatorBuilder: (context, index) => SizedBox(
             height: 4,
           ),

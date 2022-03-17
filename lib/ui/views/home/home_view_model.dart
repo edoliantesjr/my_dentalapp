@@ -7,7 +7,7 @@ import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
-import 'package:dentalapp/models/appointment_model/appoinment_model.dart';
+import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,8 +18,9 @@ class HomePageViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   final fAuthService = locator<FirebaseAuthService>();
   StreamSubscription? userSubscription;
+  StreamSubscription? appointmentSubscription;
   UserModel? currentUser;
-  List<AppointmentModel>? mockAppointments;
+  List<AppointmentModel> myAppointments = [];
 
   Future<void> init() async {
     setBusy(true);
@@ -51,5 +52,17 @@ class HomePageViewModel extends BaseViewModel {
   void logOut() async {
     await fAuthService.logOut();
     navigationService.popAllAndPushNamed(Routes.Login);
+  }
+
+  void getAppointment() {
+    //  todo: logic code to get list of appointments
+    apiService.searchAppointment(query: '').listen((event) {
+      appointmentSubscription?.cancel();
+      appointmentSubscription =
+          apiService.searchAppointment(query: '').listen((event) {
+        myAppointments = event;
+        notifyListeners();
+      });
+    });
   }
 }

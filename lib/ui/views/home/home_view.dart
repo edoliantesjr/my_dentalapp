@@ -2,6 +2,7 @@ import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/ui/views/home/home_view_model.dart';
 import 'package:dentalapp/ui/widgets/custom_app_bar/custom_app_bar.dart';
+import 'package:dentalapp/ui/widgets/home_appointment/home_appointment.dart';
 import 'package:dentalapp/ui/widgets/home_shortcut/home_shortcut.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -14,6 +15,7 @@ class HomePageView extends StatelessWidget {
     return ViewModelBuilder<HomePageViewModel>.reactive(
       onModelReady: (model) {
         model.init();
+        model.getAppointment();
       },
       viewModelBuilder: () => HomePageViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -44,12 +46,11 @@ class HomePageView extends StatelessWidget {
                     Routes.AddMedicineView,
                   ),
                 ),
-                //TODO: To Add Home Appointment
-                // HomeAppointment(
-                //   deleteItem: (index) => model.deleteThisFromList(index),
-                //   myAppointments: model.mockAppointment,
-                //   isBusy: model.isBusy,
-                // ),
+                HomeAppointment(
+                  deleteItem: (index) => model.deleteThisFromList(index),
+                  myAppointments: model.myAppointments,
+                  isBusy: model.isBusy,
+                ),
               ],
             ),
           ),

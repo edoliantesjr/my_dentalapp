@@ -11,9 +11,8 @@ class AppointmentModel {
   final String endTime;
   final String dentist;
   final String appointment_status;
-  final List<Procedure?>? procedures;
+  final List<dynamic>? procedures;
   final Payment? payment;
-  final String status;
   final String? dateCreated;
 
   const AppointmentModel({
@@ -27,40 +26,45 @@ class AppointmentModel {
     this.procedures,
     this.payment,
     this.dateCreated,
-    required this.status,
   });
 
-  Map<String, dynamic> toJson({
-    required String appointment_id,
-    required dynamic dateCreated,
-  }) {
+  Map<String, dynamic> toJson(
+      {required String appointment_id,
+      required dynamic dateCreated,
+      required String patientId}) {
     return {
       'appointment_id': appointment_id,
-      'patient': this.patient,
+      'patient':
+          this.patient.toJson(patientId: patientId, dateCreated: dateCreated),
       'date': this.date,
       'startTime': this.startTime,
       'endTime': this.endTime,
       'dentist': this.dentist,
       'appointment_status': this.appointment_status,
-      'procedures': this.procedures,
+      'procedures': this
+          .procedures
+          ?.map((e) => e.toJson(dateCreated: e.dateCreated, id: e.id))
+          .toList(),
+      // ?.map((e) => e?.toJson(dateCreated: this.date)),
       'payment': this.payment,
-      'status': this.status,
       'dateCreated': dateCreated,
     };
   }
 
   factory AppointmentModel.fromJson(Map<String, dynamic> map) {
+    final patient = map['patient'];
     return AppointmentModel(
         appointment_id: map['appointment_id'] as String,
-        patient: map['patient'] as Patient,
+        patient: Patient.fromJson(patient),
         date: map['date'] as String,
         startTime: map['startTime'] as String,
         endTime: map['endTime'] as String,
         dentist: map['dentist'] as String,
         appointment_status: map['appointment_status'] as String,
-        procedures: map['procedures'] as List<Procedure?>,
-        payment: map['payment'] as Payment,
-        status: map['status'] as String,
-        dateCreated: map['dateCreated']);
+        procedures: map['procedures']
+            .map((procedure) => Procedure.fromJson(procedure))
+            .toList(),
+        payment: map['payment'],
+        dateCreated: map['dateCreated'].toString());
   }
 }

@@ -18,6 +18,7 @@ import 'package:dentalapp/ui/widgets/selection_list/selection_option.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
 class AddPatientViewModel extends BaseViewModel {
@@ -35,7 +36,7 @@ class AddPatientViewModel extends BaseViewModel {
   bool isMinor = false;
   XFile? selectedImage;
   String? tempGender;
-  String? tempBirthDate;
+  DateTime? tempBirthDate;
   bool autoValidate = false;
 
   void setAllergyVisibility(bool value) {
@@ -63,15 +64,15 @@ class AddPatientViewModel extends BaseViewModel {
 
   Future<void> setBirthDateValue(
       TextEditingController textEditingController) async {
-    String selectedBirthDate =
+    DateTime? selectedBirthDate =
         await bottomSheetService.openBottomSheet(SelectionDate(
-              title: 'Select birth date',
-            )) ??
-            '';
+      title: 'Select birth date',
+    ));
     tempBirthDate =
-        selectedBirthDate != '' ? selectedBirthDate : tempBirthDate ?? '';
+        selectedBirthDate != null ? selectedBirthDate : tempBirthDate;
     selectedBirthDate = tempBirthDate!;
-    textEditingController.text = selectedBirthDate;
+    textEditingController.text = DateFormat.yMMMd().format(selectedBirthDate);
+    ;
     notifyListeners();
   }
 

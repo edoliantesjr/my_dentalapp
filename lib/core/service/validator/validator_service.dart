@@ -30,4 +30,10 @@ abstract class ValidatorService {
   String? validatePrice(String value);
 
   String? validateProcedureName(String value);
+
+  String? validateStartTime(String value);
+
+  String? validateEndTime(String value);
+
+  String? validateDentist(String value);
 }

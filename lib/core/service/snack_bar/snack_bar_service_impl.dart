@@ -7,34 +7,21 @@ class SnackBarServiceImpl extends SnackBarService {
   @override
   Future<dynamic>? showSnackBar(
       {String? title, required String message, TextButton? mainButton}) {
-    GetSnackBar(
-      title: title,
-      message: message,
-      duration: Duration(seconds: 2),
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      backgroundColor: Colors.grey[800]!,
-      snackStyle: SnackStyle.FLOATING,
-      isDismissible: true,
-      dismissDirection: DismissDirection.horizontal,
-      animationDuration: Duration(milliseconds: 800),
-      borderRadius: 12,
-      snackPosition: SnackPosition.TOP,
-      mainButton: mainButton,
-    ).show();
-    // GetBar(
-    //        title: title,
-    //        message: message,
-    //        duration: Duration(seconds: 2, milliseconds: 300),
-    //        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-    //        backgroundColor: Colors.grey[800]!,
-    //        snackStyle: SnackStyle.FLOATING,
-    //        isDismissible: true,
-    //        dismissDirection: SnackDismissDirection.HORIZONTAL,
-    //        animationDuration: Duration(milliseconds: 800),
-    //        borderRadius: 12,
-    //        snackPosition: SnackPosition.TOP,
-    //        mainButton: mainButton)
-    //    .show();
+    if (!Get.isSnackbarOpen)
+      GetSnackBar(
+        title: title,
+        message: message,
+        duration: Duration(seconds: 3),
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        backgroundColor: Colors.grey[800]!,
+        snackStyle: SnackStyle.FLOATING,
+        isDismissible: true,
+        dismissDirection: DismissDirection.horizontal,
+        animationDuration: Duration(milliseconds: 300),
+        borderRadius: 12,
+        snackPosition: SnackPosition.TOP,
+        mainButton: mainButton,
+      ).show();
   }
 
   void open() {

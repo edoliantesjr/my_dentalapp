@@ -26,4 +26,8 @@ class SelectionDentistViewModel extends BaseViewModel {
     notifyListeners();
     setBusy(false);
   }
+
+  setReturnDentist(UserModel user) {
+    navigationService.pop(returnValue: user);
+  }
 }

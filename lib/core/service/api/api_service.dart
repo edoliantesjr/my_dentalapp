@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dentalapp/models/appointment_model/appoinment_model.dart';
+import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
@@ -51,4 +51,6 @@ abstract class ApiService {
       {required File imageToUpload, required String genericName});
 
   Future<List<UserModel>> searchDentist({required String query});
+
+  Stream<List<AppointmentModel>> searchAppointment({required String query});
 }

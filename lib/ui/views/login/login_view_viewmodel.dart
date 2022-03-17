@@ -35,7 +35,7 @@ class LoginViewModel extends FormViewModel {
           barrierDismissible: false, willPop: false);
 
       var loginResult = await firebaseAuthService.loginWithEmail(
-          email: emailValue, password: passwordValue);
+          email: emailValue.trim(), password: passwordValue);
 
       if (loginResult != null) {
         if (loginResult.success) {

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:flutter/material.dart';
 
@@ -9,20 +10,52 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 154,
-      child: Column(
-        children: [
-          CachedNetworkImage(
-            imageUrl: user.image,
-            fit: BoxFit.cover,
-            height: 80,
-            width: 80,
+    return GestureDetector(
+        onTap: () => onTap != null ? onTap!() : null,
+        child: SizedBox(
+          height: 110,
+          child: Card(
+            elevation: 2,
+            margin: EdgeInsets.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: 110,
+                  width: 110,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(4),
+                      bottomLeft: Radius.circular(4),
+                    ),
+                    child: CachedNetworkImage(
+                      imageUrl: user.image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          user.fullName,
+                          style: TextStyles.tsHeading4(),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          user.position,
+                          style: TextStyles.tsBody3(),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-          Text(user.fullName),
-          Text(user.position),
-        ],
-      ),
-    );
+        ));
   }
 }
