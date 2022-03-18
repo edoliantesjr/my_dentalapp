@@ -55,4 +55,12 @@ abstract class ApiService {
   Stream<List<AppointmentModel>> searchAppointment({String? query});
 
   // Future<AppointmentModel> getLatestAppointment({String? date});
+
+  Future<void> deleteAppointment({required String appointmentId});
+
+  Future<void> deleteProcedure({required String procedureId});
+
+  Future<void> deleteMedicine({required String medicineId});
+
+  Future<void> deleteUser({required String userId});
 }

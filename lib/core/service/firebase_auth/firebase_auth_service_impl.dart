@@ -47,8 +47,9 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
   Future<AuthResponse> loginWithEmail(
       {required String email, required String password}) async {
     try {
-      final authResult = await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+      final authResult = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .catchError((error) => AuthResponse.error('Network error'));
       if (authResult.user != null) {
         return AuthResponse.success(authResult.user!);
       } else {

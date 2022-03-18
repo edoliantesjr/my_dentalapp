@@ -245,6 +245,26 @@ class ApiServiceImpl extends ApiService {
             .map((value) => AppointmentModel.fromJson(value.data()))
             .toList());
   }
+
+  @override
+  Future<void> deleteAppointment({required String appointmentId}) async {
+    return await appointmentReference.doc(appointmentId).delete();
+  }
+
+  @override
+  Future<void> deleteMedicine({required String medicineId}) async {
+    return await medicineReference.doc(medicineId).delete();
+  }
+
+  @override
+  Future<void> deleteProcedure({required String procedureId}) async {
+    return await procedureReference.doc(procedureId).delete();
+  }
+
+  @override
+  Future<void> deleteUser({required String userId}) async {
+    return await userReference.doc(userId).delete();
+  }
   //
   // @override
   // Future<AppointmentModel> getLatestAppointment({String? date}) async {

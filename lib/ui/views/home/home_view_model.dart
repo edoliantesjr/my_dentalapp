@@ -7,6 +7,7 @@ import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:stacked/stacked.dart';
@@ -17,6 +18,7 @@ class HomePageViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final apiService = locator<ApiService>();
   final fAuthService = locator<FirebaseAuthService>();
+  final toastService = locator<ToastService>();
   StreamSubscription? userSubscription;
   StreamSubscription? appointmentSubscription;
   UserModel? currentUser;
@@ -34,9 +36,11 @@ class HomePageViewModel extends BaseViewModel {
     super.dispose();
   }
 
-  Future<void> deleteThisFromList(int index) async {
-    // await mockAppointment.removeAt(index);
+  Future<void> deleteThisFromList(int index, String appointmentId) async {
+    await myAppointments.removeAt(index);
+    await apiService.deleteAppointment(appointmentId: appointmentId);
     notifyListeners();
+    toastService.showToast(message: 'Appointment Deleted');
     logger.i('Item Deleted');
   }
 

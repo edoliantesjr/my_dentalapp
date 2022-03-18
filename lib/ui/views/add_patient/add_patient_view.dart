@@ -67,7 +67,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                     firstName: firstNameTxtController.text,
                     lastName: lastNameTxtController.text,
                     gender: genderTxtController.text,
-                    birthDate: birthDateTxtController.text,
+                    birthDate: model.tempBirthDate.toString(),
                     phoneNum: phoneTxtController.text,
                     address: addressTxtController.text,
                     allergies: allergyTxtController.text,

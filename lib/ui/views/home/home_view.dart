@@ -47,7 +47,8 @@ class HomePageView extends StatelessWidget {
                   ),
                 ),
                 HomeAppointment(
-                  deleteItem: (index) => model.deleteThisFromList(index),
+                  deleteItem: (index) => model.deleteThisFromList(
+                      index, model.myAppointments[index].appointment_id!),
                   myAppointments: model.myAppointments,
                   isBusy: model.isBusy,
                 ),

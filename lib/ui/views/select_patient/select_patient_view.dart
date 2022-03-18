@@ -232,7 +232,19 @@ class SelectPatientCard extends StatelessWidget {
                 name,
                 style: TextStyles.tsHeading4(color: Palettes.kcNeutral1),
               ),
-              SizedBox(height: 5),
+              Row(
+                children: [
+                  Text(
+                    'Age: ',
+                    style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
+                  ),
+                  Text(
+                    '$age',
+                    style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
               Row(
                 children: [
                   SvgPicture.asset(
