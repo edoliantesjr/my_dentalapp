@@ -36,11 +36,6 @@ class CreateAppointmentViewModel extends BaseViewModel {
   UserModel? myDentist;
   AppointmentModel? latestAppointment;
 
-  //Todo 1: set appointment date and time in sync
-  //Todo 2: compare time of appointments
-  //Todo 3: set minimum start time
-  //Todo 4: get appointments of the selected appointment date
-  // Todo 5: set minimum date to latest max end time
   //Todo 6: cant add appointment if selected time is already allotted to some else
 
   Future<void> setAppointment(AppointmentModel appointment) async {
