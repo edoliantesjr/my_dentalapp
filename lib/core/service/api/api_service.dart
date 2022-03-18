@@ -52,5 +52,7 @@ abstract class ApiService {
 
   Future<List<UserModel>> searchDentist({required String query});
 
-  Stream<List<AppointmentModel>> searchAppointment({required String query});
+  Stream<List<AppointmentModel>> searchAppointment({String? query});
+
+  // Future<AppointmentModel> getLatestAppointment({String? date});
 }

@@ -208,7 +208,7 @@ class DateWidget extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Text(
-                dateDay,
+                dateMonth,
                 style: TextStyles.tsHeading2(color: Colors.white),
               ),
             ),
@@ -216,8 +216,8 @@ class DateWidget extends StatelessWidget {
           SizedBox(height: 8),
           FittedBox(
             child: Text(
-              dateMonth,
-              style: TextStyles.tsCaption1(color: Colors.white),
+              dateDay,
+              style: TextStyles.tsHeading4(color: Colors.white),
             ),
           ),
         ],

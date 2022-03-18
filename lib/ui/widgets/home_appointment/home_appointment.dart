@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 class HomeAppointment extends StatelessWidget {
   final List<AppointmentModel> myAppointments;
@@ -109,12 +110,15 @@ class HomeAppointment extends StatelessWidget {
                                 myAppointments[i].procedures![0].procedureName,
                             doctor: myAppointments[i].dentist,
                             patient: myAppointments[i].patient.fullName,
-                            dateDay: myAppointments[i].date,
-                            dateMonth: myAppointments[i].date,
-                            time: myAppointments[i]
-                                .startTime
+                            dateDay: myAppointments[i]
+                                .date
                                 .toDateTime()!
-                                .toTime(),
+                                .day
+                                .toString(),
+                            dateMonth: DateFormat('MMM')
+                                .format(myAppointments[i].date.toDateTime()!),
+                            time:
+                                '${myAppointments[i].startTime.toDateTime()!.toTime()}-${myAppointments[i].endTime.toDateTime()!.toTime()}',
                             appointmentStatus: getAppointmentStatus(
                                 myAppointments[i].appointment_status),
                           ),

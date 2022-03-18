@@ -34,6 +34,7 @@ class CreateAppointmentViewModel extends BaseViewModel {
   DateTime? selectedStartTime;
   DateTime? selectedEndTime;
   UserModel? myDentist;
+  AppointmentModel? latestAppointment;
 
   //Todo 1: set appointment date and time in sync
   //Todo 2: compare time of appointments
@@ -78,9 +79,9 @@ class CreateAppointmentViewModel extends BaseViewModel {
           await bottomSheetService.openBottomSheet(SelectionTime(
         title: 'Set Start Time',
         initialDateTime: selectedAppointmentDate,
+        minimumDateTime: latestAppointment?.endTime.toDateTime() ?? null,
       ));
-      if (selectedStartTime != null ||
-          selectedStartTime!.toString().trim() != '') {
+      if (selectedStartTime != null) {
         if (selectedEndTime != selectedStartTime) {
           controller.text = DateFormat.jm().format(selectedStartTime!);
         } else {
@@ -103,20 +104,15 @@ class CreateAppointmentViewModel extends BaseViewModel {
         initialDateTime: selectedAppointmentDate?.add(Duration(hours: 1)),
         minimumDateTime: selectedAppointmentDate?.add(Duration(minutes: 1)),
       ));
-      if (selectedStartTime != null) {
-        if (selectedEndTime != null || selectedEndTime != '') {
-          if (selectedStartTime != selectedEndTime) {
-            controller.text = DateFormat.jm().format(selectedEndTime!);
-          } else {
-            snackBarService.showSnackBar(
-                message: 'Start time cannot be the same with End time',
-                title: 'Warning');
-            controller.text = '';
-          }
+      if (selectedEndTime != null) {
+        if (selectedStartTime != selectedEndTime) {
+          controller.text = DateFormat.jm().format(selectedEndTime!);
+        } else {
+          snackBarService.showSnackBar(
+              message: 'Start time cannot be the same with End time',
+              title: 'Warning');
+          controller.text = '';
         }
-      } else {
-        snackBarService.showSnackBar(
-            message: 'Start time is empty', title: 'Warning');
       }
     } else {
       snackBarService.showSnackBar(
@@ -156,4 +152,16 @@ class CreateAppointmentViewModel extends BaseViewModel {
     notifyListeners();
     toastService.showToast(message: 'Removed');
   }
+
+  // Future<void> getLatestAppointmentToDate(String? date) async {
+  //   if (date != null || date != '')
+  //     latestAppointment = await apiService.getLatestAppointment(date: date);
+  //   notifyListeners();
+  //   debugPrint(
+  //       latestAppointment?.endTime ?? 'No Appointments for the selected date');
+  // }
+
+  // bool? checkAppointmentTime(DateTime time) {
+  //   if()
+  // }
 }

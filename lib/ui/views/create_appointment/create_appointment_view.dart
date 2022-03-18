@@ -74,7 +74,8 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                   model.setAppointment(
                                     AppointmentModel(
                                       patient: widget.patient,
-                                      date: dateTxtController.text,
+                                      date: model.selectedAppointmentDate
+                                          .toString(),
                                       startTime:
                                           model.selectedStartTime.toString(),
                                       endTime: model.selectedEndTime.toString(),

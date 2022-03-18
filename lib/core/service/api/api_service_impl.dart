@@ -237,12 +237,26 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Stream<List<AppointmentModel>> searchAppointment({required String query}) {
+  Stream<List<AppointmentModel>> searchAppointment({String? query}) {
     return appointmentReference
-        .orderBy('dateCreated', descending: true)
+        .orderBy('startTime', descending: false)
         .snapshots()
         .map((event) => event.docs
             .map((value) => AppointmentModel.fromJson(value.data()))
             .toList());
   }
+  //
+  // @override
+  // Future<AppointmentModel> getLatestAppointment({String? date}) async {
+  //   List<AppointmentModel> latestAppointment = await appointmentReference
+  //       .where('date', isEqualTo: date)
+  //       .orderBy('endTime', descending: true)
+  //       .limit(1)
+  //       .get()
+  //       .then((value) => value.docs
+  //           .map((appointment) => AppointmentModel.fromJson(appointment.data()))
+  //           .toList());
+  //
+  //   return latestAppointment[0];
+  // }
 }
