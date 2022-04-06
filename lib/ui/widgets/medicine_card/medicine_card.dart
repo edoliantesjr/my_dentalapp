@@ -87,6 +87,7 @@ class MedicineCard extends StatelessWidget {
       return CachedNetworkImage(
         imageUrl: image,
         fit: BoxFit.cover,
+        filterQuality: FilterQuality.high,
         progressIndicatorBuilder: (context, url, progress) =>
             LinearProgressIndicator(
           color: Colors.grey.shade100,

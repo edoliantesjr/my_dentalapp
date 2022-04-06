@@ -3,7 +3,7 @@ import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/ui/views/patients/patients_view_model.dart';
-import 'package:dentalapp/ui/views/select_patient/select_patient_view.dart';
+import 'package:dentalapp/ui/widgets/patient_card/patient_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
@@ -47,7 +47,7 @@ class PatientsView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       TextField(
-                        // onChanged: (value) => model.searchPatient(value),
+                        onChanged: (value) => model.searchPatient(value),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(100),
@@ -122,7 +122,7 @@ class PatientsView extends StatelessWidget {
                                           message:
                                               'This feature is coming soon');
                                     },
-                                    child: SelectPatientCard(
+                                    child: PatientCard(
                                       key: ObjectKey(
                                           model.patientList[index].id),
                                       name: model.patientList[index].fullName,

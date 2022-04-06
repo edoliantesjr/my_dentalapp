@@ -47,15 +47,14 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
   Future<AuthResponse> loginWithEmail(
       {required String email, required String password}) async {
     try {
-      final authResult = await _firebaseAuth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .catchError((error) => AuthResponse.error('Network error'));
+      UserCredential? authResult = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
       if (authResult.user != null) {
         return AuthResponse.success(authResult.user!);
       } else {
         return AuthResponse.error('Unknown error');
       }
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseException catch (e) {
       switch (e.code) {
         case "unknown":
           errorMessage = e.message!;
@@ -71,7 +70,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
           errorMessage = "Incorrect password. Please try again.";
           break;
         default:
-          errorMessage = e.message!;
+          errorMessage = 'Network Error';
           break;
       }
       return AuthResponse.error(errorMessage);

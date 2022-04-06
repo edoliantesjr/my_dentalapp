@@ -1,12 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:age_calculator/age_calculator.dart';
 import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
-import 'package:dentalapp/constants/styles/text_styles.dart';
+import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/ui/views/select_patient/select_patient_view_model.dart';
+import 'package:dentalapp/ui/widgets/patient_card/patient_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
 class SelectPatientView extends StatelessWidget {
@@ -136,7 +138,7 @@ class SelectPatientView extends StatelessWidget {
                                     child: InkWell(
                                       onTap: () => model.selectPatient(
                                           model.patientList[index]),
-                                      child: SelectPatientCard(
+                                      child: PatientCard(
                                         key: ObjectKey(
                                             model.patientList[index].id),
                                         name: model.patientList[index].fullName,
@@ -145,8 +147,16 @@ class SelectPatientView extends StatelessWidget {
                                             model.patientList[index].phoneNum,
                                         address:
                                             model.patientList[index].address,
-                                        birthDate:
-                                            model.patientList[index].birthDate,
+                                        birthDate: DateFormat.yMMMd().format(
+                                            model.patientList[index].birthDate
+                                                .toDateTime()!),
+                                        age: AgeCalculator.age(
+                                                model.patientList[index]
+                                                    .birthDate
+                                                    .toDateTime()!,
+                                                today: DateTime.now())
+                                            .years
+                                            .toString(),
                                       ),
                                     ),
                                   ),
@@ -168,139 +178,6 @@ class SelectPatientView extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class SelectPatientCard extends StatelessWidget {
-  final String image;
-  final String name;
-  final String phone;
-  final String address;
-  final String? age;
-  final String? birthDate;
-  const SelectPatientCard(
-      {Key? key,
-      required this.image,
-      required this.name,
-      required this.phone,
-      required this.address,
-      this.age,
-      this.birthDate})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 10,
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey,
-                border: Border.all(
-                  color: Palettes.kcNeutral3,
-                  width: 1,
-                )),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(105),
-              child: CachedNetworkImage(
-                  imageUrl: image,
-                  fit: BoxFit.cover,
-                  progressIndicatorBuilder: (context, url, progress) =>
-                      CircularProgressIndicator(
-                        value: progress.progress,
-                        valueColor: AlwaysStoppedAnimation(
-                          Colors.white,
-                        ),
-                      )),
-            ),
-          ),
-          SizedBox(width: 10),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: TextStyles.tsHeading4(color: Palettes.kcNeutral1),
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Age: ',
-                    style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
-                  ),
-                  Text(
-                    '$age',
-                    style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    'assets/icons/Call.svg',
-                    height: 18,
-                    width: 18,
-                    color: Palettes.kcBlueDark,
-                  ),
-                  SizedBox(width: 5),
-                  Text(
-                    phone,
-                    style: TextStyles.tsBody2(
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 1),
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    'assets/icons/Location.svg',
-                    height: 20,
-                    width: 20,
-                    color: Palettes.kcBlueDark,
-                  ),
-                  SizedBox(width: 5),
-                  Text(
-                    address,
-                    style: TextStyles.tsBody2(
-                      color: Colors.grey.shade700,
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 1),
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    'assets/icons/Calendar.svg',
-                    height: 18,
-                    width: 18,
-                    color: Palettes.kcBlueDark,
-                  ),
-                  SizedBox(width: 5),
-                  Text(
-                    birthDate ?? '',
-                    style: TextStyles.tsBody2(
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          )
-        ],
       ),
     );
   }

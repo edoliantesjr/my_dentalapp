@@ -30,6 +30,7 @@ class UserCard extends StatelessWidget {
                     ),
                     child: CachedNetworkImage(
                       imageUrl: user.image,
+                      filterQuality: FilterQuality.high,
                       fit: BoxFit.cover,
                     ),
                   ),

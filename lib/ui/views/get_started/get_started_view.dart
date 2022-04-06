@@ -2,9 +2,7 @@ import 'package:dentalapp/constants/styles/button_style.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_viewmodel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:stacked/stacked.dart';
@@ -39,7 +37,9 @@ class GetStartedView extends StatelessWidget {
                     flex: 8,
                     child: PageView.builder(
                       itemCount: model.listOfDetails.length,
-                      physics: BouncingScrollPhysics(),
+                      physics: NeverScrollableScrollPhysics(),
+                      pageSnapping: false,
+                      controller: model.pageController,
                       clipBehavior: Clip.none,
                       onPageChanged: (index) => model.indexChange(index),
                       itemBuilder: (context, index) =>
@@ -71,7 +71,7 @@ class GetStartedView extends StatelessWidget {
                     height: 40.h,
                     child: ElevatedButton(
                       onPressed: model.goToLoginView,
-                      child: Text('Get Started'),
+                      child: Text(model.index <= 1 ? 'Next' : 'Get Started'),
                       style: ButtonStyles.whiteButtonStyle(isBold: true),
                     ),
                   ),

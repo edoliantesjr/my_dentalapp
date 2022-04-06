@@ -21,25 +21,6 @@ class AppointmentView extends StatelessWidget {
             'Clinic Appointments',
             style: TextStyles.tsHeading3(color: Colors.white),
           ),
-          // actions: [
-          //   Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: TextButton.icon(
-          //       onPressed: () {},
-          //       style: ElevatedButton.styleFrom(
-          //         padding: EdgeInsets.only(right: 8),
-          //         primary: Colors.white,
-          //         shape: RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.circular(20)),
-          //       ),
-          //       label: Text(
-          //         'Appointment',
-          //         style: TextStyles.tsBody2(color: Palettes.kcNeutral1),
-          //       ),
-          //       icon: SvgPicture.asset('assets/icons/Plus.svg'),
-          //     ),
-          //   ),
-          // ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
         floatingActionButton: FloatingActionButton.extended(

@@ -50,6 +50,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                       ? CachedNetworkImage(
                           imageUrl: image,
                           fit: BoxFit.cover,
+                          filterQuality: FilterQuality.high,
                           progressIndicatorBuilder: (context, url, progress) =>
                               CircularProgressIndicator(
                             value: progress.progress,

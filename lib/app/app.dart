@@ -14,6 +14,8 @@ import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service_impl.dart';
 import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/core/service/toast/toast_service_impl.dart';
+import 'package:dentalapp/core/service/url_launcher/url_launcher_impl.dart';
+import 'package:dentalapp/core/service/url_launcher/url_launcher_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service_impl.dart';
 import 'package:dentalapp/core/utility/connectivity_state.dart';
@@ -43,24 +45,24 @@ import 'package:stacked/stacked_annotations.dart';
 
 @StackedApp(
   routes: [
-    CupertinoRoute(page: PreLoaderView, name: 'PreLoader'),
-    CupertinoRoute(page: GetStartedView, name: 'GetStarted'),
-    CupertinoRoute(page: LoginView, name: 'Login'),
-    CupertinoRoute(page: RegisterView, name: 'Register'),
-    CupertinoRoute(page: VerifyEmailView, name: 'VerifyEmail'),
-    CupertinoRoute(page: SetUpUserView, name: 'SetUpUserView'),
-    CupertinoRoute(page: SuccessView, name: 'Success'),
-    CupertinoRoute(page: MainBodyView, name: 'MainBodyView'),
-    CupertinoRoute(page: HomePageView, name: 'HomePageView'),
-    CupertinoRoute(page: AppointmentView, name: 'AppointmentView'),
-    CupertinoRoute(page: MedicineView, name: 'MedicineView'),
-    CupertinoRoute(page: PatientsView, name: 'PatientsView'),
-    CupertinoRoute(page: ProceduresView, name: 'ProceduresView'),
-    CupertinoRoute(page: AddPatientView, name: 'AddPatientView'),
-    CupertinoRoute(page: SelectPatientView, name: 'SelectPatientView'),
-    CupertinoRoute(page: CreateAppointmentView, name: 'CreateAppointmentView'),
-    CupertinoRoute(page: AddMedicineView, name: 'AddMedicineView'),
-    CupertinoRoute(page: AddProcedureView, name: 'AddProcedureView'),
+    MaterialRoute(page: PreLoaderView, name: 'PreLoader'),
+    MaterialRoute(page: GetStartedView, name: 'GetStarted'),
+    MaterialRoute(page: LoginView, name: 'Login'),
+    MaterialRoute(page: RegisterView, name: 'Register'),
+    MaterialRoute(page: VerifyEmailView, name: 'VerifyEmail'),
+    MaterialRoute(page: SetUpUserView, name: 'SetUpUserView'),
+    MaterialRoute(page: SuccessView, name: 'Success'),
+    MaterialRoute(page: MainBodyView, name: 'MainBodyView'),
+    MaterialRoute(page: HomePageView, name: 'HomePageView'),
+    MaterialRoute(page: AppointmentView, name: 'AppointmentView'),
+    MaterialRoute(page: MedicineView, name: 'MedicineView'),
+    MaterialRoute(page: PatientsView, name: 'PatientsView'),
+    MaterialRoute(page: ProceduresView, name: 'ProceduresView'),
+    MaterialRoute(page: AddPatientView, name: 'AddPatientView'),
+    MaterialRoute(page: SelectPatientView, name: 'SelectPatientView'),
+    MaterialRoute(page: CreateAppointmentView, name: 'CreateAppointmentView'),
+    MaterialRoute(page: AddMedicineView, name: 'AddMedicineView'),
+    MaterialRoute(page: AddProcedureView, name: 'AddProcedureView'),
     CustomRoute(
         page: SelectionDentist,
         name: 'SelectionDentist',
@@ -85,7 +87,9 @@ import 'package:stacked/stacked_annotations.dart';
     LazySingleton(classType: ApiServiceImpl, asType: ApiService),
     LazySingleton(classType: SessionServiceImpl, asType: SessionService),
     LazySingleton(classType: ToastServiceImpl, asType: ToastService),
-    LazySingleton(classType: SearchIndexService)
+    LazySingleton(classType: SearchIndexService),
+    LazySingleton(
+        classType: URLLauncherServiceImpl, asType: URLLauncherService),
   ],
   logger: StackedLogger(),
 )

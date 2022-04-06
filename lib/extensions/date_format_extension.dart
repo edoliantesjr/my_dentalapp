@@ -1,3 +1,4 @@
+import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:intl/intl.dart';
 
 extension DateTimeExtension on DateTime {
@@ -5,4 +6,7 @@ extension DateTimeExtension on DateTime {
   String toTime() => DateFormat.jm().format(this);
 
   String toStringDateFormat() => DateFormat.yMMMd().format(this);
+
+  DateTime? toDateMonthDayOnly() =>
+      DateFormat('yyyy-MM-dd').format(this).toDateTime();
 }

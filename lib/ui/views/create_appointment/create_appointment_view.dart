@@ -1,13 +1,16 @@
+import 'package:age_calculator/age_calculator.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_border_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
+import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/ui/views/create_appointment/create_appointment_view_model.dart';
-import 'package:dentalapp/ui/views/select_patient/select_patient_view.dart';
+import 'package:dentalapp/ui/widgets/patient_card/patient_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
 class CreateAppointmentView extends StatefulWidget {
@@ -110,12 +113,18 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                             style: TextStyles.tsHeading3(),
                             textAlign: TextAlign.center,
                           )),
-                      SelectPatientCard(
+                      PatientCard(
                         image: widget.patient.image,
                         name: widget.patient.fullName,
                         phone: widget.patient.phoneNum,
                         address: widget.patient.address,
-                        birthDate: widget.patient.birthDate,
+                        birthDate: DateFormat.yMMMd()
+                            .format(widget.patient.birthDate.toDateTime()!),
+                        age: AgeCalculator.age(
+                                widget.patient.birthDate.toDateTime()!,
+                                today: DateTime.now())
+                            .years
+                            .toString(),
                       ),
                       Divider(),
                       SizedBox(height: 10),

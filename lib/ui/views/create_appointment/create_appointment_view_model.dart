@@ -9,6 +9,7 @@ import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
+import 'package:dentalapp/extensions/date_format_extension.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
@@ -36,8 +37,6 @@ class CreateAppointmentViewModel extends BaseViewModel {
   UserModel? myDentist;
   AppointmentModel? latestAppointment;
 
-  //Todo 6: cant add appointment if selected time is already allotted to some else
-
   Future<void> setAppointment(AppointmentModel appointment) async {
     try {
       dialogService.showDefaultLoadingDialog(
@@ -63,7 +62,8 @@ class CreateAppointmentViewModel extends BaseViewModel {
     tempDate = selectedAppointmentDate != null
         ? selectedAppointmentDate.toString()
         : tempDate ?? '';
-    selectedAppointmentDate = tempDate?.toDateTime() ?? selectedAppointmentDate;
+    selectedAppointmentDate = tempDate?.toDateTime()?.toDateMonthDayOnly() ??
+        selectedAppointmentDate?.toDateMonthDayOnly();
     controller.text = DateFormat.yMMMd().format(selectedAppointmentDate!);
     notifyListeners();
   }
@@ -73,7 +73,7 @@ class CreateAppointmentViewModel extends BaseViewModel {
       selectedStartTime =
           await bottomSheetService.openBottomSheet(SelectionTime(
         title: 'Set Start Time',
-        initialDateTime: selectedAppointmentDate,
+        initialDateTime: DateTime.now(),
         minimumDateTime: latestAppointment?.endTime.toDateTime() ?? null,
       ));
       if (selectedStartTime != null) {
@@ -96,8 +96,8 @@ class CreateAppointmentViewModel extends BaseViewModel {
     if (selectedStartTime != null) {
       selectedEndTime = await bottomSheetService.openBottomSheet(SelectionTime(
         title: 'Set End Time',
-        initialDateTime: selectedAppointmentDate?.add(Duration(hours: 1)),
-        minimumDateTime: selectedAppointmentDate?.add(Duration(minutes: 1)),
+        initialDateTime: DateTime.now().add(Duration(hours: 1)),
+        minimumDateTime: DateTime.now().add(Duration(minutes: 1)),
       ));
       if (selectedEndTime != null) {
         if (selectedStartTime != selectedEndTime) {

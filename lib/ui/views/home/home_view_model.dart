@@ -60,10 +60,11 @@ class HomePageViewModel extends BaseViewModel {
 
   void getAppointment() {
     //  todo: logic code to get list of appointments
-    apiService.searchAppointment(query: '').listen((event) {
+
+    apiService.getAppointmentToday().listen((event) {
       appointmentSubscription?.cancel();
       appointmentSubscription =
-          apiService.searchAppointment(query: '').listen((event) {
+          apiService.getAppointmentToday().listen((event) {
         myAppointments = event;
         notifyListeners();
       });

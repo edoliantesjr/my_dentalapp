@@ -52,9 +52,10 @@ abstract class ApiService {
 
   Future<List<UserModel>> searchDentist({required String query});
 
-  Stream<List<AppointmentModel>> searchAppointment({String? query});
+  Stream<List<AppointmentModel>> getAppointmentToday();
 
-  // Future<AppointmentModel> getLatestAppointment({String? date});
+  Future<List<AppointmentModel>> getAppointmentAccordingToDate(
+      {DateTime? date});
 
   Future<void> deleteAppointment({required String appointmentId});
 
@@ -63,4 +64,9 @@ abstract class ApiService {
   Future<void> deleteMedicine({required String medicineId});
 
   Future<void> deleteUser({required String userId});
+
+  //Todo 3: view appointments according to date
+  //Todo 2: add and view photos of patients
+  //Todo 3: dental chart of adult and child
+
 }

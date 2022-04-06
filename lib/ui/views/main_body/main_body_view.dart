@@ -5,6 +5,7 @@ import 'package:dentalapp/ui/views/medicine/medicine_view.dart';
 import 'package:dentalapp/ui/views/patients/patients_view.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view.dart';
 import 'package:dentalapp/ui/widgets/bottom_navigation/bottom_navigation.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,23 +16,23 @@ class MainBodyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainBodyViewModel>.reactive(
       viewModelBuilder: () => MainBodyViewModel(),
-      builder: (context, model, child) => WillPopScope(
-        onWillPop: () async {
-          model.navigationService.pop();
-          return false;
-        },
-        child: Scaffold(
-            extendBody: true,
-            bottomNavigationBar: CustomBottomNavigation(
-              setSelectedIndex: (index) => model.setSelectedIndex(index),
-              selectedIndex: model.selectedIndex,
+      builder: (context, model, child) => Scaffold(
+          extendBody: true,
+          bottomNavigationBar: CustomBottomNavigation(
+            setSelectedIndex: (index) => model.setSelectedIndex(index),
+            selectedIndex: model.selectedIndex,
+          ),
+          body: DoubleBackToCloseApp(
+            snackBar: SnackBar(
+              content: Text('Press back again to exit'),
+              duration: Duration(seconds: 1),
             ),
-            body: SafeArea(
+            child: SafeArea(
               child: IndexStackBody(
                 index: model.selectedIndex,
               ),
-            )),
-      ),
+            ),
+          )),
     );
   }
 }

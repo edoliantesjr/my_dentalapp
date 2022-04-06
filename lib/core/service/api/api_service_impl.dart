@@ -11,6 +11,7 @@ import 'package:dentalapp/models/upload_result/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:intl/intl.dart';
 
 class ApiServiceImpl extends ApiService {
   final userReference = FirebaseFirestore.instance.collection('users');
@@ -107,6 +108,7 @@ class ApiServiceImpl extends ApiService {
   @override
   Stream<List<Patient>> getPatients() {
     return patientReference
+        .where('field')
         .orderBy('dateCreated', descending: true)
         .snapshots()
         .map((value) => value.docs
@@ -237,8 +239,11 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Stream<List<AppointmentModel>> searchAppointment({String? query}) {
+  Stream<List<AppointmentModel>> getAppointmentToday() {
+    final dateToday =
+        DateFormat('yyyy-MM-dd').format(DateTime.now()).toDateTime().toString();
     return appointmentReference
+        .where('date', isEqualTo: dateToday)
         .orderBy('startTime', descending: false)
         .snapshots()
         .map((event) => event.docs
@@ -264,6 +269,21 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<void> deleteUser({required String userId}) async {
     return await userReference.doc(userId).delete();
+  }
+
+  @override
+  Future<List<AppointmentModel>> getAppointmentAccordingToDate(
+      {DateTime? date}) {
+    appointmentReference
+        .where('date', isEqualTo: date)
+        .orderBy('startTime', descending: false)
+        .orderBy('appointment_status', descending: true)
+        .snapshots()
+        .map((event) => event.docs
+            .map((value) => AppointmentModel.fromJson(value.data()))
+            .toList());
+    // TODO: implement getAppointmentAccordingToDate
+    throw UnimplementedError();
   }
   //
   // @override

@@ -123,23 +123,27 @@ class SelectionProcedure extends StatelessWidget {
           child: Text('No Procedures Found...'),
         );
       } else {
-        return ListView.separated(
-          itemBuilder: (context, index) => ProcedureCard(
-            onTap: () => navigationService.pop(
-              returnValue: Procedure(
-                  id: procedureList[index].id,
-                  procedureName: procedureList[index].procedureName,
-                  price: procedureList[index].priceToCurrency),
+        return Container(
+          padding: EdgeInsets.only(top: 10),
+          color: Colors.grey.shade200,
+          child: ListView.separated(
+            itemBuilder: (context, index) => ProcedureCard(
+              onTap: () => navigationService.pop(
+                returnValue: Procedure(
+                    id: procedureList[index].id,
+                    procedureName: procedureList[index].procedureName,
+                    price: procedureList[index].priceToCurrency),
+              ),
+              id: procedureList[index].id ?? '',
+              procedureName: procedureList[index].procedureName,
+              price: procedureList[index].priceToCurrency,
             ),
-            id: procedureList[index].id ?? '',
-            procedureName: procedureList[index].procedureName,
-            price: procedureList[index].priceToCurrency,
+            separatorBuilder: (context, index) => Container(
+              height: 10,
+            ),
+            itemCount: procedureList.length,
+            padding: EdgeInsets.only(bottom: 20, top: 5),
           ),
-          separatorBuilder: (context, index) => SizedBox(
-            height: 4,
-          ),
-          itemCount: procedureList.length,
-          padding: EdgeInsets.only(bottom: 20, top: 5),
         );
       }
     }
