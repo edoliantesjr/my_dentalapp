@@ -128,14 +128,14 @@ class HomeAppointment extends StatelessWidget {
                   ),
                 ),
           SizedBox(height: 10),
-          Visibility(
-            visible: !isBusy,
-            child: Center(
-                child: Text(
-              'Show more',
-              style: TextStyles.tsButton2(color: Palettes.kcBlueMain2),
-            )),
-          ),
+          // Visibility(
+          //   visible: !isBusy,
+          //   child: Center(
+          //       child: Text(
+          //     'Show more',
+          //     style: TextStyles.tsButton2(color: Palettes.kcBlueMain2),
+          //   )),
+          // ),
         ],
       ),
     );

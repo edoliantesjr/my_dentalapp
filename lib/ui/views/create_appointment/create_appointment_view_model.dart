@@ -34,6 +34,8 @@ class CreateAppointmentViewModel extends BaseViewModel {
   DateTime? selectedAppointmentDate;
   DateTime? selectedStartTime;
   DateTime? selectedEndTime;
+  DateTime? tempStartTime;
+  DateTime? tempEndTime;
   UserModel? myDentist;
   AppointmentModel? latestAppointment;
 
@@ -78,6 +80,7 @@ class CreateAppointmentViewModel extends BaseViewModel {
       ));
       if (selectedStartTime != null) {
         if (selectedEndTime != selectedStartTime) {
+          tempStartTime = selectedStartTime;
           controller.text = DateFormat.jm().format(selectedStartTime!);
         } else {
           snackBarService.showSnackBar(
@@ -85,6 +88,9 @@ class CreateAppointmentViewModel extends BaseViewModel {
               title: 'Warning');
           controller.text = '';
         }
+      } else {
+        selectedStartTime = tempStartTime;
+        notifyListeners();
       }
     } else {
       snackBarService.showSnackBar(
@@ -101,6 +107,7 @@ class CreateAppointmentViewModel extends BaseViewModel {
       ));
       if (selectedEndTime != null) {
         if (selectedStartTime != selectedEndTime) {
+          tempEndTime = selectedEndTime;
           controller.text = DateFormat.jm().format(selectedEndTime!);
         } else {
           snackBarService.showSnackBar(
@@ -108,6 +115,9 @@ class CreateAppointmentViewModel extends BaseViewModel {
               title: 'Warning');
           controller.text = '';
         }
+      } else {
+        selectedEndTime = tempEndTime;
+        notifyListeners();
       }
     } else {
       snackBarService.showSnackBar(

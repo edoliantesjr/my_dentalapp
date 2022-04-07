@@ -273,17 +273,15 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future<List<AppointmentModel>> getAppointmentAccordingToDate(
-      {DateTime? date}) {
-    appointmentReference
-        .where('date', isEqualTo: date)
+      {DateTime? date}) async {
+    return await appointmentReference
+        .where('date', isEqualTo: date.toString())
         .orderBy('startTime', descending: false)
         .orderBy('appointment_status', descending: true)
-        .snapshots()
-        .map((event) => event.docs
-            .map((value) => AppointmentModel.fromJson(value.data()))
+        .get()
+        .then((value) => value.docs
+            .map((appointment) => AppointmentModel.fromJson(appointment.data()))
             .toList());
-    // TODO: implement getAppointmentAccordingToDate
-    throw UnimplementedError();
   }
   //
   // @override

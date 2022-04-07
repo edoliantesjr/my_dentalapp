@@ -41,9 +41,8 @@ class DentalApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: ScreenUtil.defaultSize,
       builder: () => GetMaterialApp(
-        // key: navigationService.navigatorKey,
         debugShowCheckedModeBanner: false,
-        title: 'Cagape Dental Care',
+        title: 'Dental Clinic',
         initialRoute: Routes.PreLoader,
         onGenerateRoute: StackedRouter().onGenerateRoute,
         themeMode: ThemeMode.light,
