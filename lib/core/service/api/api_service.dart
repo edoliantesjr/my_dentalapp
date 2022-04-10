@@ -65,7 +65,6 @@ abstract class ApiService {
 
   Future<void> deleteUser({required String userId});
 
-  //Todo 3: view appointments according to date
   //Todo 2: add and view photos of patients
   //Todo 3: dental chart of adult and child
 

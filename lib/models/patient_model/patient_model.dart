@@ -1,3 +1,5 @@
+import 'package:dentalapp/models/medical_history/medical_history.dart';
+
 class Patient {
   final dynamic id;
   final dynamic image;
@@ -13,6 +15,7 @@ class Patient {
   final String? emergencyContactNumber;
   final List<String> searchIndex;
   final dynamic dateCreated;
+  final MedicalHistory? medicalHistory;
 
   Patient({
     this.id,
@@ -29,6 +32,7 @@ class Patient {
     this.emergencyContactNumber,
     this.dateCreated,
     required this.searchIndex,
+    this.medicalHistory,
   });
 
   Map<String, dynamic> toJson(
@@ -49,6 +53,7 @@ class Patient {
       'emergencyContactNumber': this.emergencyContactNumber ?? '',
       'dateCreated': dateCreated,
       'searchIndex': this.searchIndex,
+      'medicalHistory': this.medicalHistory?.toJson(),
     };
   }
 
@@ -67,6 +72,11 @@ class Patient {
       emergencyContactName: json['emergencyContactName'] ?? '',
       emergencyContactNumber: json['emergencyContactNumber'] ?? '',
       searchIndex: [],
+      medicalHistory: json['medicalHistory'] != null
+          ? json['medicalHistory']
+              .map((medicalHistory) => MedicalHistory.fromJson(medicalHistory))
+              .toList()
+          : null,
     );
   }
   String get fullName => firstName + ' ' + lastName;

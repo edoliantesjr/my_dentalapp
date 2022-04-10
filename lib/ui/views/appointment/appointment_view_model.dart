@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
@@ -13,6 +15,7 @@ class AppointmentViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   DateTime selectedDate = DateTime.now();
   List<AppointmentModel> appointmentList = [];
+  StreamSubscription? appointmentSub;
 
   Future<void> getDateFromNtp() async {
     ntpDate = await NTP.now();
@@ -34,5 +37,9 @@ class AppointmentViewModel extends BaseViewModel {
     debugPrint(appointmentList.length.toString() + ' numlist');
     notifyListeners();
     setBusy(false);
+  }
+
+  void listenToAppointmentChanges() {
+    // apiService.get
   }
 }

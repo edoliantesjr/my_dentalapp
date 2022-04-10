@@ -115,13 +115,8 @@ class PatientsView extends StatelessWidget {
                                 child: Material(
                                   color: Colors.white,
                                   child: InkWell(
-                                    // onTap: () => model.selectPatient(
-                                    //     model.patientList[index]),
-                                    onTap: () {
-                                      model.toastService.showToast(
-                                          message:
-                                              'This feature is coming soon');
-                                    },
+                                    onTap: () =>
+                                        model.goToPatientInfoView(index),
                                     child: PatientCard(
                                       key: ObjectKey(
                                           model.patientList[index].id),

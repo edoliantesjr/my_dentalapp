@@ -45,8 +45,7 @@ class CreateAppointmentViewModel extends BaseViewModel {
           willPop: false, barrierDismissible: false);
       await apiService.createAppointment(appointment);
       toastService.showToast(message: 'Appointment added');
-      navigationService.closeOverlay();
-      navigationService.pop();
+      navigationService.popUntilNamed(Routes.MainBodyView);
     } catch (e) {
       debugPrint(e.toString());
       navigationService.closeOverlay();

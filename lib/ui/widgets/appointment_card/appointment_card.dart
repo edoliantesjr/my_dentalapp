@@ -289,6 +289,19 @@ class InfoWidget extends StatelessWidget {
           Row(
             children: [
               Text(
+                'Patient: ',
+                style: TextStyles.tsHeading5(color: Palettes.kcNeutral2),
+              ),
+              Text(
+                patient,
+                style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
+              )
+            ],
+          ),
+          SizedBox(height: 5),
+          Row(
+            children: [
+              Text(
                 'Dentist: ',
                 style: TextStyles.tsHeading5(color: Palettes.kcNeutral2),
               ),
@@ -299,19 +312,6 @@ class InfoWidget extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 5),
-          Row(
-            children: [
-              Text(
-                'Patient: ',
-                style: TextStyles.tsHeading5(color: Palettes.kcNeutral2),
-              ),
-              Text(
-                patient,
-                style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
-              )
-            ],
-          )
         ],
       ),
     );

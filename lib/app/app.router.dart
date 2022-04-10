@@ -6,6 +6,7 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -21,6 +22,7 @@ import '../ui/views/home/home_view.dart';
 import '../ui/views/login/login_view.dart';
 import '../ui/views/main_body/main_body_view.dart';
 import '../ui/views/medicine/medicine_view.dart';
+import '../ui/views/patient_info/patient_info_view.dart';
 import '../ui/views/patients/patients_view.dart';
 import '../ui/views/pre_loader/pre_loader_view.dart';
 import '../ui/views/procedures/procedure_view.dart';
@@ -51,6 +53,7 @@ class Routes {
   static const String CreateAppointmentView = '/create-appointment-view';
   static const String AddMedicineView = '/add-medicine-view';
   static const String AddProcedureView = '/add-procedure-view';
+  static const String PatientInfoView = '/patient-info-view';
   static const String SelectionDentist = '/selection-dentist';
   static const String SelectionProcedure = '/selection-procedure';
   static const all = <String>{
@@ -72,6 +75,7 @@ class Routes {
     CreateAppointmentView,
     AddMedicineView,
     AddProcedureView,
+    PatientInfoView,
     SelectionDentist,
     SelectionProcedure,
   };
@@ -99,6 +103,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.CreateAppointmentView, page: CreateAppointmentView),
     RouteDef(Routes.AddMedicineView, page: AddMedicineView),
     RouteDef(Routes.AddProcedureView, page: AddProcedureView),
+    RouteDef(Routes.PatientInfoView, page: PatientInfoView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
   ];
@@ -226,6 +231,16 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    PatientInfoView: (data) {
+      var args = data.getArgs<PatientInfoViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => PatientInfoView(
+          key: args.key,
+          patient: args.patient,
+        ),
+        settings: data,
+      );
+    },
     SelectionDentist: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -274,4 +289,11 @@ class CreateAppointmentViewArguments {
   final Patient patient;
   final Key? key;
   CreateAppointmentViewArguments({required this.patient, this.key});
+}
+
+/// PatientInfoView arguments holder class
+class PatientInfoViewArguments {
+  final Key? key;
+  final Patient patient;
+  PatientInfoViewArguments({this.key, required this.patient});
 }

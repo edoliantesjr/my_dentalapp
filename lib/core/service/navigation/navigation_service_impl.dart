@@ -44,8 +44,8 @@ class NavigationServiceImpl extends NavigationService {
 
   // Pops the back stack to a route name
   @override
-  void popUntilNamed(String routeName, int? id) {
-    Get.until(ModalRoute.withName(routeName), id: id);
+  void popUntilNamed(String routeName) {
+    Get.until(ModalRoute.withName(routeName));
   }
 
   // Pops the back stack until the predicate is satisfied

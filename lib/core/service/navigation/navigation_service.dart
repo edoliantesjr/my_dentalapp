@@ -16,7 +16,7 @@ abstract class NavigationService {
   Future<dynamic>? pushNamedAndRemoveUntil(String routeName,
       {required RoutePredicate predicate, arguments, int? id});
 
-  void popUntilNamed(String routeName, int? id);
+  void popUntilNamed(String routeName);
 
   void popUntilPredicate(RoutePredicate routePredicate);
 

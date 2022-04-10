@@ -3,7 +3,6 @@ import 'package:dentalapp/models/payment/payment.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
 
 class AppointmentModel {
-  //TODO: To modify  appointment model
   final String? appointment_id;
   final Patient patient;
   final String date;
