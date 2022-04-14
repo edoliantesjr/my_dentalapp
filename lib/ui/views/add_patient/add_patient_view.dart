@@ -90,7 +90,7 @@ class _AddPatientViewState extends State<AddPatientView> {
               children: [
                 AddPatientHeader(
                   onTap: () => model.selectImageSource(),
-                  filePath: model.selectedImage?.path,
+                  filePath: model.patientSelectedImage?.path,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -279,6 +279,21 @@ class _AddPatientViewState extends State<AddPatientView> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                         ),
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Medical History'),
+                          ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                  primary: Palettes.kcBlueMain2),
+                              child: Text(
+                                'Add Medical History',
+                                style: TextStyles.tsBody3(color: Colors.white),
+                              ))
+                        ],
                       ),
                       SizedBox(height: 10),
                       Container(

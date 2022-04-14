@@ -111,7 +111,8 @@ class PatientInfoView extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: ElevatedButton.icon(
-                                  onPressed: () {},
+                                  onPressed: () =>
+                                      model.callPatient(patient.phoneNum),
                                   label: Text(
                                     'Call',
                                     style:
@@ -128,7 +129,8 @@ class PatientInfoView extends StatelessWidget {
                               SizedBox(width: 8),
                               Expanded(
                                   child: ElevatedButton.icon(
-                                onPressed: () {},
+                                onPressed: () =>
+                                    model.textPatient(patient.phoneNum),
                                 label: Text(
                                   'Text',
                                   style:

@@ -64,6 +64,7 @@ dependencies:
   age_calculator: ^1.0.0
   url_launcher: ^6.0.20
   double_back_to_close_app: ^2.1.0
+  photo_view: ^0.13.0
 
 dev_dependencies:
   flutter_test:

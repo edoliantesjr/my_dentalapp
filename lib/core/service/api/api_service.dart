@@ -65,6 +65,8 @@ abstract class ApiService {
 
   Future<void> deleteUser({required String userId});
 
+  Stream listenToAppointmentChanges();
+
   //Todo 2: add and view photos of patients
   //Todo 3: dental chart of adult and child
 

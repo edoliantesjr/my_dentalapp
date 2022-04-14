@@ -34,9 +34,10 @@ class AddPatientViewModel extends BaseViewModel {
 
   bool haveAllergies = false;
   bool isMinor = false;
-  XFile? selectedImage;
+  XFile? patientSelectedImage;
   String? tempGender;
   DateTime? tempBirthDate;
+
   bool autoValidate = false;
 
   void setAllergyVisibility(bool value) {
@@ -91,7 +92,7 @@ class AddPatientViewModel extends BaseViewModel {
       tempImage = await imageSelectorService.selectImageWithCamera();
     }
     if (tempImage != null) {
-      selectedImage = tempImage;
+      patientSelectedImage = tempImage;
       setBusy(false);
       logger.i('image selected');
     }
@@ -111,11 +112,11 @@ class AddPatientViewModel extends BaseViewModel {
     String? emergencyContactName,
     String? emergencyContactNumber,
   }) async {
-    if (selectedImage != null) {
+    if (patientSelectedImage != null) {
       dialogService.showDefaultLoadingDialog(barrierDismissible: false);
       final imageUploadResult = await apiService.uploadPatientProfileImage(
           patientName: '$lastName, $firstName',
-          imageToUpload: File(selectedImage!.path));
+          imageToUpload: File(patientSelectedImage!.path));
 
       if (imageUploadResult.isUploaded) {
         final patientSearchIndex = await searchIndexService.setSearchIndex(

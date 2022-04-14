@@ -283,6 +283,11 @@ class ApiServiceImpl extends ApiService {
             .map((appointment) => AppointmentModel.fromJson(appointment.data()))
             .toList());
   }
+
+  @override
+  Stream listenToAppointmentChanges() {
+    return appointmentReference.snapshots();
+  }
   //
   // @override
   // Future<AppointmentModel> getLatestAppointment({String? date}) async {
