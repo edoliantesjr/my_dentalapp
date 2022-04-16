@@ -10,7 +10,9 @@ import 'package:dentalapp/core/service/search_index/search_index.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
+import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
+import 'package:dentalapp/models/upload_results/medical_history_upload_result.dart';
 import 'package:dentalapp/ui/views/main_body/main_body_view_model.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_viewmodel.dart';
 import 'package:dentalapp/ui/widgets/selection_date/selection_date.dart';
@@ -120,7 +122,12 @@ class AddPatientViewModel extends BaseViewModel {
           patientId: patientRef.id,
           imageToUpload: File(patientSelectedImage!.path));
 
-      if (imageUploadResult.isUploaded) {
+      final medHistoryUploadResult = await uploadMedicalHistory(
+          patientId: patientRef.id, listOfMedicalHistory: listOfMedicalHistory);
+
+      medHistoryUploadResult.medHistory;
+
+      if (imageUploadResult.isUploaded && medHistoryUploadResult.isUploaded) {
         final patientSearchIndex = await searchIndexService.setSearchIndex(
             string: '$firstName $lastName');
         final result = await apiService.addPatient(
@@ -137,6 +144,9 @@ class AddPatientViewModel extends BaseViewModel {
               emergencyContactNumber: emergencyContactNumber ?? '',
               emergencyContactName: emergencyContactName ?? '',
               searchIndex: patientSearchIndex,
+              medicalHistory: medHistoryUploadResult.medHistory!.isNotEmpty
+                  ? medHistoryUploadResult.medHistory
+                  : null,
               notes: notes ?? ''),
         );
 
@@ -155,6 +165,9 @@ class AddPatientViewModel extends BaseViewModel {
         }
       } else {
         navigationService.closeOverlay();
+        snackBarService.showSnackBar(
+            title: 'Error',
+            message: "There's an error encountered with adding new patient!");
       }
     } else {
       snackBarService.showSnackBar(
@@ -180,6 +193,44 @@ class AddPatientViewModel extends BaseViewModel {
     if (tempImage != null) {
       listOfMedicalHistory.add(tempImage);
       notifyListeners();
+    }
+  }
+
+  Future<MedHistoryUploadResult> uploadMedicalHistory(
+      {required patientId, required List<XFile> listOfMedicalHistory}) async {
+    List<MedicalHistory> medHistory = [];
+
+    try {
+      for (final e in listOfMedicalHistory) {
+        final imageUploadResult = await apiService.uploadMedicalHistoryPhoto(
+            patientId: patientId,
+            imageToUpload: File(e.path),
+            fileName: e.name);
+        if (imageUploadResult.isUploaded) {
+          medHistory.add(MedicalHistory(
+              id: imageUploadResult.imageFileName,
+              date: DateFormat.yMMMd().format(DateTime.now()),
+              image: imageUploadResult.imageUrl));
+          notifyListeners();
+        }
+        debugPrint('uploading ${e.path}');
+      }
+
+      // await listOfMedicalHistory.map((e) async {
+      //   final imageUploadResult = await apiService.uploadMedicalHistoryPhoto(
+      //       patientId: patientId, imageToUpload: File(e.path));
+      //   if (imageUploadResult.isUploaded) {
+      //     medHistory.add(MedicalHistory(
+      //         id: imageUploadResult.imageFileName,
+      //         date: DateFormat.yMMMd().format(DateTime.now()),
+      //         image: imageUploadResult.imageUrl));
+      //     notifyListeners();
+      //   }
+      // });
+      return MedHistoryUploadResult.success(medHistory: medHistory);
+    } catch (e) {
+      debugPrint(e.toString());
+      return MedHistoryUploadResult.failed(message: 'Something went wrong');
     }
   }
 }

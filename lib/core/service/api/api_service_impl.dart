@@ -7,7 +7,7 @@ import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
-import 'package:dentalapp/models/upload_result/image_upload_result.dart';
+import 'package:dentalapp/models/upload_results/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -296,10 +296,13 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future<ImageUploadResult> uploadMedicalHistoryPhoto(
-      {required File imageToUpload, required String patientId}) async {
+      {required File imageToUpload,
+      required String patientId,
+      required String fileName}) async {
     try {
       final profileImageRef = await FirebaseStorage.instance
-          .ref('patients/${patientId}/medical-history/');
+          .ref('patients/${patientId}/medical-history/')
+          .child(fileName);
       final uploadTask = profileImageRef.putFile(imageToUpload);
       await uploadTask;
       final imageUrl = await uploadTask.snapshot.ref.getDownloadURL();

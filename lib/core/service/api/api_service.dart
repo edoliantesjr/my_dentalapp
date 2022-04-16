@@ -5,7 +5,7 @@ import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
-import 'package:dentalapp/models/upload_result/image_upload_result.dart';
+import 'package:dentalapp/models/upload_results/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -72,7 +72,9 @@ abstract class ApiService {
   Stream listenToAppointmentChanges();
 
   Future<ImageUploadResult> uploadMedicalHistoryPhoto(
-      {required File imageToUpload, required String patientId});
+      {required File imageToUpload,
+      required String patientId,
+      required String fileName});
 
   //Todo 2: add and view photos of patients
   //Todo 3: dental chart of adult and child

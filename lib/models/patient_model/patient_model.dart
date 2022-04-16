@@ -15,7 +15,7 @@ class Patient {
   final String? emergencyContactNumber;
   final List<String> searchIndex;
   final dynamic dateCreated;
-  final List<MedicalHistory?>? medicalHistory;
+  final List<dynamic>? medicalHistory;
 
   Patient({
     this.id,
@@ -53,7 +53,7 @@ class Patient {
       'emergencyContactNumber': this.emergencyContactNumber ?? '',
       'dateCreated': dateCreated,
       'searchIndex': this.searchIndex,
-      'medicalHistory': medicalHistory?.map((e) => e?.toJson()),
+      'medicalHistory': medicalHistory?.map((e) => e?.toJson()).toList(),
     };
   }
 
