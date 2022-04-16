@@ -74,18 +74,23 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future<dynamic> addPatient({required Patient patient}) async {
-    final patientRef = await patientReference.doc();
+  Future<DocumentReference> createPatientID() async {
+    return await patientReference.doc();
+  }
+
+  @override
+  Future<dynamic> addPatient(
+      {required Patient patient, required DocumentReference patientRef}) async {
     return patientRef.set(patient.toJson(
         patientId: patientRef.id, dateCreated: FieldValue.serverTimestamp()));
   }
 
   @override
   Future<ImageUploadResult> uploadPatientProfileImage(
-      {required File imageToUpload, required String patientName}) async {
+      {required File imageToUpload, required String patientId}) async {
     try {
       final patientProfileImage = await FirebaseStorage.instance
-          .ref('patients/$patientName-${DateTime.now().millisecondsSinceEpoch}'
+          .ref('patients/$patientId'
               '/profile-image/profile.jpg')
           .putFile(imageToUpload);
 
@@ -288,18 +293,20 @@ class ApiServiceImpl extends ApiService {
   Stream listenToAppointmentChanges() {
     return appointmentReference.snapshots();
   }
-  //
-  // @override
-  // Future<AppointmentModel> getLatestAppointment({String? date}) async {
-  //   List<AppointmentModel> latestAppointment = await appointmentReference
-  //       .where('date', isEqualTo: date)
-  //       .orderBy('endTime', descending: true)
-  //       .limit(1)
-  //       .get()
-  //       .then((value) => value.docs
-  //           .map((appointment) => AppointmentModel.fromJson(appointment.data()))
-  //           .toList());
-  //
-  //   return latestAppointment[0];
-  // }
+
+  @override
+  Future<ImageUploadResult> uploadMedicalHistoryPhoto(
+      {required File imageToUpload, required String patientId}) async {
+    try {
+      final profileImageRef = await FirebaseStorage.instance
+          .ref('patients/${patientId}/medical-history/');
+      final uploadTask = profileImageRef.putFile(imageToUpload);
+      await uploadTask;
+      final imageUrl = await uploadTask.snapshot.ref.getDownloadURL();
+
+      return ImageUploadResult.success(patientId, imageUrl);
+    } on FirebaseException catch (e) {
+      return ImageUploadResult.error('Image Upload Failed: ${e.message}');
+    }
+  }
 }

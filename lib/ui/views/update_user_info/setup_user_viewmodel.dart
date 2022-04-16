@@ -18,6 +18,7 @@ import 'package:dentalapp/ui/widgets/selection_list/selection_option.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
 class SetupUserViewModel extends BaseViewModel {
@@ -40,15 +41,16 @@ class SetupUserViewModel extends BaseViewModel {
   XFile? selectedImage;
 
   String? tempGender;
+  DateTime? selectedBirthDate;
+  String selectedGender = '';
 
   Future<void> setGenderValue(
       TextEditingController textEditingController) async {
-    String selectedGender =
-        await bottomSheetService.openBottomSheet(SelectionOption(
-              options: genderOptions,
-              title: 'Select your gender',
-            )) ??
-            '';
+    selectedGender = await bottomSheetService.openBottomSheet(SelectionOption(
+          options: genderOptions,
+          title: 'Select your gender',
+        )) ??
+        '';
     tempGender = selectedGender != '' ? selectedGender : tempGender ?? '';
     selectedGender = tempGender!;
     textEditingController.text = selectedGender;
@@ -72,19 +74,19 @@ class SetupUserViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  String? tempBirthDate;
+  DateTime? tempBirthDate;
 
   Future<void> setBirthDateValue(
       TextEditingController textEditingController) async {
-    String selectedBirthDate =
-        await bottomSheetService.openBottomSheet(SelectionDate(
-              title: 'Select birth date',
-            )) ??
-            '';
+    selectedBirthDate = await bottomSheetService.openBottomSheet(SelectionDate(
+          title: 'Select birth date',
+        )) ??
+        '';
     tempBirthDate =
-        selectedBirthDate != '' ? selectedBirthDate : tempBirthDate ?? '';
+        selectedBirthDate != null ? selectedBirthDate : tempBirthDate;
     selectedBirthDate = tempBirthDate!;
-    textEditingController.text = selectedBirthDate;
+    textEditingController.text = DateFormat.yMMMd().format(selectedBirthDate!);
+    debugPrint('Selected Date is $tempBirthDate');
     notifyListeners();
   }
 
@@ -132,14 +134,15 @@ class SetupUserViewModel extends BaseViewModel {
         position: position,
         appointments: [],
         fcmToken: [],
-        searchIndex: userSearchIndex);
+        searchIndex: userSearchIndex,
+        gender: gender,
+        dateOfBirth: dateOfBirth);
 
     try {
       if (imageUploadResult.isUploaded) {
         logger.i('Image Uploaded');
         await apiService.createUser(userProfile);
         navigationService.closeOverlay();
-        // snackBarService.showSnackBar('User Created Successfully!');
         sessionService.saveSession(
             isRunFirstTime: false, isLoggedIn: true, isAccountSetupDone: true);
         navigationService.popAllAndPushNamed(Routes.Success);

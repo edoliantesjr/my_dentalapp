@@ -37,6 +37,7 @@ class AddPatientViewModel extends BaseViewModel {
   XFile? patientSelectedImage;
   String? tempGender;
   DateTime? tempBirthDate;
+  List<XFile> listOfMedicalHistory = [];
 
   bool autoValidate = false;
 
@@ -77,7 +78,7 @@ class AddPatientViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future<void> selectImageSource() async {
+  Future<void> selectPatientImage() async {
     dynamic tempImage;
     var selectedImageSource =
         await bottomSheetService.openBottomSheet(SelectionOption(
@@ -113,28 +114,31 @@ class AddPatientViewModel extends BaseViewModel {
     String? emergencyContactNumber,
   }) async {
     if (patientSelectedImage != null) {
+      final patientRef = await apiService.createPatientID();
       dialogService.showDefaultLoadingDialog(barrierDismissible: false);
       final imageUploadResult = await apiService.uploadPatientProfileImage(
-          patientName: '$lastName, $firstName',
+          patientId: patientRef.id,
           imageToUpload: File(patientSelectedImage!.path));
 
       if (imageUploadResult.isUploaded) {
         final patientSearchIndex = await searchIndexService.setSearchIndex(
             string: '$firstName $lastName');
         final result = await apiService.addPatient(
-            patient: Patient(
-                image: imageUploadResult.imageUrl ?? '',
-                firstName: firstName,
-                lastName: lastName,
-                gender: gender,
-                birthDate: birthDate,
-                phoneNum: phoneNum,
-                address: address,
-                allergies: allergies,
-                emergencyContactNumber: emergencyContactNumber ?? '',
-                emergencyContactName: emergencyContactName ?? '',
-                searchIndex: patientSearchIndex,
-                notes: notes ?? ''));
+          patientRef: patientRef,
+          patient: Patient(
+              image: imageUploadResult.imageUrl ?? '',
+              firstName: firstName,
+              lastName: lastName,
+              gender: gender,
+              birthDate: birthDate,
+              phoneNum: phoneNum,
+              address: address,
+              allergies: allergies,
+              emergencyContactNumber: emergencyContactNumber ?? '',
+              emergencyContactName: emergencyContactName ?? '',
+              searchIndex: patientSearchIndex,
+              notes: notes ?? ''),
+        );
 
         if (result == null) {
           navigationService.closeOverlay();
@@ -156,6 +160,26 @@ class AddPatientViewModel extends BaseViewModel {
       snackBarService.showSnackBar(
           message: 'Patient profile image is not set',
           title: 'Missing required Data');
+    }
+  }
+
+  void selectMedicalHistoryFile() async {
+    dynamic tempImage;
+    var selectedImageSource =
+        await bottomSheetService.openBottomSheet(SelectionOption(
+      options: SetupUserViewModel().imageSourceOptions,
+      title: 'Get Medical History From',
+    ));
+
+    if (selectedImageSource == SetupUserViewModel().imageSourceOptions[0]) {
+      tempImage = await imageSelectorService.selectImageWithGallery();
+    } else if (selectedImageSource ==
+        SetupUserViewModel().imageSourceOptions[1]) {
+      tempImage = await imageSelectorService.selectImageWithCamera();
+    }
+    if (tempImage != null) {
+      listOfMedicalHistory.add(tempImage);
+      notifyListeners();
     }
   }
 }

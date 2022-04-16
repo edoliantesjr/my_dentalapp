@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
@@ -23,9 +24,12 @@ abstract class ApiService {
       {required File imageToUpload, required String imageFileName});
 
   Future<ImageUploadResult> uploadPatientProfileImage(
-      {required File imageToUpload, required String patientName});
+      {required File imageToUpload, required String patientId});
 
-  Future<dynamic> addPatient({required Patient patient});
+  Future<DocumentReference> createPatientID();
+
+  Future<dynamic> addPatient(
+      {required Patient patient, required DocumentReference patientRef});
 
   Stream<UserModel> getUserAccountDetails();
 
@@ -66,6 +70,9 @@ abstract class ApiService {
   Future<void> deleteUser({required String userId});
 
   Stream listenToAppointmentChanges();
+
+  Future<ImageUploadResult> uploadMedicalHistoryPhoto(
+      {required File imageToUpload, required String patientId});
 
   //Todo 2: add and view photos of patients
   //Todo 3: dental chart of adult and child

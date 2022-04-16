@@ -5,6 +5,8 @@ class UserModel {
   String email;
   String image;
   String position;
+  String dateOfBirth;
+  String gender;
   List<String> appointments;
   List<String> searchIndex;
   List<dynamic> fcmToken;
@@ -16,6 +18,8 @@ class UserModel {
     required this.email,
     required this.image,
     required this.position,
+    required this.dateOfBirth,
+    required this.gender,
     required this.appointments,
     required this.fcmToken,
     required this.searchIndex,
@@ -31,7 +35,9 @@ class UserModel {
         appointments:
             json['appointments'] != null ? List.from(json['appointments']) : [],
         fcmToken: json['fcmToken'] != null ? List.from(json['fcmToken']) : [],
-        searchIndex: []);
+        searchIndex: [],
+        dateOfBirth: json['dateOfBirth'],
+        gender: json['gender']);
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +51,8 @@ class UserModel {
       'appointments': appointments,
       'fcmToken': fcmToken,
       'searchIndex': searchIndex,
+      'dateOfBirth': dateOfBirth,
+      'gender': gender
     };
   }
 

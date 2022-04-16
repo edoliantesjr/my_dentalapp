@@ -59,8 +59,8 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                     model.saveUser(
                         firstNameController.text,
                         lastNameController.text,
-                        dateOfBirthController.text,
-                        genderController.text,
+                        model.selectedBirthDate.toString(),
+                        model.selectedGender,
                         positionController.text);
                   }
                 }

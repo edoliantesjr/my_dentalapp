@@ -89,7 +89,7 @@ class _AddPatientViewState extends State<AddPatientView> {
             child: Column(
               children: [
                 AddPatientHeader(
-                  onTap: () => model.selectImageSource(),
+                  onTap: () => model.selectPatientImage(),
                   filePath: model.patientSelectedImage?.path,
                 ),
                 Container(
@@ -286,7 +286,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                         children: [
                           Text('Medical History'),
                           ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => model.selectMedicalHistoryFile(),
                               style: ElevatedButton.styleFrom(
                                   primary: Palettes.kcBlueMain2),
                               child: Text(
@@ -295,6 +295,55 @@ class _AddPatientViewState extends State<AddPatientView> {
                               ))
                         ],
                       ),
+                      SizedBox(height: 10),
+                      Visibility(
+                          visible: model.listOfMedicalHistory.isNotEmpty
+                              ? true
+                              : false,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Wrap(
+                              runSpacing: 8,
+                              spacing: 8,
+                              children: model.listOfMedicalHistory
+                                  .map((e) => Stack(
+                                        children: [
+                                          Image(
+                                              height: 150,
+                                              width: 80,
+                                              fit: BoxFit.cover,
+                                              image: FileImage(File(e.path))),
+                                          Positioned(
+                                            right: 0,
+                                            top: 0,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                model.listOfMedicalHistory
+                                                    .remove(e);
+                                                model.notifyListeners();
+                                              },
+                                              child: Container(
+                                                width: 15,
+                                                height: 15,
+                                                alignment: Alignment.center,
+                                                color: Colors.red,
+                                                child: Text(
+                                                  'X',
+                                                  style: TextStyles.tsBody4(
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ))
+                                  .toList(),
+                            ),
+                          )),
                       SizedBox(height: 10),
                       Container(
                         padding: EdgeInsets.all(8),

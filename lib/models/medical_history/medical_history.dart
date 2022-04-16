@@ -1,19 +1,19 @@
 class MedicalHistory {
   final dynamic id;
   final String date;
-  final String? file;
+  final String? image;
 
   const MedicalHistory({
     required this.id,
     required this.date,
-    required this.file,
+    required this.image,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'id': this.id,
       'date': this.date,
-      'file': this.file,
+      'file': this.image,
     };
   }
 
@@ -21,7 +21,7 @@ class MedicalHistory {
     return MedicalHistory(
       id: map['id'] as dynamic,
       date: map['date'] as String,
-      file: map['file'] as String,
+      image: map['file'] as String,
     );
   }
 }
