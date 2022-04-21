@@ -125,8 +125,6 @@ class AddPatientViewModel extends BaseViewModel {
       final medHistoryUploadResult = await uploadMedicalHistory(
           patientId: patientRef.id, listOfMedicalHistory: listOfMedicalHistory);
 
-      medHistoryUploadResult.medHistory;
-
       if (imageUploadResult.isUploaded && medHistoryUploadResult.isUploaded) {
         final patientSearchIndex = await searchIndexService.setSearchIndex(
             string: '$firstName $lastName');
@@ -196,6 +194,10 @@ class AddPatientViewModel extends BaseViewModel {
     }
   }
 
+  void selectMedicalHistFile(BuildContext context) async {
+    // await documentScannerService.scanImageToPDF(context);
+  }
+
   Future<MedHistoryUploadResult> uploadMedicalHistory(
       {required patientId, required List<XFile> listOfMedicalHistory}) async {
     List<MedicalHistory> medHistory = [];
@@ -215,18 +217,6 @@ class AddPatientViewModel extends BaseViewModel {
         }
         debugPrint('uploading ${e.path}');
       }
-
-      // await listOfMedicalHistory.map((e) async {
-      //   final imageUploadResult = await apiService.uploadMedicalHistoryPhoto(
-      //       patientId: patientId, imageToUpload: File(e.path));
-      //   if (imageUploadResult.isUploaded) {
-      //     medHistory.add(MedicalHistory(
-      //         id: imageUploadResult.imageFileName,
-      //         date: DateFormat.yMMMd().format(DateTime.now()),
-      //         image: imageUploadResult.imageUrl));
-      //     notifyListeners();
-      //   }
-      // });
       return MedHistoryUploadResult.success(medHistory: medHistory);
     } catch (e) {
       debugPrint(e.toString());

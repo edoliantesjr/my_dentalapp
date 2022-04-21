@@ -42,7 +42,7 @@ class DentalApp extends StatelessWidget {
       designSize: ScreenUtil.defaultSize,
       builder: () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Dental Clinic',
+        title: 'Maglinte Dental Care',
         initialRoute: Routes.PreLoader,
         onGenerateRoute: StackedRouter().onGenerateRoute,
         themeMode: ThemeMode.light,

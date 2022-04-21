@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' show GlobalKey, NavigatorState;
 import 'package:get/get.dart';
 
 import 'navigation_service.dart';

@@ -4,6 +4,7 @@ import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view_model.dart';
 import 'package:dentalapp/ui/widgets/procedure_card/procedure_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
 
@@ -31,7 +32,6 @@ class _ProceduresViewState extends State<ProceduresView> {
       viewModelBuilder: () => ProcedureViewModel(),
       onModelReady: (model) {
         model.getProcedureList();
-        model.setFabSize(procedureScrollController);
       },
       builder: (context, model, child) => Scaffold(
           appBar: AppBar(
@@ -42,94 +42,101 @@ class _ProceduresViewState extends State<ProceduresView> {
             ),
           ),
           floatingActionButton: AnimatedContainer(
-            duration: Duration(milliseconds: 400),
-            child: model.isScrolledUp
-                ? FloatingActionButton(
-                    onPressed: () => model.navigationService
-                        .pushNamed(Routes.AddProcedureView),
-                    child: Icon(Icons.add),
-                  )
-                : FloatingActionButton.extended(
-                    heroTag: null,
-                    onPressed: () => model.navigationService
-                        .pushNamed(Routes.AddProcedureView),
-                    label: Text('Add Procedure'),
-                  ),
+            duration: Duration(milliseconds: 300),
+            height: !model.isScrolledUp ? 56 : 48,
+            child: FloatingActionButton.extended(
+              heroTag: null,
+              isExtended: model.isScrolledUp,
+              onPressed: () =>
+                  model.navigationService.pushNamed(Routes.AddMedicineView),
+              label: Text('Add Procedure'),
+              icon: Icon(Icons.add),
+            ),
           ),
-          body: ListView(
-            controller: procedureScrollController,
-            padding: EdgeInsets.symmetric(vertical: 15),
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                ),
-                child: Container(
-                  height: 50,
-                  width: double.maxFinite,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          // onChanged: (value) => model.searchPatient(value),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 5,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100),
-                              borderSide: BorderSide(
-                                color: Palettes.kcBlueMain1,
-                                width: 1.8,
+          body: NotificationListener<UserScrollNotification>(
+            onNotification: (notification) {
+              if (notification.direction == ScrollDirection.forward) {
+                model.setFabSize(isScrolledUp: true);
+              } else if (notification.direction == ScrollDirection.reverse) {
+                model.setFabSize(isScrolledUp: false);
+              }
+              return true;
+            },
+            child: ListView(
+              controller: procedureScrollController,
+              padding: EdgeInsets.symmetric(vertical: 15),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                  ),
+                  child: Container(
+                    height: 50,
+                    width: double.maxFinite,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            // onChanged: (value) => model.searchPatient(value),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
                               ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100),
-                              borderSide: BorderSide(
-                                color: Palettes.kcBlueDark,
-                                width: 1,
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 5,
                               ),
-                            ),
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: SvgPicture.asset(
-                                'assets/icons/Search.svg',
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide: BorderSide(
+                                  color: Palettes.kcBlueMain1,
+                                  width: 1.8,
+                                ),
                               ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide: BorderSide(
+                                  color: Palettes.kcBlueDark,
+                                  width: 1,
+                                ),
+                              ),
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: SvgPicture.asset(
+                                  'assets/icons/Search.svg',
+                                ),
+                              ),
+                              constraints: BoxConstraints(maxHeight: 43),
+                              hintText: 'Search Procedure...',
                             ),
-                            constraints: BoxConstraints(maxHeight: 43),
-                            hintText: 'Search Procedure...',
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                color: Colors.grey.shade200,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  primary: false,
-                  itemBuilder: (context, index) => ProcedureCard(
-                    procedureName: model.procedureList[index].procedureName,
-                    id: model.procedureList[index].id!,
-                    price: model.procedureList[index].priceToCurrency,
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  color: Colors.grey.shade200,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemBuilder: (context, index) => ProcedureCard(
+                      procedureName: model.procedureList[index].procedureName,
+                      id: model.procedureList[index].id!,
+                      price: model.procedureList[index].priceToCurrency,
+                    ),
+                    separatorBuilder: (context, index) => Container(
+                      height: 8,
+                    ),
+                    itemCount: model.procedureList.length,
                   ),
-                  separatorBuilder: (context, index) => Container(
-                    height: 8,
-                  ),
-                  itemCount: model.procedureList.length,
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           )),
     );
   }

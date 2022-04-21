@@ -17,6 +17,7 @@ class PatientsViewModel extends BaseViewModel {
   final toastService = locator<ToastService>();
   final urlLauncherService = locator<URLLauncherService>();
   final navigationService = locator<NavigationService>();
+  bool isScrolledUp = true;
 
   void getPatientList() {
     apiService.getPatients().listen((event) {
@@ -26,6 +27,11 @@ class PatientsViewModel extends BaseViewModel {
         notifyListeners();
       });
     });
+  }
+
+  void setFabSize({required bool isScrolledUp}) {
+    this.isScrolledUp = isScrolledUp;
+    notifyListeners();
   }
 
   Future<void> searchPatient(String value) async {

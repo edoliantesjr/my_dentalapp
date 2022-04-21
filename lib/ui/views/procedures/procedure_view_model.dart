@@ -4,7 +4,6 @@ import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
 class ProcedureViewModel extends BaseViewModel {
@@ -14,18 +13,11 @@ class ProcedureViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   StreamSubscription? procedureStreamSub;
   List<Procedure> procedureList = [];
-  bool isScrolledUp = false;
+  bool isScrolledUp = true;
 
-  void setFabSize(ScrollController scrollController) {
-    scrollController.addListener(() {
-      if (scrollController.offset > 50) {
-        isScrolledUp = true;
-        notifyListeners();
-      } else {
-        isScrolledUp = false;
-        notifyListeners();
-      }
-    });
+  void setFabSize({required bool isScrolledUp}) {
+    this.isScrolledUp = isScrolledUp;
+    notifyListeners();
   }
 
   void getProcedureList() {

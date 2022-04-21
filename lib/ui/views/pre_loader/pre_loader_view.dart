@@ -3,9 +3,7 @@ import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/main.dart';
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view_viewmodel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:stacked/stacked.dart';
@@ -42,7 +40,7 @@ class PreLoaderView extends StatelessWidget {
                               child: Image.asset('assets/icons/logo.png')),
                           SizedBox(height: 10),
                           Text(
-                            'Cagape Dental Care',
+                            'Maglinte Dental Clinic',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: FontNames.gilRoy,

@@ -51,6 +51,7 @@ class PatientInfoView extends StatelessWidget {
                               width: 200,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
+                                  color: Colors.grey.shade100,
                                   border: Border.all(
                                       color: Colors.white, width: 3)),
                               child: Container(
@@ -364,7 +365,8 @@ class PatientInfoView extends StatelessWidget {
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
-                              onTap: () {},
+                              onTap: () => model.goToMedicalHistoryView(
+                                  patientId: patient.id),
                               leading: Icon(
                                 Icons.history,
                                 color: Colors.black,

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
+import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
@@ -75,6 +76,9 @@ abstract class ApiService {
       {required File imageToUpload,
       required String patientId,
       required String fileName});
+
+  Future<List<MedicalHistory>?> getPatientMedicalRecord(
+      {required dynamic patientId});
 
   //Todo 2: add and view photos of patients
   //Todo 3: dental chart of adult and child

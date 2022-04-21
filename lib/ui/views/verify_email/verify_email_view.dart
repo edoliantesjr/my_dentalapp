@@ -1,6 +1,5 @@
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

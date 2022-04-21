@@ -36,17 +36,23 @@ class PatientCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 100,
-            height: 100,
+            width: 120,
+            height: 120,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.grey,
                 border: Border.all(
-                  color: Palettes.kcNeutral3,
-                  width: 1,
-                )),
+                  color: Palettes.kcNeutral5,
+                  width: 2,
+                ),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 1.5,
+                      offset: Offset(0, 2)),
+                ]),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(105),
+              borderRadius: BorderRadius.circular(120),
               child: CachedNetworkImage(
                   imageUrl: image,
                   fit: BoxFit.cover,

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../models/medical_history/medical_history.dart';
 import '../models/patient_model/patient_model.dart';
 import '../ui/views/add_medicine/add_medicine_view.dart';
 import '../ui/views/add_patient/add_patient_view.dart';
@@ -21,6 +22,8 @@ import '../ui/views/get_started/get_started_view.dart';
 import '../ui/views/home/home_view.dart';
 import '../ui/views/login/login_view.dart';
 import '../ui/views/main_body/main_body_view.dart';
+import '../ui/views/medical_history/medical_history_view.dart';
+import '../ui/views/medical_history_photo_view/med_history_photo_view.dart';
 import '../ui/views/medicine/medicine_view.dart';
 import '../ui/views/patient_info/patient_info_view.dart';
 import '../ui/views/patients/patients_view.dart';
@@ -54,6 +57,8 @@ class Routes {
   static const String AddMedicineView = '/add-medicine-view';
   static const String AddProcedureView = '/add-procedure-view';
   static const String PatientInfoView = '/patient-info-view';
+  static const String MedicalHistoryView = '/medical-history-view';
+  static const String MedHistoryPhotoView = '/med-history-photo-view';
   static const String SelectionDentist = '/selection-dentist';
   static const String SelectionProcedure = '/selection-procedure';
   static const all = <String>{
@@ -76,6 +81,8 @@ class Routes {
     AddMedicineView,
     AddProcedureView,
     PatientInfoView,
+    MedicalHistoryView,
+    MedHistoryPhotoView,
     SelectionDentist,
     SelectionProcedure,
   };
@@ -104,6 +111,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.AddMedicineView, page: AddMedicineView),
     RouteDef(Routes.AddProcedureView, page: AddProcedureView),
     RouteDef(Routes.PatientInfoView, page: PatientInfoView),
+    RouteDef(Routes.MedicalHistoryView, page: MedicalHistoryView),
+    RouteDef(Routes.MedHistoryPhotoView, page: MedHistoryPhotoView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
   ];
@@ -241,6 +250,27 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    MedicalHistoryView: (data) {
+      var args = data.getArgs<MedicalHistoryViewArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => MedicalHistoryView(
+          key: args.key,
+          patientId: args.patientId,
+        ),
+        settings: data,
+      );
+    },
+    MedHistoryPhotoView: (data) {
+      var args = data.getArgs<MedHistoryPhotoViewArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => MedHistoryPhotoView(
+          key: args.key,
+          medHistory: args.medHistory,
+          initialIndex: args.initialIndex,
+        ),
+        settings: data,
+      );
+    },
     SelectionDentist: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -296,4 +326,20 @@ class PatientInfoViewArguments {
   final Key? key;
   final Patient patient;
   PatientInfoViewArguments({this.key, required this.patient});
+}
+
+/// MedicalHistoryView arguments holder class
+class MedicalHistoryViewArguments {
+  final Key? key;
+  final dynamic patientId;
+  MedicalHistoryViewArguments({this.key, required this.patientId});
+}
+
+/// MedHistoryPhotoView arguments holder class
+class MedHistoryPhotoViewArguments {
+  final Key? key;
+  final List<MedicalHistory> medHistory;
+  final int initialIndex;
+  MedHistoryPhotoViewArguments(
+      {this.key, required this.medHistory, required this.initialIndex});
 }

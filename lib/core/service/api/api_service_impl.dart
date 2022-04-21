@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
+import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
@@ -311,5 +312,20 @@ class ApiServiceImpl extends ApiService {
     } on FirebaseException catch (e) {
       return ImageUploadResult.error('Image Upload Failed: ${e.message}');
     }
+  }
+
+  @override
+  Future<List<MedicalHistory>?> getPatientMedicalRecord(
+      {required dynamic patientId}) async {
+    List<MedicalHistory> medicalHistoryList = [];
+    final patient = await patientReference
+        .doc(patientId)
+        .get()
+        .then((value) => Patient.fromJson(value.data()!));
+    patient.medicalHistory?.forEach((medicalHistory) {
+      //
+      medicalHistoryList.add(medicalHistory);
+    });
+    return medicalHistoryList;
   }
 }
