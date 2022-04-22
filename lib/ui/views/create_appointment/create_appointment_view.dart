@@ -73,7 +73,6 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                               if (createAppointmentFormKey.currentState!
                                   .validate()) {
                                 if (!(model.selectedProcedures.length <= 0)) {
-                                  //  todo: code here
                                   model.setAppointment(
                                     AppointmentModel(
                                       patient: widget.patient,

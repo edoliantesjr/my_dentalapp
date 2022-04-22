@@ -7,7 +7,6 @@ import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:stacked/stacked.dart';
 
 class ProcedureViewModel extends BaseViewModel {
-  //Todo: logic code for procedure view
 
   final navigationService = locator<NavigationService>();
   final apiService = locator<ApiService>();

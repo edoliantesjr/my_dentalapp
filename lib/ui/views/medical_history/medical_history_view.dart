@@ -12,7 +12,6 @@ class MedicalHistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: design medical history view page
     return ViewModelBuilder<MedicalHistoryViewModel>.reactive(
       viewModelBuilder: () => MedicalHistoryViewModel(),
       onModelReady: (model) => model.getPatientMedicalHistory(patientId),

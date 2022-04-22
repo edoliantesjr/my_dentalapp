@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
 class AddProcedureViewModel extends BaseViewModel {
-  //Todo: logic code for add procedure view
   final navigationService = locator<NavigationService>();
   final toastService = locator<ToastService>();
   final apiService = locator<ApiService>();

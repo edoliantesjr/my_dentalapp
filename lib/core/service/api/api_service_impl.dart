@@ -170,7 +170,6 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future<List<Medicine>> searchMedicine(String query) async {
-    //TODO: To Change in the future
     return await medicineReference
         .where('medicineName', isGreaterThanOrEqualTo: query.toTitleCase())
         .where('medicineName',
@@ -184,7 +183,6 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future<List<Procedure>> searchProcedure(String query) async {
-    // TODO: To Change in the future
     return await procedureReference
         .where('procedureName', isGreaterThanOrEqualTo: query.toTitleCase())
         .where('procedureName',

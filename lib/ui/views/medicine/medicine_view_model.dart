@@ -7,7 +7,6 @@ import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:stacked/stacked.dart';
 
 class MedicineViewModel extends BaseViewModel {
-  //TODO: Logic code for medicine view
   final navigationService = locator<NavigationService>();
   final apiService = locator<ApiService>();
   StreamSubscription? medicineStreamSub;
@@ -42,7 +41,6 @@ class MedicineViewModel extends BaseViewModel {
   }
 
   void searchMedicine(String query) {
-    //  Todo: search query for medicine
     if (searchMode == false) {
       searchMode = true;
       notifyListeners();

@@ -10,7 +10,6 @@ import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:stacked/stacked.dart';
 
 class PatientsViewModel extends BaseViewModel {
-//  Todo: logic code for Patients View
   List<Patient> patientList = [];
   StreamSubscription? patientSub;
   final apiService = locator<ApiService>();

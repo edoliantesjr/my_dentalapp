@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
 class MedicalHistoryViewModel extends BaseViewModel {
-//  Todo: logic code for medical history view model
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
 

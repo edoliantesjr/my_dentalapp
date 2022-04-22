@@ -15,8 +15,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 
 class AddMedicineViewModel extends BaseViewModel {
-  //Todo: Logic code for add medicine view model
-
   final navigationService = locator<NavigationService>();
   final validatorService = locator<ValidatorService>();
   final apiService = locator<ApiService>();
@@ -89,7 +87,6 @@ class AddMedicineViewModel extends BaseViewModel {
   }
 
   Future<String?> uploadMedicineImage({required String genericName}) async {
-//  Todo: logic code for upload medicine
 
     final uploadResult = await apiService.uploadMedicineImage(
         imageToUpload: File(selectedImage!.path), genericName: genericName);

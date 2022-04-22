@@ -7,7 +7,6 @@ import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:stacked/stacked.dart';
 
 class SelectionDentistViewModel extends BaseViewModel {
-//  Todo: logic code for selection dentist
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
 

@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 
 class Procedure extends Equatable {
-  //todo: To modify in the future
 
   final String? id;
   final String procedureName;
@@ -39,7 +38,6 @@ class Procedure extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [id, procedureName, price, priceToCurrency, dateCreated];
 }
