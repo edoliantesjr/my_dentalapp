@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/enums/enum_tooth_condition.dart';
@@ -10,6 +12,8 @@ import 'package:stacked/stacked.dart';
 class PatientDentalChartViewModel extends BaseViewModel {
   final centerTooth1 = ['E', 'F', 'P', 'O'];
   final centerTooth2 = ['8', '9', '25', '24'];
+
+  List<String> toothWithTransactionHistory = [];
 
   final List<String> toothIdFromA = [
     'A',
@@ -90,7 +94,7 @@ class PatientDentalChartViewModel extends BaseViewModel {
           patientId: patientId,
           toothCondition: ToothCondition(
               selectedTooth: i.toString(),
-              toothConditions: [EnumToothCondition.Impacted_Tooth.name],
+              toothCondition: EnumToothCondition.Impacted_Tooth.name,
               date: DateTime.now().toString()));
     }
     debugPrint('Tooth Condition Added');
@@ -112,5 +116,45 @@ class PatientDentalChartViewModel extends BaseViewModel {
       );
     }
     debugPrint('Dental Notes Added');
+  }
+
+  Future<void> getDentalCondition(
+      {required String patientId, String? toothId}) async {
+    var toothConditionList = await apiService.getDentalConditionList(
+        patientId: patientId, toothId: toothId);
+    for (ToothCondition i in toothConditionList ?? []) {
+      if (!toothWithTransactionHistory.contains(i.selectedTooth)) {
+        toothWithTransactionHistory.add(i.selectedTooth);
+        notifyListeners();
+      }
+    }
+  }
+
+  Future<void> getDentalNotes(
+      {required String patientId, String? toothId}) async {
+    var dentalNotes = await apiService.getDentalNotesList(
+        patientId: patientId, toothId: toothId);
+
+    for (DentalNotes i in dentalNotes ?? []) {
+      if (!toothWithTransactionHistory.contains(i.selectedTooth)) {
+        toothWithTransactionHistory.add(i.selectedTooth);
+        notifyListeners();
+      }
+    }
+  }
+
+  void init(String patientId) async {
+    await getDentalNotes(patientId: patientId);
+    await getDentalCondition(patientId: patientId);
+    debugPrint(toothWithTransactionHistory.toString());
+  }
+
+  bool hasHistory(String toothId) {
+    if (toothWithTransactionHistory.contains(toothId)) {
+      return true;
+    } else {
+      return false;
+    }
+    ;
   }
 }

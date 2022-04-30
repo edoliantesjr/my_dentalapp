@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -351,14 +352,26 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future<List<ToothCondition>> getDentalConditionList({required patientId}) {
-    // TODO: implement getDentalConditionList
-    throw UnimplementedError();
+  Future<List<ToothCondition>?> getDentalConditionList(
+      {required patientId, String? toothId}) async {
+    return await patientReference
+        .doc(patientId)
+        .collection('dental_conditions')
+        .where('selectedTooth', isEqualTo: toothId)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => ToothCondition.fromJson(e.data())).toList());
   }
 
   @override
-  Future<List<DentalNotes>> getDentalNotesList({required patientId}) {
-    // TODO: implement getDentalNotesList
-    throw UnimplementedError();
+  Future<List<DentalNotes>?> getDentalNotesList(
+      {required patientId, String? toothId}) async {
+    return await patientReference
+        .doc(patientId)
+        .collection('dental_notes')
+        .where('selectedTooth', isEqualTo: toothId)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
   }
 }

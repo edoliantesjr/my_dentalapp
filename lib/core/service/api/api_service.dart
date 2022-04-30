@@ -92,8 +92,9 @@ abstract class ApiService {
       required dynamic patientId,
       required DentalNotes dentalNotes});
 
-  Future<List<ToothCondition>> getDentalConditionList(
-      {required dynamic patientId});
+  Future<List<ToothCondition>?> getDentalConditionList(
+      {required dynamic patientId, String? toothId});
 
-  Future<List<DentalNotes>> getDentalNotesList({required dynamic patientId});
+  Future<List<DentalNotes>?> getDentalNotesList(
+      {required dynamic patientId, String? toothId});
 }

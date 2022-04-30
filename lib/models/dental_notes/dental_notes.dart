@@ -22,7 +22,7 @@ class DentalNotes {
       'id': id,
       'selectedTooth': this.selectedTooth,
       'procedure':
-          this.procedure.toJson(dateCreated: DateTime.now().toString()),
+          this.procedure.toJson(dateCreated: DateTime.now().toString(), id: id),
       'date': this.date,
       'note': this.note,
       'isPaid': this.isPaid,
@@ -33,7 +33,7 @@ class DentalNotes {
     return DentalNotes(
       id: map['id'] as dynamic,
       selectedTooth: map['selectedTooth'] as String,
-      procedure: map['procedure'] as Procedure,
+      procedure: Procedure.fromJson(map['procedure']),
       date: map['date'] as String,
       note: map['note'] as String,
       isPaid: map['isPaid'] as bool,

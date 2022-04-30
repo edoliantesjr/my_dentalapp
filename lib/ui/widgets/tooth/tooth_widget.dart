@@ -1,4 +1,3 @@
-import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -35,9 +34,7 @@ class ToothWidget extends StatelessWidget {
             width: 38,
             padding: EdgeInsets.all(3),
             decoration: BoxDecoration(
-              color: isSelected != null && isSelected == true
-                  ? Colors.grey.shade500
-                  : Colors.white,
+              color: checkHistory(isSelected, hasRecord),
               border: isCenterTooth
                   ? Border.all(color: Colors.blueAccent, width: 2)
                   : Border.all(color: Colors.black, width: 0.8),
@@ -45,7 +42,7 @@ class ToothWidget extends StatelessWidget {
             child: SvgPicture.asset(
               'assets/icons/tooth.svg',
               color: hasRecord != null && hasRecord == true
-                  ? Palettes.kcBlueMain1
+                  ? Colors.white
                   : Colors.black,
             ),
           ),
@@ -56,5 +53,15 @@ class ToothWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Color checkHistory(bool? isSelected, bool? hasRecord) {
+    if (isSelected != null && isSelected) {
+      return Colors.grey.shade500;
+    } else if (hasRecord != null && hasRecord) {
+      return Colors.red;
+    } else {
+      return Colors.white;
+    }
   }
 }
