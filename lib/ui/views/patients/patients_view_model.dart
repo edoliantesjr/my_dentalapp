@@ -7,6 +7,8 @@ import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/core/service/url_launcher/url_launcher_service.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:stacked/stacked.dart';
 
 class PatientsViewModel extends BaseViewModel {
@@ -17,6 +19,15 @@ class PatientsViewModel extends BaseViewModel {
   final urlLauncherService = locator<URLLauncherService>();
   final navigationService = locator<NavigationService>();
   bool isScrolledUp = true;
+  final stickController = StickyHeaderController();
+  final scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    stickController.dispose();
+    scrollController.dispose();
+    super.dispose();
+  }
 
   void getPatientList() {
     apiService.getPatients().listen((event) {

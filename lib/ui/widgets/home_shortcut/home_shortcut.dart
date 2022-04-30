@@ -89,7 +89,7 @@ class HomeShortcut extends StatelessWidget {
                                         'assets/icons/Plus.svg',
                                         height: 25,
                                         width: 25,
-                                        color: Palettes.kcNeutral1,
+                                        color: Palettes.kcDarkerBlueMain1,
                                       ),
                                       SizedBox(height: 5),
                                       Text('Add Procedure',
@@ -112,7 +112,7 @@ class HomeShortcut extends StatelessWidget {
                                         'assets/icons/Clients.svg',
                                         height: 25,
                                         width: 25,
-                                        color: Palettes.kcNeutral1,
+                                        color: Palettes.kcDarkerBlueMain1,
                                       ),
                                       SizedBox(height: 5),
                                       Text(
@@ -137,7 +137,7 @@ class HomeShortcut extends StatelessWidget {
                                         'assets/icons/Pills.svg',
                                         height: 25,
                                         width: 25,
-                                        color: Palettes.kcNeutral1,
+                                        color: Palettes.kcDarkerBlueMain1,
                                       ),
                                       SizedBox(height: 5),
                                       Text(
@@ -168,7 +168,7 @@ class HomeShortcut extends StatelessWidget {
                                         'assets/icons/Graph.svg',
                                         height: 25,
                                         width: 25,
-                                        color: Palettes.kcNeutral1,
+                                        color: Palettes.kcDarkerBlueMain1,
                                       ),
                                       SizedBox(height: 5),
                                       Text(
@@ -193,7 +193,7 @@ class HomeShortcut extends StatelessWidget {
                                         'assets/icons/Wallet.svg',
                                         height: 25,
                                         width: 25,
-                                        color: Palettes.kcNeutral1,
+                                        color: Palettes.kcDarkerBlueMain1,
                                       ),
                                       SizedBox(height: 5),
                                       Text(
@@ -218,7 +218,7 @@ class HomeShortcut extends StatelessWidget {
                                         'assets/icons/Ticket.svg',
                                         height: 25,
                                         width: 25,
-                                        color: Palettes.kcNeutral1,
+                                        color: Palettes.kcDarkerBlueMain1,
                                       ),
                                       SizedBox(height: 5),
                                       Text(

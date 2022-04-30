@@ -69,8 +69,7 @@ class _LoginViewState extends State<LoginView> {
                         topRight: Radius.circular(65),
                       ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                    child: ListView(
                       children: [
                         Form(
                           key: model.loginFormKey,
@@ -78,6 +77,14 @@ class _LoginViewState extends State<LoginView> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               SizedBox(height: 30.h),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  'assets/icons/logo-blue-circle.png',
+                                  height: 80,
+                                  width: 80,
+                                ),
+                              ),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(

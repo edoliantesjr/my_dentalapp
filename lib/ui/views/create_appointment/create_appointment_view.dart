@@ -102,7 +102,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                 key: createAppointmentFormKey,
                 child: SafeArea(
                   child: ListView(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                     children: [
                       Divider(),
                       SizedBox(
@@ -127,168 +127,189 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                       ),
                       Divider(),
                       SizedBox(height: 10),
-                      GestureDetector(
-                        onTap: () => model.selectDate(dateTxtController),
-                        child: TextFormField(
-                          controller: dateTxtController,
-                          enabled: false,
-                          validator: (value) =>
-                              model.validatorService.validateDate(value!),
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.datetime,
-                          decoration: InputDecoration(
-                              errorBorder: TextBorderStyles.errorBorder,
-                              errorStyle: TextStyles.errorTextStyle,
-                              disabledBorder: TextBorderStyles.normalBorder,
-                              hintText: 'MM/DD/YYYY',
-                              labelText: 'Appointment Date*',
-                              // disabledBorder: ,
-                              labelStyle: TextStyles.tsBody1(
-                                  color: Palettes.kcNeutral1),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              suffixIcon: SvgPicture.asset(
-                                'assets/icons/Calendar.svg',
-                                color: Palettes.kcBlueMain1,
-                                fit: BoxFit.scaleDown,
-                              )),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Procedure*',
-                          ),
-                          ActionChip(
-                            label: Text(model.selectedProcedures.length <= 0
-                                ? 'Select'
-                                : 'Add more'),
-                            labelPadding: EdgeInsets.symmetric(horizontal: 8),
-                            labelStyle: TextStyles.tsBody2(color: Colors.white),
-                            backgroundColor: Palettes.kcBlueMain1,
-                            tooltip: 'Select Procedure',
-                            onPressed: () => model.openProcedureFullScreenModal(
-                              procedureTxtController,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            GestureDetector(
+                              onTap: () => model.selectDate(dateTxtController),
+                              child: TextFormField(
+                                controller: dateTxtController,
+                                enabled: false,
+                                validator: (value) =>
+                                    model.validatorService.validateDate(value!),
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.datetime,
+                                decoration: InputDecoration(
+                                    errorBorder: TextBorderStyles.errorBorder,
+                                    errorStyle: TextStyles.errorTextStyle,
+                                    disabledBorder:
+                                        TextBorderStyles.normalBorder,
+                                    hintText: 'MM/DD/YYYY',
+                                    labelText: 'Appointment Date*',
+                                    // disabledBorder: ,
+                                    labelStyle: TextStyles.tsBody1(
+                                        color: Palettes.kcNeutral1),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    suffixIcon: SvgPicture.asset(
+                                      'assets/icons/Calendar.svg',
+                                      color: Palettes.kcBlueMain1,
+                                      fit: BoxFit.scaleDown,
+                                    )),
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-                      Visibility(
-                        visible:
-                            model.selectedProcedures.length > 0 ? true : false,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Palettes.kcBlueMain1, width: 1)),
-                          padding: EdgeInsets.all(4),
-                          child: Wrap(
-                            spacing: 4,
-                            children: model.selectedProcedures
-                                .map((e) => InputChip(
-                                      label: Text(e.procedureName),
-                                      backgroundColor:
-                                          Colors.deepPurple.shade50,
-                                      labelStyle: TextStyles.tsBody2(
-                                          color: Colors.deepPurple),
-                                      labelPadding: EdgeInsets.all(1),
-                                      onDeleted: () =>
-                                          model.deleteSelectedProcedure(e),
-                                      deleteIcon: CircleAvatar(
-                                          radius: 10,
-                                          backgroundColor: Colors.red.shade700,
-                                          child: Icon(
-                                            Icons.close,
-                                            color: Colors.white,
-                                            size: 16,
-                                          )),
-                                    ))
-                                .toList(),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () =>
-                            model.selectStartTime(startTimeTxtController),
-                        child: TextFormField(
-                          controller: startTimeTxtController,
-                          enabled: false,
-                          validator: (value) =>
-                              model.validatorService.validateStartTime(value!),
-                          decoration: InputDecoration(
-                            hintText: 'Set Start Time',
-                            labelText: 'Start Time*',
-                            labelStyle:
-                                TextStyles.tsBody1(color: Palettes.kcNeutral1),
-                            errorBorder: TextBorderStyles.errorBorder,
-                            errorStyle: TextStyles.errorTextStyle,
-                            disabledBorder: TextBorderStyles.normalBorder,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      GestureDetector(
-                        onTap: () => model.selectEndTime(endTimeTxtController),
-                        child: TextFormField(
-                          controller: endTimeTxtController,
-                          enabled: false,
-                          validator: (value) =>
-                              model.validatorService.validateEndTime(value!),
-                          decoration: InputDecoration(
-                            hintText: 'Set End Time',
-                            labelText: 'End Time*',
-                            labelStyle:
-                                TextStyles.tsBody1(color: Palettes.kcNeutral1),
-                            errorBorder: TextBorderStyles.errorBorder,
-                            errorStyle: TextStyles.errorTextStyle,
-                            disabledBorder: TextBorderStyles.normalBorder,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      GestureDetector(
-                        onTap: () =>
-                            model.openDentistModal(dentistTxtController),
-                        child: TextFormField(
-                          controller: dentistTxtController,
-                          // validator: (value) => model.validatorService
-                          //     .validateGender(value!),
-                          textInputAction: TextInputAction.next,
-                          enabled: false,
-                          validator: (value) =>
-                              model.validatorService.validateDentist(value!),
-                          keyboardType: TextInputType.datetime,
-                          decoration: InputDecoration(
-                              errorBorder: TextBorderStyles.errorBorder,
-                              errorStyle: TextStyles.errorTextStyle,
-                              disabledBorder: TextBorderStyles.normalBorder,
-                              hintText: 'Select Dentist',
-                              labelText: 'Dentist*',
-                              labelStyle: TextStyles.tsBody1(
-                                  color: Palettes.kcNeutral1),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down,
-                                size: 24,
-                                color: Palettes.kcBlueMain1,
-                              )),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: remarksTxtController,
-                        decoration: InputDecoration(
-                          hintText: 'Type here',
-                          labelText: 'Remarks (Optional)',
-                          labelStyle:
-                              TextStyles.tsBody1(color: Palettes.kcNeutral1),
-                          enabledBorder: TextBorderStyles.normalBorder,
-                          focusedBorder: TextBorderStyles.focusedBorder,
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                            SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Procedure*',
+                                ),
+                                ActionChip(
+                                  label: Text(
+                                      model.selectedProcedures.length <= 0
+                                          ? 'Select'
+                                          : 'Add more'),
+                                  labelPadding:
+                                      EdgeInsets.symmetric(horizontal: 8),
+                                  labelStyle:
+                                      TextStyles.tsBody2(color: Colors.white),
+                                  backgroundColor: Palettes.kcBlueMain1,
+                                  tooltip: 'Select Procedure',
+                                  onPressed: () =>
+                                      model.openProcedureFullScreenModal(
+                                    procedureTxtController,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Visibility(
+                              visible: model.selectedProcedures.length > 0
+                                  ? true
+                                  : false,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Palettes.kcBlueMain1, width: 1)),
+                                padding: EdgeInsets.all(4),
+                                child: Wrap(
+                                  spacing: 4,
+                                  children: model.selectedProcedures
+                                      .map((e) => InputChip(
+                                            label: Text(e.procedureName),
+                                            backgroundColor:
+                                                Colors.deepPurple.shade50,
+                                            labelStyle: TextStyles.tsBody2(
+                                                color: Colors.deepPurple),
+                                            labelPadding: EdgeInsets.all(1),
+                                            onDeleted: () => model
+                                                .deleteSelectedProcedure(e),
+                                            deleteIcon: CircleAvatar(
+                                                radius: 10,
+                                                backgroundColor:
+                                                    Colors.red.shade700,
+                                                child: Icon(
+                                                  Icons.close,
+                                                  color: Colors.white,
+                                                  size: 16,
+                                                )),
+                                          ))
+                                      .toList(),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () =>
+                                  model.selectStartTime(startTimeTxtController),
+                              child: TextFormField(
+                                controller: startTimeTxtController,
+                                enabled: false,
+                                validator: (value) => model.validatorService
+                                    .validateStartTime(value!),
+                                decoration: InputDecoration(
+                                  hintText: 'Set Start Time',
+                                  labelText: 'Start Time*',
+                                  labelStyle: TextStyles.tsBody1(
+                                      color: Palettes.kcNeutral1),
+                                  errorBorder: TextBorderStyles.errorBorder,
+                                  errorStyle: TextStyles.errorTextStyle,
+                                  disabledBorder: TextBorderStyles.normalBorder,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            GestureDetector(
+                              onTap: () =>
+                                  model.selectEndTime(endTimeTxtController),
+                              child: TextFormField(
+                                controller: endTimeTxtController,
+                                enabled: false,
+                                validator: (value) => model.validatorService
+                                    .validateEndTime(value!),
+                                decoration: InputDecoration(
+                                  hintText: 'Set End Time',
+                                  labelText: 'End Time*',
+                                  labelStyle: TextStyles.tsBody1(
+                                      color: Palettes.kcNeutral1),
+                                  errorBorder: TextBorderStyles.errorBorder,
+                                  errorStyle: TextStyles.errorTextStyle,
+                                  disabledBorder: TextBorderStyles.normalBorder,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            GestureDetector(
+                              onTap: () =>
+                                  model.openDentistModal(dentistTxtController),
+                              child: TextFormField(
+                                controller: dentistTxtController,
+                                // validator: (value) => model.validatorService
+                                //     .validateGender(value!),
+                                textInputAction: TextInputAction.next,
+                                enabled: false,
+                                validator: (value) => model.validatorService
+                                    .validateDentist(value!),
+                                keyboardType: TextInputType.datetime,
+                                decoration: InputDecoration(
+                                    errorBorder: TextBorderStyles.errorBorder,
+                                    errorStyle: TextStyles.errorTextStyle,
+                                    disabledBorder:
+                                        TextBorderStyles.normalBorder,
+                                    hintText: 'Select Dentist',
+                                    labelText: 'Dentist*',
+                                    labelStyle: TextStyles.tsBody1(
+                                        color: Palettes.kcNeutral1),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    suffixIcon: Icon(
+                                      Icons.arrow_drop_down,
+                                      size: 24,
+                                      color: Palettes.kcBlueMain1,
+                                    )),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            TextFormField(
+                              controller: remarksTxtController,
+                              decoration: InputDecoration(
+                                hintText: 'Type here',
+                                labelText: 'Remarks (Optional)',
+                                labelStyle: TextStyles.tsBody1(
+                                    color: Palettes.kcNeutral1),
+                                enabledBorder: TextBorderStyles.normalBorder,
+                                focusedBorder: TextBorderStyles.focusedBorder,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     ],

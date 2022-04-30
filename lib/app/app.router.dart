@@ -25,6 +25,7 @@ import '../ui/views/main_body/main_body_view.dart';
 import '../ui/views/medical_history/medical_history_view.dart';
 import '../ui/views/medical_history_photo_view/med_history_photo_view.dart';
 import '../ui/views/medicine/medicine_view.dart';
+import '../ui/views/patient_dental_chart/patient_dental_chart_view.dart';
 import '../ui/views/patient_info/patient_info_view.dart';
 import '../ui/views/patients/patients_view.dart';
 import '../ui/views/pre_loader/pre_loader_view.dart';
@@ -59,6 +60,7 @@ class Routes {
   static const String PatientInfoView = '/patient-info-view';
   static const String MedicalHistoryView = '/medical-history-view';
   static const String MedHistoryPhotoView = '/med-history-photo-view';
+  static const String PatientDentalChartView = '/patient-dental-chart-view';
   static const String SelectionDentist = '/selection-dentist';
   static const String SelectionProcedure = '/selection-procedure';
   static const all = <String>{
@@ -83,6 +85,7 @@ class Routes {
     PatientInfoView,
     MedicalHistoryView,
     MedHistoryPhotoView,
+    PatientDentalChartView,
     SelectionDentist,
     SelectionProcedure,
   };
@@ -113,6 +116,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.PatientInfoView, page: PatientInfoView),
     RouteDef(Routes.MedicalHistoryView, page: MedicalHistoryView),
     RouteDef(Routes.MedHistoryPhotoView, page: MedHistoryPhotoView),
+    RouteDef(Routes.PatientDentalChartView, page: PatientDentalChartView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
   ];
@@ -271,6 +275,16 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    PatientDentalChartView: (data) {
+      var args = data.getArgs<PatientDentalChartViewArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => PatientDentalChartView(
+          key: args.key,
+          patient: args.patient,
+        ),
+        settings: data,
+      );
+    },
     SelectionDentist: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -342,4 +356,11 @@ class MedHistoryPhotoViewArguments {
   final int initialIndex;
   MedHistoryPhotoViewArguments(
       {this.key, required this.medHistory, required this.initialIndex});
+}
+
+/// PatientDentalChartView arguments holder class
+class PatientDentalChartViewArguments {
+  final Key? key;
+  final Patient patient;
+  PatientDentalChartViewArguments({this.key, required this.patient});
 }

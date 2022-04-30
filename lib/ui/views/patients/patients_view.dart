@@ -56,11 +56,13 @@ class PatientsView extends StatelessWidget {
               return true;
             },
             child: CustomScrollView(
+              controller: model.scrollController,
               physics: AlwaysScrollableScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics(),
               ),
               slivers: [
                 SliverStickyHeader(
+                  controller: model.stickController,
                   overlapsContent: false,
                   header: Container(
                     padding: EdgeInsets.only(bottom: 15, left: 15, right: 15),

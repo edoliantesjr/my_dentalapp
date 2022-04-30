@@ -64,6 +64,15 @@ class RegisterView extends StatelessWidget with $RegisterView {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          SizedBox(height: 15.h),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              'assets/icons/logo-blue-circle.png',
+                              height: 70,
+                              width: 70,
+                            ),
+                          ),
                           RegisterFields(
                             emailController: emailController,
                             passwordController: passwordController,
@@ -147,7 +156,6 @@ class RegisterFields extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 20.h),
           Text(
             'Register',
             style: TextStyles.tsHeading3(),

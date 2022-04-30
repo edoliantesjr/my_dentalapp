@@ -10,7 +10,7 @@ class PreLoaderViewModel extends BaseViewModel {
 
   Future<void> getSessionInfo() async {
     final sessionInfo = await sessionService.getSession();
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 3));
     if (sessionInfo.isRunFirstTime) {
       navigationService.popAllAndPushNamed(Routes.GetStarted);
     } else if (!sessionInfo.isRunFirstTime && !sessionInfo.isLoggedIn) {

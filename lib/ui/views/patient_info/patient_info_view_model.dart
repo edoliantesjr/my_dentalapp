@@ -4,6 +4,7 @@ import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/url_launcher/url_launcher_service.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
+import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
@@ -37,5 +38,10 @@ class PatientInfoViewModel extends BaseViewModel {
   void goToMedicalHistoryView({required dynamic patientId}) {
     navigationService.pushNamed(Routes.MedicalHistoryView,
         arguments: MedicalHistoryViewArguments(patientId: patientId));
+  }
+
+  void goToMedicalChart({required Patient patient}) {
+    navigationService.pushNamed(Routes.PatientDentalChartView,
+        arguments: PatientDentalChartViewArguments(patient: patient));
   }
 }

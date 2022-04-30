@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
+import 'package:dentalapp/models/dental_notes/dental_notes.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
+import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
 import 'package:dentalapp/models/upload_results/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -80,7 +82,18 @@ abstract class ApiService {
   Future<List<MedicalHistory>?> getPatientMedicalRecord(
       {required dynamic patientId});
 
-  //Todo 2: add and view photos of patients
-  //Todo 3: dental chart of adult and child
+  Future<void> addToothCondition(
+      {required String toothId,
+      required dynamic patientId,
+      required ToothCondition toothCondition});
 
+  Future<void> addToothDentalNotes(
+      {required String toothId,
+      required dynamic patientId,
+      required DentalNotes dentalNotes});
+
+  Future<List<ToothCondition>> getDentalConditionList(
+      {required dynamic patientId});
+
+  Future<List<DentalNotes>> getDentalNotesList({required dynamic patientId});
 }

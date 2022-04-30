@@ -32,6 +32,7 @@ import 'package:dentalapp/ui/views/main_body/main_body_view.dart';
 import 'package:dentalapp/ui/views/medical_history/medical_history_view.dart';
 import 'package:dentalapp/ui/views/medical_history_photo_view/med_history_photo_view.dart';
 import 'package:dentalapp/ui/views/medicine/medicine_view.dart';
+import 'package:dentalapp/ui/views/patient_dental_chart/patient_dental_chart_view.dart';
 import 'package:dentalapp/ui/views/patient_info/patient_info_view.dart';
 import 'package:dentalapp/ui/views/patients/patients_view.dart';
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
@@ -69,6 +70,7 @@ import 'package:stacked/stacked_annotations.dart';
     CupertinoRoute(page: PatientInfoView, name: 'PatientInfoView'),
     MaterialRoute(page: MedicalHistoryView, name: 'MedicalHistoryView'),
     MaterialRoute(page: MedHistoryPhotoView, name: 'MedHistoryPhotoView'),
+    MaterialRoute(page: PatientDentalChartView, name: 'PatientDentalChartView'),
     CustomRoute(
         page: SelectionDentist,
         name: 'SelectionDentist',

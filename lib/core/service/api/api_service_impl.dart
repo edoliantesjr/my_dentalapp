@@ -4,10 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
+import 'package:dentalapp/models/dental_notes/dental_notes.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
+import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
 import 'package:dentalapp/models/upload_results/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -321,9 +323,42 @@ class ApiServiceImpl extends ApiService {
         .get()
         .then((value) => Patient.fromJson(value.data()!));
     patient.medicalHistory?.forEach((medicalHistory) {
-      //
       medicalHistoryList.add(medicalHistory);
     });
     return medicalHistoryList;
+  }
+
+  @override
+  Future<void> addToothCondition(
+      {required String toothId,
+      required dynamic patientId,
+      required ToothCondition toothCondition}) async {
+    final toothDoc = await patientReference
+        .doc(patientId)
+        .collection('dental_conditions')
+        .doc();
+    return await toothDoc.set(toothCondition.toJson(id: toothDoc.id));
+  }
+
+  @override
+  Future<void> addToothDentalNotes(
+      {required String toothId,
+      required dynamic patientId,
+      required DentalNotes dentalNotes}) async {
+    final toothDoc =
+        await patientReference.doc(patientId).collection('dental_notes').doc();
+    return await toothDoc.set(dentalNotes.toJson(id: toothDoc.id));
+  }
+
+  @override
+  Future<List<ToothCondition>> getDentalConditionList({required patientId}) {
+    // TODO: implement getDentalConditionList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<DentalNotes>> getDentalNotesList({required patientId}) {
+    // TODO: implement getDentalNotesList
+    throw UnimplementedError();
   }
 }

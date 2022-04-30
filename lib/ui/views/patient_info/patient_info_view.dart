@@ -387,7 +387,8 @@ class PatientInfoView extends StatelessWidget {
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
-                              onTap: () {},
+                              onTap: () =>
+                                  model.goToMedicalChart(patient: patient),
                               leading: SvgPicture.asset(
                                 'assets/icons/Filter.svg',
                                 color: Colors.black,

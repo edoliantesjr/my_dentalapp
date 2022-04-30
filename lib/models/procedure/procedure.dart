@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 
 class Procedure extends Equatable {
-
   final String? id;
   final String procedureName;
   final String? price;
@@ -24,7 +23,7 @@ class Procedure extends Equatable {
     return Procedure(
         id: map['id'] as String,
         procedureName: map['procedureName'] as String,
-        price: map['price'] as String,
+        price: (map['price']) != null ? map['price'] : '',
         dateCreated: map['dateCreated']);
   }
 
