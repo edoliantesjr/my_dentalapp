@@ -1,6 +1,7 @@
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/api/api_service_impl.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
+import 'package:dentalapp/core/service/connectivity/connectivity_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service_imp.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
@@ -98,6 +99,7 @@ import 'package:stacked/stacked_annotations.dart';
     LazySingleton(classType: SearchIndexService),
     LazySingleton(
         classType: URLLauncherServiceImpl, asType: URLLauncherService),
+    LazySingleton(classType: ConnectivityService),
   ],
   logger: StackedLogger(),
 )

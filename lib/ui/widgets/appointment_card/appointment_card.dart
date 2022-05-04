@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
@@ -8,24 +9,24 @@ import 'package:flutter_swipe_action_cell/core/cell.dart';
 
 class AppointmentCard extends StatelessWidget {
   final Key key;
-  final String dateDay;
-  final String dateMonth;
+  final String appointmentDate;
   final String doctor;
   final String patient;
   final AppointmentStatus appointmentStatus;
   final String serviceTitle;
   final String? time;
+  final dynamic imageUrl;
   final VoidCallback onDelete;
 
   const AppointmentCard({
     required this.key,
-    required this.dateDay,
-    required this.dateMonth,
+    required this.appointmentDate,
     required this.doctor,
     required this.patient,
     required this.appointmentStatus,
     required this.serviceTitle,
     required this.onDelete,
+    required this.imageUrl,
     this.time,
   }) : super(key: key);
 
@@ -113,10 +114,10 @@ class AppointmentCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 2),
           child: Container(
             padding: EdgeInsets.only(top: 8, left: 8, right: 8),
-            height: 135,
+            height: 152,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
-                border: Border.all(color: Palettes.kcNeutral5),
+                border: Border.all(color: Palettes.kcNeutral4),
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(color: Palettes.kcNeutral4, blurRadius: 2)
@@ -128,12 +129,12 @@ class AppointmentCard extends StatelessWidget {
                     child: Row(
                       children: [
                         DateWidget(
-                          dateDay: dateDay,
-                          dateMonth: dateMonth,
+                          imageUrl: imageUrl,
                         ),
                         SizedBox(width: 10),
                         Expanded(
                             child: InfoWidget(
+                          date: appointmentDate,
                           serviceTitle: serviceTitle,
                           doctor: doctor,
                           patient: patient,
@@ -189,38 +190,18 @@ class AppointmentCard extends StatelessWidget {
 }
 
 class DateWidget extends StatelessWidget {
-  final String dateDay;
-  final String dateMonth;
+  final dynamic imageUrl;
 
-  const DateWidget({Key? key, required this.dateDay, required this.dateMonth})
-      : super(key: key);
+  const DateWidget({Key? key, required this.imageUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 70,
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      decoration: BoxDecoration(
-          color: Color(0xff7A9DE9), borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        children: [
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                dateMonth,
-                style: TextStyles.tsHeading2(color: Colors.white),
-              ),
-            ),
-          ),
-          SizedBox(height: 8),
-          FittedBox(
-            child: Text(
-              dateDay,
-              style: TextStyles.tsHeading4(color: Colors.white),
-            ),
-          ),
-        ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: CachedNetworkImage(
+        width: 75,
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
       ),
     );
   }
@@ -230,10 +211,12 @@ class InfoWidget extends StatelessWidget {
   final String serviceTitle;
   final String doctor;
   final String patient;
+  final String date;
   final AppointmentStatus appointmentStatus;
 
   const InfoWidget(
       {Key? key,
+      required this.date,
       required this.serviceTitle,
       required this.doctor,
       required this.patient,
@@ -290,11 +273,17 @@ class InfoWidget extends StatelessWidget {
             children: [
               Text(
                 'Patient: ',
-                style: TextStyles.tsHeading5(color: Palettes.kcNeutral2),
+                style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
               ),
               Text(
                 patient,
-                style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
+                style: TextStyle(
+                  color: Palettes.kcDarkerBlueMain1,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.5,
+                  decoration: TextDecoration.underline,
+                  wordSpacing: .2,
+                ),
               )
             ],
           ),
@@ -303,15 +292,27 @@ class InfoWidget extends StatelessWidget {
             children: [
               Text(
                 'Dentist: ',
-                style: TextStyles.tsHeading5(color: Palettes.kcNeutral2),
+                style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
               ),
               Text(
                 doctor,
-                style: TextStyles.tsHeading5(color: Palettes.kcNeutral2),
+                style: TextStyles.tsHeading5(),
                 overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
+          SizedBox(height: 5),
+          RichText(
+            text: TextSpan(
+                text: 'Date: ',
+                style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
+                children: [
+                  TextSpan(
+                    text: date,
+                    style: TextStyles.tsHeading5(),
+                  )
+                ]),
+          )
         ],
       ),
     );

@@ -228,11 +228,11 @@ class AppointmentView extends StatelessWidget {
                 child: AppointmentCard(
                   key: ObjectKey(appointmentList[i]),
                   onDelete: () => onDeleteItem(i),
+                  imageUrl: appointmentList[i].patient.image,
                   serviceTitle: appointmentList[i].procedures![0].procedureName,
                   doctor: appointmentList[i].dentist,
                   patient: appointmentList[i].patient.fullName,
-                  dateDay: appointmentList[i].date.toDateTime()!.day.toString(),
-                  dateMonth: DateFormat('MMM')
+                  appointmentDate: DateFormat.yMMMd()
                       .format(appointmentList[i].date.toDateTime()!),
                   time:
                       '${appointmentList[i].startTime.toDateTime()!.toTime()}-${appointmentList[i].endTime.toDateTime()!.toTime()}',

@@ -106,16 +106,12 @@ class HomeAppointment extends StatelessWidget {
                           child: AppointmentCard(
                             key: ObjectKey(myAppointments[i]),
                             onDelete: () => this.deleteItem(i),
+                            imageUrl: myAppointments[i].patient.image,
                             serviceTitle:
                                 myAppointments[i].procedures![0].procedureName,
                             doctor: myAppointments[i].dentist,
                             patient: myAppointments[i].patient.fullName,
-                            dateDay: myAppointments[i]
-                                .date
-                                .toDateTime()!
-                                .day
-                                .toString(),
-                            dateMonth: DateFormat('MMM')
+                            appointmentDate: DateFormat.yMMMd()
                                 .format(myAppointments[i].date.toDateTime()!),
                             time:
                                 '${myAppointments[i].startTime.toDateTime()!.toTime()}-${myAppointments[i].endTime.toDateTime()!.toTime()}',

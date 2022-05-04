@@ -12,6 +12,7 @@ import 'package:stacked/stacked_annotations.dart';
 import '../core/service/api/api_service.dart';
 import '../core/service/api/api_service_impl.dart';
 import '../core/service/bottom_sheet/bottom_sheet_service.dart';
+import '../core/service/connectivity/connectivity_service.dart';
 import '../core/service/dialog/dialog_service.dart';
 import '../core/service/dialog/dialog_service_imp.dart';
 import '../core/service/firebase_auth/firebase_auth_service.dart';
@@ -55,4 +56,5 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton(() => SearchIndexService());
   locator.registerLazySingleton<URLLauncherService>(
       () => URLLauncherServiceImpl());
+  locator.registerLazySingleton(() => ConnectivityService());
 }
