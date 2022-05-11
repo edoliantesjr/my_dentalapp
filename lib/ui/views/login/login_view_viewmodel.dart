@@ -91,4 +91,27 @@ class LoginViewModel extends FormViewModel {
 
   @override
   void setFormStatus() {}
+
+  Future<void> loginWithGoogle() async {
+    var loginResult = await firebaseAuthService.loginWithGoogle();
+    if (loginResult != null) {
+      if (loginResult.success) {
+        final isAccountSetupDone = await apiService.checkUserStatus();
+        sessionService.saveSession(
+          isRunFirstTime: false,
+          isLoggedIn: true,
+          isAccountSetupDone: isAccountSetupDone,
+        );
+        logger.i('Checking User Account Details');
+        if (isAccountSetupDone) {
+          navigationService.popAllAndPushNamed(Routes.MainBodyView);
+        } else {
+          navigationService.popAllAndPushNamed(Routes.SetUpUserView);
+        }
+      } else {
+        navigationService.closeOverlay();
+        toastService.showToast(message: loginResult.errorMessage ?? '');
+      }
+    }
+  }
 }

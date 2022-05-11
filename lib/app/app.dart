@@ -40,6 +40,8 @@ import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
 import 'package:dentalapp/ui/views/select_patient/select_patient_view.dart';
+import 'package:dentalapp/ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
+import 'package:dentalapp/ui/views/set_tooth_condition/set_tooth_condition_view.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:dentalapp/ui/views/verify_email/verify_email_view.dart';
 import 'package:dentalapp/ui/widgets/selection_dentist/selection_dentist.dart';
@@ -72,6 +74,7 @@ import 'package:stacked/stacked_annotations.dart';
     MaterialRoute(page: MedicalHistoryView, name: 'MedicalHistoryView'),
     MaterialRoute(page: MedHistoryPhotoView, name: 'MedHistoryPhotoView'),
     MaterialRoute(page: PatientDentalChartView, name: 'PatientDentalChartView'),
+    MaterialRoute(page: SetToothConditionView, name: 'SetToothConditionView'),
     CustomRoute(
         page: SelectionDentist,
         name: 'SelectionDentist',
@@ -80,6 +83,11 @@ import 'package:stacked/stacked_annotations.dart';
     CustomRoute(
         page: SelectionProcedure,
         name: 'SelectionProcedure',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: SelectionToothCondition,
+        name: 'SelectionToothCondition',
         transitionsBuilder: TransitionsBuilders.slideBottom,
         durationInMilliseconds: 300),
   ],

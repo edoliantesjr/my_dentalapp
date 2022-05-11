@@ -14,10 +14,10 @@ class PreLoaderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PreLoaderViewModel>.nonReactive(
+    return ViewModelBuilder<PreLoaderViewModel>.reactive(
       viewModelBuilder: () => PreLoaderViewModel(),
-      onModelReady: (model) async {
-        model.getSessionInfo();
+      onModelReady: (model) {
+        model.listenToConnectivityChanges();
       },
       builder: (context, model, child) => Scaffold(
         body: Container(
@@ -28,25 +28,19 @@ class PreLoaderView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Bounce(
-                      duration: Duration(milliseconds: 1000),
-                      child: Container(
-                          height: 130,
-                          width: 130,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              border:
-                                  Border.all(color: Colors.white, width: 2)),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: Image.asset(
-                                'assets/icons/logo-blue-circle.png',
-                              ))),
-                    ),
+                    Container(
+                        height: 130,
+                        width: 130,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(color: Colors.white, width: 2)),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.asset(
+                              'assets/icons/logo-blue-circle.png',
+                            ))),
                     SizedBox(height: 10),
-                    FadeIn(
-                      delay: Duration(milliseconds: 1100),
-                      duration: Duration(milliseconds: 400),
+                    ElasticIn(
                       child: Text(
                         'Maglinte Dental Clinic',
                         textAlign: TextAlign.center,
@@ -60,12 +54,11 @@ class PreLoaderView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    FadeIn(
-                        child: CircularProgressIndicator(
+                    SizedBox(height: 15),
+                    CircularProgressIndicator(
                       color: Palettes.kcBlueMain1,
                       strokeWidth: 5,
-                    )),
+                    ),
                   ],
                 ),
               ),

@@ -208,6 +208,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         SocialLogin(
                           goToRegister: () => model.goToRegisterView(),
+                          loginWithGoogle: () => model.loginWithGoogle(),
                         ),
                       ],
                     ),
@@ -225,7 +226,10 @@ class _LoginViewState extends State<LoginView> {
 
 class SocialLogin extends StatelessWidget {
   final VoidCallback goToRegister;
-  const SocialLogin({Key? key, required this.goToRegister}) : super(key: key);
+  final VoidCallback loginWithGoogle;
+  const SocialLogin(
+      {Key? key, required this.goToRegister, required this.loginWithGoogle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -243,7 +247,7 @@ class SocialLogin extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () => loginWithGoogle(),
                 child: Container(
                   height: 50.h,
                   width: 100.w,

@@ -19,37 +19,52 @@ enum EnumToothCondition {
 }
 EnumToothCondition getToothCondition(String appointmentStatus) {
   switch (appointmentStatus) {
-    case 'C':
+    case 'Carries Indicated For Filling':
       return EnumToothCondition.Carries_Indicated_For_Filling;
 
-    case 'E':
+    case 'Carries Indicated For Extraction':
       return EnumToothCondition.Carries_Indicated_For_Extraction;
 
-    case 'RF':
+    case 'Root Fragment':
       return EnumToothCondition.Root_Fragment;
-    case 'M':
+
+    case 'Missing Due To Carries':
       return EnumToothCondition.Missing_Due_To_Carries;
-    case 'MO':
+
+    case 'Missing Due To Other Causes':
       return EnumToothCondition.Missing_Due_To_Other_Causes;
-    case 'Im':
+
+    case 'Unerupted Tooth':
+      return EnumToothCondition.Unerupted_Tooth;
+
+    case 'Impacted Tooth':
       return EnumToothCondition.Impacted_Tooth;
-    case 'G':
+
+    case 'Gold Crown':
       return EnumToothCondition.Gold_Crown;
-    case 'J':
+
+    case 'Jacket Crown':
       return EnumToothCondition.Jacket_Crown;
-    case 'Ab':
+
+    case 'Abutment Tooth':
       return EnumToothCondition.Abutment_Tooth;
-    case 'P':
+
+    case 'Pontic':
       return EnumToothCondition.Pontic;
-    case 'I':
+
+    case 'Inlay':
       return EnumToothCondition.Inlay;
-    case 'Am':
+
+    case 'Amalgam Filling':
       return EnumToothCondition.Amalgam_Filling;
-    case 'Fb':
+
+    case 'Fixed Bridge':
       return EnumToothCondition.Fixed_Bridge;
-    case 'Gi':
+
+    case 'Glass Ionomer Filling':
       return EnumToothCondition.Glass_Ionomer_Filling;
-    case 'Fi':
+
+    case 'Composite Filling':
       return EnumToothCondition.Composite_Filling;
 
     default:
@@ -61,40 +76,52 @@ extension Ext on EnumToothCondition {
   String get name {
     switch (this) {
       case EnumToothCondition.Carries_Indicated_For_Filling:
-        return 'C';
+        return 'Carries Indicated For Filling';
 
       case EnumToothCondition.Carries_Indicated_For_Extraction:
-        return 'E';
+        return 'Carries Indicated For Extraction';
 
       case EnumToothCondition.Root_Fragment:
-        return 'RF';
+        return 'Root Fragment';
 
       case EnumToothCondition.Missing_Due_To_Carries:
-        return 'M';
+        return 'Missing Due To Carries';
+
       case EnumToothCondition.Missing_Due_To_Other_Causes:
-        return 'MO';
+        return 'Missing Due To Other Causes';
+
       case EnumToothCondition.Unerupted_Tooth:
-        return 'U';
+        return 'Unerupted Tooth';
+
       case EnumToothCondition.Impacted_Tooth:
-        return 'Im';
+        return 'Impacted Tooth';
+
       case EnumToothCondition.Gold_Crown:
-        return 'G';
+        return 'Gold Crown';
+
       case EnumToothCondition.Jacket_Crown:
-        return 'J';
+        return 'Jacket Crown';
+
       case EnumToothCondition.Abutment_Tooth:
-        return 'Ab';
+        return 'Abutment Tooth';
+
       case EnumToothCondition.Pontic:
-        return 'P';
+        return 'Pontic';
+
       case EnumToothCondition.Inlay:
-        return 'I';
+        return 'Inlay';
+
       case EnumToothCondition.Amalgam_Filling:
-        return 'Am';
+        return 'Amalgam Filling';
+
       case EnumToothCondition.Fixed_Bridge:
-        return 'Fb';
+        return 'Fixed Bridge';
+
       case EnumToothCondition.Glass_Ionomer_Filling:
-        return 'Gi';
+        return 'Glass Ionomer Filling';
+
       case EnumToothCondition.Composite_Filling:
-        return 'Fi';
+        return 'Composite Filling';
 
       default:
         return 'Normal';

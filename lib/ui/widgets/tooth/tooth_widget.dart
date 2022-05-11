@@ -36,14 +36,26 @@ class ToothWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: checkHistory(isSelected, hasRecord),
               border: isCenterTooth
-                  ? Border.all(color: Colors.blueAccent, width: 2)
-                  : Border.all(color: Colors.black, width: 0.8),
+                  ? Border.all(
+                      color: isSelected == true
+                          ? Colors.blue.shade800
+                          : Colors.blueAccent,
+                      width: 2)
+                  : Border.all(
+                      color: hasRecord == true && !isSelected!
+                          ? Colors.red.shade900
+                          : isSelected == true
+                              ? Colors.blue.shade800
+                              : Colors.black,
+                      width: isSelected == true || hasRecord == true ? 3 : 0.8),
             ),
             child: SvgPicture.asset(
               'assets/icons/tooth.svg',
-              color: hasRecord != null && hasRecord == true
+              color: hasRecord != null && hasRecord == true && !isSelected!
                   ? Colors.white
-                  : Colors.black,
+                  : hasRecord != null && hasRecord == true && isSelected!
+                      ? Colors.black
+                      : Colors.black,
             ),
           ),
           Visibility(
@@ -57,9 +69,9 @@ class ToothWidget extends StatelessWidget {
 
   Color checkHistory(bool? isSelected, bool? hasRecord) {
     if (isSelected != null && isSelected) {
-      return Colors.grey.shade500;
+      return Colors.blue.shade200;
     } else if (hasRecord != null && hasRecord) {
-      return Colors.red;
+      return Colors.red.shade400;
     } else {
       return Colors.white;
     }

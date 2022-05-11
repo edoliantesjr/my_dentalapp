@@ -200,8 +200,12 @@ class DateWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: CachedNetworkImage(
         width: 75,
+        alignment: Alignment.center,
         imageUrl: imageUrl,
         fit: BoxFit.cover,
+        progressIndicatorBuilder: (context, url, progress) => Container(
+          color: Colors.grey.shade400,
+        ),
       ),
     );
   }

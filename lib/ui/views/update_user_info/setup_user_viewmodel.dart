@@ -6,6 +6,7 @@ import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
+import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/search_index/search_index.dart';
 import 'package:dentalapp/core/service/session_service/session_service.dart';
@@ -32,7 +33,7 @@ class SetupUserViewModel extends BaseViewModel {
   final dialogService = locator<DialogService>();
   final sessionService = locator<SessionService>();
   final searchIndexService = locator<SearchIndexService>();
-
+  final firebaseAuthService = locator<FirebaseAuthService>();
   final setupFormKey = GlobalKey<FormState>();
 
   final List<String> genderOptions = ['Male', 'Female'];
@@ -118,6 +119,7 @@ class SetupUserViewModel extends BaseViewModel {
   Future<void> saveUser(String firstName, String lastName, String dateOfBirth,
       String gender, String position) async {
     dialogService.showDefaultLoadingDialog(barrierDismissible: false);
+    await firebaseAuthService.reLoad();
 
     final imageUploadResult = await apiService.uploadProfileImage(
         imageToUpload: File(selectedImage!.path),

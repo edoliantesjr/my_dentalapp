@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/constants/styles/theme_style.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
@@ -27,8 +28,7 @@ void main() async {
 
   await Firebase.initializeApp();
   await GetStorage.init('MyLocalDB');
-  // FirebaseFirestore.instance.settings =
-  //     Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
+  FirebaseFirestore.instance.settings = Settings(persistenceEnabled: false);
   await getAppVersionNumber();
   runApp(DentalApp());
 }
@@ -42,7 +42,7 @@ class DentalApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: ScreenUtil.defaultSize,
-      builder: () => GetMaterialApp(
+      builder: (child) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Maglinte Dental Clinic',
         initialRoute: Routes.PreLoader,

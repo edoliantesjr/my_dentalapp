@@ -16,4 +16,6 @@ abstract class FirebaseAuthService {
   Future<void> logOut();
 
   Future<bool> sendEmailVerification();
+
+  Future<bool> reLoad();
 }

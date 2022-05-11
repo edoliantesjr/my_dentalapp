@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:dentalapp/app/app.locator.dart';
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
-import 'package:dentalapp/enums/enum_tooth_condition.dart';
+import 'package:dentalapp/core/service/dialog/dialog_service.dart';
+import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/models/dental_notes/dental_notes.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
@@ -49,8 +51,12 @@ class PatientDentalChartViewModel extends BaseViewModel {
     17
   ];
 
-  List<String> selectedTooth = [];
   final apiService = locator<ApiService>();
+  final navigationService = locator<NavigationService>();
+  final dialogService = locator<DialogService>();
+
+  bool isInSelectionMode = false;
+  List<String> selectedTooth = [];
 
   bool checkCenterTooth1(String toothID) {
     if (centerTooth1.contains(toothID)) {
@@ -83,21 +89,13 @@ class PatientDentalChartViewModel extends BaseViewModel {
       print(toothId + ' isAdded');
       notifyListeners();
     }
-  }
-
-  Future<void> addToothCondition({required String patientId}) async {
-    //
-    for (dynamic i in selectedTooth) {
-      debugPrint('adding ${i.toString()}');
-      await apiService.addToothCondition(
-          toothId: i.toString(),
-          patientId: patientId,
-          toothCondition: ToothCondition(
-              selectedTooth: i.toString(),
-              toothCondition: EnumToothCondition.Impacted_Tooth.name,
-              date: DateTime.now().toString()));
+    if (selectedTooth.isEmpty) {
+      isInSelectionMode = false;
+      notifyListeners();
+    } else {
+      isInSelectionMode = true;
+      notifyListeners();
     }
-    debugPrint('Tooth Condition Added');
   }
 
   Future<void> addDentalNotes({required String patientId}) async {
@@ -118,7 +116,7 @@ class PatientDentalChartViewModel extends BaseViewModel {
     debugPrint('Dental Notes Added');
   }
 
-  Future<void> getDentalCondition(
+  Future<void> getToothWithDentalCondition(
       {required String patientId, String? toothId}) async {
     var toothConditionList = await apiService.getDentalConditionList(
         patientId: patientId, toothId: toothId);
@@ -144,9 +142,19 @@ class PatientDentalChartViewModel extends BaseViewModel {
   }
 
   void init(String patientId) async {
+    setBusy(true);
     await getDentalNotes(patientId: patientId);
-    await getDentalCondition(patientId: patientId);
+    await getToothWithDentalCondition(patientId: patientId);
+    setBusy(false);
     debugPrint(toothWithTransactionHistory.toString());
+  }
+
+  void showLoadingDialog(bool isBusy) {
+    if (isBusy) {
+      dialogService.showDefaultLoadingDialog();
+    } else {
+      navigationService.pop();
+    }
   }
 
   bool hasHistory(String toothId) {
@@ -156,5 +164,12 @@ class PatientDentalChartViewModel extends BaseViewModel {
       return false;
     }
     ;
+  }
+
+  void goToSetToothCondition(String patientId) {
+    selectedTooth.sort((a, b) => a.toString().compareTo(b.toString()));
+    navigationService.pushNamed(Routes.SetToothConditionView,
+        arguments: SetToothConditionViewArguments(
+            selectedTeeth: selectedTooth, patientId: patientId));
   }
 }

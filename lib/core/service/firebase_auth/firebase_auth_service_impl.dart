@@ -3,6 +3,7 @@ import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart'
 import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/models/response_model/auth_response_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthServiceImpl extends FirebaseAuthService {
@@ -10,9 +11,11 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
   final sessionService = locator<SessionService>();
   String errorMessage = '';
 
-  // final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-  // GoogleSignInAccount? googleSignInAccount;
-  // GoogleSignInAuthentication? googleSignInAuthentication;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  GoogleSignInAccount? googleSignInAccount;
+  GoogleSignInAuthentication? googleSignInAuthentication;
+  AuthCredential? authCredential;
+  UserCredential? authResult;
 
   @override
   Future<AuthResponse> signUpWithEmail({
@@ -79,7 +82,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
 
   @override
   Future<bool> sendEmailVerification() async {
-    final currentUser = _firebaseAuth.currentUser;
+    final currentUser = await _firebaseAuth.currentUser;
     if (currentUser != null && !currentUser.emailVerified) {
       await currentUser.sendEmailVerification();
       return true;
@@ -90,15 +93,19 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
 
   @override
   Future<AuthResponse> loginWithGoogle() async {
-    final googleUser = await GoogleSignIn().signIn();
-    final googleAuth = await googleUser!.authentication;
-    final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+    googleSignInAccount = await _googleSignIn.signIn();
+
+    googleSignInAuthentication = await googleSignInAccount?.authentication;
+
+    authCredential = await GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication!.accessToken,
+        idToken: googleSignInAuthentication!.idToken);
 
     UserCredential authResult =
-        await _firebaseAuth.signInWithCredential(credential);
+        await _firebaseAuth.signInWithCredential(authCredential!);
 
     if (authResult.credential != null) {
+      sendEmailVerification();
       return AuthResponse.success(authResult.user!);
     } else {
       return AuthResponse.error('Error Signing In');
@@ -115,6 +122,17 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
     if (_firebaseAuth.currentUser != null) {
       _firebaseAuth.signOut();
       sessionService.clearSession();
+    }
+  }
+
+  @override
+  Future<bool> reLoad() async {
+    try {
+      await _firebaseAuth.currentUser?.reload();
+      debugPrint(_firebaseAuth.currentUser?.email);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      return false;
     }
   }
 }

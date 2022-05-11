@@ -146,4 +146,11 @@ class ValidatorServiceImpl extends ValidatorService {
       return ' No Dentist Selected';
     }
   }
+
+  @override
+  String? validateToothCondition(String value) {
+    if (value.isEmpty) {
+      return 'No Tooth Condition Selected';
+    }
+  }
 }
