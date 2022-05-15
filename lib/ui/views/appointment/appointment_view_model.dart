@@ -24,7 +24,7 @@ class AppointmentViewModel extends BaseViewModel {
   }
 
   void goToSelectPatient() {
-    navigationService.pushNamed(Routes.SelectPatientView);
+    navigationService.pushNamed(Routes.AppointmentSelectPatientView);
   }
 
   Future<void> getAppointmentByDate(DateTime? dateTime) async {

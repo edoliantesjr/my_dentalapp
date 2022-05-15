@@ -6,6 +6,8 @@ class AddPaymentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //todo: implement add payment view
-    return Container();
+    return Scaffold(
+      appBar: AppBar(title: Text('Add Payment')),
+    );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
-import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
 import 'package:dentalapp/extensions/date_format_extension.dart';
@@ -10,9 +9,10 @@ import 'package:dentalapp/ui/widgets/appointment_card/appointment_card.dart';
 import 'package:dentalapp/ui/widgets/custom_shimmer/custom_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../../constants/styles/palette_color.dart';
 
 class AppointmentView extends StatelessWidget {
   const AppointmentView({Key? key}) : super(key: key);
@@ -29,173 +29,104 @@ class AppointmentView extends StatelessWidget {
         model.listenToAppointmentChanges();
       },
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'Clinic Appointments',
-            style: TextStyles.tsHeading3(color: Colors.white),
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(
+              'Clinic Appointments',
+              style: TextStyles.tsHeading3(color: Colors.white),
+            ),
           ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          heroTag: null,
-          onPressed: model.goToSelectPatient,
-          label: Text('Add Appointment'),
-        ),
-        body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.miniEndFloat,
+          floatingActionButton: FloatingActionButton.extended(
+            heroTag: null,
+            onPressed: model.goToSelectPatient,
+            label: Text('Add Appointment'),
+          ),
+          body: Container(
             color: Colors.grey.shade50,
-            padding: EdgeInsets.symmetric(horizontal: 7),
-            child: RefreshIndicator(
-              color: Palettes.kcBlueMain1,
-              onRefresh: () async {
-                await model.getAppointmentByDate(model.selectedDate);
-              },
-              child: CustomScrollView(
-                physics: ScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                slivers: [
-                  SliverStickyHeader(
-                      sticky: true,
-                      overlapsContent: false,
-                      header: Container(
-                        color: Colors.grey.shade50,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            CalendarTimeline(
-                              initialDate: model.selectedDate,
-                              firstDate: DateTime.utc(2021, 12),
-                              lastDate: DateTime(2026, 12),
-                              onDateSelected: (date) {
-                                model.getAppointmentByDate(date!);
-                              },
-                              monthColor: Palettes.kcNeutral1,
-                              key: ObjectKey(model.appointmentList),
-                            ),
-                            Container(
-                                padding: const EdgeInsets.only(
-                                    left: 10, right: 10, bottom: 8),
-                                decoration: BoxDecoration(
-                                    color: Colors.grey.shade50,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          blurRadius: 2,
-                                          offset: Offset(0, 2))
-                                    ]),
-                                child: Container()
-                                //  todo: edit this to show filter appointments
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     Text(
-                                //       'Result',
-                                //       style: TextStyles.tsHeading4(),
-                                //     ),
-                                //     SizedBox(width: 8),
-                                //     Container(
-                                //       padding:
-                                //           EdgeInsets.symmetric(horizontal: 8),
-                                //       decoration: BoxDecoration(
-                                //           color: Colors.grey.shade600,
-                                //           borderRadius:
-                                //               BorderRadius.circular(10)),
-                                //       child: Text(
-                                //         'Done',
-                                //         style: TextStyle(color: Colors.white),
-                                //       ),
-                                //     ),
-                                //     Expanded(
-                                //       child:
-                                //       Row(
-                                //         mainAxisAlignment: MainAxisAlignment.end,
-                                //         children: [
-                                //           InkWell(
-                                //             onTap: () {},
-                                //             child: Container(
-                                //               padding: EdgeInsets.all(5),
-                                //               decoration: BoxDecoration(
-                                //                   color: Colors.white,
-                                //                   shape: BoxShape.circle,
-                                //                   boxShadow: [
-                                //                     BoxShadow(
-                                //                         color:
-                                //                             Palettes.kcBlueMain2,
-                                //                         blurRadius: 1)
-                                //                   ]),
-                                //               child: SvgPicture.asset(
-                                //                 'assets/icons/Search.svg',
-                                //                 color: Palettes.kcNeutral1,
-                                //                 height: 18,
-                                //                 width: 18,
-                                //               ),
-                                //             ),
-                                //           ),
-                                //           SizedBox(width: 15),
-                                //           InkWell(
-                                //             onTap: () {},
-                                //             child: Container(
-                                //               padding: EdgeInsets.all(5),
-                                //               decoration: BoxDecoration(
-                                //                   color: Colors.white,
-                                //                   shape: BoxShape.circle,
-                                //                   boxShadow: [
-                                //                     BoxShadow(
-                                //                         color:
-                                //                             Palettes.kcBlueMain2,
-                                //                         blurRadius: 1)
-                                //                   ]),
-                                //               child: SvgPicture.asset(
-                                //                 'assets/icons/Filter.svg',
-                                //                 color: Palettes.kcNeutral1,
-                                //                 height: 18,
-                                //                 width: 18,
-                                //               ),
-                                //             ),
-                                //           ),
-                                //         ],
-                                //       ),
-                                //     )
-                                //   ],
-                                // ),
-                                ),
-                            SizedBox(height: 5)
-                          ],
-                        ),
+            child: Column(
+              children: [
+                Container(
+                  color: Palettes.kcBlueMain1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 0, left: 4, right: 4, bottom: 4),
+                    child: CalendarTimeline(
+                      key: ObjectKey(model.appointmentList),
+                      initialDate: model.selectedDate,
+                      firstDate: DateTime.utc(2021, 12),
+                      lastDate: DateTime(2026, 12),
+                      onDateSelected: (date) {
+                        model.getAppointmentByDate(date!);
+                      },
+                      monthColor: Colors.white,
+                      activeBackgroundDayColor: Colors.white,
+                      dayColor: Colors.white,
+                      activeDayColor: Palettes.kcBlueMain1,
+                    ),
+                  ),
+                ),
+                Divider(height: 1, color: Colors.grey),
+                Container(
+                  height: 45,
+                  color: Colors.grey.shade200,
+                  child: Row(
+                    children: [
+                      SizedBox(width: 5),
+                      Text(
+                        'Filter: ',
+                        style: TextStyles.tsHeading5(),
                       ),
-                      sliver: SliverList(
-                        delegate: model.appointmentList.isNotEmpty
-                            ? SliverChildBuilderDelegate(
-                                (context, index) {
-                                  return appointmentCardHelper(
-                                    appointmentList: model.appointmentList,
-                                    isBusy: model.isBusy,
-                                    onDeleteItem: (index) {},
-                                  );
-                                },
-                                childCount: 1,
-                              )
-                            : SliverChildListDelegate([
-                                Container(
-                                  height: 400,
-                                  width: double.maxFinite,
-                                  child: Center(
-                                    child: Text(
-                                      'No Appointments for this date.',
-                                      style: TextStyles.tsBody2(
-                                          color: Palettes.kcNeutral1),
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                      ))
-                ],
-              ),
-            )),
-      ),
+                      Spacer(),
+                      FilterChip(
+                        label: Text('All'),
+                        selected: true,
+                        onSelected: (bool) => !bool,
+                      ),
+                      SizedBox(width: 4),
+                      FilterChip(
+                        label: Text('Done'),
+                        onSelected: (bool) => !bool,
+                      ),
+                      SizedBox(width: 4),
+                      FilterChip(
+                        label: Text('Pending'),
+                        onSelected: (bool) => !bool,
+                      ),
+                      SizedBox(width: 4),
+                      FilterChip(
+                        label: Text('Cancelled'),
+                        onSelected: (bool) => !bool,
+                      ),
+                      SizedBox(width: 5),
+                    ],
+                  ),
+                ),
+                Divider(height: 1, color: Colors.grey),
+                Expanded(
+                  child: Scrollbar(
+                    thickness: 7,
+                    hoverThickness: 2,
+                    showTrackOnHover: true,
+                    child: Container(
+                      color: Colors.grey.shade50,
+                      padding: EdgeInsets.symmetric(horizontal: 2),
+                      child: model.appointmentList.isNotEmpty
+                          ? appointmentCardHelper(
+                              appointmentList: model.appointmentList,
+                              isBusy: model.isBusy,
+                              onDeleteItem: (int) {})
+                          : Center(
+                              child:
+                                  Text('No Appointment for this date. Add Now'),
+                            ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )),
     );
   }
 
@@ -210,7 +141,7 @@ class AppointmentView extends StatelessWidget {
         child: ListView.builder(
           shrinkWrap: true,
           primary: false,
-          physics: NeverScrollableScrollPhysics(),
+          // physics: NeverScrollableScrollPhysics(),
           padding: EdgeInsets.all(5),
           itemCount: appointmentList.length,
           itemBuilder: (context, i) => AnimationConfiguration.staggeredList(

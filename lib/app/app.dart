@@ -23,8 +23,10 @@ import 'package:dentalapp/core/utility/connectivity_state.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
 import 'package:dentalapp/ui/views/add_medicine/add_medicine_view.dart';
 import 'package:dentalapp/ui/views/add_patient/add_patient_view.dart';
+import 'package:dentalapp/ui/views/add_payment/add_payment_view.dart';
 import 'package:dentalapp/ui/views/add_procedure/add_procedure_view.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view.dart';
+import 'package:dentalapp/ui/views/appointment_select_patient/appointment_select_patient_view.dart';
 import 'package:dentalapp/ui/views/create_appointment/create_appointment_view.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
 import 'package:dentalapp/ui/views/home/home_view.dart';
@@ -39,7 +41,6 @@ import 'package:dentalapp/ui/views/patients/patients_view.dart';
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
-import 'package:dentalapp/ui/views/select_patient/select_patient_view.dart';
 import 'package:dentalapp/ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
 import 'package:dentalapp/ui/views/set_dental_note/set_dental_note_view.dart';
 import 'package:dentalapp/ui/views/set_tooth_condition/set_tooth_condition_view.dart';
@@ -67,7 +68,9 @@ import 'package:stacked/stacked_annotations.dart';
     MaterialRoute(page: PatientsView, name: 'PatientsView'),
     MaterialRoute(page: ProceduresView, name: 'ProceduresView'),
     MaterialRoute(page: AddPatientView, name: 'AddPatientView'),
-    MaterialRoute(page: SelectPatientView, name: 'SelectPatientView'),
+    MaterialRoute(
+        page: AppointmentSelectPatientView,
+        name: 'AppointmentSelectPatientView'),
     MaterialRoute(page: CreateAppointmentView, name: 'CreateAppointmentView'),
     MaterialRoute(page: AddMedicineView, name: 'AddMedicineView'),
     MaterialRoute(page: AddProcedureView, name: 'AddProcedureView'),
@@ -77,6 +80,7 @@ import 'package:stacked/stacked_annotations.dart';
     MaterialRoute(page: PatientDentalChartView, name: 'PatientDentalChartView'),
     MaterialRoute(page: SetToothConditionView, name: 'SetToothConditionView'),
     MaterialRoute(page: SetDentalNoteView, name: 'SetDentalNoteView'),
+    MaterialRoute(page: AddPaymentView, name: 'AddPaymentView'),
     CustomRoute(
         page: SelectionDentist,
         name: 'SelectionDentist',
@@ -97,7 +101,6 @@ import 'package:stacked/stacked_annotations.dart';
     Singleton(classType: NavigationServiceImpl, asType: NavigationService),
     LazySingleton(classType: SnackBarServiceImpl, asType: SnackBarService),
     LazySingleton(classType: DialogServiceImpl, asType: DialogService),
-
     LazySingleton(
         classType: FirebaseAuthServiceImpl, asType: FirebaseAuthService),
     LazySingleton(classType: ValidatorServiceImpl, asType: ValidatorService),

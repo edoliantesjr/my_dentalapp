@@ -7,7 +7,7 @@ import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:stacked/stacked.dart';
 
-class SelectPatientViewModel extends BaseViewModel {
+class AppointmentSelectPatientViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final apiService = locator<ApiService>();
   StreamSubscription? patientSubscription;

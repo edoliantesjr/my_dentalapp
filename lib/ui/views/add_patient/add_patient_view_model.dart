@@ -99,7 +99,7 @@ class AddPatientViewModel extends BaseViewModel {
       setBusy(false);
       logger.i('image selected');
     }
-    imageCache!.clear();
+    imageCache.clear();
     logger.i('image cache cleared');
   }
 

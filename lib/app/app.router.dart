@@ -15,8 +15,10 @@ import '../models/medical_history/medical_history.dart';
 import '../models/patient_model/patient_model.dart';
 import '../ui/views/add_medicine/add_medicine_view.dart';
 import '../ui/views/add_patient/add_patient_view.dart';
+import '../ui/views/add_payment/add_payment_view.dart';
 import '../ui/views/add_procedure/add_procedure_view.dart';
 import '../ui/views/appointment/appointment_view.dart';
+import '../ui/views/appointment_select_patient/appointment_select_patient_view.dart';
 import '../ui/views/create_appointment/create_appointment_view.dart';
 import '../ui/views/get_started/get_started_view.dart';
 import '../ui/views/home/home_view.dart';
@@ -31,7 +33,6 @@ import '../ui/views/patients/patients_view.dart';
 import '../ui/views/pre_loader/pre_loader_view.dart';
 import '../ui/views/procedures/procedure_view.dart';
 import '../ui/views/register/register_view.dart';
-import '../ui/views/select_patient/select_patient_view.dart';
 import '../ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
 import '../ui/views/set_dental_note/set_dental_note_view.dart';
 import '../ui/views/set_tooth_condition/set_tooth_condition_view.dart';
@@ -56,7 +57,8 @@ class Routes {
   static const String PatientsView = '/patients-view';
   static const String ProceduresView = '/procedures-view';
   static const String AddPatientView = '/add-patient-view';
-  static const String SelectPatientView = '/select-patient-view';
+  static const String AppointmentSelectPatientView =
+      '/appointment-select-patient-view';
   static const String CreateAppointmentView = '/create-appointment-view';
   static const String AddMedicineView = '/add-medicine-view';
   static const String AddProcedureView = '/add-procedure-view';
@@ -66,6 +68,7 @@ class Routes {
   static const String PatientDentalChartView = '/patient-dental-chart-view';
   static const String SetToothConditionView = '/set-tooth-condition-view';
   static const String SetDentalNoteView = '/set-dental-note-view';
+  static const String AddPaymentView = '/add-payment-view';
   static const String SelectionDentist = '/selection-dentist';
   static const String SelectionProcedure = '/selection-procedure';
   static const String SelectionToothCondition = '/selection-tooth-condition';
@@ -84,7 +87,7 @@ class Routes {
     PatientsView,
     ProceduresView,
     AddPatientView,
-    SelectPatientView,
+    AppointmentSelectPatientView,
     CreateAppointmentView,
     AddMedicineView,
     AddProcedureView,
@@ -94,6 +97,7 @@ class Routes {
     PatientDentalChartView,
     SetToothConditionView,
     SetDentalNoteView,
+    AddPaymentView,
     SelectionDentist,
     SelectionProcedure,
     SelectionToothCondition,
@@ -118,7 +122,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.PatientsView, page: PatientsView),
     RouteDef(Routes.ProceduresView, page: ProceduresView),
     RouteDef(Routes.AddPatientView, page: AddPatientView),
-    RouteDef(Routes.SelectPatientView, page: SelectPatientView),
+    RouteDef(Routes.AppointmentSelectPatientView,
+        page: AppointmentSelectPatientView),
     RouteDef(Routes.CreateAppointmentView, page: CreateAppointmentView),
     RouteDef(Routes.AddMedicineView, page: AddMedicineView),
     RouteDef(Routes.AddProcedureView, page: AddProcedureView),
@@ -128,6 +133,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.PatientDentalChartView, page: PatientDentalChartView),
     RouteDef(Routes.SetToothConditionView, page: SetToothConditionView),
     RouteDef(Routes.SetDentalNoteView, page: SetDentalNoteView),
+    RouteDef(Routes.AddPaymentView, page: AddPaymentView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
     RouteDef(Routes.SelectionToothCondition, page: SelectionToothCondition),
@@ -233,9 +239,9 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    SelectPatientView: (data) {
+    AppointmentSelectPatientView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const SelectPatientView(),
+        builder: (context) => const AppointmentSelectPatientView(),
         settings: data,
       );
     },
@@ -321,6 +327,12 @@ class StackedRouter extends RouterBase {
           selectedTeeth: args.selectedTeeth,
           patientId: args.patientId,
         ),
+        settings: data,
+      );
+    },
+    AddPaymentView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const AddPaymentView(),
         settings: data,
       );
     },

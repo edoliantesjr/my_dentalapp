@@ -83,11 +83,10 @@ class AddMedicineViewModel extends BaseViewModel {
 
       setBusy(false);
     }
-    imageCache!.clear();
+    imageCache.clear();
   }
 
   Future<String?> uploadMedicineImage({required String genericName}) async {
-
     final uploadResult = await apiService.uploadMedicineImage(
         imageToUpload: File(selectedImage!.path), genericName: genericName);
     if (uploadResult.isUploaded) {

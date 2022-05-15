@@ -2,7 +2,6 @@ import 'package:age_calculator/age_calculator.dart';
 import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
-import 'package:dentalapp/ui/views/select_patient/select_patient_view_model.dart';
 import 'package:dentalapp/ui/widgets/patient_card/patient_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -11,13 +10,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
-class SelectPatientView extends StatelessWidget {
-  const SelectPatientView({Key? key}) : super(key: key);
+import 'appointment_select_patient_view_model.dart';
+
+class AppointmentSelectPatientView extends StatelessWidget {
+  const AppointmentSelectPatientView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SelectPatientViewModel>.reactive(
-      viewModelBuilder: () => SelectPatientViewModel(),
+    return ViewModelBuilder<AppointmentSelectPatientViewModel>.reactive(
+      viewModelBuilder: () => AppointmentSelectPatientViewModel(),
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
