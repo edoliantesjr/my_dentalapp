@@ -9,7 +9,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
 class SetUpUserView extends StatefulWidget {
-  SetUpUserView({Key? key}) : super(key: key);
+  final String? firstName;
+  final String? lastName;
+  final String? userPhoto;
+  SetUpUserView({Key? key, this.firstName, this.lastName, this.userPhoto})
+      : super(key: key);
 
   @override
   State<SetUpUserView> createState() => _SetUpUserViewState();
@@ -30,6 +34,12 @@ class _SetUpUserViewState extends State<SetUpUserView> {
     lastNameController.dispose();
     positionController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    firstNameController.text = widget.firstName ?? '';
+    super.initState();
   }
 
   @override

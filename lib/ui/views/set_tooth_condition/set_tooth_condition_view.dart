@@ -4,6 +4,7 @@ import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/set_tooth_condition/set_tooth_condition_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
 
 class SetToothConditionView extends StatelessWidget {
@@ -79,6 +80,32 @@ class SetToothConditionView extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 8),
+              GestureDetector(
+                onTap: () => model.selectDate(),
+                child: TextFormField(
+                  controller: model.dateTextController,
+                  enabled: false,
+                  validator: (value) =>
+                      model.validatorService.validateDate(value!),
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.datetime,
+                  decoration: InputDecoration(
+                      errorBorder: TextBorderStyles.errorBorder,
+                      errorStyle: TextStyles.errorTextStyle,
+                      disabledBorder: TextBorderStyles.normalBorder,
+                      hintText: 'MM/DD/YYYY',
+                      labelText: 'Appointment Date*',
+                      labelStyle:
+                          TextStyle(fontSize: 21, color: Palettes.kcNeutral1),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      suffixIcon: SvgPicture.asset(
+                        'assets/icons/Calendar.svg',
+                        color: Palettes.kcBlueMain1,
+                        fit: BoxFit.scaleDown,
+                      )),
+                ),
+              ),
+              SizedBox(height: 10),
               GestureDetector(
                 onTap: () => model.goToSelectToothCondition(),
                 child: TextFormField(

@@ -41,6 +41,7 @@ import 'package:dentalapp/ui/views/procedures/procedure_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
 import 'package:dentalapp/ui/views/select_patient/select_patient_view.dart';
 import 'package:dentalapp/ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
+import 'package:dentalapp/ui/views/set_dental_note/set_dental_note_view.dart';
 import 'package:dentalapp/ui/views/set_tooth_condition/set_tooth_condition_view.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:dentalapp/ui/views/verify_email/verify_email_view.dart';
@@ -75,6 +76,7 @@ import 'package:stacked/stacked_annotations.dart';
     MaterialRoute(page: MedHistoryPhotoView, name: 'MedHistoryPhotoView'),
     MaterialRoute(page: PatientDentalChartView, name: 'PatientDentalChartView'),
     MaterialRoute(page: SetToothConditionView, name: 'SetToothConditionView'),
+    MaterialRoute(page: SetDentalNoteView, name: 'SetDentalNoteView'),
     CustomRoute(
         page: SelectionDentist,
         name: 'SelectionDentist',
@@ -95,6 +97,7 @@ import 'package:stacked/stacked_annotations.dart';
     Singleton(classType: NavigationServiceImpl, asType: NavigationService),
     LazySingleton(classType: SnackBarServiceImpl, asType: SnackBarService),
     LazySingleton(classType: DialogServiceImpl, asType: DialogService),
+
     LazySingleton(
         classType: FirebaseAuthServiceImpl, asType: FirebaseAuthService),
     LazySingleton(classType: ValidatorServiceImpl, asType: ValidatorService),

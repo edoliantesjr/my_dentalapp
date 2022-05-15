@@ -33,6 +33,7 @@ import '../ui/views/procedures/procedure_view.dart';
 import '../ui/views/register/register_view.dart';
 import '../ui/views/select_patient/select_patient_view.dart';
 import '../ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
+import '../ui/views/set_dental_note/set_dental_note_view.dart';
 import '../ui/views/set_tooth_condition/set_tooth_condition_view.dart';
 import '../ui/views/update_user_info/setup_user_view.dart';
 import '../ui/views/verify_email/verify_email_view.dart';
@@ -64,6 +65,7 @@ class Routes {
   static const String MedHistoryPhotoView = '/med-history-photo-view';
   static const String PatientDentalChartView = '/patient-dental-chart-view';
   static const String SetToothConditionView = '/set-tooth-condition-view';
+  static const String SetDentalNoteView = '/set-dental-note-view';
   static const String SelectionDentist = '/selection-dentist';
   static const String SelectionProcedure = '/selection-procedure';
   static const String SelectionToothCondition = '/selection-tooth-condition';
@@ -91,6 +93,7 @@ class Routes {
     MedHistoryPhotoView,
     PatientDentalChartView,
     SetToothConditionView,
+    SetDentalNoteView,
     SelectionDentist,
     SelectionProcedure,
     SelectionToothCondition,
@@ -124,6 +127,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.MedHistoryPhotoView, page: MedHistoryPhotoView),
     RouteDef(Routes.PatientDentalChartView, page: PatientDentalChartView),
     RouteDef(Routes.SetToothConditionView, page: SetToothConditionView),
+    RouteDef(Routes.SetDentalNoteView, page: SetDentalNoteView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
     RouteDef(Routes.SelectionToothCondition, page: SelectionToothCondition),
@@ -172,7 +176,12 @@ class StackedRouter extends RouterBase {
         orElse: () => SetUpUserViewArguments(),
       );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => SetUpUserView(key: args.key),
+        builder: (context) => SetUpUserView(
+          key: args.key,
+          firstName: args.firstName,
+          lastName: args.lastName,
+          userPhoto: args.userPhoto,
+        ),
         settings: data,
       );
     },
@@ -304,6 +313,17 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    SetDentalNoteView: (data) {
+      var args = data.getArgs<SetDentalNoteViewArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => SetDentalNoteView(
+          key: args.key,
+          selectedTeeth: args.selectedTeeth,
+          patientId: args.patientId,
+        ),
+        settings: data,
+      );
+    },
     SelectionDentist: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -353,7 +373,11 @@ class RegisterViewArguments {
 /// SetUpUserView arguments holder class
 class SetUpUserViewArguments {
   final Key? key;
-  SetUpUserViewArguments({this.key});
+  final String? firstName;
+  final String? lastName;
+  final String? userPhoto;
+  SetUpUserViewArguments(
+      {this.key, this.firstName, this.lastName, this.userPhoto});
 }
 
 /// CreateAppointmentView arguments holder class
@@ -399,5 +423,14 @@ class SetToothConditionViewArguments {
   final List<String> selectedTeeth;
   final dynamic patientId;
   SetToothConditionViewArguments(
+      {this.key, required this.selectedTeeth, required this.patientId});
+}
+
+/// SetDentalNoteView arguments holder class
+class SetDentalNoteViewArguments {
+  final Key? key;
+  final List<String> selectedTeeth;
+  final dynamic patientId;
+  SetDentalNoteViewArguments(
       {this.key, required this.selectedTeeth, required this.patientId});
 }

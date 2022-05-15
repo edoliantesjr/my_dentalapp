@@ -11,12 +11,6 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
   final sessionService = locator<SessionService>();
   String errorMessage = '';
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-  GoogleSignInAccount? googleSignInAccount;
-  GoogleSignInAuthentication? googleSignInAuthentication;
-  AuthCredential? authCredential;
-  UserCredential? authResult;
-
   @override
   Future<AuthResponse> signUpWithEmail({
     required String email,
@@ -93,18 +87,19 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
 
   @override
   Future<AuthResponse> loginWithGoogle() async {
-    googleSignInAccount = await _googleSignIn.signIn();
+    final GoogleSignIn _googleSignIn = await GoogleSignIn(scopes: ['profile']);
+    final GoogleSignInAccount? googleSignInAccount =
+        await _googleSignIn.signIn();
 
-    googleSignInAuthentication = await googleSignInAccount?.authentication;
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
-    authCredential = await GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication!.accessToken,
-        idToken: googleSignInAuthentication!.idToken);
-
-    UserCredential authResult =
-        await _firebaseAuth.signInWithCredential(authCredential!);
-
-    if (authResult.credential != null) {
+      final authCredential = await GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken);
+      UserCredential authResult =
+          await _firebaseAuth.signInWithCredential(authCredential);
       sendEmailVerification();
       return AuthResponse.success(authResult.user!);
     } else {
@@ -120,7 +115,8 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
   @override
   Future<void> logOut() async {
     if (_firebaseAuth.currentUser != null) {
-      _firebaseAuth.signOut();
+      await _firebaseAuth.signOut();
+
       sessionService.clearSession();
     }
   }
@@ -132,6 +128,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
       debugPrint(_firebaseAuth.currentUser?.email);
       return true;
     } on FirebaseAuthException catch (e) {
+      debugPrint(e.message);
       return false;
     }
   }

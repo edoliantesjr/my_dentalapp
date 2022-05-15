@@ -106,7 +106,11 @@ class LoginViewModel extends FormViewModel {
         if (isAccountSetupDone) {
           navigationService.popAllAndPushNamed(Routes.MainBodyView);
         } else {
-          navigationService.popAllAndPushNamed(Routes.SetUpUserView);
+          navigationService.popAllAndPushNamed(Routes.SetUpUserView,
+              arguments: SetUpUserViewArguments(
+                firstName: loginResult.user?.displayName ?? '',
+                userPhoto: loginResult.user?.photoURL ?? '',
+              ));
         }
       } else {
         navigationService.closeOverlay();

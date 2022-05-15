@@ -117,7 +117,6 @@ class ApiServiceImpl extends ApiService {
   @override
   Stream<List<Patient>> getPatients() {
     return patientReference
-        .where('field')
         .orderBy('dateCreated', descending: true)
         .snapshots()
         .map((value) => value.docs
@@ -373,5 +372,12 @@ class ApiServiceImpl extends ApiService {
         .get()
         .then((value) =>
             value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+  }
+
+  @override
+  Stream<List<Patient>> getPatientDentalCondition(String patientId) {
+    // TODO: implement getPatientDentalCondition
+
+    throw UnimplementedError();
   }
 }

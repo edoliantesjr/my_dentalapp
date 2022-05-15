@@ -19,8 +19,9 @@ class PatientDentalChartView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<PatientDentalChartViewModel>.reactive(
       viewModelBuilder: () => PatientDentalChartViewModel(),
-      onModelReady: (model) {
-        model.init(patient.id);
+      onModelReady: (model) async {
+        await Future.delayed(Duration(milliseconds: 100));
+        refreshKey.currentState?.show();
       },
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
@@ -34,152 +35,88 @@ class PatientDentalChartView extends StatelessWidget {
                 ))
           ],
         ),
-        body: model.isBusy
-            ? Center(child: CircularProgressIndicator())
-            : ListView(
-                children: [
-                  PatientCard(
-                    image: patient.image,
-                    name: patient.fullName,
-                    phone: patient.phoneNum,
-                    address: patient.address,
-                    age: '20',
-                    birthDate: DateFormat.yMMMd()
-                        .format(patient.birthDate.toDateTime()!),
-                  ),
-                  AnimatedContainer(
-                    height: model.isInSelectionMode ? 45 : 0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
+        body: RefreshIndicator(
+          key: refreshKey,
+          onRefresh: () async {
+            model.isInSelectionMode = false;
+            model.selectedTooth.clear();
+            await model.init(patient.id);
+            model.notifyListeners();
+          },
+          child: ListView(
+            children: [
+              PatientCard(
+                image: patient.image,
+                name: patient.fullName,
+                phone: patient.phoneNum,
+                address: patient.address,
+                age: '20',
+                birthDate:
+                    DateFormat.yMMMd().format(patient.birthDate.toDateTime()!),
+              ),
+              AnimatedContainer(
+                height: model.isInSelectionMode ? 45 : 0,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                ),
+                duration: Duration(milliseconds: 200),
+                curve: Curves.easeIn,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SizedBox(width: 10),
+                    Center(
+                        child: RichText(
+                      text: TextSpan(
+                        text: model.selectedTooth.length.toString(),
+                        children: [
+                          TextSpan(
+                              text: ' Tooth Selected',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.normal))
+                        ],
+                        style: TextStyles.tsHeading5(),
+                      ),
+                    )),
+                    Spacer(),
+                    TextButton.icon(
+                      onPressed: () => model.goToSetToothCondition(patient.id),
+                      icon: Icon(CupertinoIcons.add_circled),
+                      label: Text('Condition'),
+                      style: TextButton.styleFrom(
+                        primary: Colors.white,
+                        backgroundColor: Palettes.kcNeutral1,
+                      ),
                     ),
-                    duration: Duration(milliseconds: 200),
-                    curve: Curves.easeIn,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SizedBox(width: 10),
-                        Center(
-                            child: RichText(
-                          text: TextSpan(
-                            text: model.selectedTooth.length.toString(),
-                            children: [
-                              TextSpan(
-                                  text: ' Tooth Selected',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal))
-                            ],
-                            style: TextStyles.tsHeading5(),
-                          ),
-                        )),
-                        Spacer(),
-                        TextButton.icon(
-                          onPressed: () =>
-                              model.goToSetToothCondition(patient.id),
-                          icon: Icon(CupertinoIcons.add_circled),
-                          label: Text('Condition'),
-                          style: TextButton.styleFrom(
-                            primary: Colors.white,
-                            backgroundColor: Palettes.kcNeutral1,
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        TextButton.icon(
-                          onPressed: () {},
-                          icon: Icon(CupertinoIcons.add_circled),
-                          label: Text('Dental Notes'),
-                          style: TextButton.styleFrom(
-                            primary: Colors.white,
-                            backgroundColor: Palettes.kcBlueMain1,
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                      ],
+                    SizedBox(width: 5),
+                    TextButton.icon(
+                      onPressed: () => model.goToSetDentalNote(patient.id),
+                      icon: Icon(CupertinoIcons.add_circled),
+                      label: Text('Dental Notes'),
+                      style: TextButton.styleFrom(
+                        primary: Colors.white,
+                        backgroundColor: Palettes.kcBlueMain1,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 4),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    SizedBox(width: 5),
+                  ],
+                ),
+              ),
+              SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Patient's Dental Chart",
+                      style: TextStyles.tsHeading4(),
+                    ),
+                    SizedBox(height: 3),
+                    Column(
                       children: [
-                        Text(
-                          "Patient's Dental Chart",
-                          style: TextStyles.tsHeading4(),
-                        ),
-                        SizedBox(height: 3),
-                        Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.black, width: 2)),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 5),
-
-                                  //PEDIATRIC UPPER
-                                  GridView.builder(
-                                    itemCount: 10,
-                                    shrinkWrap: true,
-                                    primary: false,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 10,
-                                            mainAxisExtent: 60,
-                                            crossAxisSpacing: 1),
-                                    itemBuilder: (context, index) =>
-                                        ToothWidget(
-                                      isUpper: true,
-                                      hasRecord: model.hasHistory(
-                                          model.toothIdFromA[index].toString()),
-                                      isSelected: model.isSelected(
-                                          model.toothIdFromA[index].toString()),
-                                      onTap: () => model.addToSelectedTooth(
-                                          model.toothIdFromA[index].toString()),
-                                      isCenterTooth: model.checkCenterTooth1(
-                                          model.toothIdFromA[index]),
-                                      toothId: model.toothIdFromA[index],
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-
-                                  //PEDIATRIC LOWER
-                                  GridView.builder(
-                                    itemCount: 10,
-                                    shrinkWrap: true,
-                                    primary: false,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisSpacing: 1,
-                                            crossAxisCount: 10,
-                                            mainAxisExtent: 60),
-                                    itemBuilder: (context, index) =>
-                                        ToothWidget(
-                                      isSelected: model.isSelected(
-                                          model.toothIdFromT[index].toString()),
-                                      hasRecord: model.hasHistory(
-                                          model.toothIdFromT[index].toString()),
-                                      onTap: () => model.addToSelectedTooth(
-                                          model.toothIdFromT[index].toString()),
-                                      isUpper: false,
-                                      isCenterTooth: model.checkCenterTooth1(
-                                          model.toothIdFromT[index]),
-                                      toothId: model.toothIdFromT[index],
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 15),
-
-                        //second row of teeth chart
                         Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
@@ -187,84 +124,148 @@ class PatientDentalChartView extends StatelessWidget {
                                   Border.all(color: Colors.black, width: 2)),
                           child: Column(
                             children: [
-                              Text('Upper', style: TextStyles.tsHeading5()),
                               SizedBox(height: 5),
 
-                              //ADULT UPPER
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.black, width: 1)),
-                                child: GridView.builder(
-                                  itemCount: 16,
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 8,
-                                    mainAxisExtent: 60,
-                                  ),
-                                  itemBuilder: (context, index) => ToothWidget(
-                                    onTap: () => model.addToSelectedTooth(
-                                        model.toothIdFrom1[index].toString()),
-                                    isSelected: model.isSelected(
-                                        model.toothIdFrom1[index].toString()),
-                                    hasRecord: model.hasHistory(
-                                        model.toothIdFrom1[index].toString()),
-                                    isUpper: true,
-                                    toothId:
-                                        model.toothIdFrom1[index].toString(),
-                                    isCenterTooth: model.checkCenterTooth2(
-                                        model.toothIdFrom1[index].toString()),
-                                  ),
+                              //PEDIATRIC UPPER
+                              GridView.builder(
+                                itemCount: 10,
+                                shrinkWrap: true,
+                                primary: false,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 10,
+                                        mainAxisExtent: 60,
+                                        crossAxisSpacing: 1),
+                                itemBuilder: (context, index) => ToothWidget(
+                                  isUpper: true,
+                                  hasRecord: model.hasHistory(
+                                      model.toothIdFromA[index].toString()),
+                                  isSelected: model.isSelected(
+                                      model.toothIdFromA[index].toString()),
+                                  onTap: () => model.addToSelectedTooth(
+                                      model.toothIdFromA[index].toString()),
+                                  isCenterTooth: model.checkCenterTooth1(
+                                      model.toothIdFromA[index]),
+                                  toothId: model.toothIdFromA[index],
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              SizedBox(height: 10),
 
-                              //ADULT LOWER
-                              Divider(
-                                thickness: 1,
-                                color: Colors.black,
-                              ),
-                              Text('Lower', style: TextStyles.tsHeading5()),
-                              SizedBox(height: 5),
-                              Container(
-                                padding: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.black, width: 1)),
-                                child: GridView.builder(
-                                  itemCount: 16,
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 8,
-                                    mainAxisExtent: 60,
-                                  ),
-                                  itemBuilder: (context, index) => ToothWidget(
-                                    onTap: () => model.addToSelectedTooth(
-                                        model.toothIdFrom32[index].toString()),
-                                    hasRecord: model.hasHistory(
-                                        model.toothIdFrom32[index].toString()),
-                                    isSelected: model.isSelected(
-                                        model.toothIdFrom32[index].toString()),
-                                    isUpper: false,
-                                    isCenterTooth: model.checkCenterTooth2(
-                                        model.toothIdFrom32[index].toString()),
-                                    toothId:
-                                        model.toothIdFrom32[index].toString(),
-                                  ),
+                              //PEDIATRIC LOWER
+                              GridView.builder(
+                                itemCount: 10,
+                                shrinkWrap: true,
+                                primary: false,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisSpacing: 1,
+                                        crossAxisCount: 10,
+                                        mainAxisExtent: 60),
+                                itemBuilder: (context, index) => ToothWidget(
+                                  isSelected: model.isSelected(
+                                      model.toothIdFromT[index].toString()),
+                                  hasRecord: model.hasHistory(
+                                      model.toothIdFromT[index].toString()),
+                                  onTap: () => model.addToSelectedTooth(
+                                      model.toothIdFromT[index].toString()),
+                                  isUpper: false,
+                                  isCenterTooth: model.checkCenterTooth1(
+                                      model.toothIdFromT[index]),
+                                  toothId: model.toothIdFromT[index],
                                 ),
                               ),
+                              SizedBox(height: 5),
                             ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    SizedBox(height: 15),
+
+                    //second row of teeth chart
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2)),
+                      child: Column(
+                        children: [
+                          Text('Upper', style: TextStyles.tsHeading5()),
+                          SizedBox(height: 5),
+
+                          //ADULT UPPER
+                          Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.black, width: 1)),
+                            child: GridView.builder(
+                              itemCount: 16,
+                              shrinkWrap: true,
+                              primary: false,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 8,
+                                mainAxisExtent: 60,
+                              ),
+                              itemBuilder: (context, index) => ToothWidget(
+                                onTap: () => model.addToSelectedTooth(
+                                    model.toothIdFrom1[index].toString()),
+                                isSelected: model.isSelected(
+                                    model.toothIdFrom1[index].toString()),
+                                hasRecord: model.hasHistory(
+                                    model.toothIdFrom1[index].toString()),
+                                isUpper: true,
+                                toothId: model.toothIdFrom1[index].toString(),
+                                isCenterTooth: model.checkCenterTooth2(
+                                    model.toothIdFrom1[index].toString()),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 8),
+
+                          //ADULT LOWER
+                          Divider(
+                            thickness: 1,
+                            color: Colors.black,
+                          ),
+                          Text('Lower', style: TextStyles.tsHeading5()),
+                          SizedBox(height: 5),
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.black, width: 1)),
+                            child: GridView.builder(
+                              itemCount: 16,
+                              shrinkWrap: true,
+                              primary: false,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 8,
+                                mainAxisExtent: 60,
+                              ),
+                              itemBuilder: (context, index) => ToothWidget(
+                                onTap: () => model.addToSelectedTooth(
+                                    model.toothIdFrom32[index].toString()),
+                                hasRecord: model.hasHistory(
+                                    model.toothIdFrom32[index].toString()),
+                                isSelected: model.isSelected(
+                                    model.toothIdFrom32[index].toString()),
+                                isUpper: false,
+                                isCenterTooth: model.checkCenterTooth2(
+                                    model.toothIdFrom32[index].toString()),
+                                toothId: model.toothIdFrom32[index].toString(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
+            ],
+          ),
+        ),
       ),
     );
   }

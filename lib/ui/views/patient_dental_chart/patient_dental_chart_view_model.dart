@@ -8,8 +8,11 @@ import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/models/dental_notes/dental_notes.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
+final GlobalKey<RefreshIndicatorState> refreshKey =
+    new GlobalKey<RefreshIndicatorState>();
 
 class PatientDentalChartViewModel extends BaseViewModel {
   final centerTooth1 = ['E', 'F', 'P', 'O'];
@@ -57,6 +60,7 @@ class PatientDentalChartViewModel extends BaseViewModel {
 
   bool isInSelectionMode = false;
   List<String> selectedTooth = [];
+  StreamSubscription? patientSub;
 
   bool checkCenterTooth1(String toothID) {
     if (centerTooth1.contains(toothID)) {
@@ -128,6 +132,15 @@ class PatientDentalChartViewModel extends BaseViewModel {
     }
   }
 
+  void listenToPatientChanges({required String patientId}) async {
+    apiService.getPatients().listen((event) async {
+      patientSub?.cancel();
+      patientSub = apiService.getPatients().listen((event) async {
+        await init(patientId);
+      });
+    });
+  }
+
   Future<void> getDentalNotes(
       {required String patientId, String? toothId}) async {
     var dentalNotes = await apiService.getDentalNotesList(
@@ -141,7 +154,7 @@ class PatientDentalChartViewModel extends BaseViewModel {
     }
   }
 
-  void init(String patientId) async {
+  Future<void> init(String patientId) async {
     setBusy(true);
     await getDentalNotes(patientId: patientId);
     await getToothWithDentalCondition(patientId: patientId);
@@ -163,7 +176,6 @@ class PatientDentalChartViewModel extends BaseViewModel {
     } else {
       return false;
     }
-    ;
   }
 
   void goToSetToothCondition(String patientId) {
@@ -171,5 +183,18 @@ class PatientDentalChartViewModel extends BaseViewModel {
     navigationService.pushNamed(Routes.SetToothConditionView,
         arguments: SetToothConditionViewArguments(
             selectedTeeth: selectedTooth, patientId: patientId));
+  }
+
+  void goToSetDentalNote(String patientId) {
+    selectedTooth.sort((a, b) => a.toString().compareTo(b.toString()));
+    navigationService.pushNamed(Routes.SetDentalNoteView,
+        arguments: SetDentalNoteViewArguments(
+            selectedTeeth: selectedTooth, patientId: patientId));
+  }
+
+  @override
+  void dispose() {
+    patientSub?.cancel();
+    super.dispose();
   }
 }
