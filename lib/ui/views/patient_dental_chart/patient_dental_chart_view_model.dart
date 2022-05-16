@@ -155,16 +155,16 @@ class PatientDentalChartViewModel extends BaseViewModel {
   }
 
   Future<void> init(String patientId) async {
-    setBusy(true);
+    dialogService.showDefaultLoadingDialog(
+        willPop: false, barrierDismissible: false);
     await getDentalNotes(patientId: patientId);
     await getToothWithDentalCondition(patientId: patientId);
-    setBusy(false);
+    navigationService.pop();
     debugPrint(toothWithTransactionHistory.toString());
   }
 
   void showLoadingDialog(bool isBusy) {
     if (isBusy) {
-      dialogService.showDefaultLoadingDialog();
     } else {
       navigationService.pop();
     }

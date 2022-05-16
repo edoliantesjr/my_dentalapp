@@ -9,12 +9,16 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
   final String position;
   final String name;
   final VoidCallback? onLogOutTap;
+  final VoidCallback? onTapUser;
+  final VoidCallback? onNotificationTap;
   const CustomHomePageAppBar(
       {Key? key,
       required this.image,
       required this.position,
       required this.name,
-      this.onLogOutTap})
+      this.onNotificationTap,
+      this.onLogOutTap,
+      this.onTapUser})
       : super(key: key);
 
   @override
@@ -44,20 +48,24 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                     )
                   ],
                 ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: image.isNotEmpty
-                      ? CachedNetworkImage(
-                          imageUrl: image,
-                          fit: BoxFit.cover,
-                          filterQuality: FilterQuality.low,
-                          progressIndicatorBuilder: (context, url, progress) =>
-                              CircularProgressIndicator(
-                            value: progress.progress,
-                            valueColor: AlwaysStoppedAnimation(Colors.white),
-                          ),
-                        )
-                      : Container(),
+                child: GestureDetector(
+                  onTap: () => onTapUser!(),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: image.isNotEmpty
+                        ? CachedNetworkImage(
+                            imageUrl: image,
+                            fit: BoxFit.cover,
+                            filterQuality: FilterQuality.low,
+                            progressIndicatorBuilder:
+                                (context, url, progress) =>
+                                    CircularProgressIndicator(
+                              value: progress.progress,
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                            ),
+                          )
+                        : Container(),
+                  ),
                 ),
               ),
               SizedBox(width: 10),
@@ -85,7 +93,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
               ),
               SizedBox(width: 40),
               IconButton(
-                onPressed: () {},
+                onPressed: () => onNotificationTap!(),
                 padding: EdgeInsets.zero,
                 splashColor: Colors.transparent,
                 alignment: Alignment.centerRight,

@@ -68,4 +68,12 @@ class HomePageViewModel extends BaseViewModel {
       });
     });
   }
+
+  void goToNotificationView() {
+    navigationService.pushNamed(Routes.NotificationView);
+  }
+
+  void goToUserView() {
+    navigationService.pushNamed(Routes.UserView);
+  }
 }

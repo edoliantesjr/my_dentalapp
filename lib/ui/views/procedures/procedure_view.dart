@@ -48,7 +48,7 @@ class _ProceduresViewState extends State<ProceduresView> {
               heroTag: null,
               isExtended: model.isScrolledUp,
               onPressed: () =>
-                  model.navigationService.pushNamed(Routes.AddMedicineView),
+                  model.navigationService.pushNamed(Routes.AddProcedureView),
               label: Text('Add Procedure'),
               icon: Icon(Icons.add),
             ),

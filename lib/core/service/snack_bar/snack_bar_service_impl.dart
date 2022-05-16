@@ -1,14 +1,13 @@
+import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'snack_bar_service.dart';
 
 class SnackBarServiceImpl extends SnackBarService {
   @override
   Future<dynamic>? showSnackBar(
       {String? title, required String message, TextButton? mainButton}) {
-    if (!Get.isSnackbarOpen)
-      GetSnackBar(
+    if (!Get.isSnackbarOpen!)
+    return  GetBar(
         title: title,
         message: message,
         duration: Duration(seconds: 3),
@@ -16,7 +15,7 @@ class SnackBarServiceImpl extends SnackBarService {
         backgroundColor: Colors.grey[800]!,
         snackStyle: SnackStyle.FLOATING,
         isDismissible: true,
-        dismissDirection: DismissDirection.horizontal,
+        dismissDirection: SnackDismissDirection.HORIZONTAL,
         animationDuration: Duration(milliseconds: 300),
         borderRadius: 12,
         snackPosition: SnackPosition.TOP,

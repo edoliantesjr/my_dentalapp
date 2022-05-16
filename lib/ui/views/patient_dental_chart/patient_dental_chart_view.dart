@@ -40,7 +40,7 @@ class PatientDentalChartView extends StatelessWidget {
           onRefresh: () async {
             model.isInSelectionMode = false;
             model.selectedTooth.clear();
-            await model.init(patient.id);
+            model.init(patient.id);
             model.notifyListeners();
           },
           child: ListView(

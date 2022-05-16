@@ -24,6 +24,8 @@ class HomePageView extends StatelessWidget {
           image: model.currentUser?.image ?? '',
           name: model.currentUser?.fullName ?? '',
           position: model.currentUser?.position ?? '',
+          onTapUser: () => model.goToUserView(),
+          onNotificationTap: () => model.goToNotificationView(),
           onLogOutTap: () => model.logOut(),
         ),
         body: RefreshIndicator(
@@ -45,8 +47,8 @@ class HomePageView extends StatelessWidget {
                   addMedicineOnTap: () => model.navigationService.pushNamed(
                     Routes.AddMedicineView,
                   ),
-                  addPaymentOnTap: () =>
-                      model.navigationService.pushNamed(Routes.AddPaymentView),
+                  addPaymentOnTap: () => model.navigationService
+                      .pushNamed(Routes.PaymentSelectPatientView),
                 ),
                 HomeAppointment(
                   deleteItem: (index) => model.deleteThisFromList(

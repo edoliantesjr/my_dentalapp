@@ -136,7 +136,7 @@ Logger getLogger(
       exludeLogsFromClasses: exludeLogsFromClasses,
     ),
     output: MultipleLoggerOutput([
-      if (!kReleaseMode) ConsoleOutput(),
+      ConsoleOutput(),
     ]),
   );
 }

@@ -27,9 +27,11 @@ import '../ui/views/main_body/main_body_view.dart';
 import '../ui/views/medical_history/medical_history_view.dart';
 import '../ui/views/medical_history_photo_view/med_history_photo_view.dart';
 import '../ui/views/medicine/medicine_view.dart';
+import '../ui/views/notification/notification_view.dart';
 import '../ui/views/patient_dental_chart/patient_dental_chart_view.dart';
 import '../ui/views/patient_info/patient_info_view.dart';
 import '../ui/views/patients/patients_view.dart';
+import '../ui/views/payment_select_patient/payment_select_patient_view.dart';
 import '../ui/views/pre_loader/pre_loader_view.dart';
 import '../ui/views/procedures/procedure_view.dart';
 import '../ui/views/register/register_view.dart';
@@ -37,7 +39,9 @@ import '../ui/views/selection_tooth_condition/selection_tooth_condition_view.dar
 import '../ui/views/set_dental_note/set_dental_note_view.dart';
 import '../ui/views/set_tooth_condition/set_tooth_condition_view.dart';
 import '../ui/views/update_user_info/setup_user_view.dart';
+import '../ui/views/user_view/user_view.dart';
 import '../ui/views/verify_email/verify_email_view.dart';
+import '../ui/views/view_tooth_dental_notes/view_tooth_dental_note_view.dart';
 import '../ui/widgets/selection_dentist/selection_dentist.dart';
 import '../ui/widgets/selection_procedure/selection_procedure.dart';
 import '../ui/widgets/success_view/success.dart';
@@ -69,9 +73,13 @@ class Routes {
   static const String SetToothConditionView = '/set-tooth-condition-view';
   static const String SetDentalNoteView = '/set-dental-note-view';
   static const String AddPaymentView = '/add-payment-view';
+  static const String NotificationView = '/notification-view';
+  static const String ViewDentalNoteView = '/view-dental-note-view';
+  static const String PaymentSelectPatientView = '/payment-select-patient-view';
   static const String SelectionDentist = '/selection-dentist';
   static const String SelectionProcedure = '/selection-procedure';
   static const String SelectionToothCondition = '/selection-tooth-condition';
+  static const String UserView = '/user-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -98,9 +106,13 @@ class Routes {
     SetToothConditionView,
     SetDentalNoteView,
     AddPaymentView,
+    NotificationView,
+    ViewDentalNoteView,
+    PaymentSelectPatientView,
     SelectionDentist,
     SelectionProcedure,
     SelectionToothCondition,
+    UserView,
   };
 }
 
@@ -134,9 +146,13 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.SetToothConditionView, page: SetToothConditionView),
     RouteDef(Routes.SetDentalNoteView, page: SetDentalNoteView),
     RouteDef(Routes.AddPaymentView, page: AddPaymentView),
+    RouteDef(Routes.NotificationView, page: NotificationView),
+    RouteDef(Routes.ViewDentalNoteView, page: ViewDentalNoteView),
+    RouteDef(Routes.PaymentSelectPatientView, page: PaymentSelectPatientView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
     RouteDef(Routes.SelectionToothCondition, page: SelectionToothCondition),
+    RouteDef(Routes.UserView, page: UserView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -336,6 +352,24 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    NotificationView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const NotificationView(),
+        settings: data,
+      );
+    },
+    ViewDentalNoteView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const ViewDentalNoteView(),
+        settings: data,
+      );
+    },
+    PaymentSelectPatientView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const PaymentSelectPatientView(),
+        settings: data,
+      );
+    },
     SelectionDentist: (data) {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -360,6 +394,15 @@ class StackedRouter extends RouterBase {
             const SelectionToothCondition(),
         settings: data,
         transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
+    UserView: (data) {
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const UserView(),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideRight,
         transitionDuration: const Duration(milliseconds: 300),
       );
     },
