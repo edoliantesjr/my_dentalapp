@@ -37,7 +37,7 @@ class SetupUserViewModel extends BaseViewModel {
   final setupFormKey = GlobalKey<FormState>();
 
   final List<String> genderOptions = ['Male', 'Female'];
-  final List<String> positionOptions = ['Admin/Doctor', 'Staff'];
+  final List<String> positionOptions = ['Doctor', 'Staff'];
   final List<String> imageSourceOptions = ['Gallery', 'Camera'];
   XFile? selectedImage;
 
@@ -128,17 +128,20 @@ class SetupUserViewModel extends BaseViewModel {
 
     final userSearchIndex =
         await searchIndexService.setSearchIndex(string: '$firstName $lastName');
-    final userProfile = UserModel(apiService.currentFirebaseUser!.uid,
-        firstName: firstName,
-        lastName: lastName,
-        email: apiService.currentFirebaseUser!.email!,
-        image: imageUploadResult.imageUrl!,
-        position: position,
-        appointments: [],
-        fcmToken: [],
-        searchIndex: userSearchIndex,
-        gender: gender,
-        dateOfBirth: dateOfBirth);
+    final userProfile = UserModel(
+      apiService.currentFirebaseUser!.uid,
+      firstName: firstName,
+      lastName: lastName,
+      email: apiService.currentFirebaseUser!.email!,
+      image: imageUploadResult.imageUrl!,
+      position: position,
+      appointments: [],
+      fcmToken: [],
+      searchIndex: userSearchIndex,
+      gender: gender,
+      dateOfBirth: dateOfBirth,
+      active_status: 'active',
+    );
 
     try {
       if (imageUploadResult.isUploaded) {

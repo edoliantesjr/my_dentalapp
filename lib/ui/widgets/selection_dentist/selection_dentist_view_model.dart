@@ -6,10 +6,12 @@ import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../core/service/snack_bar/snack_bar_service.dart';
+
 class SelectionDentistViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
-
+  final snackBarService = locator<SnackBarService>();
   List<UserModel> dentistList = [];
   StreamSubscription? dentistStreamSub;
 
@@ -27,6 +29,10 @@ class SelectionDentistViewModel extends BaseViewModel {
   }
 
   setReturnDentist(UserModel user) {
-    navigationService.pop(returnValue: user);
+    if (user.active_status == 'active')
+      navigationService.pop(returnValue: user);
+    else
+      snackBarService.showSnackBar(
+          message: 'Status was set on Away', title: 'Cannot be selected');
   }
 }

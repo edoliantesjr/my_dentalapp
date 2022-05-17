@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 
 class Patient {
@@ -14,7 +15,7 @@ class Patient {
   final String? emergencyContactName;
   final String? emergencyContactNumber;
   final List<String> searchIndex;
-  final dynamic dateCreated;
+  final DateTime? dateCreated;
   final List<dynamic>? medicalHistory;
 
   Patient({
@@ -60,6 +61,7 @@ class Patient {
   factory Patient.fromJson(Map<String, dynamic> json) {
     return Patient(
       id: json['id'] as dynamic,
+      dateCreated: (json['dateCreated'] as Timestamp).toDate(),
       image: json['image'] as dynamic,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,

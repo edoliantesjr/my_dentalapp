@@ -162,6 +162,8 @@ class PatientsView extends StatelessWidget {
                                                 today: DateTime.now())
                                             .years
                                             .toString(),
+                                        dateCreated: model
+                                            .patientList[index].dateCreated!,
                                       ),
                                     ),
                                   ),

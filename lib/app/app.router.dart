@@ -347,8 +347,12 @@ class StackedRouter extends RouterBase {
       );
     },
     AddPaymentView: (data) {
+      var args = data.getArgs<AddPaymentViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const AddPaymentView(),
+        builder: (context) => AddPaymentView(
+          key: args.key,
+          patient: args.patient,
+        ),
         settings: data,
       );
     },
@@ -488,4 +492,11 @@ class SetDentalNoteViewArguments {
   final dynamic patientId;
   SetDentalNoteViewArguments(
       {this.key, required this.selectedTeeth, required this.patientId});
+}
+
+/// AddPaymentView arguments holder class
+class AddPaymentViewArguments {
+  final Key? key;
+  final Patient patient;
+  AddPaymentViewArguments({this.key, required this.patient});
 }

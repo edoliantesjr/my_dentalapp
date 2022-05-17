@@ -53,6 +53,7 @@ class PatientDentalChartView extends StatelessWidget {
                 age: '20',
                 birthDate:
                     DateFormat.yMMMd().format(patient.birthDate.toDateTime()!),
+                dateCreated: patient.dateCreated!,
               ),
               AnimatedContainer(
                 height: model.isInSelectionMode ? 45 : 0,

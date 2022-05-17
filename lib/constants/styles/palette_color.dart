@@ -8,6 +8,7 @@ class Palettes {
   static const kcBlueMain2 = Color(0xff0065FF);
   static const kcBlueMain1 = Color(0xFF007DFE);
   static const kcDarkerBlueMain1 = Color(0xFF022DB8);
+  static const kcPurpleMain=Color(0xFF956CFB);
   static const kcBlueDark = Color(0xff0F3D91);
 
 //Neutral Colors

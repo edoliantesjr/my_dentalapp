@@ -96,7 +96,7 @@ abstract class ApiService {
       {required dynamic patientId, String? toothId});
 
   Future<List<DentalNotes>?> getDentalNotesList(
-      {required dynamic patientId, String? toothId});
+      {required dynamic patientId, String? toothId, bool? isPaid});
 
   Stream<List<Patient>> getPatientDentalCondition(String patientId);
 }

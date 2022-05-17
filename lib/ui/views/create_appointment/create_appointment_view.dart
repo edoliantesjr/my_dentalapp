@@ -124,6 +124,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                 today: DateTime.now())
                             .years
                             .toString(),
+                        dateCreated: widget.patient.dateCreated!,
                       ),
                       Divider(),
                       SizedBox(height: 10),
@@ -270,8 +271,6 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                   model.openDentistModal(dentistTxtController),
                               child: TextFormField(
                                 controller: dentistTxtController,
-                                // validator: (value) => model.validatorService
-                                //     .validateGender(value!),
                                 textInputAction: TextInputAction.next,
                                 enabled: false,
                                 validator: (value) => model.validatorService

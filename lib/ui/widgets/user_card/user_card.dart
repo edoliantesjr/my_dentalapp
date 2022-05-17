@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserCard extends StatelessWidget {
   final VoidCallback? onTap;
@@ -13,7 +14,7 @@ class UserCard extends StatelessWidget {
     return GestureDetector(
         onTap: () => onTap != null ? onTap!() : null,
         child: SizedBox(
-          height: 110,
+          height: 130,
           child: Card(
             elevation: 2,
             margin: EdgeInsets.all(8),
@@ -21,8 +22,8 @@ class UserCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  height: 110,
-                  width: 110,
+                  height: 130,
+                  width: 130,
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(4),
@@ -41,14 +42,58 @@ class UserCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          user.fullName,
-                          style: TextStyles.tsHeading4(),
+                        SizedBox(height: 15),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                user.fullName,
+                                style: TextStyles.tsHeading4(),
+                              ),
+                            ),
+                            SizedBox(width: 4),
+                            user.active_status == 'active'
+                                ? Container(
+                                    width: 53.sp,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(
+                                          Icons.circle,
+                                          size: 13,
+                                          color: Colors.green,
+                                        ),
+                                        SizedBox(width: 1),
+                                        Text('Active'),
+                                      ],
+                                    ),
+                                  )
+                                : Container(
+                                    width: 53.sp,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(
+                                          Icons.circle,
+                                          size: 13,
+                                          color: Colors.grey.shade800,
+                                        ),
+                                        SizedBox(width: 1),
+                                        Text('Away'),
+                                      ],
+                                    ),
+                                  ),
+                            SizedBox(width: 4),
+                          ],
                         ),
-                        SizedBox(height: 5),
                         Text(
                           user.position,
-                          style: TextStyles.tsBody3(),
+                          style: TextStyle(
+                              fontSize: kfsBody3.sp,
+                              letterSpacing: 0.5,
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),

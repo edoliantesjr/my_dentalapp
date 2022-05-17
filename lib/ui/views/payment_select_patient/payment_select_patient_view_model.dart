@@ -40,6 +40,7 @@ class PaymentSelectPatientViewModel extends BaseViewModel {
   }
 
   void selectPatient(Patient patient) {
-    navigationService.pushNamed(Routes.AddPaymentView);
+    navigationService.pushNamed(Routes.AddPaymentView,
+        arguments: AddPaymentViewArguments(patient: patient));
   }
 }

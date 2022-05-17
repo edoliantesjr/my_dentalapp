@@ -137,8 +137,6 @@ class CreateAppointmentViewModel extends BaseViewModel {
         toastService.showToast(message: 'Already Selected');
       }
     }
-    debugPrint(tempProcedure?.id);
-    debugPrint(selectedProcedures[0].id);
   }
 
   void openDentistModal(TextEditingController controller) async {

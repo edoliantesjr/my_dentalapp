@@ -50,6 +50,7 @@ import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:dentalapp/ui/views/user_view/user_view.dart';
 import 'package:dentalapp/ui/views/verify_email/verify_email_view.dart';
 import 'package:dentalapp/ui/views/view_tooth_dental_notes/view_tooth_dental_note_view.dart';
+import 'package:dentalapp/ui/widgets/select_payment_type/select_payment_type.dart';
 import 'package:dentalapp/ui/widgets/selection_dentist/selection_dentist.dart';
 import 'package:dentalapp/ui/widgets/selection_procedure/selection_procedure.dart';
 import 'package:dentalapp/ui/widgets/success_view/success.dart';

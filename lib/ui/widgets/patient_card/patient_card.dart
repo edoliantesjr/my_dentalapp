@@ -4,7 +4,9 @@ import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/core/service/url_launcher/url_launcher_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 class PatientCard extends StatelessWidget {
   final String image;
@@ -13,6 +15,7 @@ class PatientCard extends StatelessWidget {
   final String address;
   final String? age;
   final String? birthDate;
+  final DateTime dateCreated;
   PatientCard(
       {Key? key,
       required this.image,
@@ -20,7 +23,8 @@ class PatientCard extends StatelessWidget {
       required this.phone,
       required this.address,
       this.age,
-      this.birthDate})
+      this.birthDate,
+      required this.dateCreated})
       : super(key: key);
 
   final urlLauncherService = locator<URLLauncherService>();
@@ -72,9 +76,32 @@ class PatientCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyles.tsHeading4(color: Palettes.kcNeutral1),
+                SizedBox(
+                  height: 21.sp,
+                  child: Row(
+                    children: [
+                      Text(
+                        name,
+                        style:
+                            TextStyles.tsHeading4(color: Palettes.kcNeutral1),
+                      ),
+                      Visibility(
+                        visible: DateFormat.yMMMd().format(dateCreated) ==
+                            DateFormat.yMMMd().format(DateTime.now()),
+                        child: Container(
+                          height: 21.sp,
+                          alignment: Alignment.topCenter,
+                          padding: const EdgeInsets.only(left: 4),
+                          child: Text(
+                            '(New)',
+                            style: TextStyle(
+                                color: Colors.redAccent,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
                   children: [

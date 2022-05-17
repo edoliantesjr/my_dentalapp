@@ -35,7 +35,7 @@ class SetDentalNoteViewModel extends BaseViewModel {
     selectedProcedure =
         await navigationService.pushNamed(Routes.SelectionProcedure);
 
-    procedureTxtController.text = selectedProcedure!.procedureName;
+    procedureTxtController.text = selectedProcedure?.procedureName ?? '';
   }
 
   void selectDate() async {
