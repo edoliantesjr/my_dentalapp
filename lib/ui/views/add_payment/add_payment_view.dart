@@ -127,8 +127,7 @@ class AddPaymentView extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   GestureDetector(
-                    // onTap: () =>
-                    //     model.openDentistModal(dentistTxtController),
+                    onTap: () => model.selectDate(),
                     child: TextFormField(
                       controller: model.dateTxtController,
                       textInputAction: TextInputAction.next,
@@ -166,7 +165,7 @@ class AddPaymentView extends StatelessWidget {
                         labelStyle: TextStyles.tsBody2(color: Colors.white),
                         backgroundColor: Palettes.kcBlueMain1,
                         tooltip: 'Select Dental Note',
-                        onPressed: () {},
+                        onPressed: () => model.selectDentalNote(patient.id),
                       )
                     ],
                   ),

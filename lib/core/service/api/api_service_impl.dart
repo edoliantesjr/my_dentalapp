@@ -365,23 +365,44 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<List<DentalNotes>?> getDentalNotesList(
       {required patientId, String? toothId, bool? isPaid}) async {
-    if (isPaid == null) {
-      return await patientReference
-          .doc(patientId)
-          .collection('dental_notes')
-          .where('selectedTooth', isEqualTo: toothId)
-          .get()
-          .then((value) =>
-              value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+    if (toothId == null) {
+      if (isPaid == null) {
+        return await patientReference
+            .doc(patientId)
+            .collection('dental_notes')
+            .orderBy("selectedTooth")
+            .get()
+            .then((value) =>
+                value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+      } else {
+        return await patientReference
+            .doc(patientId)
+            .collection('dental_notes')
+            .where('isPaid', isEqualTo: isPaid)
+            .orderBy('selectedTooth')
+            .get()
+            .then((value) =>
+                value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+      }
     } else {
-      return await patientReference
-          .doc(patientId)
-          .collection('dental_notes')
-          .where('selectedTooth', isEqualTo: toothId)
-          .where('isPaid', isEqualTo: isPaid)
-          .get()
-          .then((value) =>
-              value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+      if (isPaid == null) {
+        return await patientReference
+            .doc(patientId)
+            .collection('dental_notes')
+            .where('selectedTooth', isEqualTo: toothId)
+            .get()
+            .then((value) =>
+                value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+      } else {
+        return await patientReference
+            .doc(patientId)
+            .collection('dental_notes')
+            .where('selectedTooth', isEqualTo: toothId)
+            .where('isPaid', isEqualTo: isPaid)
+            .get()
+            .then((value) =>
+                value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+      }
     }
   }
 

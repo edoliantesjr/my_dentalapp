@@ -64,11 +64,12 @@ class SetDentalNoteViewModel extends BaseViewModel {
           toothId: tooth,
           patientId: patientId,
           dentalNotes: DentalNotes(
-              isPaid: false,
-              selectedTooth: tooth,
-              procedure: selectedProcedure!,
-              date: selectedDate.toString(),
-              note: 'note'));
+            isPaid: false,
+            selectedTooth: tooth,
+            procedure: selectedProcedure!,
+            date: selectedDate.toString(),
+            note: noteTextController.text,
+          ));
     }
     navigationService.popRepeated(2);
     toastService.showToast(message: 'Successful: Set Tooth Condition!');

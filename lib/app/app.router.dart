@@ -35,6 +35,7 @@ import '../ui/views/payment_select_patient/payment_select_patient_view.dart';
 import '../ui/views/pre_loader/pre_loader_view.dart';
 import '../ui/views/procedures/procedure_view.dart';
 import '../ui/views/register/register_view.dart';
+import '../ui/views/select_dental_note/select_dental_note_view.dart';
 import '../ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
 import '../ui/views/set_dental_note/set_dental_note_view.dart';
 import '../ui/views/set_tooth_condition/set_tooth_condition_view.dart';
@@ -80,6 +81,7 @@ class Routes {
   static const String SelectionProcedure = '/selection-procedure';
   static const String SelectionToothCondition = '/selection-tooth-condition';
   static const String UserView = '/user-view';
+  static const String SelectDentalNoteView = '/select-dental-note-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -113,6 +115,7 @@ class Routes {
     SelectionProcedure,
     SelectionToothCondition,
     UserView,
+    SelectDentalNoteView,
   };
 }
 
@@ -153,6 +156,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
     RouteDef(Routes.SelectionToothCondition, page: SelectionToothCondition),
     RouteDef(Routes.UserView, page: UserView),
+    RouteDef(Routes.SelectDentalNoteView, page: SelectDentalNoteView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -410,6 +414,19 @@ class StackedRouter extends RouterBase {
         transitionDuration: const Duration(milliseconds: 300),
       );
     },
+    SelectDentalNoteView: (data) {
+      var args = data.getArgs<SelectDentalNoteViewArguments>(nullOk: false);
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            SelectDentalNoteView(
+          key: args.key,
+          patientId: args.patientId,
+        ),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
   };
 }
 
@@ -499,4 +516,11 @@ class AddPaymentViewArguments {
   final Key? key;
   final Patient patient;
   AddPaymentViewArguments({this.key, required this.patient});
+}
+
+/// SelectDentalNoteView arguments holder class
+class SelectDentalNoteViewArguments {
+  final Key? key;
+  final String patientId;
+  SelectDentalNoteViewArguments({this.key, required this.patientId});
 }

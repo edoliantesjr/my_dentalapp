@@ -13,6 +13,7 @@ class AppointmentModel {
   final List<dynamic>? procedures;
   final Payment? payment;
   final String? dateCreated;
+  final bool? isAccepted;
 
   const AppointmentModel({
     this.appointment_id,
@@ -25,6 +26,7 @@ class AppointmentModel {
     this.procedures,
     this.payment,
     this.dateCreated,
+    this.isAccepted,
   });
 
   Map<String, dynamic> toJson(
@@ -47,6 +49,7 @@ class AppointmentModel {
       // ?.map((e) => e?.toJson(dateCreated: this.date)),
       'payment': this.payment,
       'dateCreated': dateCreated,
+      'isAccepted': isAccepted ?? true,
     };
   }
 
@@ -59,6 +62,7 @@ class AppointmentModel {
         startTime: map['startTime'] as String,
         endTime: map['endTime'] as String,
         dentist: map['dentist'] as String,
+        isAccepted: map['isAccepted,'],
         appointment_status: map['appointment_status'] as String,
         procedures: map['procedures']
             .map((procedure) => Procedure.fromJson(procedure))

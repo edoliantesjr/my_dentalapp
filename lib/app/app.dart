@@ -43,6 +43,7 @@ import 'package:dentalapp/ui/views/payment_select_patient/payment_select_patient
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
+import 'package:dentalapp/ui/views/select_dental_note/select_dental_note_view.dart';
 import 'package:dentalapp/ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
 import 'package:dentalapp/ui/views/set_dental_note/set_dental_note_view.dart';
 import 'package:dentalapp/ui/views/set_tooth_condition/set_tooth_condition_view.dart';
@@ -50,7 +51,6 @@ import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:dentalapp/ui/views/user_view/user_view.dart';
 import 'package:dentalapp/ui/views/verify_email/verify_email_view.dart';
 import 'package:dentalapp/ui/views/view_tooth_dental_notes/view_tooth_dental_note_view.dart';
-import 'package:dentalapp/ui/widgets/select_payment_type/select_payment_type.dart';
 import 'package:dentalapp/ui/widgets/selection_dentist/selection_dentist.dart';
 import 'package:dentalapp/ui/widgets/selection_procedure/selection_procedure.dart';
 import 'package:dentalapp/ui/widgets/success_view/success.dart';
@@ -109,6 +109,11 @@ import 'package:stacked/stacked_annotations.dart';
         page: UserView,
         name: 'UserView',
         transitionsBuilder: TransitionsBuilders.slideRight,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: SelectDentalNoteView,
+        name: 'SelectDentalNoteView',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
         durationInMilliseconds: 300),
   ],
   dependencies: [

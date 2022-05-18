@@ -6,7 +6,6 @@ import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/models/dental_notes/dental_notes.dart';
-import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -100,24 +99,6 @@ class PatientDentalChartViewModel extends BaseViewModel {
       isInSelectionMode = true;
       notifyListeners();
     }
-  }
-
-  Future<void> addDentalNotes({required String patientId}) async {
-    for (dynamic i in selectedTooth) {
-      debugPrint('adding ${i.toString()}');
-      await apiService.addToothDentalNotes(
-        toothId: i.toString(),
-        patientId: patientId,
-        dentalNotes: DentalNotes(
-            isPaid: false,
-            selectedTooth: i.toString(),
-            procedure:
-                Procedure(procedureName: 'Tooth Extraction', id: 'ibot ngipon'),
-            date: DateTime.now().toString(),
-            note: 'Ge ibtan ngipon'),
-      );
-    }
-    debugPrint('Dental Notes Added');
   }
 
   Future<void> getToothWithDentalCondition(

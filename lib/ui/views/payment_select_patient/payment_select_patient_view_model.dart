@@ -9,7 +9,6 @@ import '../../../app/app.router.dart';
 import '../../../models/patient_model/patient_model.dart';
 
 class PaymentSelectPatientViewModel extends BaseViewModel {
-//  todo: logic code for select patient
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
 
