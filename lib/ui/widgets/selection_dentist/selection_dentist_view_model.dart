@@ -33,6 +33,6 @@ class SelectionDentistViewModel extends BaseViewModel {
       navigationService.pop(returnValue: user);
     else
       snackBarService.showSnackBar(
-          message: 'Status was set on Away', title: 'Cannot be selected');
+          message: 'Doctor is on Leave', title: 'Cannot be selected');
   }
 }

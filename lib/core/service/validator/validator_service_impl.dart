@@ -130,8 +130,18 @@ class ValidatorServiceImpl extends ValidatorService {
   String? validatePrice(String value) {
     if (value.isEmpty) {
       return 'Price is empty';
-    } else
-      return null;
+    } else {
+      try {
+        double val = double.parse(value);
+        if (val <= 0) {
+          return 'Not A Valid Amount';
+        } else {
+          return null;
+        }
+      } catch (e) {
+        return 'Not a Valid amount';
+      }
+    }
   }
 
   @override
@@ -180,5 +190,23 @@ class ValidatorServiceImpl extends ValidatorService {
       return 'No Payment Type Selected';
     else
       return null;
+  }
+
+  @override
+  String? validateQty(String value) {
+    if (value.isEmpty) {
+      return '';
+    } else {
+      try {
+        int val = int.parse(value);
+        if (val <= 0) {
+          return '';
+        } else {
+          return null;
+        }
+      } catch (e) {
+        return '';
+      }
+    }
   }
 }

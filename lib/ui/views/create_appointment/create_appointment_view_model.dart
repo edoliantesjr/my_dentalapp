@@ -65,7 +65,9 @@ class CreateAppointmentViewModel extends BaseViewModel {
         : tempDate ?? '';
     selectedAppointmentDate = tempDate?.toDateTime()?.toDateMonthDayOnly() ??
         selectedAppointmentDate?.toDateMonthDayOnly();
-    controller.text = DateFormat.yMMMd().format(selectedAppointmentDate!);
+    if (selectedAppointmentDate != null) {
+      controller.text = DateFormat.yMMMd().format(selectedAppointmentDate!);
+    }
     notifyListeners();
   }
 
@@ -154,16 +156,4 @@ class CreateAppointmentViewModel extends BaseViewModel {
     notifyListeners();
     toastService.showToast(message: 'Removed');
   }
-
-  // Future<void> getLatestAppointmentToDate(String? date) async {
-  //   if (date != null || date != '')
-  //     latestAppointment = await apiService.getLatestAppointment(date: date);
-  //   notifyListeners();
-  //   debugPrint(
-  //       latestAppointment?.endTime ?? 'No Appointments for the selected date');
-  // }
-
-  // bool? checkAppointmentTime(DateTime time) {
-  //   if()
-  // }
 }

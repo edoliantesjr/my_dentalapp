@@ -63,6 +63,7 @@ class SetDentalNoteViewModel extends BaseViewModel {
       await apiService.addToothDentalNotes(
           toothId: tooth,
           patientId: patientId,
+          procedureId: selectedProcedure!.id,
           dentalNotes: DentalNotes(
             isPaid: false,
             selectedTooth: tooth,

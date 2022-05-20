@@ -40,4 +40,6 @@ abstract class ValidatorService {
   String? validateToothCondition(String value);
 
   String? validatePaymentType(String value);
+
+  String? validateQty(String value);
 }

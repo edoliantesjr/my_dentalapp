@@ -42,8 +42,10 @@ import 'package:dentalapp/ui/views/patients/patients_view.dart';
 import 'package:dentalapp/ui/views/payment_select_patient/payment_select_patient_view.dart';
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view.dart';
+import 'package:dentalapp/ui/views/receipt_view/receipt_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
 import 'package:dentalapp/ui/views/select_dental_note/select_dental_note_view.dart';
+import 'package:dentalapp/ui/views/select_medicine_view/select_medicine_view.dart';
 import 'package:dentalapp/ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
 import 'package:dentalapp/ui/views/set_dental_note/set_dental_note_view.dart';
 import 'package:dentalapp/ui/views/set_tooth_condition/set_tooth_condition_view.dart';
@@ -114,6 +116,16 @@ import 'package:stacked/stacked_annotations.dart';
         page: SelectDentalNoteView,
         name: 'SelectDentalNoteView',
         transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: SelectMedicineView,
+        name: 'SelectMedicineView',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: ReceiptView,
+        name: 'ReceiptView',
+        transitionsBuilder: TransitionsBuilders.slideRight,
         durationInMilliseconds: 300),
   ],
   dependencies: [

@@ -15,4 +15,13 @@ abstract class DialogService {
 
   Future<T?>? showDefaultLoadingDialog<T>(
       {bool? barrierDismissible, bool? willPop});
+
+  Future<dynamic>? showConfirmDialog({
+    required String title,
+    required String middleText,
+    required Function onCancel,
+    required Function onContinue,
+    bool? willPop,
+    bool? barrierDismissible,
+  });
 }

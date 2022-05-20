@@ -9,7 +9,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
   final String position;
   final String name;
   final VoidCallback? onLogOutTap;
-  final VoidCallback? onTapUser;
+  final VoidCallback onTapUser;
   final VoidCallback? onNotificationTap;
   const CustomHomePageAppBar(
       {Key? key,
@@ -18,7 +18,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
       required this.name,
       this.onNotificationTap,
       this.onLogOutTap,
-      this.onTapUser})
+      required this.onTapUser})
       : super(key: key);
 
   @override
@@ -49,7 +49,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                   ],
                 ),
                 child: GestureDetector(
-                  onTap: () => onTapUser!(),
+                  onTap: () => onTapUser(),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: image.isNotEmpty

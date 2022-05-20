@@ -77,9 +77,8 @@ class _AddProcedureViewState extends State<AddProcedureView> {
                 decoration: InputDecoration(
                   errorBorder: TextBorderStyles.errorBorder,
                   errorStyle: TextStyles.errorTextStyle,
-
                   hintText: 'Procedure Amount Fee',
-                  labelText: 'Price*',
+                  labelText: 'Amount(Optional)',
                   // disabledBorder: ,
                   labelStyle: TextStyles.tsBody1(color: Palettes.kcNeutral1),
                   floatingLabelBehavior: FloatingLabelBehavior.always,

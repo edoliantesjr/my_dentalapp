@@ -92,4 +92,92 @@ class DialogServiceImpl extends DialogService {
       barrierColor: Palettes.kcBlueMain1.withOpacity(0.2),
     );
   }
+
+  @override
+  Future? showConfirmDialog(
+      {required String title,
+      required String middleText,
+      required Function onCancel,
+      required Function onContinue,
+      bool? barrierDismissible,
+      bool? willPop}) {
+    return Get.dialog(
+      WillPopScope(
+        onWillPop: () async {
+          if (willPop != null) {
+            if (willPop) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return true;
+          }
+        },
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: EdgeInsets.all(8.sp),
+            height: 250.sp,
+            width: 250.sp,
+            child: Material(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: 25, left: 20, right: 20, bottom: 0),
+                      child: Column(
+                        children: [
+                          Text(
+                            title,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 18),
+                          Text(
+                            middleText,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey.shade900,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Divider(height: 1),
+                  TextButton(
+                    onPressed: () => onContinue(),
+                    child: Text('Confirm'),
+                    style: TextButton.styleFrom(
+                      minimumSize: Size(double.maxFinite, 40),
+                    ),
+                  ),
+                  Divider(height: 1),
+                  TextButton(
+                    onPressed: () => onCancel(),
+                    child: Text('Cancel'),
+                    style: TextButton.styleFrom(
+                      primary: Colors.grey.shade900,
+                      minimumSize: Size(double.maxFinite, 40),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      barrierDismissible: barrierDismissible ?? true,
+    );
+  }
 }

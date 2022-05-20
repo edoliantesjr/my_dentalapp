@@ -69,21 +69,18 @@ class UserCard extends StatelessWidget {
                                       ],
                                     ),
                                   )
-                                : Container(
-                                    width: 53.sp,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.circle,
-                                          size: 13,
-                                          color: Colors.grey.shade800,
-                                        ),
-                                        SizedBox(width: 1),
-                                        Text('Away'),
-                                      ],
-                                    ),
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Icon(
+                                        Icons.circle,
+                                        size: 13,
+                                        color: Colors.grey.shade800,
+                                      ),
+                                      SizedBox(width: 1),
+                                      Text('On Leave'),
+                                    ],
                                   ),
                             SizedBox(width: 4),
                           ],

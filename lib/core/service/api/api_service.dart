@@ -7,10 +7,13 @@ import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
+import 'package:dentalapp/models/query_result/query_result.dart';
 import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
 import 'package:dentalapp/models/upload_results/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../../models/payment/payment.dart';
 
 abstract class ApiService {
   User? get currentFirebaseUser;
@@ -90,7 +93,8 @@ abstract class ApiService {
   Future<void> addToothDentalNotes(
       {required String toothId,
       required dynamic patientId,
-      required DentalNotes dentalNotes});
+      required DentalNotes dentalNotes,
+      required dynamic procedureId});
 
   Future<List<ToothCondition>?> getDentalConditionList(
       {required dynamic patientId, String? toothId});
@@ -99,4 +103,19 @@ abstract class ApiService {
       {required dynamic patientId, String? toothId, bool? isPaid});
 
   Stream<List<Patient>> getPatientDentalCondition(String patientId);
+
+  Future<void> updateDentalAmountField(
+      {required dynamic patientId,
+      String? toothId,
+      required dental_noteId,
+      required dynamic procedureId,
+      required String price});
+
+  Future<QueryResult> addPayment({required Payment payment});
+
+  Future<void> updateDentalANotePaidStatus(
+      {required dynamic patientId,
+      String? toothId,
+      required dental_noteId,
+      required bool isPaid});
 }

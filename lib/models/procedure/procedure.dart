@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 
 class Procedure extends Equatable {
-  final String? id;
-  final String procedureName;
-  final String? price;
-  final dynamic dateCreated;
+  String? id;
+  String procedureName;
+  String? price;
+  dynamic dateCreated;
 
   Procedure(
       {this.id, required this.procedureName, this.price, this.dateCreated});

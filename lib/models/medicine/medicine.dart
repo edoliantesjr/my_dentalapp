@@ -7,6 +7,7 @@ class Medicine {
   final String? price;
   final String? image;
   final dynamic dateCreated;
+  String? qty;
 
   Medicine(
       {this.id,
@@ -14,6 +15,7 @@ class Medicine {
       required this.price,
       this.brandName,
       this.image,
+      this.qty,
       this.dateCreated});
 
   Map<String, dynamic> toJson(
@@ -24,18 +26,21 @@ class Medicine {
       'price': this.price,
       'image': image ?? '',
       'brandName': this.brandName ?? 'Not Set',
-      'dateCreated': dateCreated
+      'dateCreated': dateCreated,
+      'qty': 1,
     };
   }
 
   factory Medicine.fromJson(Map<String, dynamic> map) {
     return Medicine(
-        id: map['id'],
-        image: map['image'],
-        medicineName: map['medicineName'] as String,
-        price: map['price'] as String,
-        brandName: map['brandName'],
-        dateCreated: map['dateCreated']);
+      id: map['id'],
+      image: map['image'],
+      medicineName: map['medicineName'] as String,
+      price: map['price'] as String,
+      brandName: map['brandName'],
+      dateCreated: map['dateCreated'],
+      qty: map['qty'],
+    );
   }
 
   final currency = NumberFormat("#,##0.00", "en_PH");

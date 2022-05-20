@@ -6,9 +6,9 @@ class DentalNotes {
   final String date;
   final String note;
   final dynamic id;
-  final bool isPaid;
+  bool isPaid;
 
-  const DentalNotes({
+  DentalNotes({
     this.id,
     required this.isPaid,
     required this.selectedTooth,
@@ -17,12 +17,14 @@ class DentalNotes {
     required this.note,
   });
 
-  Map<String, dynamic> toJson({required dynamic id}) {
+  Map<String, dynamic> toJson(
+      {required dynamic id, required dynamic procedureId}) {
     return {
       'id': id,
       'selectedTooth': this.selectedTooth,
-      'procedure':
-          this.procedure.toJson(dateCreated: DateTime.now().toString(), id: id),
+      'procedure': this
+          .procedure
+          .toJson(dateCreated: DateTime.now().toString(), id: procedureId),
       'date': this.date,
       'note': this.note,
       'isPaid': this.isPaid,

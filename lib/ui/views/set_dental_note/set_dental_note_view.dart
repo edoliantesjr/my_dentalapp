@@ -22,7 +22,7 @@ class SetDentalNoteView extends StatelessWidget {
         appBar: AppBar(
           systemOverlayStyle:
               SystemUiOverlayStyle(statusBarColor: Palettes.kcBlueMain1),
-          title: Text('Set Tooth Condition'),
+          title: Text('Set Dental Note'),
         ),
         persistentFooterButtons: [
           Padding(

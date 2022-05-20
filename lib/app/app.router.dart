@@ -34,8 +34,10 @@ import '../ui/views/patients/patients_view.dart';
 import '../ui/views/payment_select_patient/payment_select_patient_view.dart';
 import '../ui/views/pre_loader/pre_loader_view.dart';
 import '../ui/views/procedures/procedure_view.dart';
+import '../ui/views/receipt_view/receipt_view.dart';
 import '../ui/views/register/register_view.dart';
 import '../ui/views/select_dental_note/select_dental_note_view.dart';
+import '../ui/views/select_medicine_view/select_medicine_view.dart';
 import '../ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
 import '../ui/views/set_dental_note/set_dental_note_view.dart';
 import '../ui/views/set_tooth_condition/set_tooth_condition_view.dart';
@@ -82,6 +84,8 @@ class Routes {
   static const String SelectionToothCondition = '/selection-tooth-condition';
   static const String UserView = '/user-view';
   static const String SelectDentalNoteView = '/select-dental-note-view';
+  static const String SelectMedicineView = '/select-medicine-view';
+  static const String ReceiptView = '/receipt-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -116,6 +120,8 @@ class Routes {
     SelectionToothCondition,
     UserView,
     SelectDentalNoteView,
+    SelectMedicineView,
+    ReceiptView,
   };
 }
 
@@ -157,6 +163,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.SelectionToothCondition, page: SelectionToothCondition),
     RouteDef(Routes.UserView, page: UserView),
     RouteDef(Routes.SelectDentalNoteView, page: SelectDentalNoteView),
+    RouteDef(Routes.SelectMedicineView, page: SelectMedicineView),
+    RouteDef(Routes.ReceiptView, page: ReceiptView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -427,6 +435,27 @@ class StackedRouter extends RouterBase {
         transitionDuration: const Duration(milliseconds: 300),
       );
     },
+    SelectMedicineView: (data) {
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const SelectMedicineView(),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
+    ReceiptView: (data) {
+      var args = data.getArgs<ReceiptViewArguments>(nullOk: false);
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) => ReceiptView(
+          key: args.key,
+          paymentId: args.paymentId,
+        ),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideRight,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
   };
 }
 
@@ -523,4 +552,11 @@ class SelectDentalNoteViewArguments {
   final Key? key;
   final String patientId;
   SelectDentalNoteViewArguments({this.key, required this.patientId});
+}
+
+/// ReceiptView arguments holder class
+class ReceiptViewArguments {
+  final Key? key;
+  final dynamic paymentId;
+  ReceiptViewArguments({this.key, required this.paymentId});
 }

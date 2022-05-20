@@ -482,13 +482,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
-  flutter_custom_clippers:
-    dependency: "direct main"
-    description:
-      name: flutter_custom_clippers
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -653,6 +646,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.8"
+  image_network:
+    dependency: "direct main"
+    description:
+      name: image_network
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.5.1"
   image_picker:
     dependency: "direct main"
     description:
@@ -954,6 +954,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  pointer_interceptor:
+    dependency: transitive
+    description:
+      name: pointer_interceptor
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.3+1"
   pool:
     dependency: transitive
     description:
@@ -1010,6 +1017,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.3"
+  screenshot:
+    dependency: "direct main"
+    description:
+      name: screenshot
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.3"
   scrollable_positioned_list:
     dependency: transitive
     description:
@@ -1127,6 +1141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
+  ticketview:
+    dependency: "direct main"
+    description:
+      name: ticketview
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   timing:
     dependency: transitive
     description:
@@ -1239,6 +1260,41 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  webview_flutter:
+    dependency: transitive
+    description:
+      name: webview_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.8.0"
+  webview_flutter_android:
+    dependency: transitive
+    description:
+      name: webview_flutter_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.8.8"
+  webview_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: webview_flutter_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.8.0"
+  webview_flutter_wkwebview:
+    dependency: transitive
+    description:
+      name: webview_flutter_wkwebview
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.7.5"
+  webviewimage:
+    dependency: transitive
+    description:
+      name: webviewimage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   win32:
     dependency: transitive
     description:

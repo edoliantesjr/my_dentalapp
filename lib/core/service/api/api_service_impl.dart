@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
+import 'package:dentalapp/core/service/connectivity/connectivity_service.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/dental_notes/dental_notes.dart';
@@ -10,6 +11,7 @@ import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
+import 'package:dentalapp/models/query_result/query_result.dart';
 import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
 import 'package:dentalapp/models/upload_results/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
@@ -17,8 +19,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
 
+import '../../../app/app.locator.dart';
+import '../../../models/payment/payment.dart';
+
 class ApiServiceImpl extends ApiService {
   final userReference = FirebaseFirestore.instance.collection('users');
+  final connectivityService = locator<ConnectivityService>();
 
   final appointmentReference =
       FirebaseFirestore.instance.collection('appointments');
@@ -29,6 +35,8 @@ class ApiServiceImpl extends ApiService {
 
   final procedureReference =
       FirebaseFirestore.instance.collection('procedures');
+
+  final paymentReference = FirebaseFirestore.instance.collection('payments');
 
   @override
   User? get currentFirebaseUser => FirebaseAuth.instance.currentUser;
@@ -344,10 +352,12 @@ class ApiServiceImpl extends ApiService {
   Future<void> addToothDentalNotes(
       {required String toothId,
       required dynamic patientId,
-      required DentalNotes dentalNotes}) async {
+      required DentalNotes dentalNotes,
+      required dynamic procedureId}) async {
     final toothDoc =
         await patientReference.doc(patientId).collection('dental_notes').doc();
-    return await toothDoc.set(dentalNotes.toJson(id: toothDoc.id));
+    return await toothDoc
+        .set(dentalNotes.toJson(id: toothDoc.id, procedureId: procedureId));
   }
 
   @override
@@ -411,5 +421,43 @@ class ApiServiceImpl extends ApiService {
     // TODO: implement getPatientDentalCondition
 
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateDentalAmountField(
+      {required patientId,
+      String? toothId,
+      required dental_noteId,
+      required procedureId,
+      required String price}) async {
+    final queryRes = await patientReference
+        .doc(patientId)
+        .collection('dental_notes')
+        .doc(dental_noteId)
+        .update({'procedure.price': "$price"});
+  }
+
+  @override
+  Future<QueryResult> addPayment({required Payment payment}) async {
+    if (await connectivityService.checkConnectivity()) {
+      final paymentDoc = await paymentReference.doc();
+      final paymentRes = await paymentDoc.set(payment.toJson(paymentDoc.id));
+      return QueryResult.success();
+    } else {
+      return QueryResult.error('Check Network Connectivity And Try Again');
+    }
+  }
+
+  @override
+  Future<void> updateDentalANotePaidStatus(
+      {required patientId,
+      String? toothId,
+      required dental_noteId,
+      required bool isPaid}) async {
+    final queryRes = await patientReference
+        .doc(patientId)
+        .collection('dental_notes')
+        .doc(dental_noteId)
+        .update({'isPaid': isPaid});
   }
 }

@@ -138,12 +138,15 @@ class _AddMedicineViewState extends State<AddMedicineView> {
               TextFormField(
                 controller: medicinePrice,
                 textInputAction: TextInputAction.next,
+                validator: (value) =>
+                    model.validatorService.validatePrice(value!),
                 keyboardType: TextInputType.number,
+                enableInteractiveSelection: false,
                 decoration: InputDecoration(
                   errorBorder: TextBorderStyles.errorBorder,
                   errorStyle: TextStyles.errorTextStyle,
-                  hintText: 'Drug Price',
-                  labelText: 'Price(Optional)',
+                  hintText: 'Type Amount',
+                  labelText: 'Amount Per Tab/bottle*',
                   // disabledBorder: ,
                   labelStyle: TextStyles.tsBody1(color: Palettes.kcNeutral1),
                   floatingLabelBehavior: FloatingLabelBehavior.always,

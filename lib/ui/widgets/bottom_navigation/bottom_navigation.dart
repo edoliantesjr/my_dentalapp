@@ -7,14 +7,13 @@ class CustomBottomNavigation extends StatelessWidget {
   final selectedIndex;
   final Function(int index) setSelectedIndex;
 
-  const CustomBottomNavigation(
+  CustomBottomNavigation(
       {Key? key, required this.selectedIndex, required this.setSelectedIndex})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-      elevation: 0,
+    return Container(
       color: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
