@@ -23,6 +23,7 @@ import '../ui/views/add_procedure/add_procedure_view.dart';
 import '../ui/views/appointment/appointment_view.dart';
 import '../ui/views/appointment_select_patient/appointment_select_patient_view.dart';
 import '../ui/views/create_appointment/create_appointment_view.dart';
+import '../ui/views/finance/finance_view.dart';
 import '../ui/views/get_started/get_started_view.dart';
 import '../ui/views/home/home_view.dart';
 import '../ui/views/login/login_view.dart';
@@ -82,6 +83,7 @@ class Routes {
   static const String NotificationView = '/notification-view';
   static const String ViewDentalNoteView = '/view-dental-note-view';
   static const String AddExpenseView = '/add-expense-view';
+  static const String FinanceView = '/finance-view';
   static const String PaymentSelectPatientView = '/payment-select-patient-view';
   static const String SelectionDentist = '/selection-dentist';
   static const String SelectionProcedure = '/selection-procedure';
@@ -120,6 +122,7 @@ class Routes {
     NotificationView,
     ViewDentalNoteView,
     AddExpenseView,
+    FinanceView,
     PaymentSelectPatientView,
     SelectionDentist,
     SelectionProcedure,
@@ -165,6 +168,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.NotificationView, page: NotificationView),
     RouteDef(Routes.ViewDentalNoteView, page: ViewDentalNoteView),
     RouteDef(Routes.AddExpenseView, page: AddExpenseView),
+    RouteDef(Routes.FinanceView, page: FinanceView),
     RouteDef(Routes.PaymentSelectPatientView, page: PaymentSelectPatientView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
@@ -392,6 +396,12 @@ class StackedRouter extends RouterBase {
     AddExpenseView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const AddExpenseView(),
+        settings: data,
+      );
+    },
+    FinanceView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const FinanceView(),
         settings: data,
       );
     },

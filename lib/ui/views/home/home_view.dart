@@ -47,10 +47,15 @@ class HomePageView extends StatelessWidget {
                   addMedicineOnTap: () => model.navigationService.pushNamed(
                     Routes.AddMedicineView,
                   ),
-                  addExpensesOnTap: () =>
-                      model.navigationService.pushNamed(Routes.AddExpenseView),
-                  addPaymentOnTap: () => model.navigationService
-                      .pushNamed(Routes.PaymentSelectPatientView),
+                  addExpensesOnTap: () => model.navigationService.pushNamed(
+                    Routes.AddExpenseView,
+                  ),
+                  addPaymentOnTap: () => model.navigationService.pushNamed(
+                    Routes.PaymentSelectPatientView,
+                  ),
+                  financeOnTap: () => model.navigationService.pushNamed(
+                    Routes.FinanceView,
+                  ),
                 ),
                 HomeAppointment(
                   deleteItem: (index) => model.deleteThisFromList(

@@ -7,7 +7,7 @@ class HomeShortcut extends StatelessWidget {
   final VoidCallback? addProcedureOnTap;
   final VoidCallback? addPatientOnTap;
   final VoidCallback? addMedicineOnTap;
-  final VoidCallback? saleOnTap;
+  final VoidCallback? financeOnTap;
   final VoidCallback? addPaymentOnTap;
   final VoidCallback? addExpensesOnTap;
 
@@ -16,7 +16,7 @@ class HomeShortcut extends StatelessWidget {
       this.addProcedureOnTap,
       this.addPatientOnTap,
       this.addMedicineOnTap,
-      this.saleOnTap,
+      this.financeOnTap,
       this.addPaymentOnTap,
       this.addExpensesOnTap})
       : super(key: key);
@@ -158,7 +158,7 @@ class HomeShortcut extends StatelessWidget {
                           children: [
                             Expanded(
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () => financeOnTap!(),
                                 child: Container(
                                   alignment: Alignment.center,
                                   child: Column(

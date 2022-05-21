@@ -7,9 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 
-class AppointmentCard extends StatelessWidget {
+import '../../../app/app.locator.dart';
+import '../../../core/service/api/api_service.dart';
+import '../../../core/service/bottom_sheet/bottom_sheet_service.dart';
+import '../../../core/service/connectivity/connectivity_service.dart';
+import '../../../core/service/dialog/dialog_service.dart';
+import '../../../core/service/navigation/navigation_service.dart';
+import '../../../core/service/snack_bar/snack_bar_service.dart';
+import '../selection_list/selection_option.dart';
+
+class AppointmentCard extends StatefulWidget {
   final Key key;
   final String appointmentDate;
+  final dynamic appointmentId;
   final String doctor;
   final String patient;
   final AppointmentStatus appointmentStatus;
@@ -21,6 +31,7 @@ class AppointmentCard extends StatelessWidget {
 
   const AppointmentCard({
     required this.key,
+    required this.appointmentId,
     required this.onPatientTap,
     required this.appointmentDate,
     required this.doctor,
@@ -33,16 +44,57 @@ class AppointmentCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AppointmentCard> createState() => _AppointmentCardState();
+}
+
+class _AppointmentCardState extends State<AppointmentCard> {
+  final bottomSheetService = locator<BottomSheetService>();
+  final connectivityService = locator<ConnectivityService>();
+  final snackBarService = locator<SnackBarService>();
+  final dialogService = locator<DialogService>();
+  final apiService = locator<ApiService>();
+  final navigationService = locator<NavigationService>();
+
+  Future<void> updateAppointmentStatus(String appointmentId) async {
+    final appointmentStatus =
+        await bottomSheetService.openBottomSheet(SelectionOption(
+      options: [
+        AppointmentStatus.Done.name,
+        AppointmentStatus.Cancelled.name,
+        AppointmentStatus.Ongoing.name
+      ],
+      title: 'Set Appointment Status',
+    ));
+
+    if (appointmentStatus != null) {
+      if (await connectivityService.checkConnectivity()) {
+        dialogService.showDefaultLoadingDialog(
+            barrierDismissible: false, willPop: false);
+        await apiService.updateAppointmentStatus(
+            appointmentId: appointmentId, appointmentStatus: appointmentStatus);
+        navigationService.pop();
+        snackBarService.showSnackBar(
+            message: 'Appointment status was updated', title: 'Success!');
+      } else {
+        navigationService.pop();
+        snackBarService.showSnackBar(
+            message: 'Check your network connection and try again',
+            title: 'Network Error');
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SwipeActionCell(
-      key: this.key,
+      key: this.widget.key,
       trailingActions: [
         SwipeAction(
           widthSpace: 60,
           color: Colors.transparent,
           onTap: (handler) async {
             await handler(true);
-            this.onDelete();
+            this.widget.onDelete();
           },
           content: Container(
             height: 50,
@@ -131,17 +183,17 @@ class AppointmentCard extends StatelessWidget {
                     child: Row(
                       children: [
                         DateWidget(
-                          imageUrl: imageUrl,
+                          imageUrl: widget.imageUrl,
                         ),
                         SizedBox(width: 10),
                         Expanded(
                             child: InfoWidget(
-                          onPatientTap: () => this.onPatientTap(),
-                          date: appointmentDate,
-                          serviceTitle: serviceTitle,
-                          doctor: doctor,
-                          patient: patient,
-                          appointmentStatus: appointmentStatus,
+                          onPatientTap: () => this.widget.onPatientTap(),
+                          date: widget.appointmentDate,
+                          serviceTitle: widget.serviceTitle,
+                          doctor: widget.doctor,
+                          patient: widget.patient,
+                          appointmentStatus: widget.appointmentStatus,
                         )),
                       ],
                     )),
@@ -158,13 +210,14 @@ class AppointmentCard extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'TIME: ${time}',
+                            'TIME: ${widget.time}',
                             style: TextStyles.tsButton2(),
                           ),
                         ),
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () =>
+                            updateAppointmentStatus(widget.appointmentId),
                         child: Row(
                           children: [
                             Text(

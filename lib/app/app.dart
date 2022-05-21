@@ -30,6 +30,7 @@ import 'package:dentalapp/ui/views/add_procedure/add_procedure_view.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view.dart';
 import 'package:dentalapp/ui/views/appointment_select_patient/appointment_select_patient_view.dart';
 import 'package:dentalapp/ui/views/create_appointment/create_appointment_view.dart';
+import 'package:dentalapp/ui/views/finance/finance_view.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
 import 'package:dentalapp/ui/views/home/home_view.dart';
 import 'package:dentalapp/ui/views/login/login_view.dart';
@@ -93,6 +94,7 @@ import 'package:stacked/stacked_annotations.dart';
     MaterialRoute(page: NotificationView, name: 'NotificationView'),
     MaterialRoute(page: ViewDentalNoteView, name: 'ViewDentalNoteView'),
     MaterialRoute(page: AddExpenseView, name: 'AddExpenseView'),
+    MaterialRoute(page: FinanceView, name: 'FinanceView'),
     MaterialRoute(
         page: PaymentSelectPatientView, name: 'PaymentSelectPatientView'),
     CustomRoute(

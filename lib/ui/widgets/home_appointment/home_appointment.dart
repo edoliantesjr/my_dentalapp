@@ -123,9 +123,11 @@ class HomeAppointment extends StatelessWidget {
                             appointmentDate: DateFormat.yMMMd()
                                 .format(myAppointments[i].date.toDateTime()!),
                             time:
-                                '${myAppointments[i].startTime.toDateTime()!.toTime()}-${myAppointments[i].endTime.toDateTime()!.toTime()}',
+                                '${myAppointments[i].startTime.toDateTime()!.toTime()}-'
+                                '${myAppointments[i].endTime.toDateTime()!.toTime()}',
                             appointmentStatus: getAppointmentStatus(
                                 myAppointments[i].appointment_status),
+                            appointmentId: myAppointments[i].appointment_id,
                           ),
                         ),
                       ),

@@ -177,6 +177,7 @@ class AppointmentView extends StatelessWidget {
                       '${appointmentList[i].startTime.toDateTime()!.toTime()}-${appointmentList[i].endTime.toDateTime()!.toTime()}',
                   appointmentStatus: getAppointmentStatus(
                       appointmentList[i].appointment_status),
+                  appointmentId: appointmentList[i].appointment_id,
                 ),
               ),
             ),

@@ -125,4 +125,11 @@ abstract class ApiService {
   Future<QueryResult> addExpense({required Expense expense});
 
   Future<List<Expense>> getExpenseList({String? date});
+
+  Future<List<Payment>> getPaymentByPatient({dynamic patientId});
+
+  Future<List<AppointmentModel>> getAppointmentsByPatient({dynamic patientId});
+
+  Future<QueryResult> updateAppointmentStatus(
+      {required dynamic appointmentId, required String appointmentStatus});
 }

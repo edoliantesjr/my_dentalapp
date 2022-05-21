@@ -497,6 +497,42 @@ class ApiServiceImpl extends ApiService {
           .then((value) =>
               value.docs.map((e) => Expense.fromJson(e.data())).toList());
     }
-    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<AppointmentModel>> getAppointmentsByPatient({patientId}) async {
+    return await appointmentReference
+        .where('patient.id', isEqualTo: patientId)
+        .get()
+        .then((value) => value.docs
+            .map((e) => AppointmentModel.fromJson(e.data()))
+            .toList());
+  }
+
+  @override
+  Future<List<Payment>> getPaymentByPatient({patientId}) async {
+    return await paymentReference
+        .where('patient_id', isEqualTo: patientId)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => Payment.fromJson(e.data())).toList());
+  }
+
+  @override
+  Future<QueryResult> updateAppointmentStatus(
+      {required dynamic appointmentId,
+      required String appointmentStatus}) async {
+    try {
+      if (await connectivityService.checkConnectivity()) {
+        final queryRes = await appointmentReference
+            .doc(appointmentId)
+            .update({'appointment_status': appointmentStatus});
+        return QueryResult.success();
+      } else {
+        return QueryResult.error('Check your network connection and try again');
+      }
+    } catch (e) {
+      return QueryResult.error('Something went wrong');
+    }
   }
 }
