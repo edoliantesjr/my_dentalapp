@@ -402,8 +402,6 @@ class AddPaymentView extends StatelessWidget {
                                             .validatorService
                                             .validatePrice(value!),
                                         enableInteractiveSelection: false,
-                                        autovalidateMode:
-                                            AutovalidateMode.always,
                                         keyboardType: TextInputType.number,
                                         textInputAction: TextInputAction.done,
                                         decoration: InputDecoration(

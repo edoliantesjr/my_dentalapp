@@ -9,25 +9,25 @@ class ThemeStyles {
   ThemeStyles._();
 
   static ThemeData themeLight = ThemeData(
-      fontFamily: FontNames.sfPro,
-      appBarTheme: AppBarTheme(
-        backgroundColor: Palettes.kcBlueMain1,
-        elevation: 0,
-      ),
-      backgroundColor: Color(0xcb4987f5),
-      colorScheme: ColorScheme.fromSwatch(
-        accentColor: Palettes.kcBlueMain1,
-        primarySwatch: primaryColorSwatch,
-        primaryColorDark: primaryColorSwatch[900],
-      ),
-      splashColor: Palettes.kcBlueMain1.withOpacity(0.2),
-      hintColor: Palettes.kcHintColor,
-      dividerColor: Palettes.kcHintColor,
-      textTheme: TextTheme(bodyText2: TextStyles.tsBody2()),
-      scaffoldBackgroundColor: Colors.white,
-      elevatedButtonTheme: ButtonStyles.elevatedButtonThemeDataLight,
-      outlinedButtonTheme: ButtonStyles.outlinedButtonThemeDataLight,
-      shadowColor: Palettes.kcBlueMain1);
+    fontFamily: FontNames.sfPro,
+    appBarTheme: AppBarTheme(
+      backgroundColor: Palettes.kcBlueMain1,
+      elevation: 0,
+    ),
+    backgroundColor: Color(0xcb4987f5),
+    colorScheme: ColorScheme.fromSwatch(
+      accentColor: Palettes.kcBlueMain1,
+      primarySwatch: primaryColorSwatch,
+      primaryColorDark: primaryColorSwatch[900],
+    ),
+    splashColor: Palettes.kcBlueMain1.withOpacity(0.2),
+    hintColor: Palettes.kcHintColor,
+    dividerColor: Palettes.kcHintColor,
+    textTheme: TextTheme(bodyText2: TextStyles.tsBody2()),
+    scaffoldBackgroundColor: Colors.white,
+    elevatedButtonTheme: ButtonStyles.elevatedButtonThemeDataLight,
+    outlinedButtonTheme: ButtonStyles.outlinedButtonThemeDataLight,
+  );
 }
 
 final mainColor = 0xff0065FF;

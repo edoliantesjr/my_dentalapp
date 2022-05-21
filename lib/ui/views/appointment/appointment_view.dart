@@ -1,5 +1,7 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
+import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
 import 'package:dentalapp/extensions/date_format_extension.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
@@ -116,7 +118,8 @@ class AppointmentView extends StatelessWidget {
                           ? appointmentCardHelper(
                               appointmentList: model.appointmentList,
                               isBusy: model.isBusy,
-                              onDeleteItem: (int) {})
+                              onDeleteItem: (int) {},
+                              navigator: model.navigationService)
                           : Center(
                               child:
                                   Text('No Appointment for this date. Add Now'),
@@ -133,6 +136,7 @@ class AppointmentView extends StatelessWidget {
   Widget appointmentCardHelper(
       {required List<AppointmentModel> appointmentList,
       required bool isBusy,
+      required NavigationService navigator,
       required Function(int index) onDeleteItem}) {
     if (isBusy) {
       return MyShimmer();
@@ -158,6 +162,10 @@ class AppointmentView extends StatelessWidget {
                 duration: Duration(milliseconds: 1000),
                 child: AppointmentCard(
                   key: ObjectKey(appointmentList[i]),
+                  onPatientTap: () => navigator.pushNamed(
+                      Routes.PatientInfoView,
+                      arguments: PatientInfoViewArguments(
+                          patient: appointmentList[i].patient)),
                   onDelete: () => onDeleteItem(i),
                   imageUrl: appointmentList[i].patient.image,
                   serviceTitle: appointmentList[i].procedures![0].procedureName,

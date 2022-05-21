@@ -98,6 +98,7 @@ class DialogServiceImpl extends DialogService {
       {required String title,
       required String middleText,
       String? mainOptionTxt,
+      Color? mainOptionColor,
       required Function onCancel,
       required Function onContinue,
       bool? barrierDismissible,
@@ -162,6 +163,7 @@ class DialogServiceImpl extends DialogService {
                         ? Text('Confirm')
                         : Text(mainOptionTxt),
                     style: TextButton.styleFrom(
+                      primary: mainOptionColor,
                       minimumSize: Size(double.maxFinite, 40),
                     ),
                   ),

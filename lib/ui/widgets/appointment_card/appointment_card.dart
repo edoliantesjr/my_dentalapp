@@ -13,6 +13,7 @@ class AppointmentCard extends StatelessWidget {
   final String doctor;
   final String patient;
   final AppointmentStatus appointmentStatus;
+  final Function onPatientTap;
   final String serviceTitle;
   final String? time;
   final dynamic imageUrl;
@@ -20,6 +21,7 @@ class AppointmentCard extends StatelessWidget {
 
   const AppointmentCard({
     required this.key,
+    required this.onPatientTap,
     required this.appointmentDate,
     required this.doctor,
     required this.patient,
@@ -134,6 +136,7 @@ class AppointmentCard extends StatelessWidget {
                         SizedBox(width: 10),
                         Expanded(
                             child: InfoWidget(
+                          onPatientTap: () => this.onPatientTap(),
                           date: appointmentDate,
                           serviceTitle: serviceTitle,
                           doctor: doctor,
@@ -216,11 +219,13 @@ class InfoWidget extends StatelessWidget {
   final String doctor;
   final String patient;
   final String date;
+  final Function onPatientTap;
   final AppointmentStatus appointmentStatus;
 
   const InfoWidget(
       {Key? key,
       required this.date,
+      required this.onPatientTap,
       required this.serviceTitle,
       required this.doctor,
       required this.patient,
@@ -279,14 +284,17 @@ class InfoWidget extends StatelessWidget {
                 'Patient: ',
                 style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
               ),
-              Text(
-                patient,
-                style: TextStyle(
-                  color: Palettes.kcDarkerBlueMain1,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15.5,
-                  decoration: TextDecoration.underline,
-                  wordSpacing: .2,
+              InkWell(
+                onTap: () => this.onPatientTap(),
+                child: Text(
+                  patient,
+                  style: TextStyle(
+                    color: Palettes.kcDarkerBlueMain1,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.5,
+                    decoration: TextDecoration.underline,
+                    wordSpacing: .2,
+                  ),
                 ),
               )
             ],

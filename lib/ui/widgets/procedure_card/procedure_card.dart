@@ -1,6 +1,8 @@
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/styles/palette_color.dart';
+
 class ProcedureCard extends StatelessWidget {
   final String id;
   final String procedureName;
@@ -27,25 +29,40 @@ class ProcedureCard extends StatelessWidget {
                 BoxShadow(
                     color: Colors.grey, offset: Offset(0, 0), blurRadius: 1)
               ]),
-          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 9),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              Text(
-                procedureName,
-                style: TextStyle(fontSize: 20),
-                overflow: TextOverflow.ellipsis,
-              ),
-              SizedBox(height: 5),
-              Row(
-                children: [
-                  Text('Amnt. '),
-                  Text(
-                    price ?? 'Not Set',
-                    style: TextStyles.tsBody2(color: Colors.deepOrange),
-                  ),
-                ],
+              Container(
+                  width: 5,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      color: Palettes.kcDarkerBlueMain1,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(4),
+                          bottomLeft: Radius.circular(4)))),
+              SizedBox(width: 4),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 9),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      procedureName,
+                      style: TextStyle(fontSize: 20),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Text('Amnt. '),
+                        Text(
+                          price ?? 'Not Set',
+                          style: TextStyles.tsBody2(color: Colors.deepOrange),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           )),

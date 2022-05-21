@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 abstract class DialogService {
   Future<dynamic>? showConfirmationDialog({
     required String title,
@@ -22,6 +24,7 @@ abstract class DialogService {
     required Function onCancel,
     required Function onContinue,
     String? mainOptionTxt,
+    Color? mainOptionColor,
     bool? willPop,
     bool? barrierDismissible,
   });

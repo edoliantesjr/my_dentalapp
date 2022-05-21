@@ -42,4 +42,10 @@ abstract class ValidatorService {
   String? validatePaymentType(String value);
 
   String? validateQty(String value);
+
+  String? validateItemQty(String value);
+
+  String? validateItemName(String value);
+
+  String? validateTotalAmount(String value);
 }

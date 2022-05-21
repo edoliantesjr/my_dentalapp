@@ -14,6 +14,7 @@ import 'package:stacked/stacked_annotations.dart';
 import '../models/medical_history/medical_history.dart';
 import '../models/patient_model/patient_model.dart';
 import '../models/payment/payment.dart';
+import '../ui/views/add_expense_item/add_expense_item_view.dart';
 import '../ui/views/add_expenses/add_expenses_view.dart';
 import '../ui/views/add_medicine/add_medicine_view.dart';
 import '../ui/views/add_patient/add_patient_view.dart';
@@ -89,6 +90,7 @@ class Routes {
   static const String SelectDentalNoteView = '/select-dental-note-view';
   static const String SelectMedicineView = '/select-medicine-view';
   static const String ReceiptView = '/receipt-view';
+  static const String AddExpenseItemView = '/add-expense-item-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -126,6 +128,7 @@ class Routes {
     SelectDentalNoteView,
     SelectMedicineView,
     ReceiptView,
+    AddExpenseItemView,
   };
 }
 
@@ -170,6 +173,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.SelectDentalNoteView, page: SelectDentalNoteView),
     RouteDef(Routes.SelectMedicineView, page: SelectMedicineView),
     RouteDef(Routes.ReceiptView, page: ReceiptView),
+    RouteDef(Routes.AddExpenseItemView, page: AddExpenseItemView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -464,6 +468,15 @@ class StackedRouter extends RouterBase {
         ),
         settings: data,
         transitionsBuilder: TransitionsBuilders.slideRight,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
+    AddExpenseItemView: (data) {
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const AddExpenseItemView(),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
         transitionDuration: const Duration(milliseconds: 300),
       );
     },

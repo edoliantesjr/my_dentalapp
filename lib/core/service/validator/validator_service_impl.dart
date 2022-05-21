@@ -209,4 +209,49 @@ class ValidatorServiceImpl extends ValidatorService {
       }
     }
   }
+
+  @override
+  String? validateItemName(String value) {
+    if (value.isEmpty) {
+      return 'Item Name cannot be empty';
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  String? validateTotalAmount(String value) {
+    if (value.isEmpty) {
+      return 'Amount cannot be empty';
+    } else {
+      try {
+        double val = double.parse(value);
+        if (val <= 0) {
+          return 'Value is not valid';
+        } else {
+          return null;
+        }
+      } catch (e) {
+        return 'Value is not valid';
+      }
+    }
+  }
+
+  @override
+  String? validateItemQty(String value) {
+    if (value.isEmpty) {
+      return 'Amount cannot be empty';
+    } else {
+      try {
+        int val = int.parse(value);
+        if (val <= 0) {
+          return 'Value is not valid';
+        } else {
+          return null;
+        }
+      } catch (e) {
+        return 'Value is not valid';
+      }
+    }
+  }
 }

@@ -57,6 +57,7 @@ class HomePageView extends StatelessWidget {
                       index, model.myAppointments[index].appointment_id!),
                   myAppointments: model.myAppointments,
                   isBusy: model.isBusy,
+                  navigationService: model.navigationService,
                 ),
               ],
             ),

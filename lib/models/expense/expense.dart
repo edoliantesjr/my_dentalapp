@@ -1,7 +1,7 @@
 class Expense {
   final dynamic id;
   final double totalAmount;
-  List<Item> items;
+  List<ExpenseItem> items;
   final String date;
   final String note;
 
@@ -29,17 +29,21 @@ class Expense {
       totalAmount: map['amount'] as double,
       date: map['date'] as String,
       note: map['note'] as String,
-      items: map['items'].map((medicine) => Item.fromJson(medicine)).toList(),
+      items: map['items']
+          .map((medicine) => ExpenseItem.fromJson(medicine))
+          .toList(),
     );
   }
 }
 
-class Item {
+class ExpenseItem {
+  dynamic id;
   String itemName;
   int itemQty;
   double amount;
 
-  Item({
+  ExpenseItem({
+    required this.id,
     required this.itemName,
     required this.itemQty,
     required this.amount,
@@ -47,14 +51,16 @@ class Item {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': this.id,
       'itemName': this.itemName,
       'itemQty': this.itemQty,
       'amount': this.amount,
     };
   }
 
-  factory Item.fromJson(Map<String, dynamic> map) {
-    return Item(
+  factory ExpenseItem.fromJson(Map<String, dynamic> map) {
+    return ExpenseItem(
+      id: map['id'],
       itemName: map['itemName'] as String,
       itemQty: map['itemQty'] as int,
       amount: map['amount'] as double,

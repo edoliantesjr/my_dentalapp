@@ -1,3 +1,4 @@
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
@@ -13,15 +14,19 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
+import '../../../core/service/navigation/navigation_service.dart';
+
 class HomeAppointment extends StatelessWidget {
   final List<AppointmentModel> myAppointments;
   final bool isBusy;
   final Function(int index) deleteItem;
+  final NavigationService navigationService;
   const HomeAppointment(
       {Key? key,
       required this.myAppointments,
       required this.isBusy,
-      required this.deleteItem})
+      required this.deleteItem,
+      required this.navigationService})
       : super(key: key);
 
   @override
@@ -105,6 +110,10 @@ class HomeAppointment extends StatelessWidget {
                           duration: Duration(milliseconds: 1000),
                           child: AppointmentCard(
                             key: ObjectKey(myAppointments[i]),
+                            onPatientTap: () => navigationService.pushNamed(
+                                Routes.PatientInfoView,
+                                arguments: PatientInfoViewArguments(
+                                    patient: myAppointments[i].patient)),
                             onDelete: () => this.deleteItem(i),
                             imageUrl: myAppointments[i].patient.image,
                             serviceTitle:
