@@ -165,7 +165,7 @@ class AppointmentCard extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              'Appointment Details',
+                              'Update Status',
                               style: TextStyles.tsButton2(
                                   color: Palettes.kcBlueMain2),
                             ),

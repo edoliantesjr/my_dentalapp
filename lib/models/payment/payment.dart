@@ -7,8 +7,8 @@ class Payment {
   final String patient_id;
   final String patient_name;
   final String dentist;
-  final List<DentalNotes>? dentalNote;
-  final List<Medicine>? medicineList;
+  final List<dynamic>? dentalNote;
+  final List<dynamic>? medicineList;
   final String dentalNoteSubTotal;
   final String medicineSubTotal;
   final String totalAmount;
@@ -48,7 +48,7 @@ class Payment {
     };
   }
 
-  factory Payment.fromMap(Map<String, dynamic> map) {
+  factory Payment.fromJson(Map<String, dynamic> map) {
     return Payment(
       payment_id: map['payment_id'] as String,
       dentist: map['dentist'] as String,

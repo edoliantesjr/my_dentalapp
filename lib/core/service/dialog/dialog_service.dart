@@ -21,6 +21,7 @@ abstract class DialogService {
     required String middleText,
     required Function onCancel,
     required Function onContinue,
+    String? mainOptionTxt,
     bool? willPop,
     bool? barrierDismissible,
   });

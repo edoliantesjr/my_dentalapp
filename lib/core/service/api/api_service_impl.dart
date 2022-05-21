@@ -7,6 +7,7 @@ import 'package:dentalapp/core/service/connectivity/connectivity_service.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/dental_notes/dental_notes.dart';
+import 'package:dentalapp/models/expense/expense.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
@@ -37,6 +38,8 @@ class ApiServiceImpl extends ApiService {
       FirebaseFirestore.instance.collection('procedures');
 
   final paymentReference = FirebaseFirestore.instance.collection('payments');
+
+  final expenseReference = FirebaseFirestore.instance.collection('expenses');
 
   @override
   User? get currentFirebaseUser => FirebaseAuth.instance.currentUser;
@@ -442,9 +445,9 @@ class ApiServiceImpl extends ApiService {
     if (await connectivityService.checkConnectivity()) {
       final paymentDoc = await paymentReference.doc();
       final paymentRes = await paymentDoc.set(payment.toJson(paymentDoc.id));
-      return QueryResult.success();
+      return QueryResult.success(returnValue: paymentDoc.id);
     } else {
-      return QueryResult.error('Check Network Connectivity And Try Again');
+      return QueryResult.error('Check your network and try again!');
     }
   }
 
@@ -459,5 +462,41 @@ class ApiServiceImpl extends ApiService {
         .collection('dental_notes')
         .doc(dental_noteId)
         .update({'isPaid': isPaid});
+  }
+
+  @override
+  Future<Payment> getPaymentInfo({required String paymentId}) async {
+    return await paymentReference
+        .doc(paymentId)
+        .get()
+        .then((value) => Payment.fromJson(value.data()!));
+  }
+
+  @override
+  Future<QueryResult> addExpense({required Expense expense}) async {
+    if (await connectivityService.checkConnectivity()) {
+      final expenseDoc = await expenseReference.doc();
+
+      await expenseDoc.set(expense.toJson(expenseDoc.id));
+      return QueryResult.success();
+    } else {
+      return QueryResult.error('Check your network and try again!');
+    }
+  }
+
+  @override
+  Future<List<Expense>> getExpenseList({String? date}) async {
+    if (date != null) {
+      return await paymentReference.orderBy('date').get().then((value) =>
+          value.docs.map((e) => Expense.fromJson(e.data())).toList());
+    } else {
+      return await paymentReference
+          .orderBy('date')
+          .where('date', isEqualTo: date)
+          .get()
+          .then((value) =>
+              value.docs.map((e) => Expense.fromJson(e.data())).toList());
+    }
+    throw UnimplementedError();
   }
 }

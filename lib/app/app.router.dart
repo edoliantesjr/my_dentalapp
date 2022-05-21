@@ -13,6 +13,8 @@ import 'package:stacked/stacked_annotations.dart';
 
 import '../models/medical_history/medical_history.dart';
 import '../models/patient_model/patient_model.dart';
+import '../models/payment/payment.dart';
+import '../ui/views/add_expenses/add_expenses_view.dart';
 import '../ui/views/add_medicine/add_medicine_view.dart';
 import '../ui/views/add_patient/add_patient_view.dart';
 import '../ui/views/add_payment/add_payment_view.dart';
@@ -78,6 +80,7 @@ class Routes {
   static const String AddPaymentView = '/add-payment-view';
   static const String NotificationView = '/notification-view';
   static const String ViewDentalNoteView = '/view-dental-note-view';
+  static const String AddExpenseView = '/add-expense-view';
   static const String PaymentSelectPatientView = '/payment-select-patient-view';
   static const String SelectionDentist = '/selection-dentist';
   static const String SelectionProcedure = '/selection-procedure';
@@ -114,6 +117,7 @@ class Routes {
     AddPaymentView,
     NotificationView,
     ViewDentalNoteView,
+    AddExpenseView,
     PaymentSelectPatientView,
     SelectionDentist,
     SelectionProcedure,
@@ -157,6 +161,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.AddPaymentView, page: AddPaymentView),
     RouteDef(Routes.NotificationView, page: NotificationView),
     RouteDef(Routes.ViewDentalNoteView, page: ViewDentalNoteView),
+    RouteDef(Routes.AddExpenseView, page: AddExpenseView),
     RouteDef(Routes.PaymentSelectPatientView, page: PaymentSelectPatientView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
@@ -380,6 +385,12 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    AddExpenseView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const AddExpenseView(),
+        settings: data,
+      );
+    },
     PaymentSelectPatientView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const PaymentSelectPatientView(),
@@ -449,7 +460,7 @@ class StackedRouter extends RouterBase {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) => ReceiptView(
           key: args.key,
-          paymentId: args.paymentId,
+          payment: args.payment,
         ),
         settings: data,
         transitionsBuilder: TransitionsBuilders.slideRight,
@@ -557,6 +568,6 @@ class SelectDentalNoteViewArguments {
 /// ReceiptView arguments holder class
 class ReceiptViewArguments {
   final Key? key;
-  final dynamic paymentId;
-  ReceiptViewArguments({this.key, required this.paymentId});
+  final Payment payment;
+  ReceiptViewArguments({this.key, required this.payment});
 }

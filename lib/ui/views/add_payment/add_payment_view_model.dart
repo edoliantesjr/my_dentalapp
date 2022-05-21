@@ -186,9 +186,11 @@ class AddPaymentViewModel extends BaseViewModel {
             if (paymentQueryRes.success) {
               updateDentalNotePaidStatusOnDB(
                   patientId: patientId, selectedNotes: selectedNotes);
+              final paymentRec = await apiService.getPaymentInfo(
+                  paymentId: paymentQueryRes.returnValue);
+              navigationService.popUntilFirstAndPushNamed(Routes.ReceiptView,
+                  arguments: ReceiptViewArguments(payment: paymentRec));
 
-              navigationService.pushReplacementNamed(Routes.ReceiptView,
-                  arguments: ReceiptViewArguments(paymentId: 'paymentId'));
               snackBarService.showSnackBar(
                   message: paymentQueryRes.errorMessage ?? 'Payment Saved',
                   title: 'SUCCESS!');

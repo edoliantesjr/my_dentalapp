@@ -19,7 +19,7 @@ class Medicine {
       this.dateCreated});
 
   Map<String, dynamic> toJson(
-      {String? id, String? image, required dynamic dateCreated}) {
+      {String? id, String? image, required dynamic dateCreated, String? qty}) {
     return {
       'id': id,
       'medicineName': this.medicineName,
@@ -27,7 +27,7 @@ class Medicine {
       'image': image ?? '',
       'brandName': this.brandName ?? 'Not Set',
       'dateCreated': dateCreated,
-      'qty': 1,
+      'qty': this.qty ?? '1',
     };
   }
 
@@ -39,7 +39,7 @@ class Medicine {
       price: map['price'] as String,
       brandName: map['brandName'],
       dateCreated: map['dateCreated'],
-      qty: map['qty'],
+      qty: map['qty'].toString(),
     );
   }
 

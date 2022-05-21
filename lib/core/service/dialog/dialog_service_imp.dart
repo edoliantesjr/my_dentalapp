@@ -97,6 +97,7 @@ class DialogServiceImpl extends DialogService {
   Future? showConfirmDialog(
       {required String title,
       required String middleText,
+      String? mainOptionTxt,
       required Function onCancel,
       required Function onContinue,
       bool? barrierDismissible,
@@ -157,7 +158,9 @@ class DialogServiceImpl extends DialogService {
                   Divider(height: 1),
                   TextButton(
                     onPressed: () => onContinue(),
-                    child: Text('Confirm'),
+                    child: mainOptionTxt == null
+                        ? Text('Confirm')
+                        : Text(mainOptionTxt),
                     style: TextButton.styleFrom(
                       minimumSize: Size(double.maxFinite, 40),
                     ),

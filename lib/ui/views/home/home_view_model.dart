@@ -54,8 +54,18 @@ class HomePageViewModel extends BaseViewModel {
   }
 
   void logOut() async {
-    await fAuthService.logOut();
-    navigationService.popAllAndPushNamed(Routes.Login);
+    dialogService.showConfirmDialog(
+        onCancel: () {
+          navigationService.pop();
+        },
+        middleText:
+            'This action will lets you log out your account from the app. Are you sure to continue?',
+        title: 'Logout',
+        mainOptionTxt: 'Logout',
+        onContinue: () async {
+          await fAuthService.logOut();
+          navigationService.popAllAndPushNamed(Routes.Login);
+        });
   }
 
   void getAppointment() {

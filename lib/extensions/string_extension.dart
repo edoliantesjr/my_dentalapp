@@ -14,7 +14,7 @@ extension StringCasingExtension on String {
   // String toDateTime() => '';
   String? get toCurrency {
     if (this != '') {
-      return ' ₱${NumberFormat("#,##0.00", "en_PH").format(double.tryParse(this ?? '0'))}';
+      return ' ₱${NumberFormat("#,##0.00", "en_PH").format(double.tryParse(this))}';
     } else {
       return null;
     }

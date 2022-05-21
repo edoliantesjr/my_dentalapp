@@ -2,7 +2,9 @@
     package="com.cagape.dentalapp">
    <application
         android:label="Maglinte Dental Clinic"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher">
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -37,10 +39,13 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
     </application>
 
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <queries>
         <!-- If your app opens https URLs -->
         <intent>

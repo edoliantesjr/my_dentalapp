@@ -21,6 +21,7 @@ import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service_impl.dart';
 import 'package:dentalapp/core/utility/connectivity_state.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
+import 'package:dentalapp/ui/views/add_expenses/add_expenses_view.dart';
 import 'package:dentalapp/ui/views/add_medicine/add_medicine_view.dart';
 import 'package:dentalapp/ui/views/add_patient/add_patient_view.dart';
 import 'package:dentalapp/ui/views/add_payment/add_payment_view.dart';
@@ -90,6 +91,7 @@ import 'package:stacked/stacked_annotations.dart';
     MaterialRoute(page: AddPaymentView, name: 'AddPaymentView'),
     MaterialRoute(page: NotificationView, name: 'NotificationView'),
     MaterialRoute(page: ViewDentalNoteView, name: 'ViewDentalNoteView'),
+    MaterialRoute(page: AddExpenseView, name: 'AddExpenseView'),
     MaterialRoute(
         page: PaymentSelectPatientView, name: 'PaymentSelectPatientView'),
     CustomRoute(

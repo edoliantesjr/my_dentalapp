@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/dental_notes/dental_notes.dart';
+import 'package:dentalapp/models/expense/expense.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
@@ -118,4 +119,10 @@ abstract class ApiService {
       String? toothId,
       required dental_noteId,
       required bool isPaid});
+
+  Future<Payment> getPaymentInfo({required String paymentId});
+
+  Future<QueryResult> addExpense({required Expense expense});
+
+  Future<List<Expense>> getExpenseList({String? date});
 }
