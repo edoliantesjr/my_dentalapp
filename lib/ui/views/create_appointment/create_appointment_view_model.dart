@@ -39,13 +39,14 @@ class CreateAppointmentViewModel extends BaseViewModel {
   UserModel? myDentist;
   AppointmentModel? latestAppointment;
 
-  Future<void> setAppointment(AppointmentModel appointment) async {
+  Future<void> setAppointment(
+      {required AppointmentModel appointment, required int popTime}) async {
     try {
       dialogService.showDefaultLoadingDialog(
           willPop: false, barrierDismissible: false);
       await apiService.createAppointment(appointment);
+      navigationService.popRepeated(popTime);
       toastService.showToast(message: 'Appointment added');
-      navigationService.popUntilNamed(Routes.MainBodyView);
     } catch (e) {
       debugPrint(e.toString());
       navigationService.closeOverlay();

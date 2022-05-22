@@ -1,3 +1,4 @@
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
@@ -35,6 +36,18 @@ class PatientDentalChartView extends StatelessWidget {
                 ))
           ],
         ),
+        persistentFooterButtons: [
+          Row(
+            children: [
+              Expanded(
+                  child: ElevatedButton(
+                      onPressed: () => model.navigationService.pushNamed(
+                          Routes.AddPaymentView,
+                          arguments: AddPaymentViewArguments(patient: patient)),
+                      child: Text('Add Payment & Billing'))),
+            ],
+          ),
+        ],
         body: RefreshIndicator(
           key: refreshKey,
           onRefresh: () async {
@@ -44,6 +57,7 @@ class PatientDentalChartView extends StatelessWidget {
             model.notifyListeners();
           },
           child: ListView(
+            physics: BouncingScrollPhysics(),
             children: [
               PatientCard(
                 image: patient.image,

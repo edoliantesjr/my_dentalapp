@@ -44,4 +44,9 @@ class PatientInfoViewModel extends BaseViewModel {
     navigationService.pushNamed(Routes.PatientDentalChartView,
         arguments: PatientDentalChartViewArguments(patient: patient));
   }
+
+  void goToViewPatientAppointmentView({required Patient patient}) {
+    navigationService.pushNamed(Routes.ViewPatientAppointment,
+        arguments: ViewPatientAppointmentArguments(patient: patient));
+  }
 }

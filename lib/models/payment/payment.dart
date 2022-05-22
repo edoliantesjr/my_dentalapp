@@ -14,6 +14,7 @@ class Payment {
   final String totalAmount;
   final String payment_type;
   String paymentDate;
+  String remarks;
 
   Payment({
     this.payment_id,
@@ -27,6 +28,7 @@ class Payment {
     required this.totalAmount,
     required this.payment_type,
     required this.paymentDate,
+    required this.remarks,
   });
 
   Map<String, dynamic> toJson(dynamic id) {
@@ -48,6 +50,7 @@ class Payment {
       'patient_id': this.patient_id,
       'patient_name': this.patient_name,
       'paymentDate': this.paymentDate,
+      'remarks': this.remarks ?? '',
     };
   }
 
@@ -68,6 +71,7 @@ class Payment {
       patient_id: map['patient_id'] as String,
       patient_name: map['patient_name'],
       paymentDate: map['paymentDate'],
+      remarks: map['remarks'] != null ? map['remarks'] : '',
     );
   }
 }

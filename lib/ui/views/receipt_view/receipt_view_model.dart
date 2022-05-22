@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/toast/toast_service.dart';
+import 'package:dentalapp/extensions/string_extension.dart';
+import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
@@ -18,7 +20,6 @@ class ReceiptViewModel extends BaseViewModel {
   void downloadReceipt(double pixelRatio) async {
     screenShotController
         .capture(
-          delay: Duration(seconds: 1),
           pixelRatio: pixelRatio,
         )
         .then(
@@ -35,5 +36,11 @@ class ReceiptViewModel extends BaseViewModel {
         toastService.showToast(message: 'Permission Denied');
       }
     }
+  }
+
+  String computeMedTotal(Medicine medicine) {
+    int qty = int.parse(medicine.qty!);
+    double price = double.parse(medicine.price!);
+    return (qty * price).toString().toCurrency!;
   }
 }

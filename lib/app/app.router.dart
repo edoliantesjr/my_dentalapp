@@ -48,6 +48,7 @@ import '../ui/views/set_tooth_condition/set_tooth_condition_view.dart';
 import '../ui/views/update_user_info/setup_user_view.dart';
 import '../ui/views/user_view/user_view.dart';
 import '../ui/views/verify_email/verify_email_view.dart';
+import '../ui/views/view_patient_appointment/view_patient_appointment_view.dart';
 import '../ui/views/view_tooth_dental_notes/view_tooth_dental_note_view.dart';
 import '../ui/widgets/selection_dentist/selection_dentist.dart';
 import '../ui/widgets/selection_procedure/selection_procedure.dart';
@@ -84,6 +85,7 @@ class Routes {
   static const String ViewDentalNoteView = '/view-dental-note-view';
   static const String AddExpenseView = '/add-expense-view';
   static const String FinanceView = '/finance-view';
+  static const String ViewPatientAppointment = '/view-patient-appointment';
   static const String PaymentSelectPatientView = '/payment-select-patient-view';
   static const String SelectionDentist = '/selection-dentist';
   static const String SelectionProcedure = '/selection-procedure';
@@ -123,6 +125,7 @@ class Routes {
     ViewDentalNoteView,
     AddExpenseView,
     FinanceView,
+    ViewPatientAppointment,
     PaymentSelectPatientView,
     SelectionDentist,
     SelectionProcedure,
@@ -169,6 +172,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.ViewDentalNoteView, page: ViewDentalNoteView),
     RouteDef(Routes.AddExpenseView, page: AddExpenseView),
     RouteDef(Routes.FinanceView, page: FinanceView),
+    RouteDef(Routes.ViewPatientAppointment, page: ViewPatientAppointment),
     RouteDef(Routes.PaymentSelectPatientView, page: PaymentSelectPatientView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
@@ -291,6 +295,7 @@ class StackedRouter extends RouterBase {
       return MaterialPageRoute<dynamic>(
         builder: (context) => CreateAppointmentView(
           patient: args.patient,
+          popTimes: args.popTimes,
           key: args.key,
         ),
         settings: data,
@@ -402,6 +407,16 @@ class StackedRouter extends RouterBase {
     FinanceView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const FinanceView(),
+        settings: data,
+      );
+    },
+    ViewPatientAppointment: (data) {
+      var args = data.getArgs<ViewPatientAppointmentArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => ViewPatientAppointment(
+          key: args.key,
+          patient: args.patient,
+        ),
         settings: data,
       );
     },
@@ -522,8 +537,10 @@ class SetUpUserViewArguments {
 /// CreateAppointmentView arguments holder class
 class CreateAppointmentViewArguments {
   final Patient patient;
+  final int popTimes;
   final Key? key;
-  CreateAppointmentViewArguments({required this.patient, this.key});
+  CreateAppointmentViewArguments(
+      {required this.patient, required this.popTimes, this.key});
 }
 
 /// PatientInfoView arguments holder class
@@ -579,6 +596,13 @@ class AddPaymentViewArguments {
   final Key? key;
   final Patient patient;
   AddPaymentViewArguments({this.key, required this.patient});
+}
+
+/// ViewPatientAppointment arguments holder class
+class ViewPatientAppointmentArguments {
+  final Key? key;
+  final Patient patient;
+  ViewPatientAppointmentArguments({this.key, required this.patient});
 }
 
 /// SelectDentalNoteView arguments holder class

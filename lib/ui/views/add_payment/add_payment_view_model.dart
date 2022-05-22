@@ -29,6 +29,7 @@ class AddPaymentViewModel extends BaseViewModel {
   final paymentTypeTxtController = TextEditingController();
   final dateTxtController = TextEditingController();
   final totalAmountTxtController = TextEditingController();
+  final remarksTxtController = TextEditingController();
 
   String selectedPaymentType = "";
   DateTime? selectedPaymentDate;
@@ -45,6 +46,7 @@ class AddPaymentViewModel extends BaseViewModel {
     paymentTypeTxtController.dispose();
     dateTxtController.dispose();
     totalAmountTxtController.dispose();
+    remarksTxtController.dispose();
     super.dispose();
   }
 
@@ -182,6 +184,7 @@ class AddPaymentViewModel extends BaseViewModel {
                 totalAmount: totalAmountFinal.toString(),
                 payment_type: paymentType,
                 patient_name: patient_name,
+                remarks: remarksTxtController.text,
               ),
             );
             if (paymentQueryRes.success) {

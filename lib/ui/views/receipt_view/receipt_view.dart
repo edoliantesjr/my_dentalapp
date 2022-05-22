@@ -147,7 +147,7 @@ class ReceiptView extends StatelessWidget {
                                                 text: TextSpan(
                                                     text: payment
                                                         .medicineList![index]
-                                                        .medicineName,
+                                                        .brandName,
                                                     children: [
                                                       TextSpan(
                                                           text: ' @' +
@@ -156,16 +156,25 @@ class ReceiptView extends StatelessWidget {
                                                                       index]
                                                                   .price
                                                                   .toString()
-                                                                  .toCurrency!)
+                                                                  .toCurrency!,
+                                                          children: [
+                                                            TextSpan(
+                                                                text: '  x' +
+                                                                    payment
+                                                                        .medicineList![
+                                                                            index]
+                                                                        .qty
+                                                                        .toString())
+                                                          ]),
                                                     ],
                                                     style: TextStyle(
                                                       color: Colors.black,
+                                                      overflow:
+                                                          TextOverflow.fade,
                                                     )),
                                               ),
-                                              Text('x' +
-                                                  payment
-                                                      .medicineList![index].qty
-                                                      .toString()),
+                                              Text(
+                                                  '${model.computeMedTotal(payment.medicineList![index])}')
                                             ],
                                           ),
                                       separatorBuilder: (context, index) =>

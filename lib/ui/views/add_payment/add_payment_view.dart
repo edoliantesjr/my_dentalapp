@@ -228,6 +228,21 @@ class AddPaymentView extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 4),
+                        TextFormField(
+                          controller: model.remarksTxtController,
+                          textInputAction: TextInputAction.done,
+                          maxLines: 3,
+                          maxLength: 80,
+                          decoration: InputDecoration(
+                            hintText: 'Type here',
+                            labelText: 'Remark & Notes (Optional)',
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            labelStyle: TextStyle(
+                                fontSize: 20, color: Palettes.kcNeutral1),
+                            enabledBorder: TextBorderStyles.normalBorder,
+                            focusedBorder: TextBorderStyles.focusedBorder,
+                          ),
+                        ),
                         Container(
                           height: 10,
                           color: Colors.grey.shade200,

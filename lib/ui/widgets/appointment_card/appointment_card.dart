@@ -4,6 +4,7 @@ import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 
@@ -257,6 +258,7 @@ class DateWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: CachedNetworkImage(
         width: 75,
+        height: double.maxFinite,
         alignment: Alignment.center,
         imageUrl: imageUrl,
         fit: BoxFit.cover,
@@ -302,7 +304,7 @@ class InfoWidget extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: FontNames.sfPro,
-                      fontSize: 16,
+                      fontSize: 14.sp,
                       color: Palettes.kcNeutral1,
                       overflow: TextOverflow.ellipsis,
                       leadingDistribution: TextLeadingDistribution.proportional,

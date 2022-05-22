@@ -291,14 +291,26 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<List<AppointmentModel>> getAppointmentAccordingToDate(
       {DateTime? date}) async {
-    return await appointmentReference
-        .where('date', isEqualTo: date.toString())
-        .orderBy('startTime', descending: false)
-        .orderBy('appointment_status', descending: true)
-        .get()
-        .then((value) => value.docs
-            .map((appointment) => AppointmentModel.fromJson(appointment.data()))
-            .toList());
+    if (date == null) {
+      return await appointmentReference
+          .orderBy('startTime', descending: false)
+          .orderBy('appointment_status', descending: true)
+          .get()
+          .then((value) => value.docs
+              .map((appointment) =>
+                  AppointmentModel.fromJson(appointment.data()))
+              .toList());
+    } else {
+      return await appointmentReference
+          .where('date', isEqualTo: date.toString())
+          .orderBy('startTime', descending: false)
+          .orderBy('appointment_status', descending: true)
+          .get()
+          .then((value) => value.docs
+              .map((appointment) =>
+                  AppointmentModel.fromJson(appointment.data()))
+              .toList());
+    }
   }
 
   @override
@@ -503,6 +515,7 @@ class ApiServiceImpl extends ApiService {
   Future<List<AppointmentModel>> getAppointmentsByPatient({patientId}) async {
     return await appointmentReference
         .where('patient.id', isEqualTo: patientId)
+        .orderBy('date', descending: true)
         .get()
         .then((value) => value.docs
             .map((e) => AppointmentModel.fromJson(e.data()))

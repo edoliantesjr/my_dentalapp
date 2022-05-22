@@ -409,7 +409,8 @@ class PatientInfoView extends StatelessWidget {
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
-                              onTap: () {},
+                              onTap: () => model.goToViewPatientAppointmentView(
+                                  patient: patient),
                               leading: SvgPicture.asset(
                                 'assets/icons/Calendar.svg',
                                 color: Colors.black,

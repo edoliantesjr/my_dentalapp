@@ -94,7 +94,8 @@ class HomeAppointment extends StatelessWidget {
                     primary: false,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.all(5),
-                    itemCount: myAppointments.length,
+                    itemCount:
+                        myAppointments.length > 5 ? 5 : myAppointments.length,
                     itemBuilder: (context, i) =>
                         AnimationConfiguration.staggeredList(
                       position: i,

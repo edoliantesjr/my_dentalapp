@@ -78,21 +78,26 @@ class HomePageViewModel extends BaseViewModel {
   }
 
   void getAppointment() {
-    apiService.getAppointmentToday().listen((event) {
-      appointmentSubscription?.cancel();
-      appointmentSubscription =
-          apiService.getAppointmentToday().listen((event) {
-        myAppointments = event;
-        updateAppointmentList();
-        notifyListeners();
-      });
-    });
+    apiService.getAppointmentToday().listen(
+      (event) {
+        appointmentSubscription?.cancel();
+        appointmentSubscription =
+            apiService.getAppointmentToday().listen((event) {
+          myAppointments.clear();
+          myAppointments.addAll(event);
+          notifyListeners();
+          updateAppointmentList();
+        });
+      },
+    );
   }
 
   updateAppointmentList() {
     for (AppointmentModel appointment in myAppointments) {
       myAppointments.removeWhere((element) =>
-          element.appointment_status == AppointmentStatus.Declined.name);
+          (element.appointment_status == AppointmentStatus.Declined.name) ||
+          (element.appointment_status == AppointmentStatus.Cancelled.name) ||
+          (element.appointment_status == AppointmentStatus.Completed.name));
       notifyListeners();
     }
   }

@@ -15,7 +15,9 @@ import 'package:stacked/stacked.dart';
 
 class CreateAppointmentView extends StatefulWidget {
   final Patient patient;
-  const CreateAppointmentView({required this.patient, Key? key})
+  final int popTimes;
+  const CreateAppointmentView(
+      {required this.patient, required this.popTimes, Key? key})
       : super(key: key);
 
   @override
@@ -74,7 +76,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                   .validate()) {
                                 if (!(model.selectedProcedures.length <= 0)) {
                                   model.setAppointment(
-                                    AppointmentModel(
+                                    appointment: AppointmentModel(
                                       patient: widget.patient,
                                       date: model.selectedAppointmentDate
                                           .toString(),
@@ -86,6 +88,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                       appointment_status:
                                           AppointmentStatus.Pending.name,
                                     ),
+                                    popTime: widget.popTimes,
                                   );
                                 } else {
                                   model.snackBarService.showSnackBar(

@@ -46,6 +46,7 @@ class AppointmentSelectPatientViewModel extends BaseViewModel {
 
   void selectPatient(Patient patient) {
     navigationService.pushNamed(Routes.CreateAppointmentView,
-        arguments: CreateAppointmentViewArguments(patient: patient));
+        arguments:
+            CreateAppointmentViewArguments(patient: patient, popTimes: 3));
   }
 }
