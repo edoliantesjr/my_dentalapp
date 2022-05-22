@@ -7,6 +7,7 @@ import 'package:dentalapp/models/expense/expense.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
+import 'package:dentalapp/models/prescription/prescription.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:dentalapp/models/query_result/query_result.dart';
 import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
@@ -135,5 +136,12 @@ abstract class ApiService {
 
   Future<List<Payment>> getAllPayments();
 
-  // Future<QueryRes>
+  Stream listenToPaymentChanges();
+
+  Stream listenToExpenseChanges();
+
+  Future<QueryResult> addPrescription(
+      {required Prescription prescription, required dynamic patientId});
+
+  Future<QueryResult> addDentalCertificate({required DentalNotes dentalNotes});
 }

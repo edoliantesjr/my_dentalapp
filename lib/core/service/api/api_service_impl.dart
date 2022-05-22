@@ -11,6 +11,7 @@ import 'package:dentalapp/models/expense/expense.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
+import 'package:dentalapp/models/prescription/prescription.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:dentalapp/models/query_result/query_result.dart';
 import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
@@ -340,15 +341,7 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<List<MedicalHistory>?> getPatientMedicalRecord(
       {required dynamic patientId}) async {
-    List<MedicalHistory> medicalHistoryList = [];
-    final patient = await patientReference
-        .doc(patientId)
-        .get()
-        .then((value) => Patient.fromJson(value.data()!));
-    patient.medicalHistory?.forEach((medicalHistory) {
-      medicalHistoryList.add(medicalHistory);
-    });
-    return medicalHistoryList;
+    throw UnimplementedError();
   }
 
   @override
@@ -526,6 +519,7 @@ class ApiServiceImpl extends ApiService {
   Future<List<Payment>> getPaymentByPatient({patientId}) async {
     return await paymentReference
         .where('patient_id', isEqualTo: patientId)
+        .orderBy("paymentDate", descending: true)
         .get()
         .then((value) =>
             value.docs.map((e) => Payment.fromJson(e.data())).toList());
@@ -553,5 +547,36 @@ class ApiServiceImpl extends ApiService {
   Future<List<Payment>> getAllPayments() async {
     return await paymentReference.get().then(
         (value) => value.docs.map((e) => Payment.fromJson(e.data())).toList());
+  }
+
+  @override
+  Stream listenToPaymentChanges() {
+    return paymentReference.snapshots();
+  }
+
+  @override
+  Stream listenToExpenseChanges() {
+    return expenseReference.snapshots();
+  }
+
+  @override
+  Future<QueryResult> addPrescription(
+      {required Prescription prescription, required patientId}) async {
+    if (await connectivityService.checkConnectivity()) {
+      final prescriptionDoc = await patientReference
+          .doc(patientId)
+          .collection('prescription')
+          .doc();
+      await prescriptionDoc.set(prescription.toJson(id: prescriptionDoc.id));
+      return QueryResult.success();
+    } else {
+      return QueryResult.error("Check your network connection and try again");
+    }
+  }
+
+  @override
+  Future<QueryResult> addDentalCertificate({required DentalNotes dentalNotes}) {
+    // TODO: implement addDentalCertificate
+    throw UnimplementedError();
   }
 }

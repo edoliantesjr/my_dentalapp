@@ -26,6 +26,8 @@ import 'package:dentalapp/ui/views/add_expenses/add_expenses_view.dart';
 import 'package:dentalapp/ui/views/add_medicine/add_medicine_view.dart';
 import 'package:dentalapp/ui/views/add_patient/add_patient_view.dart';
 import 'package:dentalapp/ui/views/add_payment/add_payment_view.dart';
+import 'package:dentalapp/ui/views/add_prescription/add_prescription_view.dart';
+import 'package:dentalapp/ui/views/add_prescription_item/add_prescription_item_view.dart';
 import 'package:dentalapp/ui/views/add_procedure/add_procedure_view.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view.dart';
 import 'package:dentalapp/ui/views/appointment_select_patient/appointment_select_patient_view.dart';
@@ -44,6 +46,7 @@ import 'package:dentalapp/ui/views/patient_info/patient_info_view.dart';
 import 'package:dentalapp/ui/views/patients/patients_view.dart';
 import 'package:dentalapp/ui/views/payment_select_patient/payment_select_patient_view.dart';
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
+import 'package:dentalapp/ui/views/prescription_view/prescription_view.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view.dart';
 import 'package:dentalapp/ui/views/receipt_view/receipt_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
@@ -56,6 +59,7 @@ import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:dentalapp/ui/views/user_view/user_view.dart';
 import 'package:dentalapp/ui/views/verify_email/verify_email_view.dart';
 import 'package:dentalapp/ui/views/view_patient_appointment/view_patient_appointment_view.dart';
+import 'package:dentalapp/ui/views/view_patient_payments/view_patient_payment.dart';
 import 'package:dentalapp/ui/views/view_tooth_dental_notes/view_tooth_dental_note_view.dart';
 import 'package:dentalapp/ui/widgets/selection_dentist/selection_dentist.dart';
 import 'package:dentalapp/ui/widgets/selection_procedure/selection_procedure.dart';
@@ -97,6 +101,9 @@ import 'package:stacked/stacked_annotations.dart';
     MaterialRoute(page: AddExpenseView, name: 'AddExpenseView'),
     MaterialRoute(page: FinanceView, name: 'FinanceView'),
     MaterialRoute(page: ViewPatientAppointment, name: 'ViewPatientAppointment'),
+    MaterialRoute(page: ViewPatientPayment, name: 'ViewPatientPayment'),
+    MaterialRoute(page: AddPrescriptionView, name: 'AddPrescriptionView'),
+    MaterialRoute(page: PrescriptionView, name: 'PrescriptionView'),
     MaterialRoute(
         page: PaymentSelectPatientView, name: 'PaymentSelectPatientView'),
     CustomRoute(
@@ -137,6 +144,11 @@ import 'package:stacked/stacked_annotations.dart';
     CustomRoute(
         page: AddExpenseItemView,
         name: 'AddExpenseItemView',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: AddPrescriptionItemView,
+        name: 'AddPrescriptionItemView',
         transitionsBuilder: TransitionsBuilders.slideBottom,
         durationInMilliseconds: 300),
   ],

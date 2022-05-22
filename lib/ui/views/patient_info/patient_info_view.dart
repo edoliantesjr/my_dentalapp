@@ -100,7 +100,7 @@ class PatientInfoView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 5),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 12),
@@ -261,104 +261,25 @@ class PatientInfoView extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 5),
-                          Wrap(
-                            spacing: 8,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            alignment: WrapAlignment.center,
-                            children: [
-                              Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: CachedNetworkImage(
-                                      imageUrl: patient.image,
-                                      height: 145,
-                                      width: 80,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    patient.birthDate
-                                        .toDateTime()!
-                                        .toStringDateFormat(),
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: CachedNetworkImage(
-                                      imageUrl: patient.image,
-                                      height: 145,
-                                      width: 80,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    patient.birthDate
-                                        .toDateTime()!
-                                        .toStringDateFormat(),
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: CachedNetworkImage(
-                                      imageUrl: patient.image,
-                                      height: 145,
-                                      width: 80,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    patient.birthDate
-                                        .toDateTime()!
-                                        .toStringDateFormat(),
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: CachedNetworkImage(
-                                      imageUrl: patient.image,
-                                      height: 145,
-                                      width: 80,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    patient.birthDate
-                                        .toDateTime()!
-                                        .toStringDateFormat(),
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                ],
-                              ),
-                            ],
+                          Container(
+                            height: 130,
+                            color: Colors.grey.shade200,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text('No Photos'),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: Text('Add Now'),
+                                  style: TextButton.styleFrom(
+                                      textStyle: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  )),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(height: 8),
                           Divider(),
@@ -409,6 +330,28 @@ class PatientInfoView extends StatelessWidget {
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
+                              onTap: () =>
+                                  model.goToPrescriptionView(patient: patient),
+                              leading: SvgPicture.asset(
+                                'assets/icons/Pills.svg',
+                                color: Colors.black,
+                              ),
+                              title: Text(
+                                'Prescription',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
+                              ),
+                              trailing: Icon(
+                                Icons.arrow_right,
+                                size: 35,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Card(
+                            shadowColor: Colors.grey.shade500,
+                            child: ListTile(
                               onTap: () => model.goToViewPatientAppointmentView(
                                   patient: patient),
                               leading: SvgPicture.asset(
@@ -431,13 +374,36 @@ class PatientInfoView extends StatelessWidget {
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
-                              onTap: () {},
+                              onTap: () => model.goToViewPatientPaymentsView(
+                                  patient: patient),
                               leading: Icon(
                                 Icons.money,
                                 color: Colors.black,
                               ),
                               title: Text(
                                 'Payments',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
+                              ),
+                              trailing: Icon(
+                                Icons.arrow_right,
+                                size: 35,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Card(
+                            shadowColor: Colors.grey.shade500,
+                            child: ListTile(
+                              onTap: () => model.goToViewPatientPaymentsView(
+                                  patient: patient),
+                              leading: Icon(
+                                Icons.receipt,
+                                color: Colors.black,
+                              ),
+                              title: Text(
+                                'Dental Certificate',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),

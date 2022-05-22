@@ -1,6 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dentalapp/constants/styles/palette_color.dart';
-import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/medical_history/medical_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -30,61 +27,63 @@ class MedicalHistoryView extends StatelessWidget {
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: model.medHistoryList.isNotEmpty
-                    ? GridView.builder(
-                        shrinkWrap: true,
-                        primary: false,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                          mainAxisExtent: 300,
-                        ),
-                        itemBuilder: (context, index) {
-                          return model.isBusy
-                              ? Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    InkWell(
-                                      onTap: () =>
-                                          model.goToPhotoView(index: index),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          border: Border.all(
-                                              color: Colors.grey, width: 1),
-                                        ),
-                                        child: CachedNetworkImage(
-                                          imageUrl: model
-                                              .medHistoryList[index].image!,
-                                          fit: BoxFit.fitHeight,
-                                          filterQuality: FilterQuality.high,
-                                          height: 250,
-                                          width: double.maxFinite,
-                                          progressIndicatorBuilder:
-                                              (context, url, progress) =>
-                                                  LinearProgressIndicator(
-                                            color: Palettes.kcBlueMain1,
-                                            value: progress.progress,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      model.medHistoryList[index].date,
-                                      style: TextStyles.tsHeading5(),
-                                    )
-                                  ],
-                                );
-                        },
-                        itemCount: model.medHistoryList.length,
-                      )
-                    : SizedBox(
+                child:
+                    // model.medHistoryList.isNotEmpty
+                    //     ? GridView.builder(
+                    //         shrinkWrap: true,
+                    //         primary: false,
+                    //         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    //           crossAxisCount: 2,
+                    //           crossAxisSpacing: 8,
+                    //           mainAxisSpacing: 8,
+                    //           mainAxisExtent: 300,
+                    //         ),
+                    //         itemBuilder: (context, index) {
+                    //           return model.isBusy
+                    //               ? Center(
+                    //                   child: CircularProgressIndicator(),
+                    //                 )
+                    //               : Column(
+                    //                   mainAxisAlignment: MainAxisAlignment.start,
+                    //                   crossAxisAlignment: CrossAxisAlignment.start,
+                    //                   children: [
+                    //                     InkWell(
+                    //                       onTap: () =>
+                    //                           model.goToPhotoView(index: index),
+                    //                       child: Container(
+                    //                         decoration: BoxDecoration(
+                    //                           color: Colors.grey,
+                    //                           border: Border.all(
+                    //                               color: Colors.grey, width: 1),
+                    //                         ),
+                    //                         child: CachedNetworkImage(
+                    //                           imageUrl: model
+                    //                               .medHistoryList[index].image!,
+                    //                           fit: BoxFit.fitHeight,
+                    //                           filterQuality: FilterQuality.high,
+                    //                           height: 250,
+                    //                           width: double.maxFinite,
+                    //                           progressIndicatorBuilder:
+                    //                               (context, url, progress) =>
+                    //                                   LinearProgressIndicator(
+                    //                             color: Palettes.kcBlueMain1,
+                    //                             value: progress.progress,
+                    //                           ),
+                    //                         ),
+                    //                       ),
+                    //                     ),
+                    //                     SizedBox(height: 5),
+                    //                     Text(
+                    //                       model.medHistoryList[index].date,
+                    //                       style: TextStyles.tsHeading5(),
+                    //                     )
+                    //                   ],
+                    //                 );
+                    //         },
+                    //         itemCount: model.medHistoryList.length,
+                    //       )
+                    //     :
+                    SizedBox(
                         height: MediaQuery.of(context).size.height - 120,
                         width: MediaQuery.of(context).size.width,
                         child:

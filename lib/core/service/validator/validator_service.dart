@@ -48,4 +48,10 @@ abstract class ValidatorService {
   String? validateItemName(String value);
 
   String? validateTotalAmount(String value);
+
+  String? validateInscription(String value);
+
+  String? validateSubscription(String value);
+
+  String? validateSignatura(String value);
 }

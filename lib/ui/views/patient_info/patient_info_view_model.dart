@@ -49,4 +49,14 @@ class PatientInfoViewModel extends BaseViewModel {
     navigationService.pushNamed(Routes.ViewPatientAppointment,
         arguments: ViewPatientAppointmentArguments(patient: patient));
   }
+
+  void goToViewPatientPaymentsView({required Patient patient}) {
+    navigationService.pushNamed(Routes.ViewPatientPayment,
+        arguments: ViewPatientPaymentArguments(patient: patient));
+  }
+
+  void goToPrescriptionView({required Patient patient}) {
+    navigationService.pushNamed(Routes.PrescriptionView,
+        arguments: PrescriptionViewArguments(patient: patient));
+  }
 }

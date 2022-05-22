@@ -61,9 +61,9 @@ class ValidatorServiceImpl extends ValidatorService {
   @override
   String? validateDate(String value) {
     if (value.isEmpty) {
-      return 'Birthdate is empty';
+      return 'Date is empty';
     } else if (DateFormat.yMMMd().parse(value) == null) {
-      return 'Birthdate is not valid';
+      return 'Date is not valid';
     } else
       return null;
   }
@@ -252,6 +252,33 @@ class ValidatorServiceImpl extends ValidatorService {
       } catch (e) {
         return 'Value is not valid';
       }
+    }
+  }
+
+  @override
+  String? validateInscription(String value) {
+    if (value.isEmpty) {
+      return 'Inscription cannot be empty';
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  String? validateSignatura(String value) {
+    if (value.isEmpty) {
+      return 'Signatura cannot be empty';
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  String? validateSubscription(String value) {
+    if (value.isEmpty) {
+      return 'Subscription cannot be empty';
+    } else {
+      return null;
     }
   }
 }

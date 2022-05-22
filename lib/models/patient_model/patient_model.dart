@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dentalapp/models/medical_history/medical_history.dart';
 
 class Patient {
   final dynamic id;
@@ -16,7 +15,6 @@ class Patient {
   final String? emergencyContactNumber;
   final List<String> searchIndex;
   final DateTime? dateCreated;
-  final List<dynamic>? medicalHistory;
 
   Patient({
     this.id,
@@ -33,7 +31,6 @@ class Patient {
     this.emergencyContactNumber,
     this.dateCreated,
     required this.searchIndex,
-    this.medicalHistory,
   });
 
   Map<String, dynamic> toJson(
@@ -54,7 +51,6 @@ class Patient {
       'emergencyContactNumber': this.emergencyContactNumber ?? '',
       'dateCreated': dateCreated,
       'searchIndex': this.searchIndex,
-      'medicalHistory': medicalHistory?.map((e) => e?.toJson()).toList(),
     };
   }
 
@@ -74,11 +70,6 @@ class Patient {
       emergencyContactName: json['emergencyContactName'] ?? '',
       emergencyContactNumber: json['emergencyContactNumber'] ?? '',
       searchIndex: [],
-      medicalHistory: json['medicalHistory'] != null
-          ? json['medicalHistory']
-              .map((medicalHistory) => MedicalHistory.fromJson(medicalHistory))
-              .toList()
-          : null,
     );
   }
   String get fullName => firstName + ' ' + lastName;

@@ -19,6 +19,8 @@ import '../ui/views/add_expenses/add_expenses_view.dart';
 import '../ui/views/add_medicine/add_medicine_view.dart';
 import '../ui/views/add_patient/add_patient_view.dart';
 import '../ui/views/add_payment/add_payment_view.dart';
+import '../ui/views/add_prescription/add_prescription_view.dart';
+import '../ui/views/add_prescription_item/add_prescription_item_view.dart';
 import '../ui/views/add_procedure/add_procedure_view.dart';
 import '../ui/views/appointment/appointment_view.dart';
 import '../ui/views/appointment_select_patient/appointment_select_patient_view.dart';
@@ -37,6 +39,7 @@ import '../ui/views/patient_info/patient_info_view.dart';
 import '../ui/views/patients/patients_view.dart';
 import '../ui/views/payment_select_patient/payment_select_patient_view.dart';
 import '../ui/views/pre_loader/pre_loader_view.dart';
+import '../ui/views/prescription_view/prescription_view.dart';
 import '../ui/views/procedures/procedure_view.dart';
 import '../ui/views/receipt_view/receipt_view.dart';
 import '../ui/views/register/register_view.dart';
@@ -49,6 +52,7 @@ import '../ui/views/update_user_info/setup_user_view.dart';
 import '../ui/views/user_view/user_view.dart';
 import '../ui/views/verify_email/verify_email_view.dart';
 import '../ui/views/view_patient_appointment/view_patient_appointment_view.dart';
+import '../ui/views/view_patient_payments/view_patient_payment.dart';
 import '../ui/views/view_tooth_dental_notes/view_tooth_dental_note_view.dart';
 import '../ui/widgets/selection_dentist/selection_dentist.dart';
 import '../ui/widgets/selection_procedure/selection_procedure.dart';
@@ -86,6 +90,9 @@ class Routes {
   static const String AddExpenseView = '/add-expense-view';
   static const String FinanceView = '/finance-view';
   static const String ViewPatientAppointment = '/view-patient-appointment';
+  static const String ViewPatientPayment = '/view-patient-payment';
+  static const String AddPrescriptionView = '/add-prescription-view';
+  static const String PrescriptionView = '/prescription-view';
   static const String PaymentSelectPatientView = '/payment-select-patient-view';
   static const String SelectionDentist = '/selection-dentist';
   static const String SelectionProcedure = '/selection-procedure';
@@ -95,6 +102,7 @@ class Routes {
   static const String SelectMedicineView = '/select-medicine-view';
   static const String ReceiptView = '/receipt-view';
   static const String AddExpenseItemView = '/add-expense-item-view';
+  static const String AddPrescriptionItemView = '/add-prescription-item-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -126,6 +134,9 @@ class Routes {
     AddExpenseView,
     FinanceView,
     ViewPatientAppointment,
+    ViewPatientPayment,
+    AddPrescriptionView,
+    PrescriptionView,
     PaymentSelectPatientView,
     SelectionDentist,
     SelectionProcedure,
@@ -135,6 +146,7 @@ class Routes {
     SelectMedicineView,
     ReceiptView,
     AddExpenseItemView,
+    AddPrescriptionItemView,
   };
 }
 
@@ -173,6 +185,9 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.AddExpenseView, page: AddExpenseView),
     RouteDef(Routes.FinanceView, page: FinanceView),
     RouteDef(Routes.ViewPatientAppointment, page: ViewPatientAppointment),
+    RouteDef(Routes.ViewPatientPayment, page: ViewPatientPayment),
+    RouteDef(Routes.AddPrescriptionView, page: AddPrescriptionView),
+    RouteDef(Routes.PrescriptionView, page: PrescriptionView),
     RouteDef(Routes.PaymentSelectPatientView, page: PaymentSelectPatientView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
@@ -182,6 +197,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.SelectMedicineView, page: SelectMedicineView),
     RouteDef(Routes.ReceiptView, page: ReceiptView),
     RouteDef(Routes.AddExpenseItemView, page: AddExpenseItemView),
+    RouteDef(Routes.AddPrescriptionItemView, page: AddPrescriptionItemView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -420,6 +436,36 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ViewPatientPayment: (data) {
+      var args = data.getArgs<ViewPatientPaymentArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => ViewPatientPayment(
+          key: args.key,
+          patient: args.patient,
+        ),
+        settings: data,
+      );
+    },
+    AddPrescriptionView: (data) {
+      var args = data.getArgs<AddPrescriptionViewArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => AddPrescriptionView(
+          key: args.key,
+          patient: args.patient,
+        ),
+        settings: data,
+      );
+    },
+    PrescriptionView: (data) {
+      var args = data.getArgs<PrescriptionViewArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => PrescriptionView(
+          key: args.key,
+          patient: args.patient,
+        ),
+        settings: data,
+      );
+    },
     PaymentSelectPatientView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const PaymentSelectPatientView(),
@@ -500,6 +546,15 @@ class StackedRouter extends RouterBase {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
             const AddExpenseItemView(),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
+    AddPrescriptionItemView: (data) {
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const AddPrescriptionItemView(),
         settings: data,
         transitionsBuilder: TransitionsBuilders.slideBottom,
         transitionDuration: const Duration(milliseconds: 300),
@@ -603,6 +658,27 @@ class ViewPatientAppointmentArguments {
   final Key? key;
   final Patient patient;
   ViewPatientAppointmentArguments({this.key, required this.patient});
+}
+
+/// ViewPatientPayment arguments holder class
+class ViewPatientPaymentArguments {
+  final Key? key;
+  final Patient patient;
+  ViewPatientPaymentArguments({this.key, required this.patient});
+}
+
+/// AddPrescriptionView arguments holder class
+class AddPrescriptionViewArguments {
+  final Key? key;
+  final Patient patient;
+  AddPrescriptionViewArguments({this.key, required this.patient});
+}
+
+/// PrescriptionView arguments holder class
+class PrescriptionViewArguments {
+  final Key? key;
+  final Patient patient;
+  PrescriptionViewArguments({this.key, required this.patient});
 }
 
 /// SelectDentalNoteView arguments holder class

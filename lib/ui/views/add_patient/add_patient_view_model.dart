@@ -142,9 +142,6 @@ class AddPatientViewModel extends BaseViewModel {
               emergencyContactNumber: emergencyContactNumber ?? '',
               emergencyContactName: emergencyContactName ?? '',
               searchIndex: patientSearchIndex,
-              medicalHistory: medHistoryUploadResult.medHistory!.isNotEmpty
-                  ? medHistoryUploadResult.medHistory
-                  : null,
               notes: notes ?? ''),
         );
 
