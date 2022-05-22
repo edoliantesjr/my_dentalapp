@@ -88,7 +88,7 @@ class AddExpenseItemView extends StatelessWidget {
                   focusedBorder: TextBorderStyles.focusedBorder,
                   errorStyle: TextStyles.errorTextStyle,
                   hintText: 'Type here',
-                  labelText: 'Total Amount*',
+                  labelText: 'Total Amount Paid*',
                   labelStyle: TextStyles.tsBody1(color: Palettes.kcNeutral1),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),

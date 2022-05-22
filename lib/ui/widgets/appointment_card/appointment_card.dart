@@ -59,9 +59,10 @@ class _AppointmentCardState extends State<AppointmentCard> {
     final appointmentStatus =
         await bottomSheetService.openBottomSheet(SelectionOption(
       options: [
-        AppointmentStatus.Done.name,
+        AppointmentStatus.Completed.name,
         AppointmentStatus.Cancelled.name,
-        AppointmentStatus.Ongoing.name
+        AppointmentStatus.Pending.name,
+        AppointmentStatus.Declined.name,
       ],
       title: 'Set Appointment Status',
     ));
@@ -312,16 +313,7 @@ class InfoWidget extends StatelessWidget {
                   child: Container(
                 padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                 decoration: BoxDecoration(
-                    color: appointmentStatus == AppointmentStatus.Done
-                        ? Palettes.kcCompleteColor
-                        : appointmentStatus == AppointmentStatus.Ongoing
-                            ? Palettes.kcBlueMain2
-                            : appointmentStatus == AppointmentStatus.Pending
-                                ? Palettes.kcPendingColor
-                                : appointmentStatus ==
-                                        AppointmentStatus.Cancelled
-                                    ? Palettes.kcCancelledColor
-                                    : Palettes.kcCancelledColor,
+                    color: selectAppointmentColor(appointmentStatus),
                     borderRadius: BorderRadius.circular(30)),
                 child: Text(
                   appointmentStatus.name,
@@ -381,5 +373,27 @@ class InfoWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Color selectAppointmentColor(AppointmentStatus appointmentStatus) {
+    Color returnColor = Colors.red.shade900;
+    if (appointmentStatus == AppointmentStatus.Completed) {
+      returnColor = Palettes.kcCompleteColor;
+    }
+    if (appointmentStatus == AppointmentStatus.Pending) {
+      returnColor = Palettes.kcPendingColor;
+    }
+    if (appointmentStatus == AppointmentStatus.Cancelled) {
+      returnColor = Palettes.kcCancelledColor;
+    }
+
+    if (appointmentStatus == AppointmentStatus.OnRequest) {
+      returnColor = Colors.brown;
+    }
+
+    if (appointmentStatus == AppointmentStatus.Declined) {
+      returnColor = Colors.red;
+    }
+    return returnColor;
   }
 }

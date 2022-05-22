@@ -9,6 +9,7 @@ class AppointmentModel {
   final String endTime;
   final String dentist;
   final String appointment_status;
+
   final List<dynamic>? procedures;
   final String? dateCreated;
   final bool? isAccepted;

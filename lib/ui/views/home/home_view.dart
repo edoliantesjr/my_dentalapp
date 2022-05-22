@@ -57,12 +57,18 @@ class HomePageView extends StatelessWidget {
                     Routes.FinanceView,
                   ),
                 ),
+                model.myAppointments.isNotEmpty?
                 HomeAppointment(
                   deleteItem: (index) => model.deleteThisFromList(
                       index, model.myAppointments[index].appointment_id!),
                   myAppointments: model.myAppointments,
                   isBusy: model.isBusy,
                   navigationService: model.navigationService,
+                ):Center(
+                  child: Container(
+                    height: 100,
+                    child: Text('No Appointments for today'),
+                  ),
                 ),
               ],
             ),

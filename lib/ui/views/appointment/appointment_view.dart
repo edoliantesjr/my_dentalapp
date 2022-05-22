@@ -47,7 +47,8 @@ class AppointmentView extends StatelessWidget {
           ),
           body: Container(
             color: Colors.grey.shade50,
-            child: Column(
+            child: ListView(
+              primary: true,
               children: [
                 Container(
                   color: Palettes.kcBlueMain1,
@@ -71,62 +72,110 @@ class AppointmentView extends StatelessWidget {
                 ),
                 Divider(height: 1, color: Colors.grey),
                 Container(
-                  height: 45,
                   color: Colors.grey.shade200,
-                  child: Row(
+                  padding: EdgeInsets.all(8),
+                  child: Wrap(
+                    spacing: 4,
                     children: [
-                      SizedBox(width: 5),
-                      Text(
-                        'Filter: ',
-                        style: TextStyles.tsHeading5(),
-                      ),
-                      Spacer(),
                       FilterChip(
-                        label: Text('All'),
-                        selected: true,
-                        onSelected: (bool) => !bool,
+                        label: Text('All',
+                            style: TextStyle(
+                                color: model.filter == 'ALL'
+                                    ? Colors.white
+                                    : Colors.black)),
+                        selected: model.filter == 'ALL',
+                        onSelected: (bool) => model.getAppointmentByAll(),
+                        selectedColor: Palettes.kcBlueMain1,
+                        checkmarkColor: Colors.white,
                       ),
-                      SizedBox(width: 4),
                       FilterChip(
-                        label: Text('Done'),
-                        onSelected: (bool) => !bool,
+                        label: Text(
+                          'Completed',
+                          style: TextStyle(
+                              color: model.filter ==
+                                      AppointmentStatus.Completed.name
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                        selected:
+                            model.filter == AppointmentStatus.Completed.name,
+                        onSelected: (bool) => model.getAppointmentByCompleted(),
+                        selectedColor: Palettes.kcCompleteColor,
+                        checkmarkColor: Colors.white,
                       ),
-                      SizedBox(width: 4),
                       FilterChip(
-                        label: Text('Pending'),
-                        onSelected: (bool) => !bool,
+                        label: Text('Pending',
+                            style: TextStyle(
+                                color: model.filter ==
+                                        AppointmentStatus.Pending.name
+                                    ? Colors.white
+                                    : Colors.black)),
+                        selected:
+                            model.filter == AppointmentStatus.Pending.name,
+                        onSelected: (bool) => model.getAppointmentByPending(),
+                        selectedColor: Palettes.kcPendingColor,
+                        checkmarkColor: Colors.white,
                       ),
-                      SizedBox(width: 4),
                       FilterChip(
-                        label: Text('Cancelled'),
-                        onSelected: (bool) => !bool,
+                        label: Text('Request',
+                            style: TextStyle(
+                                color: model.filter ==
+                                        AppointmentStatus.OnRequest.name
+                                    ? Colors.white
+                                    : Colors.black)),
+                        selected:
+                            model.filter == AppointmentStatus.OnRequest.name,
+                        onSelected: (bool) => model.getAppointmentByRequest(),
+                        selectedColor: Colors.brown,
+                        checkmarkColor: Colors.white,
                       ),
-                      SizedBox(width: 5),
+                      FilterChip(
+                        label: Text(
+                          'Declined',
+                          style: TextStyle(
+                              color: model.filter ==
+                                      AppointmentStatus.Declined.name
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                        selected:
+                            model.filter == AppointmentStatus.Declined.name,
+                        onSelected: (bool) => model.getAppointmentByDeclined(),
+                        selectedColor: Colors.red,
+                        checkmarkColor: Colors.white,
+                      ),
+                      FilterChip(
+                        label: Text('Cancelled',
+                            style: TextStyle(
+                                color: model.filter ==
+                                        AppointmentStatus.Cancelled.name
+                                    ? Colors.white
+                                    : Colors.black)),
+                        selected:
+                            model.filter == AppointmentStatus.Cancelled.name,
+                        onSelected: (bool) => model.getAppointmentByCancelled(),
+                        selectedColor: Palettes.kcCancelledColor,
+                        checkmarkColor: Colors.white,
+                      ),
                     ],
                   ),
                 ),
                 Divider(height: 1, color: Colors.grey),
-                Expanded(
-                  child: Scrollbar(
-                    thickness: 7,
-                    hoverThickness: 2,
-                    showTrackOnHover: true,
-                    child: Container(
-                      color: Colors.grey.shade50,
-                      padding: EdgeInsets.symmetric(horizontal: 2),
-                      child: model.appointmentList.isNotEmpty
-                          ? appointmentCardHelper(
-                              appointmentList: model.appointmentList,
-                              isBusy: model.isBusy,
-                              onDeleteItem: (int) {},
-                              navigator: model.navigationService)
-                          : Center(
-                              child:
-                                  Text('No Appointment for this date. Add Now'),
-                            ),
-                    ),
-                  ),
+                Container(
+                  color: Colors.grey.shade50,
+                  padding: EdgeInsets.symmetric(horizontal: 2),
+                  child: model.appointmentList.isNotEmpty
+                      ? appointmentCardHelper(
+                          appointmentList: model.appointmentList,
+                          isBusy: model.isBusy,
+                          onDeleteItem: (int) {},
+                          navigator: model.navigationService)
+                      : Container(
+                          height: 500,
+                          child: Center(
+                              child: Text('No Appointment for this date.'))),
                 ),
+                SizedBox(height: 100),
               ],
             ),
           )),

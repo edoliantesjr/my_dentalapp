@@ -70,7 +70,7 @@ class AddPaymentViewModel extends BaseViewModel {
   void selectDate() async {
     final DateTime? date =
         await bottomSheetService.openBottomSheet(SelectionDate(
-      title: 'Set date',
+      title: 'Set Payment Date',
       initialDate: DateTime.now(),
       maxDate: DateTime.now(),
     ));
@@ -174,6 +174,7 @@ class AddPaymentViewModel extends BaseViewModel {
               payment: Payment(
                 patient_id: patientId,
                 dentist: dentist,
+                paymentDate: selectedPaymentDate.toString(),
                 dentalNote: selectedNotes,
                 medicineList: selectedMedicines,
                 dentalNoteSubTotal: dentalNoteSubTotal.toString(),

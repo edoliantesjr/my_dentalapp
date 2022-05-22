@@ -26,8 +26,9 @@ class ReceiptView extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             color: Palettes.kcBlueMain1,
-            padding: EdgeInsets.only(top: 40, left: 40, right: 40),
-            child: Center(
+            alignment: Alignment.center,
+            child: Container(
+              width: MediaQuery.of(context).size.width - 80,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -48,24 +49,29 @@ class ReceiptView extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    height: 500,
                     color: Colors.white,
                     padding: EdgeInsets.only(left: 10, right: 10, top: 20),
-                    child: Column(
+                    child: ListView(
+                      shrinkWrap: true,
                       children: [
                         Icon(
                           Icons.check_circle,
                           size: 20,
                           color: Colors.green,
                         ),
-                        Text('Successfully Recorded the payment of patient'),
-                        SizedBox(height: 10),
                         Text(
-                          '${payment.patient_name}',
-                          style: TextStyle(
-                            color: Palettes.kcDarkerBlueMain1,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                          'Successfully Recorded the payment of patient',
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: 10),
+                        Center(
+                          child: Text(
+                            '${payment.patient_name}',
+                            style: TextStyle(
+                              color: Palettes.kcDarkerBlueMain1,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         SizedBox(height: 20),
@@ -213,27 +219,32 @@ class ReceiptView extends StatelessWidget {
                           color: Colors.grey,
                           thickness: 2,
                         ),
-                        Spacer(),
-                        Image.asset(
-                          'assets/icons/logo-blue-circle.png',
-                          height: 40,
-                          width: 40,
-                        ),
-                        Text('Maglinte Dental Clinic'),
-                        SizedBox(height: 8),
-                        RichText(
-                            text: TextSpan(
-                                text: 'Ref. No.: ',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                                children: [
-                              TextSpan(
-                                  text: payment.payment_id,
+                        SizedBox(height: 10),
+                        Center(
+                          child: RichText(
+                              text: TextSpan(
+                                  text: 'Ref. No.: ',
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.normal))
-                            ])),
+                                      fontWeight: FontWeight.bold),
+                                  children: [
+                                TextSpan(
+                                    text: payment.payment_id,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal))
+                              ])),
+                        ),
+                        SizedBox(height: 10),
+                        Center(
+                          child: Image.asset(
+                            'assets/icons/logo-blue-circle.png',
+                            height: 40,
+                            width: 40,
+                          ),
+                        ),
+                        Center(child: Text('Maglinte Dental Clinic')),
+                        SizedBox(height: 8),
                       ],
                     ),
                   ),
@@ -241,7 +252,6 @@ class ReceiptView extends StatelessWidget {
                     clipper: MultipleRoundedCurveClipper(),
                     child: Container(
                       height: 20,
-                      width: MediaQuery.of(context).size.width,
                       color: Colors.white,
                     ),
                   ),

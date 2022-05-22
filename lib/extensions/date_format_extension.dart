@@ -9,4 +9,18 @@ extension DateTimeExtension on DateTime {
 
   DateTime? toDateMonthDayOnly() =>
       DateFormat('yyyy-MM-dd').format(this).toDateTime();
+
+  bool isSameDate(DateTime other) {
+    return this.year == other.year &&
+        this.month == other.month &&
+        this.day == other.day;
+  }
+
+  bool isSameDateMonth(DateTime other) {
+    return this.year == other.year && this.month == other.month;
+  }
+
+  bool isSameYear(DateTime other) {
+    return this.year == other.year;
+  }
 }

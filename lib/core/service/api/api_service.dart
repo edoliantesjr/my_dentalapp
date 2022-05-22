@@ -132,4 +132,6 @@ abstract class ApiService {
 
   Future<QueryResult> updateAppointmentStatus(
       {required dynamic appointmentId, required String appointmentStatus});
+
+  Future<List<Payment>> getAllPayments();
 }

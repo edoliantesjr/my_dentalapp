@@ -1,44 +1,50 @@
 enum AppointmentStatus {
-  Ongoing,
-  Cancelled,
-  Done,
   Pending,
-  Error,
+  Declined,
+  Completed,
+  Cancelled,
+  OnRequest,
 }
 
 AppointmentStatus getAppointmentStatus(String appointmentStatus) {
   switch (appointmentStatus) {
-    case 'DONE':
-      return AppointmentStatus.Done;
+    case 'COMPLETED':
+      return AppointmentStatus.Completed;
 
     case 'CANCELLED':
       return AppointmentStatus.Cancelled;
 
-    case 'ONGOING':
-      return AppointmentStatus.Ongoing;
-
     case 'PENDING':
       return AppointmentStatus.Pending;
 
+    case 'DECLINED':
+      return AppointmentStatus.Declined;
+
+    case 'ON REQUEST':
+      return AppointmentStatus.OnRequest;
+
     default:
-      return AppointmentStatus.Error;
+      return AppointmentStatus.OnRequest;
   }
 }
 
 extension Ext on AppointmentStatus {
   String get name {
     switch (this) {
-      case AppointmentStatus.Ongoing:
-        return 'ONGOING';
+      case AppointmentStatus.Completed:
+        return 'COMPLETED';
 
       case AppointmentStatus.Cancelled:
         return 'CANCELLED';
 
-      case AppointmentStatus.Done:
-        return 'DONE';
-
       case AppointmentStatus.Pending:
         return 'PENDING';
+
+      case AppointmentStatus.Declined:
+        return 'DECLINED';
+
+      case AppointmentStatus.OnRequest:
+        return 'ON REQUEST';
 
       default:
         return 'ERROR';

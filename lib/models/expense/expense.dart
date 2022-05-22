@@ -1,7 +1,7 @@
 class Expense {
   final dynamic id;
   final double totalAmount;
-  List<ExpenseItem> items;
+  List<dynamic> items;
   final String date;
   final String note;
 

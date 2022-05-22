@@ -16,7 +16,6 @@ import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../core/service/connectivity/connectivity_service.dart';
-import '../../widgets/selection_list/selection_option.dart';
 
 class HomePageViewModel extends BaseViewModel {
   final logger = getLogger('AppointmentModel', printCallingFunctionName: true);
@@ -84,9 +83,18 @@ class HomePageViewModel extends BaseViewModel {
       appointmentSubscription =
           apiService.getAppointmentToday().listen((event) {
         myAppointments = event;
+        updateAppointmentList();
         notifyListeners();
       });
     });
+  }
+
+  updateAppointmentList() {
+    for (AppointmentModel appointment in myAppointments) {
+      myAppointments.removeWhere((element) =>
+          element.appointment_status == AppointmentStatus.Declined.name);
+      notifyListeners();
+    }
   }
 
   void goToNotificationView() {
@@ -95,34 +103,5 @@ class HomePageViewModel extends BaseViewModel {
 
   void goToUserView() {
     navigationService.pushNamed(Routes.UserView);
-  }
-
-  Future<void> updateAppointmentStatus(String appointmentId) async {
-    final appointmentStatus =
-        await bottomSheetService.openBottomSheet(SelectionOption(
-      options: [
-        AppointmentStatus.Done.toString(),
-        AppointmentStatus.Cancelled.toString(),
-        AppointmentStatus.Ongoing.toString()
-      ],
-      title: 'Set Appointment Status',
-    ));
-
-    if (appointmentStatus != null) {
-      if (await connectivityService.checkConnectivity()) {
-        dialogService.showDefaultLoadingDialog(
-            barrierDismissible: false, willPop: false);
-        await apiService.updateAppointmentStatus(
-            appointmentId: appointmentId, appointmentStatus: appointmentStatus);
-        navigationService.pop();
-        snackBarService.showSnackBar(
-            message: 'Appointment status was updated', title: 'Success!');
-      } else {
-        navigationService.pop();
-        snackBarService.showSnackBar(
-            message: 'Check your network connection and try again',
-            title: 'Network Error');
-      }
-    }
   }
 }

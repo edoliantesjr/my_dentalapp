@@ -487,10 +487,10 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<List<Expense>> getExpenseList({String? date}) async {
     if (date != null) {
-      return await paymentReference.orderBy('date').get().then((value) =>
+      return await expenseReference.orderBy('date').get().then((value) =>
           value.docs.map((e) => Expense.fromJson(e.data())).toList());
     } else {
-      return await paymentReference
+      return await expenseReference
           .orderBy('date')
           .where('date', isEqualTo: date)
           .get()
@@ -534,5 +534,11 @@ class ApiServiceImpl extends ApiService {
     } catch (e) {
       return QueryResult.error('Something went wrong');
     }
+  }
+
+  @override
+  Future<List<Payment>> getAllPayments() async {
+    return await paymentReference.get().then(
+        (value) => value.docs.map((e) => Payment.fromJson(e.data())).toList());
   }
 }

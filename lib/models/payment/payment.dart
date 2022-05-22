@@ -13,8 +13,9 @@ class Payment {
   final String medicineSubTotal;
   final String totalAmount;
   final String payment_type;
+  String paymentDate;
 
-  const Payment({
+  Payment({
     this.payment_id,
     required this.patient_name,
     this.medicineList,
@@ -25,6 +26,7 @@ class Payment {
     required this.medicineSubTotal,
     required this.totalAmount,
     required this.payment_type,
+    required this.paymentDate,
   });
 
   Map<String, dynamic> toJson(dynamic id) {
@@ -45,6 +47,7 @@ class Payment {
       'payment_type': this.payment_type,
       'patient_id': this.patient_id,
       'patient_name': this.patient_name,
+      'paymentDate': this.paymentDate,
     };
   }
 
@@ -64,6 +67,7 @@ class Payment {
       payment_type: map['payment_type'] as String,
       patient_id: map['patient_id'] as String,
       patient_name: map['patient_name'],
+      paymentDate: map['paymentDate'],
     );
   }
 }
