@@ -1,28 +1,29 @@
-import 'package:dentalapp/ui/views/prescription_view/prescription_view_model.dart';
-import 'package:dentalapp/ui/widgets/prescription_card/prescription_card.dart';
+import 'package:dentalapp/ui/widgets/certificate_card/certificate_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../constants/styles/palette_color.dart';
 import '../../../models/patient_model/patient_model.dart';
+import 'dental_certification_view_model.dart';
 
-class PrescriptionView extends StatelessWidget {
+class DentalCertificationView extends StatelessWidget {
   final Patient patient;
-  const PrescriptionView({Key? key, required this.patient}) : super(key: key);
+  const DentalCertificationView({Key? key, required this.patient})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PrescriptionViewModel>.reactive(
-      viewModelBuilder: () => PrescriptionViewModel(),
-      onModelReady: (model) => model.listenToPrescriptionSub(patient.id),
+    return ViewModelBuilder<DentalCertification>.reactive(
+      viewModelBuilder: () => DentalCertification(),
+      onModelReady: (model) => model.listenToGetDentalCert(patient: patient),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text("Patient's Prescription"),
+          title: Text("Patient's Certification"),
         ),
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => model.goToAddPrescription(patient),
-            label: Text('Add Prescription')),
+            onPressed: () => model.goToAddCertificate(patient),
+            label: Text('Add Dental Certificate')),
         body: ListView(
           padding: EdgeInsets.all(8),
           children: [
@@ -30,7 +31,7 @@ class PrescriptionView extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'List Of Patient Prescriptions',
+                  'List Of Patient Dental Certificates',
                   style: GoogleFonts.roboto(
                       color: Colors.black,
                       fontSize: 18,
@@ -47,23 +48,21 @@ class PrescriptionView extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10),
-            model.prescriptionList.isNotEmpty
+            model.dentalCertificates.isNotEmpty
                 ? ListView.separated(
                     shrinkWrap: true,
                     primary: false,
-                    itemBuilder: (context, i) => PrescriptionCard(
-                          prescription: model.prescriptionList[i],
-                          onViewPrescriptionTap: () =>
-                              model.saveAndOpenPrescriptionDoc(
-                                  prescription: model.prescriptionList[i],
-                                  patient: patient),
-                        ),
-                    separatorBuilder: (context, index) => SizedBox(height: 6),
-                    itemCount: model.prescriptionList.length)
+                    itemBuilder: (context, index) => CertificateCard(
+                        dentalCertificate: model.dentalCertificates[index],
+                        onViewCertTap: () => model.openCertificate(
+                            certificate: model.dentalCertificates[index],
+                            patient: patient)),
+                    separatorBuilder: (context, index) => SizedBox(height: 10),
+                    itemCount: model.dentalCertificates.length,
+                  )
                 : Container(
                     height: 500,
-                    child: Center(
-                        child: Text('No Appointments added on this patient ')),
+                    child: Center(child: Text('No Saved Dental Certification')),
                   ),
             SizedBox(height: 100),
           ],

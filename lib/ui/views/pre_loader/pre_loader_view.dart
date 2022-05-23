@@ -30,9 +30,10 @@ class PreLoaderView extends StatelessWidget {
                     Container(
                         height: 130,
                         width: 130,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: Colors.white, width: 2)),
+                        // decoration: BoxDecoration(
+                        //     color: Palettes.kcBlueMain1,
+                        //     borderRadius: BorderRadius.circular(20),
+                        //     border: Border.all(color: Colors.white, width: 2)),
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(30),
                             child: Image.asset(

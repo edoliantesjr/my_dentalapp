@@ -28,6 +28,7 @@ class AddPaymentView extends StatelessWidget {
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
           title: Text('Add Payment'),
+          centerTitle: true,
         ),
         bottomNavigationBar: Container(
           width: double.maxFinite,

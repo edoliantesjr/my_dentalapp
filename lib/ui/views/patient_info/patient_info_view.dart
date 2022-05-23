@@ -3,21 +3,23 @@ import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/extensions/date_format_extension.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
-import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/ui/views/patient_info/patient_info_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../models/patient_model/patient_model.dart';
+
 class PatientInfoView extends StatelessWidget {
-  final Patient patient;
-  const PatientInfoView({Key? key, required this.patient}) : super(key: key);
+  Patient patient;
+  PatientInfoView({Key? key, required this.patient}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<PatientInfoViewModel>.reactive(
         viewModelBuilder: () => PatientInfoViewModel(),
         onModelReady: (model) {
+          model.init(patient: patient);
           model.computeAge(birthDate: patient.birthDate);
         },
         builder: (context, model, child) => Scaffold(
@@ -28,6 +30,7 @@ class PatientInfoView extends StatelessWidget {
                   'Patient Info',
                   style: TextStyle(color: Colors.white, fontSize: 21),
                 ),
+                centerTitle: true,
               ),
               body: Scrollbar(
                 thickness: 6,
@@ -71,7 +74,7 @@ class PatientInfoView extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(200),
                                     child: CachedNetworkImage(
-                                      imageUrl: patient.image,
+                                      imageUrl: model.patient?.image,
                                       height: 200,
                                       width: 200,
                                       fit: BoxFit.cover,
@@ -89,7 +92,7 @@ class PatientInfoView extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            '${patient.firstName} ${patient.lastName}, ${model.age}',
+                            '${model.patient?.firstName} ${model.patient?.lastName}, ${model.age}',
                             style: TextStyles.tsHeading3(),
                           ),
                           Text(
@@ -112,8 +115,8 @@ class PatientInfoView extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: ElevatedButton.icon(
-                                  onPressed: () =>
-                                      model.callPatient(patient.phoneNum),
+                                  onPressed: () => model
+                                      .callPatient(model.patient!.phoneNum),
                                   label: Text(
                                     'Call',
                                     style:
@@ -131,7 +134,7 @@ class PatientInfoView extends StatelessWidget {
                               Expanded(
                                   child: ElevatedButton.icon(
                                 onPressed: () =>
-                                    model.textPatient(patient.phoneNum),
+                                    model.textPatient(model.patient!.phoneNum),
                                 label: Text(
                                   'Text',
                                   style:
@@ -146,164 +149,186 @@ class PatientInfoView extends StatelessWidget {
                               )),
                               SizedBox(width: 8),
                               SizedBox(
-                                width: 46,
+                                width: 60,
                                 child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    '•••',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 12),
-                                  ),
+                                  onPressed: () =>
+                                      model.goToUpdatePatient(patient: patient),
+                                  child: Icon(Icons.edit,
+                                      color: Colors.grey.shade900),
                                   style: ElevatedButton.styleFrom(
                                       primary: Colors.grey.shade300),
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+
                           Row(
                             children: [
-                              SvgPicture.asset(
-                                'assets/icons/Call.svg',
-                                height: 19,
-                                width: 19,
-                                color: Colors.black,
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                patient.phoneNum,
-                                style: TextStyles.tsBody2(
-                                  color: Colors.black,
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/icons/Call.svg',
+                                          height: 19,
+                                          width: 19,
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          model.patient!.phoneNum,
+                                          style: TextStyles.tsBody2(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 5),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/icons/Location.svg',
+                                          height: 21,
+                                          width: 21,
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(width: 9),
+                                        Text(
+                                          model.patient!.address,
+                                          style: TextStyles.tsBody2(
+                                            color: Colors.black,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 5),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/icons/Calendar.svg',
+                                          height: 19,
+                                          width: 19,
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          model.patient!.birthDate
+                                              .toDateTime()!
+                                              .toStringDateFormat(),
+                                          style: TextStyles.tsBody2(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 5),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          model.patient!.gender != 'Female'
+                                              ? Icons.male
+                                              : Icons.female,
+                                          size: 22,
+                                        ),
+                                        SizedBox(width: 8),
+                                        Text(
+                                          patient.gender,
+                                          style: TextStyles.tsBody2(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 5),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/icons/Location.svg',
-                                height: 21,
-                                width: 21,
-                                color: Colors.black,
-                              ),
-                              SizedBox(width: 9),
-                              Text(
-                                patient.address,
-                                style: TextStyles.tsBody2(
-                                  color: Colors.black,
-                                ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text('Emerg. Contact Name:'),
+                                  Text(model.patient!.emergencyContactName ??
+                                      'None'),
+                                  SizedBox(height: 8),
+                                  Text('Emerg. Contact #:'),
+                                  Text(model.patient!.emergencyContactNumber ??
+                                      'None'),
+                                ],
                               )
                             ],
                           ),
-                          SizedBox(height: 5),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/icons/Calendar.svg',
-                                height: 19,
-                                width: 19,
-                                color: Colors.black,
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                patient.birthDate
-                                    .toDateTime()!
-                                    .toStringDateFormat(),
-                                style: TextStyles.tsBody2(
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Icon(
-                                patient.gender != 'Female'
-                                    ? Icons.male
-                                    : Icons.female,
-                                size: 22,
-                              ),
-                              SizedBox(width: 8),
-                              Text(
-                                patient.gender,
-                                style: TextStyles.tsBody2(
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
                           SizedBox(height: 12),
-                          SizedBox(
-                            height: 30,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Photos',
-                                  style: TextStyles.tsHeading4(),
-                                ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: SizedBox(
-                                    width: 100,
-                                    child: Text(
-                                      'See All',
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Container(
-                            height: 130,
-                            color: Colors.grey.shade200,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text('No Photos'),
-                                TextButton(
-                                  onPressed: () {},
-                                  child: Text('Add Now'),
-                                  style: TextButton.styleFrom(
-                                      textStyle: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  )),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 8),
+                          // SizedBox(
+                          //   height: 30,
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       Text(
+                          //         'Photos',
+                          //         style: TextStyles.tsHeading4(),
+                          //       ),
+                          //       InkWell(
+                          //         onTap: () {},
+                          //         child: SizedBox(
+                          //           width: 100,
+                          //           child: Text(
+                          //             'See All',
+                          //             textAlign: TextAlign.end,
+                          //             style: TextStyle(
+                          //               color: Colors.blue,
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       )
+                          //     ],
+                          //   ),
+                          // ),
+                          // SizedBox(height: 5),
+                          // Container(
+                          //   height: 130,
+                          //   color: Colors.grey.shade200,
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     crossAxisAlignment: CrossAxisAlignment.center,
+                          //     children: [
+                          //       Text('No Photos'),
+                          //       TextButton(
+                          //         onPressed: () {},
+                          //         child: Text('Add Now'),
+                          //         style: TextButton.styleFrom(
+                          //             textStyle: TextStyle(
+                          //           fontSize: 16,
+                          //           fontWeight: FontWeight.w500,
+                          //         )),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          // SizedBox(height: 8),
                           Divider(),
-                          Card(
-                            shadowColor: Colors.grey.shade500,
-                            child: ListTile(
-                              onTap: () => model.goToMedicalHistoryView(
-                                  patientId: patient.id),
-                              leading: Icon(
-                                Icons.history,
-                                color: Colors.black,
-                              ),
-                              title: Text(
-                                'Medical History',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
-                              ),
-                              trailing: Icon(
-                                Icons.arrow_right,
-                                size: 35,
-                                color: Colors.blue,
-                              ),
-                            ),
-                          ),
+                          // Card(
+                          //   shadowColor: Colors.grey.shade500,
+                          //   child: ListTile(
+                          //     onTap: () => model.goToMedicalHistoryView(
+                          //         patientId: patient.id),
+                          //     leading: Icon(
+                          //       Icons.history,
+                          //       color: Colors.black,
+                          //     ),
+                          //     title: Text(
+                          //       'Medical History',
+                          //       style: TextStyle(
+                          //           fontWeight: FontWeight.bold, fontSize: 17),
+                          //     ),
+                          //     trailing: Icon(
+                          //       Icons.arrow_right,
+                          //       size: 35,
+                          //       color: Colors.blue,
+                          //     ),
+                          //   ),
+                          // ),
                           SizedBox(height: 4),
                           Card(
                             shadowColor: Colors.grey.shade500,
@@ -396,7 +421,7 @@ class PatientInfoView extends StatelessWidget {
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
-                              onTap: () => model.goToViewPatientPaymentsView(
+                              onTap: () => model.goToDentalCertificateView(
                                   patient: patient),
                               leading: Icon(
                                 Icons.receipt,

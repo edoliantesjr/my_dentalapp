@@ -168,7 +168,8 @@ class AppointmentView extends StatelessWidget {
                       ? appointmentCardHelper(
                           appointmentList: model.appointmentList,
                           isBusy: model.isBusy,
-                          onDeleteItem: (int) {},
+                          onDeleteItem: (index) =>
+                              model.deleteAppointment(index),
                           navigator: model.navigationService)
                       : Container(
                           height: 500,

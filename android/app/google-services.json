@@ -1,41 +1,57 @@
 {
   "project_info": {
-    "project_number": "205587505303",
-    "project_id": "mydentalapp-cadd8",
-    "storage_bucket": "mydentalapp-cadd8.appspot.com"
+    "project_number": "942354119380",
+    "project_id": "maglinte-dental-clinic",
+    "storage_bucket": "maglinte-dental-clinic.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:205587505303:android:6907b227e43ebec29c09d2",
+        "mobilesdk_app_id": "1:942354119380:android:5e854036c13f519ca15941",
         "android_client_info": {
-          "package_name": "com.cagape.dentalapp"
+          "package_name": "com.maglinte.dentalapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "205587505303-j5qetonarg1sfn8pt7l44pu60ju74i6t.apps.googleusercontent.com",
+          "client_id": "942354119380-7ebec8fnbeh3kbqkgar5oedgj1m8cj57.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.cagape.dentalapp",
+            "package_name": "com.maglinte.dentalapp",
             "certificate_hash": "d25025f5e984f473cd9cdd96c969c6726e984512"
           }
         },
         {
-          "client_id": "205587505303-1841vsq8j6objpovmke58urh9ueijuba.apps.googleusercontent.com",
+          "client_id": "942354119380-t05it05dcus81crfqi2vt0d6j8jb41qo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maglinte.dentalapp",
+            "certificate_hash": "5f53c61d5fccdfdd04a0e6cf4f04c105122ba456"
+          }
+        },
+        {
+          "client_id": "942354119380-uajnkckok2dj3r44cp9vqqqfsros4f9m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maglinte.dentalapp",
+            "certificate_hash": "12d910c31201d059e8c5f08050f7647f3b90fed0"
+          }
+        },
+        {
+          "client_id": "942354119380-kbukg5661e0brevfa4a5fshenvn6j7mc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBnp1tfuhQbgDU4AYhjyqI3KV6JsPXCG3Q"
+          "current_key": "AIzaSyCeC8ujzGk0My38f14A0M6cRCeHvOZGQzM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "205587505303-1841vsq8j6objpovmke58urh9ueijuba.apps.googleusercontent.com",
+              "client_id": "942354119380-kbukg5661e0brevfa4a5fshenvn6j7mc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -15,6 +15,7 @@ class MedicalHistoryView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: Text('Medical History'),
+          centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {},

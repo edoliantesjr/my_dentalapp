@@ -1,7 +1,7 @@
 class Prescription {
   final dynamic id;
   final String date;
-  List<PrescriptionItem> prescriptionItems;
+  List<dynamic> prescriptionItems;
 
   Prescription({
     this.id,

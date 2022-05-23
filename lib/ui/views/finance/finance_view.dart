@@ -18,6 +18,7 @@ class FinanceView extends StatelessWidget {
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
           title: Text('Finance'),
+          centerTitle: true,
         ),
         body: Container(
           color: Colors.grey.shade200,

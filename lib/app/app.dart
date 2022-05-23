@@ -8,6 +8,8 @@ import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart'
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service_impl.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service_impl.dart';
+import 'package:dentalapp/core/service/pdf_service/pdf_service.dart';
+import 'package:dentalapp/core/service/pdf_service/pdf_service_impl.dart';
 import 'package:dentalapp/core/service/search_index/search_index.dart';
 import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/core/service/session_service/session_service_impl.dart';
@@ -21,6 +23,7 @@ import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service_impl.dart';
 import 'package:dentalapp/core/utility/connectivity_state.dart';
 import 'package:dentalapp/core/utility/image_selector.dart';
+import 'package:dentalapp/ui/views/add_dental_certificate/add_certificate_view.dart';
 import 'package:dentalapp/ui/views/add_expense_item/add_expense_item_view.dart';
 import 'package:dentalapp/ui/views/add_expenses/add_expenses_view.dart';
 import 'package:dentalapp/ui/views/add_medicine/add_medicine_view.dart';
@@ -32,6 +35,7 @@ import 'package:dentalapp/ui/views/add_procedure/add_procedure_view.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view.dart';
 import 'package:dentalapp/ui/views/appointment_select_patient/appointment_select_patient_view.dart';
 import 'package:dentalapp/ui/views/create_appointment/create_appointment_view.dart';
+import 'package:dentalapp/ui/views/dental_certification/dental_certification_view.dart';
 import 'package:dentalapp/ui/views/finance/finance_view.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
 import 'package:dentalapp/ui/views/home/home_view.dart';
@@ -44,13 +48,13 @@ import 'package:dentalapp/ui/views/notification/notification_view.dart';
 import 'package:dentalapp/ui/views/patient_dental_chart/patient_dental_chart_view.dart';
 import 'package:dentalapp/ui/views/patient_info/patient_info_view.dart';
 import 'package:dentalapp/ui/views/patients/patients_view.dart';
+import 'package:dentalapp/ui/views/payment_select_dental_note/payment_select_dental_note_view.dart';
 import 'package:dentalapp/ui/views/payment_select_patient/payment_select_patient_view.dart';
 import 'package:dentalapp/ui/views/pre_loader/pre_loader_view.dart';
 import 'package:dentalapp/ui/views/prescription_view/prescription_view.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view.dart';
 import 'package:dentalapp/ui/views/receipt_view/receipt_view.dart';
 import 'package:dentalapp/ui/views/register/register_view.dart';
-import 'package:dentalapp/ui/views/select_dental_note/select_dental_note_view.dart';
 import 'package:dentalapp/ui/views/select_medicine_view/select_medicine_view.dart';
 import 'package:dentalapp/ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
 import 'package:dentalapp/ui/views/set_dental_note/set_dental_note_view.dart';
@@ -66,6 +70,8 @@ import 'package:dentalapp/ui/widgets/selection_procedure/selection_procedure.dar
 import 'package:dentalapp/ui/widgets/success_view/success.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+
+import '../ui/views/edit_patient/edit_patient_view.dart';
 
 @StackedApp(
   routes: [
@@ -104,6 +110,9 @@ import 'package:stacked/stacked_annotations.dart';
     MaterialRoute(page: ViewPatientPayment, name: 'ViewPatientPayment'),
     MaterialRoute(page: AddPrescriptionView, name: 'AddPrescriptionView'),
     MaterialRoute(page: PrescriptionView, name: 'PrescriptionView'),
+    MaterialRoute(page: EditPatientView, name: 'EditPatientView'),
+    MaterialRoute(
+        page: DentalCertificationView, name: 'DentalCertificationView'),
     MaterialRoute(
         page: PaymentSelectPatientView, name: 'PaymentSelectPatientView'),
     CustomRoute(
@@ -127,8 +136,8 @@ import 'package:stacked/stacked_annotations.dart';
         transitionsBuilder: TransitionsBuilders.slideRight,
         durationInMilliseconds: 300),
     CustomRoute(
-        page: SelectDentalNoteView,
-        name: 'SelectDentalNoteView',
+        page: PaymentSelectDentalNoteView,
+        name: 'PaymentSelectDentalNoteView',
         transitionsBuilder: TransitionsBuilders.slideBottom,
         durationInMilliseconds: 300),
     CustomRoute(
@@ -151,6 +160,11 @@ import 'package:stacked/stacked_annotations.dart';
         name: 'AddPrescriptionItemView',
         transitionsBuilder: TransitionsBuilders.slideBottom,
         durationInMilliseconds: 300),
+    CustomRoute(
+        page: AddCertificateView,
+        name: 'AddCertificateView',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
   ],
   dependencies: [
     Singleton(classType: NavigationServiceImpl, asType: NavigationService),
@@ -169,6 +183,7 @@ import 'package:stacked/stacked_annotations.dart';
     LazySingleton(
         classType: URLLauncherServiceImpl, asType: URLLauncherService),
     LazySingleton(classType: ConnectivityService),
+    LazySingleton(classType: PdfServiceImp, asType: PdfService),
   ],
   logger: StackedLogger(),
 )

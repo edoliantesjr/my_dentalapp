@@ -126,26 +126,25 @@ class SetupUserViewModel extends BaseViewModel {
         imageFileName: selectedImage!.name);
     logger.i('image uploading');
 
-    final userSearchIndex =
-        await searchIndexService.setSearchIndex(string: '$firstName $lastName');
-    final userProfile = UserModel(
-      apiService.currentFirebaseUser!.uid,
-      firstName: firstName,
-      lastName: lastName,
-      email: apiService.currentFirebaseUser!.email!,
-      image: imageUploadResult.imageUrl!,
-      position: position,
-      appointments: [],
-      fcmToken: [],
-      searchIndex: userSearchIndex,
-      gender: gender,
-      dateOfBirth: dateOfBirth,
-      active_status: 'active',
-    );
-
     try {
       if (imageUploadResult.isUploaded) {
         logger.i('Image Uploaded');
+        final userSearchIndex = await searchIndexService.setSearchIndex(
+            string: '$firstName $lastName');
+        final userProfile = UserModel(
+          apiService.currentFirebaseUser!.uid,
+          firstName: firstName,
+          lastName: lastName,
+          email: apiService.currentFirebaseUser!.email!,
+          image: imageUploadResult.imageUrl ?? 'd',
+          position: position,
+          appointments: [],
+          fcmToken: [],
+          searchIndex: userSearchIndex,
+          gender: gender,
+          dateOfBirth: dateOfBirth,
+          active_status: 'active',
+        );
         await apiService.createUser(userProfile);
         navigationService.closeOverlay();
         sessionService.saveSession(

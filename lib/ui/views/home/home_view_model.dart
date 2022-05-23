@@ -46,17 +46,27 @@ class HomePageViewModel extends BaseViewModel {
   }
 
   Future<void> deleteThisFromList(int index, String appointmentId) async {
-    await apiService.deleteAppointment(appointmentId: appointmentId);
-    await myAppointments.removeAt(index);
-    notifyListeners();
-    toastService.showToast(message: 'Appointment Deleted');
-    logger.i('Item Deleted');
+    dialogService.showConfirmDialog(
+        title: 'Delete  appointment',
+        middleText:
+            'This action will delete the appointment permanently. Continue this action?',
+        onCancel: () => navigationService.pop(),
+        onContinue: () async {
+          await apiService.deleteAppointment(appointmentId: appointmentId);
+          navigationService.pop();
+          toastService.showToast(message: 'Appointment deleted');
+        });
   }
 
   void getCurrentUser() {
-    apiService.getUserAccountDetails().listen((event) {
-      userSubscription = apiService.getUserAccountDetails().listen((user) {
+    apiService.getUserAccountDetails().listen((event) async {
+      userSubscription =
+          apiService.getUserAccountDetails().listen((user) async {
+        await Future.delayed(Duration(milliseconds: 500));
+        dialogService.showDefaultLoadingDialog();
         currentUser = user;
+        await Future.delayed(Duration(milliseconds: 500));
+        navigationService.pop();
         notifyListeners();
       });
     });

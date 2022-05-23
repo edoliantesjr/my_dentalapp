@@ -172,7 +172,7 @@ class HomeShortcut extends StatelessWidget {
                                       ),
                                       SizedBox(height: 5),
                                       Text(
-                                        'Finance',
+                                        'Income Report',
                                         style: TextStyles.tsBody4(),
                                       )
                                     ],

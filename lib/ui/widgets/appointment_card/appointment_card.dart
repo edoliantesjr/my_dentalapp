@@ -95,7 +95,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
           widthSpace: 60,
           color: Colors.transparent,
           onTap: (handler) async {
-            await handler(true);
+            // await handler(true);
             this.widget.onDelete();
           },
           content: Container(

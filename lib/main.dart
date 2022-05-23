@@ -42,7 +42,7 @@ class DentalApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: ScreenUtil.defaultSize,
-      builder: ()=>GetMaterialApp(
+      builder: (context, widget) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Maglinte Dental Clinic',
         initialRoute: Routes.PreLoader,

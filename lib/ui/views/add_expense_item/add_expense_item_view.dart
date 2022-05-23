@@ -17,6 +17,7 @@ class AddExpenseItemView extends StatelessWidget {
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
           title: Text('Add Expense Item'),
+          centerTitle: true,
         ),
         persistentFooterButtons: [
           Row(

@@ -81,10 +81,11 @@ class DialogServiceImpl extends DialogService {
             width: 70.sp,
             child: Center(
                 child: LoadingAnimationWidget.flickr(
-                    size: 30,
-                    rightDotColor: Colors.white,
-                    leftDotColor: Palettes.kcBlueMain2,
-                    time: 1000)),
+              size: 30,
+              rightDotColor: Colors.white,
+              leftDotColor: Palettes.kcBlueMain2,
+              time: 1000,
+            )),
           ),
         ),
       ),

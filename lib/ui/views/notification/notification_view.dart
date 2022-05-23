@@ -9,6 +9,7 @@ class NotificationView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Notifications'),
+        centerTitle: true,
       ),
       body: Center(
         child: Text('No notifications'),

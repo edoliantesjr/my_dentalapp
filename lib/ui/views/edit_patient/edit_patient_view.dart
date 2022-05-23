@@ -1,59 +1,33 @@
-import 'dart:io';
-
-import 'package:dentalapp/constants/styles/palette_color.dart';
-import 'package:dentalapp/constants/styles/text_border_styles.dart';
-import 'package:dentalapp/constants/styles/text_styles.dart';
-import 'package:dentalapp/ui/views/add_patient/add_patient_view_model.dart';
+import 'package:dentalapp/ui/views/edit_patient/edit_patient_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
-class AddPatientView extends StatefulWidget {
-  const AddPatientView({Key? key}) : super(key: key);
+import '../../../constants/styles/palette_color.dart';
+import '../../../constants/styles/text_border_styles.dart';
+import '../../../constants/styles/text_styles.dart';
+import '../../../models/patient_model/patient_model.dart';
+
+class EditPatientView extends StatefulWidget {
+  final Patient patient;
+  const EditPatientView({Key? key, required this.patient}) : super(key: key);
 
   @override
-  State<AddPatientView> createState() => _AddPatientViewState();
+  State<EditPatientView> createState() => _EditPatientViewModelState();
 }
 
-class _AddPatientViewState extends State<AddPatientView> {
-  final addPatientFormKey = GlobalKey<FormState>();
-  final firstNameTxtController = TextEditingController();
-  final lastNameTxtController = TextEditingController();
-  final genderTxtController = TextEditingController();
-  final birthDateTxtController = TextEditingController();
-  final phoneTxtController = TextEditingController();
-  final addressTxtController = TextEditingController();
-  final allergyTxtController = TextEditingController();
-  final noteTxtController = TextEditingController();
-  final emergencyContactName = TextEditingController();
-  final emergencyContactNumber = TextEditingController();
-
-  @override
-  void dispose() {
-    firstNameTxtController.dispose();
-    lastNameTxtController.dispose();
-    genderTxtController.dispose();
-    birthDateTxtController.dispose();
-    phoneTxtController.dispose();
-    addressTxtController.dispose();
-    allergyTxtController.dispose();
-    noteTxtController.dispose();
-    emergencyContactName.dispose();
-    emergencyContactNumber.dispose();
-    super.dispose();
-  }
-
+class _EditPatientViewModelState extends State<EditPatientView> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<AddPatientViewModel>.reactive(
-      viewModelBuilder: () => AddPatientViewModel(),
+    return ViewModelBuilder<EditPatientViewModel>.reactive(
+      viewModelBuilder: () => EditPatientViewModel(),
+      onModelReady: (model) => model.init(widget.patient),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.grey.shade50,
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Add New Patient',
+            'Edit Patient Info',
             style: TextStyles.tsHeading3(color: Colors.white),
           ),
         ),
@@ -61,37 +35,16 @@ class _AddPatientViewState extends State<AddPatientView> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: ElevatedButton(
-              onPressed: () {
-                if (addPatientFormKey.currentState!.validate()) {
-                  model.savePatient(
-                    firstName: firstNameTxtController.text,
-                    lastName: lastNameTxtController.text,
-                    gender: genderTxtController.text,
-                    birthDate: model.tempBirthDate.toString(),
-                    phoneNum: phoneTxtController.text,
-                    address: addressTxtController.text,
-                    allergies: allergyTxtController.text,
-                    emergencyContactName: emergencyContactName.text,
-                    emergencyContactNumber: emergencyContactNumber.text,
-                  );
-                } else {
-                  model.autoValidate = true;
-                  model.notifyListeners();
-                }
-              },
-              child: Text('Save'),
+              onPressed: () => model.performUpdate(widget.patient),
+              child: Text('Update'),
             ),
           ),
         ],
         body: SingleChildScrollView(
           child: Form(
-            key: addPatientFormKey,
+            key: model.addPatientFormKey,
             child: Column(
               children: [
-                AddPatientHeader(
-                  onTap: () => model.selectPatientImage(),
-                  filePath: model.patientSelectedImage?.path,
-                ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: Column(
@@ -99,10 +52,8 @@ class _AddPatientViewState extends State<AddPatientView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
-                        controller: firstNameTxtController,
-                        autovalidateMode: model.autoValidate
-                            ? AutovalidateMode.onUserInteraction
-                            : AutovalidateMode.disabled,
+                        controller: model.firstNameTxtController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         textCapitalization: TextCapitalization.words,
                         validator: (value) =>
                             model.validatorService.validateFirstName(value!),
@@ -118,10 +69,8 @@ class _AddPatientViewState extends State<AddPatientView> {
                         ),
                       ),
                       TextFormField(
-                        controller: lastNameTxtController,
-                        autovalidateMode: model.autoValidate
-                            ? AutovalidateMode.onUserInteraction
-                            : AutovalidateMode.disabled,
+                        controller: model.lastNameTxtController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) =>
                             model.validatorService.validateLastName(value!),
                         textCapitalization: TextCapitalization.words,
@@ -136,12 +85,11 @@ class _AddPatientViewState extends State<AddPatientView> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => model.setGenderValue(genderTxtController),
+                        onTap: () =>
+                            model.setGenderValue(model.genderTxtController),
                         child: TextFormField(
-                          controller: genderTxtController,
-                          autovalidateMode: model.autoValidate
-                              ? AutovalidateMode.always
-                              : AutovalidateMode.disabled,
+                          controller: model.genderTxtController,
+                          autovalidateMode: AutovalidateMode.always,
                           textCapitalization: TextCapitalization.words,
                           validator: (value) =>
                               model.validatorService.validateGender(value!),
@@ -167,13 +115,11 @@ class _AddPatientViewState extends State<AddPatientView> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () =>
-                            model.setBirthDateValue(birthDateTxtController),
+                        onTap: () => model
+                            .setBirthDateValue(model.birthDateTxtController),
                         child: TextFormField(
-                          controller: birthDateTxtController,
-                          autovalidateMode: model.autoValidate
-                              ? AutovalidateMode.always
-                              : AutovalidateMode.disabled,
+                          controller: model.birthDateTxtController,
+                          autovalidateMode: AutovalidateMode.always,
                           textCapitalization: TextCapitalization.words,
                           validator: (value) =>
                               model.validatorService.validateDate(value!),
@@ -199,10 +145,8 @@ class _AddPatientViewState extends State<AddPatientView> {
                         ),
                       ),
                       TextFormField(
-                        controller: phoneTxtController,
-                        autovalidateMode: model.autoValidate
-                            ? AutovalidateMode.onUserInteraction
-                            : AutovalidateMode.disabled,
+                        controller: model.phoneTxtController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         textCapitalization: TextCapitalization.words,
                         validator: (value) =>
                             model.validatorService.validatePhoneNumber(value!),
@@ -222,10 +166,8 @@ class _AddPatientViewState extends State<AddPatientView> {
                         ),
                       ),
                       TextFormField(
-                        controller: addressTxtController,
-                        autovalidateMode: model.autoValidate
-                            ? AutovalidateMode.onUserInteraction
-                            : AutovalidateMode.disabled,
+                        controller: model.addressTxtController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         textCapitalization: TextCapitalization.words,
                         validator: (value) =>
                             model.validatorService.validateAddress(value!),
@@ -263,10 +205,8 @@ class _AddPatientViewState extends State<AddPatientView> {
                       Visibility(
                         visible: model.haveAllergies,
                         child: TextFormField(
-                          controller: allergyTxtController,
-                          autovalidateMode: model.autoValidate
-                              ? AutovalidateMode.onUserInteraction
-                              : AutovalidateMode.disabled,
+                          controller: model.allergyTxtController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           textCapitalization: TextCapitalization.words,
                           textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
@@ -281,70 +221,6 @@ class _AddPatientViewState extends State<AddPatientView> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Medical History'),
-                          ElevatedButton(
-                              onPressed: () => model.selectMedicalHistoryFile(),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Palettes.kcBlueMain2),
-                              child: Text(
-                                'Add Medical History',
-                                style: TextStyles.tsBody3(color: Colors.white),
-                              ))
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Visibility(
-                          visible: model.listOfMedicalHistory.isNotEmpty
-                              ? true
-                              : false,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Wrap(
-                              runSpacing: 8,
-                              spacing: 8,
-                              children: model.listOfMedicalHistory
-                                  .map((e) => Stack(
-                                        children: [
-                                          Image(
-                                              height: 150,
-                                              width: 80,
-                                              fit: BoxFit.cover,
-                                              image: FileImage(File(e.path))),
-                                          Positioned(
-                                            right: 0,
-                                            top: 0,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                model.listOfMedicalHistory
-                                                    .remove(e);
-                                                model.notifyListeners();
-                                              },
-                                              child: Container(
-                                                width: 15,
-                                                height: 15,
-                                                alignment: Alignment.center,
-                                                color: Colors.red,
-                                                child: Text(
-                                                  'X',
-                                                  style: TextStyles.tsBody4(
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ))
-                                  .toList(),
-                            ),
-                          )),
-                      SizedBox(height: 10),
                       Container(
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -355,7 +231,8 @@ class _AddPatientViewState extends State<AddPatientView> {
                           children: [
                             Text('In Case of Emergency : (Optional)'),
                             TextFormField(
-                              controller: emergencyContactName,
+                              controller:
+                                  model.emergencyContactNameTxtController,
                               textInputAction: TextInputAction.next,
                               textCapitalization: TextCapitalization.words,
                               decoration: InputDecoration(
@@ -370,7 +247,8 @@ class _AddPatientViewState extends State<AddPatientView> {
                               ),
                             ),
                             TextFormField(
-                              controller: emergencyContactNumber,
+                              controller:
+                                  model.emergencyContactNumberTxtController,
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.number,
                               inputFormatters: [
@@ -392,9 +270,9 @@ class _AddPatientViewState extends State<AddPatientView> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        controller: noteTxtController,
-                        textInputAction: TextInputAction.done,
+                        controller: model.noteTxtController,
                         maxLines: 3,
+                        textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
                           hintText: 'Enter Notes',
                           labelText: 'Notes (Optional)',
@@ -417,88 +295,6 @@ class _AddPatientViewState extends State<AddPatientView> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class AddPatientHeader extends StatelessWidget {
-  final VoidCallback onTap;
-  final String? filePath;
-
-  const AddPatientHeader({Key? key, required this.onTap, this.filePath})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 55,
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          decoration: BoxDecoration(
-            color: Palettes.kcBlueMain1,
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  GestureDetector(
-                    onTap: () => onTap(),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.grey.shade50,
-                            width: 4,
-                          ),
-                          shape: BoxShape.circle),
-                      child: Container(
-                        height: 110,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          color: Color(0xff00E1F0),
-                          shape: BoxShape.circle,
-                        ),
-                        child: filePath != null
-                            ? CircleAvatar(
-                                backgroundImage: FileImage(File(filePath!)),
-                              )
-                            : CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/images/avatar.png'),
-                              ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    right: 0,
-                    bottom: 5,
-                    child: GestureDetector(
-                      onTap: () => this.onTap(),
-                      child: Container(
-                        height: 35,
-                        width: 35,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Colors.grey.shade50, width: 2),
-                          shape: BoxShape.circle,
-                          color: Colors.grey.shade300,
-                        ),
-                        child: SvgPicture.asset('assets/icons/Camera.svg'),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

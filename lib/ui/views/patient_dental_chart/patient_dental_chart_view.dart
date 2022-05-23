@@ -27,6 +27,7 @@ class PatientDentalChartView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: Text("Patient's Dental Chart"),
+          centerTitle: true,
           actions: [
             IconButton(
                 onPressed: () {},

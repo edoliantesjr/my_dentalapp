@@ -62,7 +62,7 @@ class AddPrescriptionViewModel extends BaseViewModel {
                 prescriptionItems: prescriptionItem),
             patientId: patientId);
         if (addPrescriptionQuery.success) {
-          navigationService.pop();
+          navigationService.popRepeated(2);
           snackBarService.showSnackBar(
               message: 'New Prescription Added', title: 'Success!');
         } else {

@@ -6,8 +6,8 @@ class SnackBarServiceImpl extends SnackBarService {
   @override
   Future<dynamic>? showSnackBar(
       {String? title, required String message, TextButton? mainButton}) {
-    if (!Get.isSnackbarOpen!)
-    return  GetBar(
+    if (!Get.isSnackbarOpen)
+      GetSnackBar(
         title: title,
         message: message,
         duration: Duration(seconds: 3),
@@ -15,7 +15,7 @@ class SnackBarServiceImpl extends SnackBarService {
         backgroundColor: Colors.grey[800]!,
         snackStyle: SnackStyle.FLOATING,
         isDismissible: true,
-        dismissDirection: SnackDismissDirection.HORIZONTAL,
+        dismissDirection: DismissDirection.horizontal,
         animationDuration: Duration(milliseconds: 300),
         borderRadius: 12,
         snackPosition: SnackPosition.TOP,

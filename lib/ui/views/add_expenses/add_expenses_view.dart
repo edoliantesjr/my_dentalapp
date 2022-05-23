@@ -18,6 +18,7 @@ class AddExpenseView extends StatelessWidget {
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
           title: Text('Add Clinic Expenses'),
+          centerTitle: true,
         ),
         bottomNavigationBar: Container(
           width: double.maxFinite,

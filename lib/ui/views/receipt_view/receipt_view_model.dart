@@ -17,25 +17,27 @@ class ReceiptViewModel extends BaseViewModel {
   final toastService = locator<ToastService>();
   final snackBarService = locator<SnackBarService>();
 
-  void downloadReceipt(double pixelRatio) async {
+  void downloadReceipt(double pixelRatio, dynamic refNo) async {
     screenShotController
         .capture(
-          pixelRatio: pixelRatio,
-        )
+      pixelRatio: pixelRatio,
+    )
         .then(
-          (image) => imageFile = image,
-        );
-    if (imageFile != null) {
-      if (await Permission.storage.request().isGranted) {
-        await ImageGallerySaver.saveImage(imageFile!);
-        snackBarService.showSnackBar(
-            message: 'Image was saved to Gallery', title: 'Downloaded');
-      } else if (await Permission.storage.request().isPermanentlyDenied) {
-        await openAppSettings();
-      } else if (await Permission.storage.request().isDenied) {
-        toastService.showToast(message: 'Permission Denied');
-      }
-    }
+      (image) async {
+        imageFile = image;
+        if (imageFile != null) {
+          if (await Permission.storage.request().isGranted) {
+            await ImageGallerySaver.saveImage(imageFile!, name: refNo + '.jpg');
+            snackBarService.showSnackBar(
+                message: 'Image was saved to Gallery', title: 'Downloaded');
+          } else if (await Permission.storage.request().isPermanentlyDenied) {
+            await openAppSettings();
+          } else if (await Permission.storage.request().isDenied) {
+            toastService.showToast(message: 'Permission Denied');
+          }
+        }
+      },
+    );
   }
 
   String computeMedTotal(Medicine medicine) {

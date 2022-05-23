@@ -38,9 +38,22 @@ class ReceiptView extends StatelessWidget {
                       Expanded(
                         child: TextButton.icon(
                           onPressed: () => model.downloadReceipt(
-                              MediaQuery.of(context).devicePixelRatio),
+                              MediaQuery.of(context).devicePixelRatio,
+                              payment.payment_id),
                           icon: Icon(Icons.download),
-                          label: Text('Download'),
+                          label: Text('Download image'),
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextButton.icon(
+                          onPressed: () => model.downloadReceipt(
+                              MediaQuery.of(context).devicePixelRatio,
+                              payment.payment_id),
+                          icon: Icon(Icons.download),
+                          label: Text('Download pdf'),
                           style: TextButton.styleFrom(
                             primary: Colors.white,
                           ),

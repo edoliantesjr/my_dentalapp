@@ -7,7 +7,7 @@ import 'package:stacked/stacked.dart';
 import '../../../app/app.locator.dart';
 import '../../../models/dental_notes/dental_notes.dart';
 
-class SelectDentalNoteViewModel extends BaseViewModel {
+class PaymentSelectDentalNoteViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final apiService = locator<ApiService>();
   final snackBarService = locator<SnackBarService>();

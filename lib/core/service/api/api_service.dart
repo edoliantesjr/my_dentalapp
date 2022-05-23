@@ -15,6 +15,7 @@ import 'package:dentalapp/models/upload_results/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../models/dental_certificate/dental_certificate.dart';
 import '../../../models/payment/payment.dart';
 
 abstract class ApiService {
@@ -140,8 +141,24 @@ abstract class ApiService {
 
   Stream listenToExpenseChanges();
 
+  Stream listenToPrescription(dynamic patientId);
+
   Future<QueryResult> addPrescription(
       {required Prescription prescription, required dynamic patientId});
 
-  Future<QueryResult> addDentalCertificate({required DentalNotes dentalNotes});
+  Future<List<Prescription>> getPatientPrescription(
+      {required dynamic patientId});
+
+  Future<QueryResult> addDentalCertificate(
+      {required DentalCertificate dentalCertificate, required Patient patient});
+
+  Stream listenToDentalCertChanges({required Patient patient});
+
+  Future<List<DentalCertificate>> getDentalCert({required Patient patient});
+
+  Future<QueryResult> updatePatientInfo({required Patient patient});
+
+  Stream listenToPatientChanges({required String patientId});
+
+  Future<Patient> getPatientInfo({required String patientId});
 }

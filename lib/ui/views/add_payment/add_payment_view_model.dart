@@ -85,8 +85,9 @@ class AddPaymentViewModel extends BaseViewModel {
 
   void selectDentalNote(String patientId) async {
     selectedDentalNotes = await navigationService.pushNamed(
-            Routes.SelectDentalNoteView,
-            arguments: SelectDentalNoteViewArguments(patientId: patientId)) ??
+            Routes.PaymentSelectDentalNoteView,
+            arguments:
+                PaymentSelectDentalNoteViewArguments(patientId: patientId)) ??
         [];
     notifyListeners();
     computeDentalNoteSubTotal();
