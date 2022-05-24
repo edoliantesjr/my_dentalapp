@@ -10,7 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
 class AddPatientView extends StatefulWidget {
-  const AddPatientView({Key? key}) : super(key: key);
+  final dynamic userUid;
+  const AddPatientView({Key? key, this.userUid}) : super(key: key);
 
   @override
   State<AddPatientView> createState() => _AddPatientViewState();
@@ -53,7 +54,7 @@ class _AddPatientViewState extends State<AddPatientView> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Add New Patient',
+            'Setup Patient Account',
             style: TextStyles.tsHeading3(color: Colors.white),
           ),
         ),
@@ -64,6 +65,7 @@ class _AddPatientViewState extends State<AddPatientView> {
               onPressed: () {
                 if (addPatientFormKey.currentState!.validate()) {
                   model.savePatient(
+                    uid: widget.userUid,
                     firstName: firstNameTxtController.text,
                     lastName: lastNameTxtController.text,
                     gender: genderTxtController.text,
@@ -280,70 +282,70 @@ class _AddPatientViewState extends State<AddPatientView> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Medical History'),
-                          ElevatedButton(
-                              onPressed: () => model.selectMedicalHistoryFile(),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Palettes.kcBlueMain2),
-                              child: Text(
-                                'Add Medical History',
-                                style: TextStyles.tsBody3(color: Colors.white),
-                              ))
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Visibility(
-                          visible: model.listOfMedicalHistory.isNotEmpty
-                              ? true
-                              : false,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Wrap(
-                              runSpacing: 8,
-                              spacing: 8,
-                              children: model.listOfMedicalHistory
-                                  .map((e) => Stack(
-                                        children: [
-                                          Image(
-                                              height: 150,
-                                              width: 80,
-                                              fit: BoxFit.cover,
-                                              image: FileImage(File(e.path))),
-                                          Positioned(
-                                            right: 0,
-                                            top: 0,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                model.listOfMedicalHistory
-                                                    .remove(e);
-                                                model.notifyListeners();
-                                              },
-                                              child: Container(
-                                                width: 15,
-                                                height: 15,
-                                                alignment: Alignment.center,
-                                                color: Colors.red,
-                                                child: Text(
-                                                  'X',
-                                                  style: TextStyles.tsBody4(
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ))
-                                  .toList(),
-                            ),
-                          )),
+                      // SizedBox(height: 10),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Text('Medical History'),
+                      //     ElevatedButton(
+                      //         onPressed: () => model.selectMedicalHistoryFile(),
+                      //         style: ElevatedButton.styleFrom(
+                      //             primary: Palettes.kcBlueMain2),
+                      //         child: Text(
+                      //           'Add Medical History',
+                      //           style: TextStyles.tsBody3(color: Colors.white),
+                      //         ))
+                      //   ],
+                      // ),
+                      // SizedBox(height: 10),
+                      // Visibility(
+                      //     visible: model.listOfMedicalHistory.isNotEmpty
+                      //         ? true
+                      //         : false,
+                      //     child: Container(
+                      //       width: MediaQuery.of(context).size.width,
+                      //       padding: EdgeInsets.all(8),
+                      //       decoration: BoxDecoration(
+                      //           border: Border.all(color: Colors.grey),
+                      //           borderRadius: BorderRadius.circular(8)),
+                      //       child: Wrap(
+                      //         runSpacing: 8,
+                      //         spacing: 8,
+                      //         children: model.listOfMedicalHistory
+                      //             .map((e) => Stack(
+                      //                   children: [
+                      //                     Image(
+                      //                         height: 150,
+                      //                         width: 80,
+                      //                         fit: BoxFit.cover,
+                      //                         image: FileImage(File(e.path))),
+                      //                     Positioned(
+                      //                       right: 0,
+                      //                       top: 0,
+                      //                       child: GestureDetector(
+                      //                         onTap: () {
+                      //                           model.listOfMedicalHistory
+                      //                               .remove(e);
+                      //                           model.notifyListeners();
+                      //                         },
+                      //                         child: Container(
+                      //                           width: 15,
+                      //                           height: 15,
+                      //                           alignment: Alignment.center,
+                      //                           color: Colors.red,
+                      //                           child: Text(
+                      //                             'X',
+                      //                             style: TextStyles.tsBody4(
+                      //                                 color: Colors.white),
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     )
+                      //                   ],
+                      //                 ))
+                      //             .toList(),
+                      //       ),
+                      //     )),
                       SizedBox(height: 10),
                       Container(
                         padding: EdgeInsets.all(8),

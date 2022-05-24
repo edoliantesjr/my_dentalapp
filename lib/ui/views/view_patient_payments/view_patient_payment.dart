@@ -22,9 +22,9 @@ class ViewPatientPayment extends StatelessWidget {
         appBar: AppBar(
           title: Text("Patient's Appointments"),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => model.goToAddBilling(patient),
-            label: Text('Add Billing/Payment')),
+        // floatingActionButton: FloatingActionButton.extended(
+        //     onPressed: () => model.goToAddBilling(patient),
+        //     label: Text('Add Billing/Payment')),
         body: ListView(
           padding: EdgeInsets.all(8),
           children: [
@@ -60,10 +60,10 @@ class ViewPatientPayment extends StatelessWidget {
                     separatorBuilder: (context, index) => SizedBox(height: 8),
                     itemCount: model.patientPaymentList.length)
                 : Container(
-                    height: 500,
+                    height: MediaQuery.of(context).size.height,
                     color: Colors.grey.shade100,
                     child: Center(
-                      child: Text('No Payment record'),
+                      child: Text('You have no payment record'),
                     ),
                   ),
             SizedBox(height: 100),

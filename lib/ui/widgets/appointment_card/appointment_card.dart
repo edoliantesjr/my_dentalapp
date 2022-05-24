@@ -217,22 +217,25 @@ class _AppointmentCardState extends State<AppointmentCard> {
                           ),
                         ),
                       ),
-                      InkWell(
-                        onTap: () =>
-                            updateAppointmentStatus(widget.appointmentId),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Update Status',
-                              style: TextStyles.tsButton2(
-                                  color: Palettes.kcBlueMain2),
-                            ),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Palettes.kcBlueMain2,
-                              size: 18,
-                            )
-                          ],
+                      Visibility(
+                        visible: false,
+                        child: InkWell(
+                          onTap: () =>
+                              updateAppointmentStatus(widget.appointmentId),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Update Status',
+                                style: TextStyles.tsButton2(
+                                    color: Palettes.kcBlueMain2),
+                              ),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: Palettes.kcBlueMain2,
+                                size: 18,
+                              )
+                            ],
+                          ),
                         ),
                       )
                     ],

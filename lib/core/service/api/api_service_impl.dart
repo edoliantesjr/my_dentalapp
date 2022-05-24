@@ -96,10 +96,14 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future<dynamic> addPatient(
-      {required Patient patient, required DocumentReference patientRef}) async {
-    return patientRef.set(patient.toJson(
-        patientId: patientRef.id, dateCreated: FieldValue.serverTimestamp()));
+  Future<QueryResult> addPatient({required Patient patient}) async {
+    if (await connectivityService.checkConnectivity()) {
+      await patientReference.doc(patient.id).set(patient.toJson(
+          patientId: patient.id, dateCreated: FieldValue.serverTimestamp()));
+      return QueryResult.success();
+    } else {
+      return QueryResult.error('Check your network connection and try again');
+    }
   }
 
   @override
@@ -656,5 +660,16 @@ class ApiServiceImpl extends ApiService {
   @override
   Stream listenToPatientChanges({required String patientId}) {
     return patientReference.doc(patientId).snapshots();
+  }
+
+  @override
+  Future<bool> checkPatientStatus() async {
+    final patientDoc =
+        await patientReference.doc(currentFirebaseUser!.uid).get();
+    if (!patientDoc.exists) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

@@ -13,7 +13,6 @@ import 'package:dentalapp/core/utility/image_selector.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/upload_results/medical_history_upload_result.dart';
-import 'package:dentalapp/ui/views/main_body/main_body_view_model.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_viewmodel.dart';
 import 'package:dentalapp/ui/widgets/selection_date/selection_date.dart';
 import 'package:dentalapp/ui/widgets/selection_list/selection_option.dart';
@@ -22,6 +21,8 @@ import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../../app/app.router.dart';
 
 class AddPatientViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
@@ -104,6 +105,7 @@ class AddPatientViewModel extends BaseViewModel {
   }
 
   Future<void> savePatient({
+    required dynamic uid,
     required String firstName,
     required String lastName,
     required String gender,
@@ -116,21 +118,15 @@ class AddPatientViewModel extends BaseViewModel {
     String? emergencyContactNumber,
   }) async {
     if (patientSelectedImage != null) {
-      final patientRef = await apiService.createPatientID();
       dialogService.showDefaultLoadingDialog(barrierDismissible: false);
       final imageUploadResult = await apiService.uploadPatientProfileImage(
-          patientId: patientRef.id,
-          imageToUpload: File(patientSelectedImage!.path));
-
-      final medHistoryUploadResult = await uploadMedicalHistory(
-          patientId: patientRef.id, listOfMedicalHistory: listOfMedicalHistory);
-
-      if (imageUploadResult.isUploaded && medHistoryUploadResult.isUploaded) {
-        final patientSearchIndex = await searchIndexService.setSearchIndex(
-            string: '$firstName $lastName');
+          patientId: uid, imageToUpload: File(patientSelectedImage!.path));
+      final patientSearchIndex = await searchIndexService.setSearchIndex(
+          string: '$firstName $lastName');
+      if (imageUploadResult.isUploaded) {
         final result = await apiService.addPatient(
-          patientRef: patientRef,
           patient: Patient(
+              id: uid,
               image: imageUploadResult.imageUrl ?? '',
               firstName: firstName,
               lastName: lastName,
@@ -145,29 +141,18 @@ class AddPatientViewModel extends BaseViewModel {
               notes: notes ?? ''),
         );
 
-        if (result == null) {
-          navigationService.closeOverlay();
-          MainBodyViewModel().setSelectedIndex(2);
-          navigationService.pop();
-          snackBarService.showSnackBar(
-              title: 'Success', message: 'New Patient Added!');
-          logger.v('patient details saved');
+        if (result.success) {
+          final patient = await apiService.getPatientInfo(patientId: uid);
+          navigationService.popAllAndPushNamed(Routes.PatientInfoView,
+              arguments: PatientInfoViewArguments(patient: patient));
         } else {
-          navigationService.closeOverlay();
           snackBarService.showSnackBar(
-              title: 'Error',
-              message: "There's an error encountered with adding new patient!");
+              title: 'Network Error', message: result.errorMessage!);
         }
-      } else {
-        navigationService.closeOverlay();
-        snackBarService.showSnackBar(
-            title: 'Error',
-            message: "There's an error encountered with adding new patient!");
       }
     } else {
       snackBarService.showSnackBar(
-          message: 'Patient profile image is not set',
-          title: 'Missing required Data');
+          title: 'Missing Picture', message: "Please select a user photo");
     }
   }
 

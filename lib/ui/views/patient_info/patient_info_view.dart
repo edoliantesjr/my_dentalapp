@@ -26,6 +26,25 @@ class PatientInfoView extends StatelessWidget {
               backgroundColor: Colors.grey.shade50,
               appBar: AppBar(
                 titleSpacing: 0,
+                leading: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.menu_rounded,
+                    size: 35,
+                    color: Colors.white,
+                  ),
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.notifications,
+                      size: 24,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                ],
                 title: Text(
                   'Patient Info',
                   style: TextStyle(color: Colors.white, fontSize: 21),
@@ -384,7 +403,7 @@ class PatientInfoView extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               title: Text(
-                                'Appointments',
+                                'My Appointments',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),

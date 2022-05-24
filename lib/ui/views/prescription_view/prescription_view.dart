@@ -20,9 +20,9 @@ class PrescriptionView extends StatelessWidget {
         appBar: AppBar(
           title: Text("Patient's Prescription"),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => model.goToAddPrescription(patient),
-            label: Text('Add Prescription')),
+        // floatingActionButton: FloatingActionButton.extended(
+        //     onPressed: () => model.goToAddPrescription(patient),
+        //     label: Text('Add Prescription')),
         body: ListView(
           padding: EdgeInsets.all(8),
           children: [
@@ -63,7 +63,7 @@ class PrescriptionView extends StatelessWidget {
                 : Container(
                     height: 500,
                     child: Center(
-                        child: Text('No Appointments added on this patient ')),
+                        child: Text('No Prescription was given by the doctor')),
                   ),
             SizedBox(height: 100),
           ],

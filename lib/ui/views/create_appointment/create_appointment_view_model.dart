@@ -45,8 +45,11 @@ class CreateAppointmentViewModel extends BaseViewModel {
       dialogService.showDefaultLoadingDialog(
           willPop: false, barrierDismissible: false);
       await apiService.createAppointment(appointment);
-      navigationService.popRepeated(popTime);
-      toastService.showToast(message: 'Appointment added');
+      navigationService.popUntilNamed(Routes.ViewPatientAppointment);
+      snackBarService.showSnackBar(
+          message:
+              'Appointment Request was added. Waiting for approval by the dentist',
+          title: 'Success');
     } catch (e) {
       debugPrint(e.toString());
       navigationService.closeOverlay();

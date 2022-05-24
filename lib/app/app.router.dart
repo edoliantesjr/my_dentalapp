@@ -309,8 +309,14 @@ class StackedRouter extends RouterBase {
       );
     },
     AddPatientView: (data) {
+      var args = data.getArgs<AddPatientViewArguments>(
+        orElse: () => AddPatientViewArguments(),
+      );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const AddPatientView(),
+        builder: (context) => AddPatientView(
+          key: args.key,
+          userUid: args.userUid,
+        ),
         settings: data,
       );
     },
@@ -635,6 +641,13 @@ class SetUpUserViewArguments {
   final String? userPhoto;
   SetUpUserViewArguments(
       {this.key, this.firstName, this.lastName, this.userPhoto});
+}
+
+/// AddPatientView arguments holder class
+class AddPatientViewArguments {
+  final Key? key;
+  final dynamic userUid;
+  AddPatientViewArguments({this.key, this.userUid});
 }
 
 /// CreateAppointmentView arguments holder class

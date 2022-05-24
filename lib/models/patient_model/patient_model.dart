@@ -55,9 +55,10 @@ class Patient {
   }
 
   factory Patient.fromJson(Map<String, dynamic> json) {
+    final Timestamp? timeStamp = (json['dateCreated'] as Timestamp);
     return Patient(
       id: json['id'] as dynamic,
-      dateCreated: (json['dateCreated'] as Timestamp).toDate(),
+      dateCreated: timeStamp != null ? timeStamp.toDate() : DateTime.now(),
       image: json['image'] as dynamic,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,

@@ -30,7 +30,7 @@ class ViewPatientAppointment extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => model.addAppointment(patient),
-            label: Text('Add Appointment')),
+            label: Text('Add Appointment Request')),
         body: ListView(
           padding: EdgeInsets.all(8),
           children: [

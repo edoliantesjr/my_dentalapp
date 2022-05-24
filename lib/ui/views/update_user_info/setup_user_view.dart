@@ -235,35 +235,6 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                 ),
                               ),
                               SizedBox(height: 10),
-                              GestureDetector(
-                                onTap: () =>
-                                    model.setPositionValue(positionController),
-                                child: TextFormField(
-                                  controller: positionController,
-                                  enabled: false,
-                                  validator: (value) => model.validatorService
-                                      .validatePosition(value!),
-                                  textInputAction: TextInputAction.next,
-                                  keyboardType: TextInputType.datetime,
-                                  decoration: InputDecoration(
-                                      errorBorder: TextBorderStyles.errorBorder,
-                                      errorStyle: TextStyles.errorTextStyle,
-                                      disabledBorder:
-                                          TextBorderStyles.normalBorder,
-                                      hintText: 'Your Position in the company',
-                                      labelText: 'Position*',
-                                      // disabledBorder: ,
-                                      labelStyle: TextStyles.tsBody1(
-                                          color: Palettes.kcNeutral1),
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      suffixIcon: Icon(
-                                        Icons.arrow_drop_down,
-                                        size: 24,
-                                        color: Palettes.kcBlueMain1,
-                                      )),
-                                ),
-                              ),
                             ],
                           ),
                         )),

@@ -10,7 +10,7 @@ class SnackBarServiceImpl extends SnackBarService {
       GetSnackBar(
         title: title,
         message: message,
-        duration: Duration(seconds: 3),
+        duration: Duration(seconds: 5),
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         backgroundColor: Colors.grey[800]!,
         snackStyle: SnackStyle.FLOATING,

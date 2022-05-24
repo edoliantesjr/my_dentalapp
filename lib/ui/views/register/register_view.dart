@@ -341,19 +341,6 @@ class SocialLogin extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 20.h),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 50.h,
-                  width: 100.w,
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Palettes.kcNeutral5),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Image(image: AssetImage('assets/icons/facebook.png')),
-                ),
-              ),
             ],
           ),
           SizedBox(height: 15.h),

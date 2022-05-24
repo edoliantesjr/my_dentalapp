@@ -37,8 +37,7 @@ abstract class ApiService {
 
   Future<DocumentReference> createPatientID();
 
-  Future<dynamic> addPatient(
-      {required Patient patient, required DocumentReference patientRef});
+  Future<QueryResult> addPatient({required Patient patient});
 
   Stream<UserModel> getUserAccountDetails();
 
@@ -161,4 +160,6 @@ abstract class ApiService {
   Stream listenToPatientChanges({required String patientId});
 
   Future<Patient> getPatientInfo({required String patientId});
+
+  Future<bool> checkPatientStatus();
 }
