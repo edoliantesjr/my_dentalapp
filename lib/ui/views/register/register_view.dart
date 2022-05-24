@@ -69,10 +69,27 @@ class RegisterView extends StatelessWidget with $RegisterView {
                             alignment: Alignment.center,
                             child: Image.asset(
                               'assets/icons/logo-blue-circle.png',
-                              height: 70,
-                              width: 70,
+                              height: 80,
+                              width: 80,
                             ),
                           ),
+                          SizedBox(height: 4),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Maglinte Dental Clinic',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: FontNames.gilRoy,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.sp,
+                                letterSpacing: 1,
+                                wordSpacing: 1,
+                                color: Palettes.kcBlueMain1,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10),
                           RegisterFields(
                             emailController: emailController,
                             passwordController: passwordController,
@@ -319,31 +336,31 @@ class SocialLogin extends StatelessWidget {
       margin: EdgeInsets.only(top: 20.h),
       child: Column(
         children: [
-          Text(
-            'Or login with..',
-            style: TextStyles.tsBody2(color: Palettes.kcNeutral2),
-          ),
-          SizedBox(height: 20.h),
+          // Text(
+          //   'Or login with..',
+          //   style: TextStyles.tsBody2(color: Palettes.kcNeutral2),
+          // ),
+          // SizedBox(height: 20.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 50.h,
-                  width: 100.w,
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Palettes.kcNeutral5),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: SvgPicture.asset(
-                    'assets/icons/google.svg',
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {},
+              //   child: Container(
+              //     height: 50.h,
+              //     width: 100.w,
+              //     padding: EdgeInsets.all(6),
+              //     decoration: BoxDecoration(
+              //         border: Border.all(color: Palettes.kcNeutral5),
+              //         borderRadius: BorderRadius.circular(10)),
+              //     child: SvgPicture.asset(
+              //       'assets/icons/google.svg',
+              //     ),
+              //   ),
+              // ),
             ],
           ),
-          SizedBox(height: 15.h),
+          // SizedBox(height: 15.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
