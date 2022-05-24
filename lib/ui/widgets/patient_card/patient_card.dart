@@ -177,31 +177,6 @@ class PatientCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            urlLauncherService.callPhoneNumber(phone: phone);
-                          },
-                          icon: Icon(
-                            Icons.call_rounded,
-                            size: 20,
-                          ),
-                          color: Palettes.kcBlueMain1,
-                          padding: EdgeInsets.zero,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            urlLauncherService.sendTextMessage(phone: phone);
-                          },
-                          icon: Icon(
-                            Icons.message,
-                            size: 20,
-                          ),
-                          color: Palettes.kcBlueMain1,
-                        )
-                      ],
-                    )
                   ],
                 ),
               ],

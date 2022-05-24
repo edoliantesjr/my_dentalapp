@@ -3,6 +3,7 @@ import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_border_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/login/login_view_viewmodel.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -45,18 +46,14 @@ class _LoginViewState extends State<LoginView> {
               color: Palettes.kcBlueMain1,
               child: Stack(
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      onPressed: () {
-                        model.navigationService.pop();
-                      },
-                      color: Colors.white,
-                      icon: SvgPicture.asset(
-                        'assets/icons/arrow-back-white.svg',
-                        height: 24,
-                        width: 24,
-                      ),
+                  DoubleBackToCloseApp(
+                    snackBar: SnackBar(
+                      content: Text('Press back again to exit'),
+                      duration: Duration(seconds: 1),
+                    ),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(),
                     ),
                   ),
                   Container(
@@ -76,7 +73,7 @@ class _LoginViewState extends State<LoginView> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              SizedBox(height: 30.h),
+                              SizedBox(height: 20.h),
                               Align(
                                 alignment: Alignment.center,
                                 child: Image.asset(
@@ -85,6 +82,23 @@ class _LoginViewState extends State<LoginView> {
                                   width: 80,
                                 ),
                               ),
+                              SizedBox(height: 4),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Maglinte Dental Clinic',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: FontNames.gilRoy,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.sp,
+                                    letterSpacing: 1,
+                                    wordSpacing: 1,
+                                    color: Palettes.kcBlueMain1,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 8),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
@@ -100,7 +114,7 @@ class _LoginViewState extends State<LoginView> {
                                       color: Palettes.kcNeutral2),
                                 ),
                               ),
-                              SizedBox(height: 10.h),
+                              SizedBox(height: 4.h),
 
                               //Email Text Field
                               TextFormField(
@@ -180,7 +194,7 @@ class _LoginViewState extends State<LoginView> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 15.h),
+                              SizedBox(height: 10.h),
                               GestureDetector(
                                 onTap: () {},
                                 child: Text(
@@ -190,7 +204,7 @@ class _LoginViewState extends State<LoginView> {
                                       color: Palettes.kcNeutral2),
                                 ),
                               ),
-                              SizedBox(height: 25.h),
+                              SizedBox(height: 20.h),
                               Container(
                                 height: 45.sp,
                                 width: screenWidth(context),
@@ -235,14 +249,14 @@ class SocialLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(top: 20.h),
+      margin: EdgeInsets.only(top: 15.h),
       child: Column(
         children: [
           Text(
             'Or login with..',
             style: TextStyles.tsBody2(color: Palettes.kcNeutral2),
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 15.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -260,22 +274,8 @@ class SocialLogin extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 20.h),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 50.h,
-                  width: 100.w,
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Palettes.kcNeutral5),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Image(image: AssetImage('assets/icons/facebook.png')),
-                ),
-              ),
             ],
           ),
-          SizedBox(height: 15.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
