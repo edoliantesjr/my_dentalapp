@@ -88,7 +88,6 @@ class Routes {
   static const String SetToothConditionView = '/set-tooth-condition-view';
   static const String SetDentalNoteView = '/set-dental-note-view';
   static const String AddPaymentView = '/add-payment-view';
-  static const String NotificationView = '/notification-view';
   static const String ViewDentalNoteView = '/view-dental-note-view';
   static const String AddExpenseView = '/add-expense-view';
   static const String FinanceView = '/finance-view';
@@ -100,6 +99,7 @@ class Routes {
   static const String DentalCertificationView = '/dental-certification-view';
   static const String PaymentSelectPatientView = '/payment-select-patient-view';
   static const String SelectionDentist = '/selection-dentist';
+  static const String NotificationView = '/notification-view';
   static const String SelectionProcedure = '/selection-procedure';
   static const String SelectionToothCondition = '/selection-tooth-condition';
   static const String UserView = '/user-view';
@@ -136,7 +136,6 @@ class Routes {
     SetToothConditionView,
     SetDentalNoteView,
     AddPaymentView,
-    NotificationView,
     ViewDentalNoteView,
     AddExpenseView,
     FinanceView,
@@ -148,6 +147,7 @@ class Routes {
     DentalCertificationView,
     PaymentSelectPatientView,
     SelectionDentist,
+    NotificationView,
     SelectionProcedure,
     SelectionToothCondition,
     UserView,
@@ -190,7 +190,6 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.SetToothConditionView, page: SetToothConditionView),
     RouteDef(Routes.SetDentalNoteView, page: SetDentalNoteView),
     RouteDef(Routes.AddPaymentView, page: AddPaymentView),
-    RouteDef(Routes.NotificationView, page: NotificationView),
     RouteDef(Routes.ViewDentalNoteView, page: ViewDentalNoteView),
     RouteDef(Routes.AddExpenseView, page: AddExpenseView),
     RouteDef(Routes.FinanceView, page: FinanceView),
@@ -202,6 +201,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.DentalCertificationView, page: DentalCertificationView),
     RouteDef(Routes.PaymentSelectPatientView, page: PaymentSelectPatientView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
+    RouteDef(Routes.NotificationView, page: NotificationView),
     RouteDef(Routes.SelectionProcedure, page: SelectionProcedure),
     RouteDef(Routes.SelectionToothCondition, page: SelectionToothCondition),
     RouteDef(Routes.UserView, page: UserView),
@@ -422,12 +422,6 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    NotificationView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => const NotificationView(),
-        settings: data,
-      );
-    },
     ViewDentalNoteView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const ViewDentalNoteView(),
@@ -519,6 +513,15 @@ class StackedRouter extends RouterBase {
         settings: data,
         transitionsBuilder: TransitionsBuilders.slideBottom,
         transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
+    NotificationView: (data) {
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const NotificationView(),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideLeft,
+        transitionDuration: const Duration(milliseconds: 200),
       );
     },
     SelectionProcedure: (data) {

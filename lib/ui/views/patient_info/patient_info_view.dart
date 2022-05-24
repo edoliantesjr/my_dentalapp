@@ -8,11 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../app/app.router.dart';
 import '../../../models/patient_model/patient_model.dart';
+import '../patient_drawer/patient_drawer.dart';
 
 class PatientInfoView extends StatelessWidget {
-  Patient patient;
-  PatientInfoView({Key? key, required this.patient}) : super(key: key);
+  final Patient patient;
+  const PatientInfoView({Key? key, required this.patient}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,19 +26,15 @@ class PatientInfoView extends StatelessWidget {
         },
         builder: (context, model, child) => Scaffold(
               backgroundColor: Colors.grey.shade50,
+              drawer: PatientDrawerView(
+                patient: model.patient ?? patient,
+              ),
               appBar: AppBar(
                 titleSpacing: 0,
-                leading: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.menu_rounded,
-                    size: 35,
-                    color: Colors.white,
-                  ),
-                ),
                 actions: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => model.navigationService
+                        .pushNamed(Routes.NotificationView),
                     icon: Icon(
                       Icons.notifications,
                       size: 24,
@@ -137,12 +135,12 @@ class PatientInfoView extends StatelessWidget {
                                   onPressed: () => model
                                       .callPatient(model.patient!.phoneNum),
                                   label: Text(
-                                    'Call',
+                                    'Edit your patient info',
                                     style:
                                         TextStyles.tsBody3(color: Colors.white),
                                   ),
                                   icon: Icon(
-                                    Icons.phone,
+                                    Icons.edit,
                                     size: 16,
                                   ),
                                   style: ElevatedButton.styleFrom(
@@ -150,34 +148,6 @@ class PatientInfoView extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(width: 8),
-                              Expanded(
-                                  child: ElevatedButton.icon(
-                                onPressed: () =>
-                                    model.textPatient(model.patient!.phoneNum),
-                                label: Text(
-                                  'Text',
-                                  style:
-                                      TextStyles.tsBody3(color: Colors.white),
-                                ),
-                                icon: Icon(
-                                  Icons.send,
-                                  size: 16,
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                    primary: Palettes.kcNeutral1),
-                              )),
-                              SizedBox(width: 8),
-                              SizedBox(
-                                width: 60,
-                                child: ElevatedButton(
-                                  onPressed: () =>
-                                      model.goToUpdatePatient(patient: patient),
-                                  child: Icon(Icons.edit,
-                                      color: Colors.grey.shade900),
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.grey.shade300),
-                                ),
-                              ),
                             ],
                           ),
 

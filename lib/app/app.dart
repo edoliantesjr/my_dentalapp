@@ -102,7 +102,6 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     MaterialRoute(page: SetToothConditionView, name: 'SetToothConditionView'),
     MaterialRoute(page: SetDentalNoteView, name: 'SetDentalNoteView'),
     MaterialRoute(page: AddPaymentView, name: 'AddPaymentView'),
-    MaterialRoute(page: NotificationView, name: 'NotificationView'),
     MaterialRoute(page: ViewDentalNoteView, name: 'ViewDentalNoteView'),
     MaterialRoute(page: AddExpenseView, name: 'AddExpenseView'),
     MaterialRoute(page: FinanceView, name: 'FinanceView'),
@@ -120,6 +119,11 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
         name: 'SelectionDentist',
         transitionsBuilder: TransitionsBuilders.slideBottom,
         durationInMilliseconds: 300),
+    CustomRoute(
+        page: NotificationView,
+        name: 'NotificationView',
+        transitionsBuilder: TransitionsBuilders.slideLeft,
+        durationInMilliseconds: 200),
     CustomRoute(
         page: SelectionProcedure,
         name: 'SelectionProcedure',

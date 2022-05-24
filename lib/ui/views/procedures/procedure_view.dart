@@ -1,4 +1,3 @@
-import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/procedures/procedure_view_model.dart';
@@ -41,18 +40,18 @@ class _ProceduresViewState extends State<ProceduresView> {
               style: TextStyles.tsHeading3(color: Colors.white),
             ),
           ),
-          floatingActionButton: AnimatedContainer(
-            duration: Duration(milliseconds: 300),
-            height: !model.isScrolledUp ? 56 : 48,
-            child: FloatingActionButton.extended(
-              heroTag: null,
-              isExtended: model.isScrolledUp,
-              onPressed: () =>
-                  model.navigationService.pushNamed(Routes.AddProcedureView),
-              label: Text('Add Procedure'),
-              icon: Icon(Icons.add),
-            ),
-          ),
+          // floatingActionButton: AnimatedContainer(
+          //   duration: Duration(milliseconds: 300),
+          //   height: !model.isScrolledUp ? 56 : 48,
+          //   child: FloatingActionButton.extended(
+          //     heroTag: null,
+          //     isExtended: model.isScrolledUp,
+          //     onPressed: () =>
+          //         model.navigationService.pushNamed(Routes.AddProcedureView),
+          //     label: Text('Add Procedure'),
+          //     icon: Icon(Icons.add),
+          //   ),
+          // ),
           body: NotificationListener<UserScrollNotification>(
             onNotification: (notification) {
               if (notification.direction == ScrollDirection.forward) {
