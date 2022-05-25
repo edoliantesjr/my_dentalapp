@@ -29,10 +29,8 @@ class PatientInfoViewModel extends BaseViewModel {
   }
 
   Future<void> getPatient({required Patient patient}) async {
-    dialogService.showDefaultLoadingDialog();
     this.patient = await apiService.getPatientInfo(patientId: patient.id);
     notifyListeners();
-    navigationService.pop();
   }
 
   void listenToPatientInfoChange({required Patient patient}) {

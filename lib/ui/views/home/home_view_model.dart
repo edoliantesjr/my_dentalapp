@@ -96,7 +96,7 @@ class HomePageViewModel extends BaseViewModel {
           myAppointments.clear();
           myAppointments.addAll(event);
           notifyListeners();
-          updateAppointmentList();
+          // updateAppointmentList();
         });
       },
     );
@@ -116,7 +116,8 @@ class HomePageViewModel extends BaseViewModel {
     navigationService.pushNamed(Routes.NotificationView);
   }
 
-  void goToUserView() {
-    navigationService.pushNamed(Routes.UserView);
+  void goToUserView(UserModel user) {
+    navigationService.pushNamed(Routes.UserView,
+        arguments: UserViewArguments(user: user));
   }
 }

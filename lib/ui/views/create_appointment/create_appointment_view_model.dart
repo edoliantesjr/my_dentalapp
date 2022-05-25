@@ -42,11 +42,23 @@ class CreateAppointmentViewModel extends BaseViewModel {
   Future<void> setAppointment(
       {required AppointmentModel appointment, required int popTime}) async {
     try {
-      dialogService.showDefaultLoadingDialog(
-          willPop: false, barrierDismissible: false);
-      await apiService.createAppointment(appointment);
-      navigationService.popRepeated(popTime);
-      toastService.showToast(message: 'Appointment added');
+      if (selectedStartTime!.isAfter(selectedEndTime!)) {
+        snackBarService.showSnackBar(
+            message: 'Start time cannot be the set before End time',
+            title: 'Warning');
+      }
+      if (selectedStartTime!.isAtSameMomentAs(selectedEndTime!)) {
+        snackBarService.showSnackBar(
+            message: 'Start time cannot be the same with End time',
+            title: 'Warning');
+      }
+      if (selectedStartTime!.isBefore(selectedEndTime!)) {
+        dialogService.showDefaultLoadingDialog(
+            willPop: false, barrierDismissible: false);
+        await apiService.createAppointment(appointment);
+        navigationService.popRepeated(popTime);
+        toastService.showToast(message: 'Appointment added');
+      }
     } catch (e) {
       debugPrint(e.toString());
       navigationService.closeOverlay();
@@ -77,8 +89,8 @@ class CreateAppointmentViewModel extends BaseViewModel {
       selectedStartTime =
           await bottomSheetService.openBottomSheet(SelectionTime(
         title: 'Set Start Time',
-        initialDateTime: DateTime.now(),
-        minimumDateTime: latestAppointment?.endTime.toDateTime() ?? null,
+        initialDateTime: DateTime(selectedAppointmentDate!.year,
+            selectedAppointmentDate!.month, selectedAppointmentDate!.day),
       ));
       if (selectedStartTime != null) {
         if (selectedEndTime != selectedStartTime) {
@@ -104,8 +116,8 @@ class CreateAppointmentViewModel extends BaseViewModel {
     if (selectedStartTime != null) {
       selectedEndTime = await bottomSheetService.openBottomSheet(SelectionTime(
         title: 'Set End Time',
-        initialDateTime: DateTime.now().add(Duration(hours: 1)),
-        minimumDateTime: DateTime.now().add(Duration(minutes: 1)),
+        initialDateTime: selectedStartTime!.add(Duration(minutes: 60)),
+        minimumDateTime: selectedStartTime!.add(Duration(minutes: 5)),
       ));
       if (selectedEndTime != null) {
         if (selectedStartTime != selectedEndTime) {

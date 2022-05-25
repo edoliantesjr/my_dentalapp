@@ -2,6 +2,7 @@ class UserModel {
   String userId;
   String firstName;
   String lastName;
+  String phoneNum;
   String email;
   String image;
   String position;
@@ -25,22 +26,26 @@ class UserModel {
     required this.appointments,
     required this.fcmToken,
     required this.searchIndex,
+    required this.phoneNum,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(json['uid'],
-        firstName: json['firstName'],
-        lastName: json['lastName'],
-        email: json['email'],
-        image: json['image'],
-        position: json['position'],
-        appointments:
-            json['appointments'] != null ? List.from(json['appointments']) : [],
-        fcmToken: json['fcmToken'] != null ? List.from(json['fcmToken']) : [],
-        searchIndex: [],
-        dateOfBirth: json['dateOfBirth'],
-        gender: json['gender'],
-        active_status: json['active_status']);
+    return UserModel(
+      json['uid'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      email: json['email'],
+      image: json['image'],
+      position: json['position'],
+      appointments:
+          json['appointments'] != null ? List.from(json['appointments']) : [],
+      fcmToken: json['fcmToken'] != null ? List.from(json['fcmToken']) : [],
+      searchIndex: [],
+      dateOfBirth: json['dateOfBirth'],
+      gender: json['gender'],
+      active_status: json['active_status'],
+      phoneNum: json['phoneNum'],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -57,6 +62,7 @@ class UserModel {
       'dateOfBirth': dateOfBirth,
       'gender': gender,
       'active_status': active_status,
+      'phoneNum': phoneNum,
     };
   }
 

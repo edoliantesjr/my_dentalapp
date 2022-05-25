@@ -35,6 +35,7 @@ import 'package:dentalapp/ui/views/add_prescription_item/add_prescription_item_v
 import 'package:dentalapp/ui/views/add_procedure/add_procedure_view.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view.dart';
 import 'package:dentalapp/ui/views/appointment_select_patient/appointment_select_patient_view.dart';
+import 'package:dentalapp/ui/views/appoitment_yearly_monthly/appointment_year_month_view.dart';
 import 'package:dentalapp/ui/views/create_appointment/create_appointment_view.dart';
 import 'package:dentalapp/ui/views/dental_certification/dental_certification_view.dart';
 import 'package:dentalapp/ui/views/finance/finance_view.dart';
@@ -112,6 +113,8 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     MaterialRoute(page: AddPrescriptionView, name: 'AddPrescriptionView'),
     MaterialRoute(page: PrescriptionView, name: 'PrescriptionView'),
     MaterialRoute(page: EditPatientView, name: 'EditPatientView'),
+    MaterialRoute(
+        page: ViewAppointmentByPeriod, name: 'ViewAppointmentByPeriod'),
     MaterialRoute(
         page: DentalCertificationView, name: 'DentalCertificationView'),
     MaterialRoute(

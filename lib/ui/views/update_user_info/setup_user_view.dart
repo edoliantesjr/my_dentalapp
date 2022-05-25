@@ -5,6 +5,7 @@ import 'package:dentalapp/constants/styles/text_border_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
@@ -25,6 +26,7 @@ class _SetUpUserViewState extends State<SetUpUserView> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final positionController = TextEditingController();
+  final phoneNumController = TextEditingController();
 
   @override
   void dispose() {
@@ -66,11 +68,13 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                         title: 'Missing Required Data');
                   } else {
                     model.saveUser(
-                        firstNameController.text,
-                        lastNameController.text,
-                        model.selectedBirthDate.toString(),
-                        model.selectedGender,
-                        positionController.text);
+                      firstNameController.text,
+                      lastNameController.text,
+                      model.selectedBirthDate.toString(),
+                      model.selectedGender,
+                      positionController.text,
+                      phoneNumController.text,
+                    );
                   }
                 }
               },
@@ -82,62 +86,64 @@ class _SetUpUserViewState extends State<SetUpUserView> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      BorderRadius.only(topRight: Radius.circular(30))),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Header(),
-                  SizedBox(height: 20),
-                  Text(
-                    'Profile Picture*',
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    height: 120,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: Palettes.kcLightGreyAccentColor,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Palettes.kcNeutral3,
-                            blurRadius: 3,
-                            offset: Offset(1, 2))
-                      ],
+            child: SingleChildScrollView(
+              reverse: true,
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.only(topRight: Radius.circular(30))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Header(),
+                    SizedBox(height: 20),
+                    Text(
+                      'Profile Picture*',
                     ),
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: model.selectImageSource,
-                      icon: model.selectedImage != null
-                          ? CircleAvatar(
-                              radius: 59,
-                              backgroundColor: Palettes.kcLightGreyAccentColor,
-                              backgroundImage: FileImage(
-                                File(model.selectedImage!.path),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 120,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: Palettes.kcLightGreyAccentColor,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Palettes.kcNeutral3,
+                              blurRadius: 3,
+                              offset: Offset(1, 2))
+                        ],
+                      ),
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: model.selectImageSource,
+                        icon: model.selectedImage != null
+                            ? CircleAvatar(
+                                radius: 59,
+                                backgroundColor:
+                                    Palettes.kcLightGreyAccentColor,
+                                backgroundImage: FileImage(
+                                  File(model.selectedImage!.path),
+                                ),
+                              )
+                            : SvgPicture.asset(
+                                'assets/icons/Camera.svg',
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.cover,
                               ),
-                            )
-                          : SvgPicture.asset(
-                              'assets/icons/Camera.svg',
-                              height: 50,
-                              width: 50,
-                              fit: BoxFit.cover,
-                            ),
+                      ),
                     ),
-                  ),
 
-                  //Form for Setup Info
-                  Expanded(
-                    child: Form(
-                        key: model.setupFormKey,
-                        child: SingleChildScrollView(
+                    //Form for Setup Info
+                    Expanded(
+                      child: Form(
+                          key: model.setupFormKey,
                           child: Column(
                             children: [
                               SizedBox(height: 15),
@@ -166,6 +172,31 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                 decoration: InputDecoration(
                                   hintText: 'Enter your last name',
                                   labelText: 'Last Name*',
+                                  labelStyle: TextStyles.tsBody1(
+                                      color: Palettes.kcNeutral1),
+                                  enabledBorder: TextBorderStyles.normalBorder,
+                                  focusedBorder: TextBorderStyles.focusedBorder,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              TextFormField(
+                                controller: phoneNumController,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                textCapitalization: TextCapitalization.words,
+                                enableInteractiveSelection: false,
+                                validator: (value) => model.validatorService
+                                    .validatePhoneNumber(value!),
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(11),
+                                ],
+                                decoration: InputDecoration(
+                                  hintText: '09xxxxxxxxx',
+                                  labelText: 'Contact Number*',
                                   labelStyle: TextStyles.tsBody1(
                                       color: Palettes.kcNeutral1),
                                   enabledBorder: TextBorderStyles.normalBorder,
@@ -265,10 +296,10 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                 ),
                               ),
                             ],
-                          ),
-                        )),
-                  ),
-                ],
+                          )),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

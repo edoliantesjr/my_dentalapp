@@ -37,6 +37,15 @@ class AppointmentView extends StatelessWidget {
               'Clinic Appointments',
               style: TextStyles.tsHeading3(color: Colors.white),
             ),
+            // actions: [
+            //   TextButton(
+            //     onPressed: () => model.goToViewAppointmentByPeriod(),
+            //     child: Text('View By Period'),
+            //     style: TextButton.styleFrom(
+            //       primary: Colors.white,
+            //     ),
+            //   ),
+            // ],
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniEndFloat,
@@ -67,6 +76,7 @@ class AppointmentView extends StatelessWidget {
                       activeBackgroundDayColor: Colors.white,
                       dayColor: Colors.white,
                       activeDayColor: Palettes.kcBlueMain1,
+                      // selectableDayPredicate: ,
                     ),
                   ),
                 ),

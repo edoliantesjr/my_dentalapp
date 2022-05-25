@@ -40,6 +40,10 @@ class AppointmentViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void goToViewAppointmentByPeriod() {
+    navigationService.pushNamed(Routes.ViewAppointmentByPeriod);
+  }
+
   Future<void> getAppointmentByDate(DateTime? dateTime) async {
     setBusy(true);
     setFilter('ALL');

@@ -117,7 +117,7 @@ class SetupUserViewModel extends BaseViewModel {
   }
 
   Future<void> saveUser(String firstName, String lastName, String dateOfBirth,
-      String gender, String position) async {
+      String gender, String position, String phoneNum) async {
     dialogService.showDefaultLoadingDialog(barrierDismissible: false);
     await firebaseAuthService.reLoad();
 
@@ -144,6 +144,7 @@ class SetupUserViewModel extends BaseViewModel {
           gender: gender,
           dateOfBirth: dateOfBirth,
           active_status: 'active',
+          phoneNum: phoneNum,
         );
         await apiService.createUser(userProfile);
         navigationService.closeOverlay();

@@ -26,12 +26,12 @@ class PrescriptionViewModel extends BaseViewModel {
   }
 
   Future<void> getPrescriptionList(dynamic patientId) async {
-    await Future.delayed(Duration(milliseconds: 300));
-    dialogService.showDefaultLoadingDialog();
     final prescriptionL =
         await apiService.getPatientPrescription(patientId: patientId);
-    prescriptionList.clear();
-    prescriptionList.addAll(prescriptionL);
+
+    dialogService.showDefaultLoadingDialog();
+    await Future.delayed(Duration(milliseconds: 500));
+    prescriptionList=prescriptionL;
     navigationService.pop();
     notifyListeners();
   }

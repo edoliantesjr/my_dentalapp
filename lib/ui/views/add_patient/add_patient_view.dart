@@ -204,6 +204,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                             ? AutovalidateMode.onUserInteraction
                             : AutovalidateMode.disabled,
                         textCapitalization: TextCapitalization.words,
+                        enableInteractiveSelection: false,
                         validator: (value) =>
                             model.validatorService.validatePhoneNumber(value!),
                         textInputAction: TextInputAction.next,

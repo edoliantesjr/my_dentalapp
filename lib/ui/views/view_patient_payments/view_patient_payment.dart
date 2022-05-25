@@ -20,7 +20,7 @@ class ViewPatientPayment extends StatelessWidget {
       },
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text("Patient's Appointments"),
+          title: Text("Patient's Payments Record"),
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => model.goToAddBilling(patient),

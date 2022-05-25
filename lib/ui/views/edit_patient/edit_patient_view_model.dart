@@ -1,3 +1,4 @@
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -126,6 +127,7 @@ class EditPatientViewModel extends BaseViewModel {
 
     final updatedPatient = Patient(
       id: patient.id,
+      dateCreated: patient.dateCreated,
       firstName: firstNameTxtController.text,
       lastName: lastNameTxtController.text,
       gender: genderTxtController.text,
@@ -152,7 +154,7 @@ class EditPatientViewModel extends BaseViewModel {
           navigationService.pop();
           dialogService.showDefaultLoadingDialog();
           await updatePatient(patient);
-          navigationService.popRepeated(2);
+          navigationService.popUntilNamed(Routes.PatientInfoView);
           snackBarService.showSnackBar(
               message: 'Patient Info was updated', title: 'Success!');
         });

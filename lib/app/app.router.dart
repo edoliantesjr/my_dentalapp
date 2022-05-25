@@ -14,6 +14,7 @@ import 'package:stacked/stacked_annotations.dart';
 import '../models/medical_history/medical_history.dart';
 import '../models/patient_model/patient_model.dart';
 import '../models/payment/payment.dart';
+import '../models/user_model/user_model.dart';
 import '../ui/views/add_dental_certificate/add_certificate_view.dart';
 import '../ui/views/add_expense_item/add_expense_item_view.dart';
 import '../ui/views/add_expenses/add_expenses_view.dart';
@@ -25,6 +26,7 @@ import '../ui/views/add_prescription_item/add_prescription_item_view.dart';
 import '../ui/views/add_procedure/add_procedure_view.dart';
 import '../ui/views/appointment/appointment_view.dart';
 import '../ui/views/appointment_select_patient/appointment_select_patient_view.dart';
+import '../ui/views/appoitment_yearly_monthly/appointment_year_month_view.dart';
 import '../ui/views/create_appointment/create_appointment_view.dart';
 import '../ui/views/dental_certification/dental_certification_view.dart';
 import '../ui/views/edit_patient/edit_patient_view.dart';
@@ -97,6 +99,7 @@ class Routes {
   static const String AddPrescriptionView = '/add-prescription-view';
   static const String PrescriptionView = '/prescription-view';
   static const String EditPatientView = '/edit-patient-view';
+  static const String ViewAppointmentByPeriod = '/view-appointment-by-period';
   static const String DentalCertificationView = '/dental-certification-view';
   static const String PaymentSelectPatientView = '/payment-select-patient-view';
   static const String SelectionDentist = '/selection-dentist';
@@ -145,6 +148,7 @@ class Routes {
     AddPrescriptionView,
     PrescriptionView,
     EditPatientView,
+    ViewAppointmentByPeriod,
     DentalCertificationView,
     PaymentSelectPatientView,
     SelectionDentist,
@@ -199,6 +203,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.AddPrescriptionView, page: AddPrescriptionView),
     RouteDef(Routes.PrescriptionView, page: PrescriptionView),
     RouteDef(Routes.EditPatientView, page: EditPatientView),
+    RouteDef(Routes.ViewAppointmentByPeriod, page: ViewAppointmentByPeriod),
     RouteDef(Routes.DentalCertificationView, page: DentalCertificationView),
     RouteDef(Routes.PaymentSelectPatientView, page: PaymentSelectPatientView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
@@ -490,6 +495,12 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ViewAppointmentByPeriod: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const ViewAppointmentByPeriod(),
+        settings: data,
+      );
+    },
     DentalCertificationView: (data) {
       var args = data.getArgs<DentalCertificationViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
@@ -534,9 +545,12 @@ class StackedRouter extends RouterBase {
       );
     },
     UserView: (data) {
+      var args = data.getArgs<UserViewArguments>(nullOk: false);
       return PageRouteBuilder<dynamic>(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const UserView(),
+        pageBuilder: (context, animation, secondaryAnimation) => UserView(
+          key: args.key,
+          user: args.user,
+        ),
         settings: data,
         transitionsBuilder: TransitionsBuilders.slideRight,
         transitionDuration: const Duration(milliseconds: 300),
@@ -741,6 +755,13 @@ class DentalCertificationViewArguments {
   final Key? key;
   final Patient patient;
   DentalCertificationViewArguments({this.key, required this.patient});
+}
+
+/// UserView arguments holder class
+class UserViewArguments {
+  final Key? key;
+  final UserModel user;
+  UserViewArguments({this.key, required this.user});
 }
 
 /// PaymentSelectDentalNoteView arguments holder class

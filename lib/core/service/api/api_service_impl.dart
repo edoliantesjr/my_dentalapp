@@ -269,6 +269,7 @@ class ApiServiceImpl extends ApiService {
     return appointmentReference
         .where('date', isEqualTo: dateToday)
         .orderBy('startTime', descending: false)
+        .orderBy('appointment_status', descending: false)
         .snapshots()
         .map((event) => event.docs
             .map((value) => AppointmentModel.fromJson(value.data()))
@@ -675,5 +676,52 @@ class ApiServiceImpl extends ApiService {
         .doc(notificationToken.uid)
         .set(notificationToken.toJson());
     debugPrint('Notification Token added: ${notificationToken.tokenId}');
+  }
+
+  @override
+  Future<QueryResult> updateUserStatus(
+      {required String userId, required String status}) async {
+    if (await connectivityService.checkConnectivity()) {
+      await userReference.doc(userId).update({'active_status': status});
+      return QueryResult.success();
+    } else {
+      return QueryResult.error(
+          'Unable To Update Status. No Internet Connection.');
+    }
+  }
+
+  @override
+  Future<QueryResult> updateUserInfo({required UserModel user}) async {
+    if (await connectivityService.checkConnectivity()) {
+      await userReference.doc(user.userId).set(user.toJson());
+      return QueryResult.success();
+    } else {
+      return QueryResult.error(
+          'Unable To Update Status. No Internet Connection.');
+    }
+  }
+
+  @override
+  Future<QueryResult> updatePatientPhoto(
+      {required String image, required String patientID}) async {
+    if (await connectivityService.checkConnectivity()) {
+      await patientReference.doc(patientID).update({'image': image});
+      return QueryResult.success();
+    } else {
+      return QueryResult.error(
+          'Unable To Update Image. No Internet Connection.');
+    }
+  }
+
+  @override
+  Future<QueryResult> updateUserPhoto(
+      {required String image, required String userId}) async {
+    if (await connectivityService.checkConnectivity()) {
+      await userReference.doc(userId).update({'image': image});
+      return QueryResult.success();
+    } else {
+      return QueryResult.error(
+          'Unable To Update Image. No Internet Connection.');
+    }
   }
 }

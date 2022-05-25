@@ -166,4 +166,15 @@ abstract class ApiService {
   Future<int> getAllPatientCount();
 
   Future<void> saveUserFcmToken(NotificationToken notificationToken);
+
+  Future<QueryResult> updateUserStatus(
+      {required String userId, required String status});
+
+  Future<QueryResult> updateUserInfo({required UserModel user});
+
+  Future<QueryResult> updateUserPhoto(
+      {required String image, required String userId});
+
+  Future<QueryResult> updatePatientPhoto(
+      {required String image, required String patientID});
 }
