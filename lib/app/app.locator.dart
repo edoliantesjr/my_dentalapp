@@ -17,6 +17,7 @@ import '../core/service/dialog/dialog_service.dart';
 import '../core/service/dialog/dialog_service_imp.dart';
 import '../core/service/firebase_auth/firebase_auth_service.dart';
 import '../core/service/firebase_auth/firebase_auth_service_impl.dart';
+import '../core/service/firebase_messaging/firebase_messaging_service.dart';
 import '../core/service/navigation/navigation_service.dart';
 import '../core/service/navigation/navigation_service_impl.dart';
 import '../core/service/pdf_service/pdf_service.dart';
@@ -59,5 +60,6 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton<URLLauncherService>(
       () => URLLauncherServiceImpl());
   locator.registerLazySingleton(() => ConnectivityService());
+  locator.registerLazySingleton(() => FirebaseMessagingService());
   locator.registerLazySingleton<PdfService>(() => PdfServiceImp());
 }

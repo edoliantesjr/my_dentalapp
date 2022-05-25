@@ -304,7 +304,7 @@ class InfoWidget extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: FontNames.sfPro,
-                      fontSize: 14.sp,
+                      fontSize: 13.sp,
                       color: Palettes.kcNeutral1,
                       overflow: TextOverflow.ellipsis,
                       leadingDistribution: TextLeadingDistribution.proportional,

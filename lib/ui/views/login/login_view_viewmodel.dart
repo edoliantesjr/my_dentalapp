@@ -12,6 +12,8 @@ import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../core/service/firebase_messaging/firebase_messaging_service.dart';
+
 class LoginViewModel extends FormViewModel {
   final navigationService = locator<NavigationService>();
   final validatorService = locator<ValidatorService>();
@@ -21,6 +23,7 @@ class LoginViewModel extends FormViewModel {
   final apiService = locator<ApiService>();
   final sessionService = locator<SessionService>();
   final toastService = locator<ToastService>();
+  final fcmService = locator<FirebaseMessagingService>();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final logger = getLogger('LoginViewModel');
@@ -47,8 +50,12 @@ class LoginViewModel extends FormViewModel {
           logger.i('Checking User Account Details');
           if (isAccountSetupDone) {
             navigationService.popAllAndPushNamed(Routes.MainBodyView);
+            final notificationToken = await fcmService.saveFcmToken();
+            await apiService.saveUserFcmToken(notificationToken);
           } else {
             navigationService.popAllAndPushNamed(Routes.SetUpUserView);
+            final notificationToken = await fcmService.saveFcmToken();
+            await apiService.saveUserFcmToken(notificationToken);
           }
         } else {
           navigationService.closeOverlay();
@@ -105,12 +112,16 @@ class LoginViewModel extends FormViewModel {
         logger.i('Checking User Account Details');
         if (isAccountSetupDone) {
           navigationService.popAllAndPushNamed(Routes.MainBodyView);
+          final notificationToken = await fcmService.saveFcmToken();
+          await apiService.saveUserFcmToken(notificationToken);
         } else {
           navigationService.popAllAndPushNamed(Routes.SetUpUserView,
               arguments: SetUpUserViewArguments(
                 firstName: loginResult.user?.displayName ?? '',
                 userPhoto: loginResult.user?.photoURL ?? '',
               ));
+          final notificationToken = await fcmService.saveFcmToken();
+          await apiService.saveUserFcmToken(notificationToken);
         }
       } else {
         navigationService.closeOverlay();

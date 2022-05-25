@@ -1,8 +1,10 @@
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/app/app.logger.dart';
 import 'package:dentalapp/app/app.router.dart';
+import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
+import 'package:dentalapp/core/service/firebase_messaging/firebase_messaging_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
@@ -22,6 +24,8 @@ class RegisterViewModel extends FormViewModel {
   final validatorService = locator<ValidatorService>();
   final log = getLogger('RegisterViewModel');
   final sessionService = locator<SessionService>();
+  final apiService = locator<ApiService>();
+  final fcmService = locator<FirebaseMessagingService>();
 
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
   bool isObscure = false;
@@ -43,6 +47,8 @@ class RegisterViewModel extends FormViewModel {
         sessionService.saveSession(
             isRunFirstTime: false, isLoggedIn: true, isAccountSetupDone: false);
         navigationService.pushReplacementNamed(Routes.SetUpUserView);
+        final notificationToken = await fcmService.saveFcmToken();
+        await apiService.saveUserFcmToken(notificationToken);
       } else {
         Get.back(canPop: false);
         snackBarService.showSnackBar(

@@ -78,25 +78,30 @@ class PatientCard extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 21.sp,
+                  width: double.maxFinite,
                   child: Row(
                     children: [
                       Text(
                         name,
+                        overflow: TextOverflow.ellipsis,
                         style:
                             TextStyles.tsHeading4(color: Palettes.kcNeutral1),
                       ),
-                      Visibility(
-                        visible: DateFormat.yMMMd().format(dateCreated) ==
-                            DateFormat.yMMMd().format(DateTime.now()),
-                        child: Container(
-                          height: 21.sp,
-                          alignment: Alignment.topCenter,
-                          padding: const EdgeInsets.only(left: 4),
-                          child: Text(
-                            '(New)',
-                            style: TextStyle(
-                                color: Colors.redAccent,
-                                fontWeight: FontWeight.bold),
+                      Expanded(
+                        child: Visibility(
+                          visible: DateFormat.yMMMd().format(dateCreated) ==
+                              DateFormat.yMMMd().format(DateTime.now()),
+                          child: Container(
+                            height: 21.sp,
+                            alignment: Alignment.topCenter,
+                            padding: const EdgeInsets.only(left: 4),
+                            child: Text(
+                              '(New)',
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                  color: Colors.redAccent,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
@@ -115,69 +120,73 @@ class PatientCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/Call.svg',
-                              height: 18,
-                              width: 18,
-                              color: Palettes.kcBlueDark,
-                            ),
-                            SizedBox(width: 5),
-                            Text(
-                              phone,
-                              style: TextStyles.tsBody2(
-                                color: Colors.grey.shade700,
+                SizedBox(
+                  width: double.maxFinite,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/Call.svg',
+                                height: 18,
+                                width: 18,
+                                color: Palettes.kcBlueDark,
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 1),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/Location.svg',
-                              height: 20,
-                              width: 20,
-                              color: Palettes.kcBlueDark,
-                            ),
-                            SizedBox(width: 5),
-                            Text(
-                              address,
-                              style: TextStyles.tsBody2(
-                                color: Colors.grey.shade700,
+                              SizedBox(width: 5),
+                              Text(
+                                phone,
+                                style: TextStyles.tsBody2(
+                                  color: Colors.grey.shade700,
+                                ),
                               ),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 1),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/Calendar.svg',
-                              height: 18,
-                              width: 18,
-                              color: Palettes.kcBlueDark,
-                            ),
-                            SizedBox(width: 5),
-                            Text(
-                              birthDate ?? '',
-                              style: TextStyles.tsBody2(
-                                color: Colors.grey.shade700,
+                            ],
+                          ),
+                          SizedBox(height: 1),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/Location.svg',
+                                height: 20,
+                                width: 20,
+                                color: Palettes.kcBlueDark,
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                              SizedBox(width: 5),
+                              Text(
+                                address,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyles.tsBody3(
+                                  color: Colors.grey.shade700,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 1),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/Calendar.svg',
+                                height: 18,
+                                width: 18,
+                                color: Palettes.kcBlueDark,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                birthDate ?? '',
+                                style: TextStyles.tsBody2(
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -6,6 +6,7 @@ import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service_imp.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service_impl.dart';
+import 'package:dentalapp/core/service/firebase_messaging/firebase_messaging_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service_impl.dart';
 import 'package:dentalapp/core/service/pdf_service/pdf_service.dart';
@@ -183,6 +184,7 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     LazySingleton(
         classType: URLLauncherServiceImpl, asType: URLLauncherService),
     LazySingleton(classType: ConnectivityService),
+    LazySingleton(classType: FirebaseMessagingService),
     LazySingleton(classType: PdfServiceImp, asType: PdfService),
   ],
   logger: StackedLogger(),

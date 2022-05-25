@@ -11,6 +11,7 @@ import 'package:dentalapp/models/dental_notes/dental_notes.dart';
 import 'package:dentalapp/models/expense/expense.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
+import 'package:dentalapp/models/notification_token/notification_model.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/prescription/prescription.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
@@ -20,6 +21,7 @@ import 'package:dentalapp/models/upload_results/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../app/app.locator.dart';
@@ -42,6 +44,9 @@ class ApiServiceImpl extends ApiService {
   final paymentReference = FirebaseFirestore.instance.collection('payments');
 
   final expenseReference = FirebaseFirestore.instance.collection('expenses');
+
+  final notificationTokens =
+      FirebaseFirestore.instance.collection('notificationTokens');
 
   @override
   User? get currentFirebaseUser => FirebaseAuth.instance.currentUser;
@@ -656,5 +661,19 @@ class ApiServiceImpl extends ApiService {
   @override
   Stream listenToPatientChanges({required String patientId}) {
     return patientReference.doc(patientId).snapshots();
+  }
+
+  @override
+  Future<int> getAllPatientCount() {
+    // TODO: implement getAllPatientCount
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> saveUserFcmToken(NotificationToken notificationToken) async {
+    notificationTokens
+        .doc(notificationToken.uid)
+        .set(notificationToken.toJson());
+    debugPrint('Notification Token added: ${notificationToken.tokenId}');
   }
 }

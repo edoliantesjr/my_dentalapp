@@ -17,7 +17,7 @@ class FinanceView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Finance'),
+          title: Text('Reports'),
           centerTitle: true,
         ),
         body: Container(

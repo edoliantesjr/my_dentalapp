@@ -30,6 +30,7 @@ void main() async {
   await GetStorage.init('MyLocalDB');
   FirebaseFirestore.instance.settings = Settings(persistenceEnabled: false);
   await getAppVersionNumber();
+
   runApp(DentalApp());
 }
 
