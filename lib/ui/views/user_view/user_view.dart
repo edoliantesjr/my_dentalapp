@@ -86,10 +86,13 @@ class _UserViewState extends State<UserView> {
                                   width: 35,
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade300,
+                                    border: Border.all(
+                                        color: Colors.grey.shade50, width: 1),
                                     borderRadius: BorderRadius.circular(40),
                                   ),
                                   child: Icon(
                                     Icons.camera_alt_outlined,
+                                    size: 20,
                                   ),
                                 ))
                           ],

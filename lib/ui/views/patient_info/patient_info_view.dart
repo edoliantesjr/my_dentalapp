@@ -49,38 +49,65 @@ class PatientInfoView extends StatelessWidget {
                           ),
                           Align(
                             alignment: Alignment.center,
-                            child: Container(
-                              height: 200,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey.shade100,
-                                  border: Border.all(
-                                      color: Colors.white, width: 3)),
-                              child: Container(
-                                height: 200,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: Palettes.kcBlueMain1, width: 2)),
-                                child: Container(
-                                  height: 200,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                          color: Colors.white, width: 3)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(200),
-                                    child: CachedNetworkImage(
-                                      imageUrl: model.patient?.image,
+                            child: InkWell(
+                              onTap: () => model.updatePatientImage(),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    height: 200,
+                                    width: 200,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey.shade100,
+                                        border: Border.all(
+                                            color: Colors.white, width: 3)),
+                                    child: Container(
                                       height: 200,
                                       width: 200,
-                                      fit: BoxFit.cover,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color: Palettes.kcBlueMain1,
+                                              width: 2)),
+                                      child: Container(
+                                        height: 200,
+                                        width: 200,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                color: Colors.white, width: 3)),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(200),
+                                          child: CachedNetworkImage(
+                                            imageUrl: model.patient?.image,
+                                            height: 200,
+                                            width: 200,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  Positioned(
+                                      right: 20,
+                                      bottom: 0,
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade300,
+                                          border: Border.all(
+                                              color: Colors.grey, width: 1),
+                                          borderRadius:
+                                              BorderRadius.circular(40),
+                                        ),
+                                        child: Icon(
+                                          Icons.camera_alt_outlined,
+                                          size: 25,
+                                        ),
+                                      ))
+                                ],
                               ),
                             ),
                           )
@@ -195,10 +222,13 @@ class PatientInfoView extends StatelessWidget {
                                           color: Colors.black,
                                         ),
                                         SizedBox(width: 9),
-                                        Text(
-                                          model.patient!.address,
-                                          style: TextStyles.tsBody2(
-                                            color: Colors.black,
+                                        Expanded(
+                                          child: Text(
+                                            model.patient!.address,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyles.tsBody2(
+                                              color: Colors.black,
+                                            ),
                                           ),
                                         )
                                       ],

@@ -204,8 +204,9 @@ class UserViewModel extends BaseViewModel {
         final qRes = await apiService.updateUserPhoto(
             image: imageResult.imageUrl!, userId: currentUser!.userId);
         if (qRes.success) {
-          // snackBarService.showSnackBar(
-          //     message: 'User Image Updated', title: 'Success');
+          await Future.delayed(Duration(seconds: 2));
+          snackBarService.showSnackBar(
+              message: 'User Image Updated', title: 'Success');
         } else {
           snackBarService.showSnackBar(
               message: 'User Image Not Updated: ${qRes.errorMessage!}',
