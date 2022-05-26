@@ -1,4 +1,4 @@
-package com.maglinte.dentalapp
+package com.maglinte.patient
 
 import io.flutter.embedding.android.FlutterActivity
 

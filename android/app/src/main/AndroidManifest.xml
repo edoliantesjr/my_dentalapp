@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.maglinte.dentalapp">
+    package="com.maglinte.patient">
    <application
-        android:label="Maglinte Dental Clinic"
+        android:label="Maglinte Patient"
         android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher">
 
