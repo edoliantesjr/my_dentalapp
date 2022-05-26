@@ -41,7 +41,7 @@ class AddExpenseItemView extends StatelessWidget {
                 validator: (value) =>
                     model.validatorService.validateItemName(value!),
                 textInputAction: TextInputAction.next,
-                maxLength: 10,
+                maxLength: 40,
                 decoration: InputDecoration(
                   errorBorder: TextBorderStyles.errorBorder,
                   enabledBorder: TextBorderStyles.normalBorder,

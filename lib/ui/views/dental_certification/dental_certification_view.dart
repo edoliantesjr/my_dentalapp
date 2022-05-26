@@ -21,9 +21,9 @@ class DentalCertificationView extends StatelessWidget {
         appBar: AppBar(
           title: Text("Patient's Certification"),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => model.goToAddCertificate(patient),
-            label: Text('Add Dental Certificate')),
+        // floatingActionButton: FloatingActionButton.extended(
+        //     onPressed: () => model.goToAddCertificate(patient),
+        //     label: Text('Add Dental Certificate')),
         body: ListView(
           padding: EdgeInsets.all(8),
           children: [

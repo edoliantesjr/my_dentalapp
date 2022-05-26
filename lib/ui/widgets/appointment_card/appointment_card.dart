@@ -335,7 +335,9 @@ class InfoWidget extends StatelessWidget {
                 style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
               ),
               InkWell(
-                onTap: () => this.onPatientTap(),
+                onTap: () {
+
+                },
                 child: Text(
                   patient,
                   style: TextStyle(

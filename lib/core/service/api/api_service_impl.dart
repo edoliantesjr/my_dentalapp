@@ -11,6 +11,7 @@ import 'package:dentalapp/models/dental_notes/dental_notes.dart';
 import 'package:dentalapp/models/expense/expense.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
+import 'package:dentalapp/models/notification_token/notification_model.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/prescription/prescription.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
@@ -20,6 +21,7 @@ import 'package:dentalapp/models/upload_results/image_upload_result.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../app/app.locator.dart';
@@ -30,18 +32,21 @@ class ApiServiceImpl extends ApiService {
   final connectivityService = locator<ConnectivityService>();
 
   final appointmentReference =
-      FirebaseFirestore.instance.collection('appointments');
+  FirebaseFirestore.instance.collection('appointments');
 
   final patientReference = FirebaseFirestore.instance.collection('patients');
 
   final medicineReference = FirebaseFirestore.instance.collection('medicines');
 
   final procedureReference =
-      FirebaseFirestore.instance.collection('procedures');
+  FirebaseFirestore.instance.collection('procedures');
 
   final paymentReference = FirebaseFirestore.instance.collection('payments');
 
   final expenseReference = FirebaseFirestore.instance.collection('expenses');
+
+  final notificationTokens =
+      FirebaseFirestore.instance.collection('notificationTokens');
 
   @override
   User? get currentFirebaseUser => FirebaseAuth.instance.currentUser;
@@ -112,7 +117,7 @@ class ApiServiceImpl extends ApiService {
     try {
       final patientProfileImage = await FirebaseStorage.instance
           .ref('patients/$patientId'
-              '/profile-image/profile.jpg')
+          '/profile-image/profile.jpg')
           .putFile(imageToUpload);
 
       final imageUrl = await patientProfileImage.ref.getDownloadURL();
@@ -136,7 +141,8 @@ class ApiServiceImpl extends ApiService {
     return patientReference
         .orderBy('dateCreated', descending: true)
         .snapshots()
-        .map((value) => value.docs
+        .map((value) =>
+        value.docs
             .map((patient) => Patient.fromJson(patient.data()))
             .toList());
   }
@@ -146,7 +152,8 @@ class ApiServiceImpl extends ApiService {
     return await patientReference
         .where("searchIndex", arrayContains: query)
         .get()
-        .then((value) => value.docs
+        .then((value) =>
+        value.docs
             .map((patient) => Patient.fromJson(patient.data()))
             .toList());
   }
@@ -172,7 +179,8 @@ class ApiServiceImpl extends ApiService {
     return medicineReference
         .orderBy('dateCreated', descending: true)
         .snapshots()
-        .map((value) => value.docs
+        .map((value) =>
+        value.docs
             .map((medicine) => Medicine.fromJson(medicine.data()))
             .toList());
   }
@@ -182,7 +190,8 @@ class ApiServiceImpl extends ApiService {
     return procedureReference
         .orderBy('dateCreated', descending: true)
         .snapshots()
-        .map((value) => value.docs
+        .map((value) =>
+        value.docs
             .map((procedure) => Procedure.fromJson(procedure.data()))
             .toList());
   }
@@ -192,10 +201,11 @@ class ApiServiceImpl extends ApiService {
     return await medicineReference
         .where('medicineName', isGreaterThanOrEqualTo: query.toTitleCase())
         .where('medicineName',
-            isLessThanOrEqualTo: query.toTitleCase() + '\uf8ff')
+        isLessThanOrEqualTo: query.toTitleCase() + '\uf8ff')
         .orderBy('medicineName', descending: true)
         .get()
-        .then((value) => value.docs
+        .then((value) =>
+        value.docs
             .map((medicine) => Medicine.fromJson(medicine.data()))
             .toList());
   }
@@ -205,10 +215,11 @@ class ApiServiceImpl extends ApiService {
     return await procedureReference
         .where('procedureName', isGreaterThanOrEqualTo: query.toTitleCase())
         .where('procedureName',
-            isLessThanOrEqualTo: query.toTitleCase() + '\uf8ff')
+        isLessThanOrEqualTo: query.toTitleCase() + '\uf8ff')
         .orderBy('procedureName', descending: true)
         .get()
-        .then((value) => value.docs
+        .then((value) =>
+        value.docs
             .map((procedure) => Procedure.fromJson(procedure.data()))
             .toList());
   }
@@ -228,7 +239,7 @@ class ApiServiceImpl extends ApiService {
       {required File imageToUpload, required String genericName}) async {
     try {
       final profileImageRef =
-          await FirebaseStorage.instance.ref('medicines/').child(genericName);
+      await FirebaseStorage.instance.ref('medicines/').child(genericName);
       final uploadTask = profileImageRef.putFile(imageToUpload);
       await uploadTask;
       final imageUrl = await uploadTask.snapshot.ref.getDownloadURL();
@@ -247,7 +258,8 @@ class ApiServiceImpl extends ApiService {
           .where('position', isNotEqualTo: 'Staff')
           .orderBy('position', descending: true)
           .get()
-          .then((value) => value.docs
+          .then((value) =>
+          value.docs
               .map((patient) => UserModel.fromJson(patient.data()))
               .toList());
     } else {
@@ -255,7 +267,8 @@ class ApiServiceImpl extends ApiService {
           .where('position', isNotEqualTo: 'Staff')
           .orderBy('position', descending: true)
           .get()
-          .then((value) => value.docs
+          .then((value) =>
+          value.docs
               .map((patient) => UserModel.fromJson(patient.data()))
               .toList());
     }
@@ -264,12 +277,13 @@ class ApiServiceImpl extends ApiService {
   @override
   Stream<List<AppointmentModel>> getAppointmentToday() {
     final dateToday =
-        DateFormat('yyyy-MM-dd').format(DateTime.now()).toDateTime().toString();
+    DateFormat('yyyy-MM-dd').format(DateTime.now()).toDateTime().toString();
     return appointmentReference
         .where('date', isEqualTo: dateToday)
         .orderBy('startTime', descending: false)
         .snapshots()
-        .map((event) => event.docs
+        .map((event) =>
+        event.docs
             .map((value) => AppointmentModel.fromJson(value.data()))
             .toList());
   }
@@ -302,9 +316,10 @@ class ApiServiceImpl extends ApiService {
           .orderBy('startTime', descending: false)
           .orderBy('appointment_status', descending: true)
           .get()
-          .then((value) => value.docs
+          .then((value) =>
+          value.docs
               .map((appointment) =>
-                  AppointmentModel.fromJson(appointment.data()))
+              AppointmentModel.fromJson(appointment.data()))
               .toList());
     } else {
       return await appointmentReference
@@ -312,9 +327,10 @@ class ApiServiceImpl extends ApiService {
           .orderBy('startTime', descending: false)
           .orderBy('appointment_status', descending: true)
           .get()
-          .then((value) => value.docs
+          .then((value) =>
+          value.docs
               .map((appointment) =>
-                  AppointmentModel.fromJson(appointment.data()))
+              AppointmentModel.fromJson(appointment.data()))
               .toList());
     }
   }
@@ -327,8 +343,8 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<ImageUploadResult> uploadMedicalHistoryPhoto(
       {required File imageToUpload,
-      required String patientId,
-      required String fileName}) async {
+        required String patientId,
+        required String fileName}) async {
     try {
       final profileImageRef = await FirebaseStorage.instance
           .ref('patients/${patientId}/medical-history/')
@@ -350,10 +366,9 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future<void> addToothCondition(
-      {required String toothId,
-      required dynamic patientId,
-      required ToothCondition toothCondition}) async {
+  Future<void> addToothCondition({required String toothId,
+    required dynamic patientId,
+    required ToothCondition toothCondition}) async {
     final toothDoc = await patientReference
         .doc(patientId)
         .collection('dental_conditions')
@@ -362,13 +377,12 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future<void> addToothDentalNotes(
-      {required String toothId,
-      required dynamic patientId,
-      required DentalNotes dentalNotes,
-      required dynamic procedureId}) async {
+  Future<void> addToothDentalNotes({required String toothId,
+    required dynamic patientId,
+    required DentalNotes dentalNotes,
+    required dynamic procedureId}) async {
     final toothDoc =
-        await patientReference.doc(patientId).collection('dental_notes').doc();
+    await patientReference.doc(patientId).collection('dental_notes').doc();
     return await toothDoc
         .set(dentalNotes.toJson(id: toothDoc.id, procedureId: procedureId));
   }
@@ -382,7 +396,7 @@ class ApiServiceImpl extends ApiService {
         .where('selectedTooth', isEqualTo: toothId)
         .get()
         .then((value) =>
-            value.docs.map((e) => ToothCondition.fromJson(e.data())).toList());
+        value.docs.map((e) => ToothCondition.fromJson(e.data())).toList());
   }
 
   @override
@@ -397,7 +411,7 @@ class ApiServiceImpl extends ApiService {
             .orderBy('date', descending: true)
             .get()
             .then((value) =>
-                value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+            value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
       } else {
         return await patientReference
             .doc(patientId)
@@ -407,7 +421,7 @@ class ApiServiceImpl extends ApiService {
             .orderBy('selectedTooth')
             .get()
             .then((value) =>
-                value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+            value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
       }
     } else {
       if (isPaid == null) {
@@ -417,7 +431,7 @@ class ApiServiceImpl extends ApiService {
             .where('selectedTooth', isEqualTo: toothId)
             .get()
             .then((value) =>
-                value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+            value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
       } else {
         return await patientReference
             .doc(patientId)
@@ -426,7 +440,7 @@ class ApiServiceImpl extends ApiService {
             .where('isPaid', isEqualTo: isPaid)
             .get()
             .then((value) =>
-                value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
+            value.docs.map((e) => DentalNotes.fromJson(e.data())).toList());
       }
     }
   }
@@ -439,12 +453,11 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future<void> updateDentalAmountField(
-      {required patientId,
-      String? toothId,
-      required dental_noteId,
-      required procedureId,
-      required String price}) async {
+  Future<void> updateDentalAmountField({required patientId,
+    String? toothId,
+    required dental_noteId,
+    required procedureId,
+    required String price}) async {
     final queryRes = await patientReference
         .doc(patientId)
         .collection('dental_notes')
@@ -464,11 +477,10 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future<void> updateDentalANotePaidStatus(
-      {required patientId,
-      String? toothId,
-      required dental_noteId,
-      required bool isPaid}) async {
+  Future<void> updateDentalANotePaidStatus({required patientId,
+    String? toothId,
+    required dental_noteId,
+    required bool isPaid}) async {
     final queryRes = await patientReference
         .doc(patientId)
         .collection('dental_notes')
@@ -507,7 +519,7 @@ class ApiServiceImpl extends ApiService {
           .where('date', isEqualTo: date)
           .get()
           .then((value) =>
-              value.docs.map((e) => Expense.fromJson(e.data())).toList());
+          value.docs.map((e) => Expense.fromJson(e.data())).toList());
     }
   }
 
@@ -517,7 +529,8 @@ class ApiServiceImpl extends ApiService {
         .where('patient.id', isEqualTo: patientId)
         .orderBy('date', descending: true)
         .get()
-        .then((value) => value.docs
+        .then((value) =>
+        value.docs
             .map((e) => AppointmentModel.fromJson(e.data()))
             .toList());
   }
@@ -529,13 +542,12 @@ class ApiServiceImpl extends ApiService {
         .orderBy("paymentDate", descending: true)
         .get()
         .then((value) =>
-            value.docs.map((e) => Payment.fromJson(e.data())).toList());
+        value.docs.map((e) => Payment.fromJson(e.data())).toList());
   }
 
   @override
-  Future<QueryResult> updateAppointmentStatus(
-      {required dynamic appointmentId,
-      required String appointmentStatus}) async {
+  Future<QueryResult> updateAppointmentStatus({required dynamic appointmentId,
+    required String appointmentStatus}) async {
     try {
       if (await connectivityService.checkConnectivity()) {
         final queryRes = await appointmentReference
@@ -553,7 +565,8 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<List<Payment>> getAllPayments() async {
     return await paymentReference.get().then(
-        (value) => value.docs.map((e) => Payment.fromJson(e.data())).toList());
+            (value) =>
+            value.docs.map((e) => Payment.fromJson(e.data())).toList());
   }
 
   @override
@@ -597,13 +610,13 @@ class ApiServiceImpl extends ApiService {
         .orderBy('date', descending: true)
         .get()
         .then((value) =>
-            value.docs.map((e) => Prescription.fromJson(e.data())).toList());
+        value.docs.map((e) => Prescription.fromJson(e.data())).toList());
   }
 
   @override
   Future<QueryResult> addDentalCertificate(
       {required DentalCertificate dentalCertificate,
-      required Patient patient}) async {
+        required Patient patient}) async {
     if (await connectivityService.checkConnectivity()) {
       final certDoc = await patientReference
           .doc(patient.id)
@@ -633,7 +646,8 @@ class ApiServiceImpl extends ApiService {
         .collection('dental_certificate')
         .orderBy('date', descending: true)
         .get()
-        .then((value) => value.docs
+        .then((value) =>
+        value.docs
             .map((e) => DentalCertificate.fromJson(e.data()))
             .toList());
   }
@@ -663,13 +677,74 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
+  Future<int> getAllPatientCount() {
+    // TODO: implement getAllPatientCount
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> saveUserFcmToken(NotificationToken notificationToken) async {
+    notificationTokens
+        .doc(notificationToken.uid)
+        .set(notificationToken.toJson());
+    debugPrint('Notification Token added: ${notificationToken.tokenId}');
+  }
+
+  @override
+  Future<QueryResult> updateUserStatus(
+      {required String userId, required String status}) async {
+    if (await connectivityService.checkConnectivity()) {
+      await userReference.doc(userId).update({'active_status': status});
+      return QueryResult.success();
+    } else {
+      return QueryResult.error(
+          'Unable To Update Status. No Internet Connection.');
+    }
+  }
+
+  @override
+  Future<QueryResult> updateUserInfo({required UserModel user}) async {
+    if (await connectivityService.checkConnectivity()) {
+      await userReference.doc(user.userId).set(user.toJson());
+      return QueryResult.success();
+    } else {
+      return QueryResult.error(
+          'Unable To Update Status. No Internet Connection.');
+    }
+  }
+
+  @override
+  Future<QueryResult> updatePatientPhoto(
+      {required String image, required String patientID}) async {
+    if (await connectivityService.checkConnectivity()) {
+      await patientReference.doc(patientID).update({'image': image});
+      return QueryResult.success();
+    } else {
+      return QueryResult.error(
+          'Unable To Update Image. No Internet Connection.');
+    }
+  }
+
+  @override
+  Future<QueryResult> updateUserPhoto(
+      {required String image, required String userId}) async {
+    if (await connectivityService.checkConnectivity()) {
+      await userReference.doc(userId).update({'image': image});
+      return QueryResult.success();
+    } else {
+      return QueryResult.error(
+          'Unable To Update Image. No Internet Connection.');
+    }
+  }
+
+  @override
   Future<bool> checkPatientStatus() async {
     final patientDoc =
-        await patientReference.doc(currentFirebaseUser!.uid).get();
+    await patientReference.doc(currentFirebaseUser!.uid).get();
     if (!patientDoc.exists) {
       return false;
     } else {
-      return true;
+return true;
     }
   }
 }

@@ -135,16 +135,6 @@ class AppointmentViewModel extends BaseViewModel {
   }
 
   Future<void> deleteAppointment(int index) async {
-    dialogService.showConfirmDialog(
-        title: 'Delete  appointment',
-        middleText:
-            'This action will delete the appointment permanently. Continue this action?',
-        onCancel: () => navigationService.pop(),
-        onContinue: () async {
-          await apiService.deleteAppointment(
-              appointmentId: appointmentList[index].appointment_id!);
-          navigationService.pop();
-          toastService.showToast(message: 'Appointment deleted');
-        });
+   toastService.showToast(message: 'Action Not Permitted');
   }
 }

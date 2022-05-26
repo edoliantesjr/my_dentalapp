@@ -40,11 +40,11 @@ class AppointmentView extends StatelessWidget {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniEndFloat,
-          floatingActionButton: FloatingActionButton.extended(
-            heroTag: null,
-            onPressed: model.goToSelectPatient,
-            label: Text('Add Appointment'),
-          ),
+          // floatingActionButton: FloatingActionButton.extended(
+          //   heroTag: null,
+          //   onPressed: model.goToSelectPatient,
+          //   label: Text('Add Appointment'),
+          // ),
           body: Container(
             color: Colors.grey.shade50,
             child: ListView(
@@ -224,7 +224,8 @@ class AppointmentView extends StatelessWidget {
                   appointmentDate: DateFormat.yMMMd()
                       .format(appointmentList[i].date.toDateTime()!),
                   time:
-                      '${appointmentList[i].startTime.toDateTime()!.toTime()}-${appointmentList[i].endTime.toDateTime()!.toTime()}',
+                      '${appointmentList[i].startTime.toDateTime()!.toTime()}-'
+                          '${appointmentList[i].endTime.toDateTime()!.toTime()}',
                   appointmentStatus: getAppointmentStatus(
                       appointmentList[i].appointment_status),
                   appointmentId: appointmentList[i].appointment_id,
