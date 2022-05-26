@@ -57,6 +57,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942354119380:android:9714973cf4479c25a15941",
+        "android_client_info": {
+          "package_name": "com.maglinte.patient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "942354119380-kbukg5661e0brevfa4a5fshenvn6j7mc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeC8ujzGk0My38f14A0M6cRCeHvOZGQzM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "942354119380-kbukg5661e0brevfa4a5fshenvn6j7mc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
