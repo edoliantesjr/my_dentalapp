@@ -16,7 +16,7 @@ class PatientDrawerViewModel extends BaseViewModel {
   }
 
   void goToClinicPersonnel() {
-    //
+    navigationService.pushNamed(Routes.ViewClinicPersonnel);
   }
   void goClinicProcedures() {
     navigationService.pushNamed(Routes.ProceduresView);

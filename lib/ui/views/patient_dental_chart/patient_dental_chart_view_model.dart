@@ -5,10 +5,13 @@ import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/models/dental_notes/dental_notes.dart';
 import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../../models/patient_model/patient_model.dart';
 
 final GlobalKey<RefreshIndicatorState> refreshKey =
     new GlobalKey<RefreshIndicatorState>();
@@ -55,6 +58,7 @@ class PatientDentalChartViewModel extends BaseViewModel {
 
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
+  final toastService = locator<ToastService>();
   final dialogService = locator<DialogService>();
 
   bool isInSelectionMode = false;
@@ -177,5 +181,21 @@ class PatientDentalChartViewModel extends BaseViewModel {
   void dispose() {
     patientSub?.cancel();
     super.dispose();
+  }
+
+  void goToViewDentalNote(Patient patient) {
+    navigationService.pushNamed(Routes.ViewDentalNote,
+        arguments: ViewDentalNoteArguments(patient: patient));
+  }
+
+  void goToViewDentalNoteByTooth(Patient patient, String selectedTooth) {
+    if (hasHistory(selectedTooth)) {
+      navigationService.pushNamed(Routes.ViewDentalNoteByToothView,
+          arguments: ViewDentalNoteByToothViewArguments(
+              patient: patient, selectedTooth: selectedTooth));
+    } else {
+      toastService.showToast(
+          message: 'No Treatment Records found for this tooth');
+    }
   }
 }

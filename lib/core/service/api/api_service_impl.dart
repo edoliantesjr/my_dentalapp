@@ -747,4 +747,15 @@ class ApiServiceImpl extends ApiService {
 return true;
     }
   }
+
+  @override
+  Future<List<UserModel>> getPersonnel() {
+  return  userReference.orderBy("position").get().then((value) =>
+      value.docs.map((e) => UserModel.fromJson(e.data())).toList());
+  }
+
+  @override
+  Stream listenToUserChanges() {
+    return userReference.snapshots();
+  }
 }

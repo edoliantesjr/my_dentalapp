@@ -62,9 +62,11 @@ import 'package:dentalapp/ui/views/set_tooth_condition/set_tooth_condition_view.
 import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:dentalapp/ui/views/user_view/user_view.dart';
 import 'package:dentalapp/ui/views/verify_email/verify_email_view.dart';
+import 'package:dentalapp/ui/views/view_clinic_personnel/view_clinic_personnel_view.dart';
+import 'package:dentalapp/ui/views/view_dental_note/view_dental_note.dart';
+import 'package:dentalapp/ui/views/view_dental_notes_by_tooth/view_dental_note_by_tooth_view.dart';
 import 'package:dentalapp/ui/views/view_patient_appointment/view_patient_appointment_view.dart';
 import 'package:dentalapp/ui/views/view_patient_payments/view_patient_payment.dart';
-import 'package:dentalapp/ui/views/view_tooth_dental_notes/view_tooth_dental_note_view.dart';
 import 'package:dentalapp/ui/widgets/selection_dentist/selection_dentist.dart';
 import 'package:dentalapp/ui/widgets/selection_procedure/selection_procedure.dart';
 import 'package:dentalapp/ui/widgets/success_view/success.dart';
@@ -102,7 +104,6 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     MaterialRoute(page: SetToothConditionView, name: 'SetToothConditionView'),
     MaterialRoute(page: SetDentalNoteView, name: 'SetDentalNoteView'),
     MaterialRoute(page: AddPaymentView, name: 'AddPaymentView'),
-    MaterialRoute(page: ViewDentalNoteView, name: 'ViewDentalNoteView'),
     MaterialRoute(page: AddExpenseView, name: 'AddExpenseView'),
     MaterialRoute(page: FinanceView, name: 'FinanceView'),
     MaterialRoute(page: ViewPatientAppointment, name: 'ViewPatientAppointment'),
@@ -110,6 +111,7 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     MaterialRoute(page: AddPrescriptionView, name: 'AddPrescriptionView'),
     MaterialRoute(page: PrescriptionView, name: 'PrescriptionView'),
     MaterialRoute(page: EditPatientView, name: 'EditPatientView'),
+    MaterialRoute(page: ViewClinicPersonnel, name: 'ViewClinicPersonnel'),
     MaterialRoute(
         page: DentalCertificationView, name: 'DentalCertificationView'),
     MaterialRoute(
@@ -167,6 +169,16 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     CustomRoute(
         page: AddCertificateView,
         name: 'AddCertificateView',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: ViewDentalNote,
+        name: 'ViewDentalNote',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: ViewDentalNoteByToothView,
+        name: 'ViewDentalNoteByToothView',
         transitionsBuilder: TransitionsBuilders.slideBottom,
         durationInMilliseconds: 300),
   ],

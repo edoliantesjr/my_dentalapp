@@ -178,4 +178,8 @@ abstract class ApiService {
       {required String image, required String patientID});
 
   Future<bool> checkPatientStatus();
+
+  Stream listenToUserChanges();
+
+  Future<List<UserModel>> getPersonnel();
 }

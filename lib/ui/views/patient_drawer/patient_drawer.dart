@@ -56,6 +56,7 @@ class PatientDrawerView extends StatelessWidget {
                           DrawerItem(
                               btnText: 'View Clinic Personnel',
                               btnIcon: Icons.people_alt,
+
                               onBtnTap: () => model.goToClinicPersonnel()),
                         ],
                       ),

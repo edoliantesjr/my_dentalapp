@@ -123,7 +123,7 @@ class PatientInfoViewModel extends BaseViewModel {
     var selectedImageSource =
         await bottomSheetService.openBottomSheet(SelectionOption(
       options: ['Gallery', 'Camera'],
-      title: 'Select Image Source',
+      title: 'Select Profile Picture in',
     ));
 
     //Condition to select Image Source

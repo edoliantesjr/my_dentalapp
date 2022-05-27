@@ -54,9 +54,11 @@ import '../ui/views/set_tooth_condition/set_tooth_condition_view.dart';
 import '../ui/views/update_user_info/setup_user_view.dart';
 import '../ui/views/user_view/user_view.dart';
 import '../ui/views/verify_email/verify_email_view.dart';
+import '../ui/views/view_clinic_personnel/view_clinic_personnel_view.dart';
+import '../ui/views/view_dental_note/view_dental_note.dart';
+import '../ui/views/view_dental_notes_by_tooth/view_dental_note_by_tooth_view.dart';
 import '../ui/views/view_patient_appointment/view_patient_appointment_view.dart';
 import '../ui/views/view_patient_payments/view_patient_payment.dart';
-import '../ui/views/view_tooth_dental_notes/view_tooth_dental_note_view.dart';
 import '../ui/widgets/selection_dentist/selection_dentist.dart';
 import '../ui/widgets/selection_procedure/selection_procedure.dart';
 import '../ui/widgets/success_view/success.dart';
@@ -88,7 +90,6 @@ class Routes {
   static const String SetToothConditionView = '/set-tooth-condition-view';
   static const String SetDentalNoteView = '/set-dental-note-view';
   static const String AddPaymentView = '/add-payment-view';
-  static const String ViewDentalNoteView = '/view-dental-note-view';
   static const String AddExpenseView = '/add-expense-view';
   static const String FinanceView = '/finance-view';
   static const String ViewPatientAppointment = '/view-patient-appointment';
@@ -96,6 +97,7 @@ class Routes {
   static const String AddPrescriptionView = '/add-prescription-view';
   static const String PrescriptionView = '/prescription-view';
   static const String EditPatientView = '/edit-patient-view';
+  static const String ViewClinicPersonnel = '/view-clinic-personnel';
   static const String DentalCertificationView = '/dental-certification-view';
   static const String PaymentSelectPatientView = '/payment-select-patient-view';
   static const String SelectionDentist = '/selection-dentist';
@@ -110,6 +112,9 @@ class Routes {
   static const String AddExpenseItemView = '/add-expense-item-view';
   static const String AddPrescriptionItemView = '/add-prescription-item-view';
   static const String AddCertificateView = '/add-certificate-view';
+  static const String ViewDentalNote = '/view-dental-note';
+  static const String ViewDentalNoteByToothView =
+      '/view-dental-note-by-tooth-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -136,7 +141,6 @@ class Routes {
     SetToothConditionView,
     SetDentalNoteView,
     AddPaymentView,
-    ViewDentalNoteView,
     AddExpenseView,
     FinanceView,
     ViewPatientAppointment,
@@ -144,6 +148,7 @@ class Routes {
     AddPrescriptionView,
     PrescriptionView,
     EditPatientView,
+    ViewClinicPersonnel,
     DentalCertificationView,
     PaymentSelectPatientView,
     SelectionDentist,
@@ -157,6 +162,8 @@ class Routes {
     AddExpenseItemView,
     AddPrescriptionItemView,
     AddCertificateView,
+    ViewDentalNote,
+    ViewDentalNoteByToothView,
   };
 }
 
@@ -190,7 +197,6 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.SetToothConditionView, page: SetToothConditionView),
     RouteDef(Routes.SetDentalNoteView, page: SetDentalNoteView),
     RouteDef(Routes.AddPaymentView, page: AddPaymentView),
-    RouteDef(Routes.ViewDentalNoteView, page: ViewDentalNoteView),
     RouteDef(Routes.AddExpenseView, page: AddExpenseView),
     RouteDef(Routes.FinanceView, page: FinanceView),
     RouteDef(Routes.ViewPatientAppointment, page: ViewPatientAppointment),
@@ -198,6 +204,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.AddPrescriptionView, page: AddPrescriptionView),
     RouteDef(Routes.PrescriptionView, page: PrescriptionView),
     RouteDef(Routes.EditPatientView, page: EditPatientView),
+    RouteDef(Routes.ViewClinicPersonnel, page: ViewClinicPersonnel),
     RouteDef(Routes.DentalCertificationView, page: DentalCertificationView),
     RouteDef(Routes.PaymentSelectPatientView, page: PaymentSelectPatientView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
@@ -212,6 +219,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.AddExpenseItemView, page: AddExpenseItemView),
     RouteDef(Routes.AddPrescriptionItemView, page: AddPrescriptionItemView),
     RouteDef(Routes.AddCertificateView, page: AddCertificateView),
+    RouteDef(Routes.ViewDentalNote, page: ViewDentalNote),
+    RouteDef(Routes.ViewDentalNoteByToothView, page: ViewDentalNoteByToothView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -422,12 +431,6 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    ViewDentalNoteView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => const ViewDentalNoteView(),
-        settings: data,
-      );
-    },
     AddExpenseView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const AddExpenseView(),
@@ -487,6 +490,12 @@ class StackedRouter extends RouterBase {
           key: args.key,
           patient: args.patient,
         ),
+        settings: data,
+      );
+    },
+    ViewClinicPersonnel: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const ViewClinicPersonnel(),
         settings: data,
       );
     },
@@ -611,6 +620,33 @@ class StackedRouter extends RouterBase {
             AddCertificateView(
           key: args.key,
           patient: args.patient,
+        ),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
+    ViewDentalNote: (data) {
+      var args = data.getArgs<ViewDentalNoteArguments>(nullOk: false);
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) => ViewDentalNote(
+          key: args.key,
+          patient: args.patient,
+        ),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
+    ViewDentalNoteByToothView: (data) {
+      var args =
+          data.getArgs<ViewDentalNoteByToothViewArguments>(nullOk: false);
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            ViewDentalNoteByToothView(
+          key: args.key,
+          patient: args.patient,
+          selectedTooth: args.selectedTooth,
         ),
         settings: data,
         transitionsBuilder: TransitionsBuilders.slideBottom,
@@ -778,4 +814,20 @@ class AddCertificateViewArguments {
   final Key? key;
   final Patient patient;
   AddCertificateViewArguments({this.key, required this.patient});
+}
+
+/// ViewDentalNote arguments holder class
+class ViewDentalNoteArguments {
+  final Key? key;
+  final Patient patient;
+  ViewDentalNoteArguments({this.key, required this.patient});
+}
+
+/// ViewDentalNoteByToothView arguments holder class
+class ViewDentalNoteByToothViewArguments {
+  final Key? key;
+  final Patient patient;
+  final String selectedTooth;
+  ViewDentalNoteByToothViewArguments(
+      {this.key, required this.patient, required this.selectedTooth});
 }

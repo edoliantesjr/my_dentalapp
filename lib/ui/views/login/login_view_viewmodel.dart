@@ -39,23 +39,32 @@ class LoginViewModel extends FormViewModel {
 
       if (loginResult != null) {
         if (loginResult.success) {
-          final isAccountSetupDone = await apiService.checkUserStatus();
+          final isAccountSetupDone = await apiService.checkPatientStatus();
           sessionService.saveSession(
-              isRunFirstTime: false,
-              isLoggedIn: true,
-              isAccountSetupDone: isAccountSetupDone);
+            isRunFirstTime: false,
+            isLoggedIn: true,
+            isAccountSetupDone: isAccountSetupDone,
+          );
           logger.i('Checking User Account Details');
           if (isAccountSetupDone) {
-            navigationService.popAllAndPushNamed(Routes.MainBodyView);
+            final patient = await apiService.getPatientInfo(
+                patientId: loginResult.user!.uid);
+            navigationService.popAllAndPushNamed(Routes.PatientInfoView,
+                arguments: PatientInfoViewArguments(patient: patient));
           } else {
-            navigationService.popAllAndPushNamed(Routes.SetUpUserView);
+            sessionService.saveSession(
+              isRunFirstTime: false,
+              isLoggedIn: true,
+              isAccountSetupDone: isAccountSetupDone,
+            );
+            navigationService.popAllAndPushNamed(Routes.AddPatientView,
+                arguments:
+                    AddPatientViewArguments(userUid: loginResult.user!.uid));
           }
         } else {
           navigationService.closeOverlay();
           toastService.showToast(message: loginResult.errorMessage ?? '');
         }
-      } else {
-        setAutoValidate();
       }
     }
   }

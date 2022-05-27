@@ -50,7 +50,7 @@ class Payment {
       'patient_id': this.patient_id,
       'patient_name': this.patient_name,
       'paymentDate': this.paymentDate,
-      'remarks': this.remarks ?? '',
+      'remarks': this.remarks,
     };
   }
 

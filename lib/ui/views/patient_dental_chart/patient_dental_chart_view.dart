@@ -41,8 +41,8 @@ class PatientDentalChartView extends StatelessWidget {
             children: [
               Expanded(
                   child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text('View Dental Notes & Tooth Conditions'))),
+                      onPressed: () => model.goToViewDentalNote(patient),
+                      child: Text('View Dental Notes'))),
             ],
           ),
         ],
@@ -67,55 +67,55 @@ class PatientDentalChartView extends StatelessWidget {
                     DateFormat.yMMMd().format(patient.birthDate.toDateTime()!),
                 dateCreated: patient.dateCreated!,
               ),
-              AnimatedContainer(
-                height: model.isInSelectionMode ? 45 : 0,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                ),
-                duration: Duration(milliseconds: 200),
-                curve: Curves.easeIn,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SizedBox(width: 10),
-                    Center(
-                        child: RichText(
-                      text: TextSpan(
-                        text: model.selectedTooth.length.toString(),
-                        children: [
-                          TextSpan(
-                              text: ' Tooth Selected',
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.normal))
-                        ],
-                        style: TextStyles.tsHeading5(),
-                      ),
-                    )),
-                    Spacer(),
-                    TextButton.icon(
-                      onPressed: () => model.goToSetToothCondition(patient.id),
-                      icon: Icon(CupertinoIcons.add_circled),
-                      label: Text('Condition'),
-                      style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        backgroundColor: Palettes.kcNeutral1,
-                      ),
-                    ),
-                    SizedBox(width: 5),
-                    TextButton.icon(
-                      onPressed: () => model.goToSetDentalNote(patient.id),
-                      icon: Icon(CupertinoIcons.add_circled),
-                      label: Text('Dental Notes'),
-                      style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        backgroundColor: Palettes.kcBlueMain1,
-                      ),
-                    ),
-                    SizedBox(width: 5),
-                  ],
-                ),
-              ),
+              // AnimatedContainer(
+              //   height: model.isInSelectionMode ? 45 : 0,
+              //   decoration: BoxDecoration(
+              //     color: Colors.grey.shade200,
+              //   ),
+              //   duration: Duration(milliseconds: 200),
+              //   curve: Curves.easeIn,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.end,
+              //     children: [
+              //       SizedBox(width: 10),
+              //       Center(
+              //           child: RichText(
+              //         text: TextSpan(
+              //           text: model.selectedTooth.length.toString(),
+              //           children: [
+              //             TextSpan(
+              //                 text: ' Tooth Selected',
+              //                 style: TextStyle(
+              //                     fontSize: 14, fontWeight: FontWeight.normal))
+              //           ],
+              //           style: TextStyles.tsHeading5(),
+              //         ),
+              //       )),
+              //       Spacer(),
+              //       TextButton.icon(
+              //         onPressed: () => model.goToSetToothCondition(patient.id),
+              //         icon: Icon(CupertinoIcons.add_circled),
+              //         label: Text('Condition'),
+              //         style: TextButton.styleFrom(
+              //           primary: Colors.white,
+              //           backgroundColor: Palettes.kcNeutral1,
+              //         ),
+              //       ),
+              //       SizedBox(width: 5),
+              //       TextButton.icon(
+              //         onPressed: () => model.goToSetDentalNote(patient.id),
+              //         icon: Icon(CupertinoIcons.add_circled),
+              //         label: Text('Dental Notes'),
+              //         style: TextButton.styleFrom(
+              //           primary: Colors.white,
+              //           backgroundColor: Palettes.kcBlueMain1,
+              //         ),
+              //       ),
+              //       SizedBox(width: 5),
+              //     ],
+              //   ),
+              // ),
               SizedBox(height: 4),
               Padding(
                 padding: const EdgeInsets.all(5.0),
@@ -155,8 +155,8 @@ class PatientDentalChartView extends StatelessWidget {
                                       model.toothIdFromA[index].toString()),
                                   isSelected: model.isSelected(
                                       model.toothIdFromA[index].toString()),
-                                  onTap: () => model.addToSelectedTooth(
-                                      model.toothIdFromA[index].toString()),
+                                  onTap: () => model.goToViewDentalNoteByTooth(
+                                      patient, model.toothIdFromA[index]),
                                   isCenterTooth: model.checkCenterTooth1(
                                       model.toothIdFromA[index]),
                                   toothId: model.toothIdFromA[index],
@@ -179,8 +179,8 @@ class PatientDentalChartView extends StatelessWidget {
                                       model.toothIdFromT[index].toString()),
                                   hasRecord: model.hasHistory(
                                       model.toothIdFromT[index].toString()),
-                                  onTap: () => model.addToSelectedTooth(
-                                      model.toothIdFromT[index].toString()),
+                                  onTap: () => model.goToViewDentalNoteByTooth(
+                                      patient, model.toothIdFromA[index]),
                                   isUpper: false,
                                   isCenterTooth: model.checkCenterTooth1(
                                       model.toothIdFromT[index]),
@@ -220,7 +220,8 @@ class PatientDentalChartView extends StatelessWidget {
                                 mainAxisExtent: 60,
                               ),
                               itemBuilder: (context, index) => ToothWidget(
-                                onTap: () => model.addToSelectedTooth(
+                                onTap: () => model.goToViewDentalNoteByTooth(
+                                    patient,
                                     model.toothIdFrom1[index].toString()),
                                 isSelected: model.isSelected(
                                     model.toothIdFrom1[index].toString()),
@@ -257,7 +258,8 @@ class PatientDentalChartView extends StatelessWidget {
                                 mainAxisExtent: 60,
                               ),
                               itemBuilder: (context, index) => ToothWidget(
-                                onTap: () => model.addToSelectedTooth(
+                                onTap: () => model.goToViewDentalNoteByTooth(
+                                    patient,
                                     model.toothIdFrom32[index].toString()),
                                 hasRecord: model.hasHistory(
                                     model.toothIdFrom32[index].toString()),

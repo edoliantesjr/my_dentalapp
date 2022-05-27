@@ -5,7 +5,9 @@ import 'package:dentalapp/extensions/date_format_extension.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/ui/views/patient_info/patient_info_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../app/app.router.dart';
@@ -35,10 +37,33 @@ class PatientInfoView extends StatelessWidget {
                   IconButton(
                     onPressed: () => model.navigationService
                         .pushNamed(Routes.NotificationView),
-                    icon: Icon(
-                      Icons.notifications,
-                      size: 24,
-                      color: Colors.white,
+                    icon: Stack(
+                      children: [
+                        Icon(
+                          Icons.notifications,
+                          size: 28,
+                          color: Colors.white,
+                        ),
+                        Positioned(
+                            top: 0,
+                            right: 0,
+                            child: Container(
+                              height: 18.sp,
+                              width: 18.sp,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.redAccent),
+                              child: Text(
+                                '5+',
+                                style: GoogleFonts.roboto(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ))
+                      ],
                     ),
                   ),
                   SizedBox(width: 20),
@@ -108,14 +133,15 @@ class PatientInfoView extends StatelessWidget {
                                   ),
                                   Positioned(
                                       right: 20,
-                                      bottom: 0,
+                                      bottom: 3,
                                       child: Container(
                                         height: 40,
                                         width: 40,
                                         decoration: BoxDecoration(
-                                          color: Colors.grey.shade300,
+                                          color: Colors.grey.shade200,
                                           border: Border.all(
-                                              color: Colors.grey, width: 1),
+                                              color: Colors.grey.shade300,
+                                              width: 1),
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
@@ -159,8 +185,8 @@ class PatientInfoView extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: ElevatedButton.icon(
-                                  onPressed: () => model
-                                      .goToUpdatePatient(patient: model.patient!),
+                                  onPressed: () => model.goToUpdatePatient(
+                                      patient: model.patient!),
                                   label: Text(
                                     'Edit your patient info',
                                     style:

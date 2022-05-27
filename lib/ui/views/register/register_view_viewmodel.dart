@@ -11,6 +11,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../core/service/connectivity/connectivity_service.dart';
 import 'register_view.form.dart';
 
 class RegisterViewModel extends FormViewModel {
@@ -22,6 +23,7 @@ class RegisterViewModel extends FormViewModel {
   final validatorService = locator<ValidatorService>();
   final log = getLogger('RegisterViewModel');
   final sessionService = locator<SessionService>();
+  final connectivityService = locator<ConnectivityService>();
 
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
   bool isObscure = false;
@@ -34,19 +36,35 @@ class RegisterViewModel extends FormViewModel {
 
   void registerAccount() async {
     if (emailValue != null && passwordValue != null) {
-      dialogService.showDefaultLoadingDialog();
-      final authResponse = await firebaseAuthService.signUpWithEmail(
-          email: emailValue!, password: passwordValue!);
-      if (authResponse.success) {
-        navigationService.closeOverlay();
-        firebaseAuthService.sendEmailVerification();
-        sessionService.saveSession(
-            isRunFirstTime: false, isLoggedIn: true, isAccountSetupDone: false);
-        navigationService.pushReplacementNamed(Routes.SetUpUserView);
-      } else {
-        Get.back(canPop: false);
+      try {
+        if (await connectivityService.checkConnectivity()) {
+          dialogService.showDefaultLoadingDialog();
+          final authResponse = await firebaseAuthService.signUpWithEmail(
+              email: emailValue!, password: passwordValue!);
+          if (authResponse.success) {
+            navigationService.closeOverlay();
+            firebaseAuthService.sendEmailVerification();
+            sessionService.saveSession(
+                isRunFirstTime: false,
+                isLoggedIn: true,
+                isAccountSetupDone: false);
+            navigationService.pushReplacementNamed(Routes.AddPatientView,
+                arguments:
+                    AddPatientViewArguments(userUid: authResponse.user?.uid));
+          } else {
+            Get.back(canPop: false);
+            snackBarService.showSnackBar(
+                title: 'Error', message: authResponse.errorMessage!);
+          }
+        } else {
+          Get.back(canPop: false);
+          snackBarService.showSnackBar(
+              title: 'Network Error',
+              message: 'Check your network and try again!');
+        }
+      } catch (e) {
         snackBarService.showSnackBar(
-            title: 'Error', message: authResponse.errorMessage!);
+            title: 'Error', message: 'Something Went Wrong. Try Again Later');
       }
     }
   }

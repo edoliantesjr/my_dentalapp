@@ -41,7 +41,7 @@
             android:value="2" />
        <provider
                android:name="androidx.core.content.FileProvider"
-               android:authorities="com.example.open_document_example.fileprovider"
+               android:authorities="com.ex.open_document_ex.fileprovider"
                android:exported="false"
                android:grantUriPermissions="true">
            <meta-data

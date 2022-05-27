@@ -144,6 +144,7 @@ class SetupUserViewModel extends BaseViewModel {
           gender: gender,
           dateOfBirth: dateOfBirth,
           active_status: 'active',
+          phoneNum: '',
         );
         await apiService.createUser(userProfile);
         navigationService.closeOverlay();
