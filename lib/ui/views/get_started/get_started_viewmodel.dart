@@ -41,6 +41,20 @@ class GetStartedViewModel extends BaseViewModel {
   }
 
   void goToLoginView() {
+    if (index <= 1) {
+      pageController.nextPage(
+          duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+      index++;
+      notifyListeners();
+    } else {
+      log.i('root route is now login');
+      sessionService.saveSession(
+          isRunFirstTime: false, isLoggedIn: false, isAccountSetupDone: false);
+      navigationService.pushReplacementNamed(Routes.Login);
+    }
+  }
+
+  void skip() {
     log.i('root route is now login');
     sessionService.saveSession(
         isRunFirstTime: false, isLoggedIn: false, isAccountSetupDone: false);

@@ -28,7 +28,7 @@ class GetStartedView extends StatelessWidget {
                   Container(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                      onPressed: () => model.goToLoginView(),
+                      onPressed: () => model.skip(),
                       child: Text('Skip'),
                       style: TextButton.styleFrom(primary: Colors.white),
                     ),
