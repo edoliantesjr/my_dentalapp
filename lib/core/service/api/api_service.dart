@@ -6,7 +6,7 @@ import 'package:dentalapp/models/dental_notes/dental_notes.dart';
 import 'package:dentalapp/models/expense/expense.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
-import 'package:dentalapp/models/notification_token/notification_model.dart';
+import 'package:dentalapp/models/notification_token/notification_token_model.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/prescription/prescription.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
