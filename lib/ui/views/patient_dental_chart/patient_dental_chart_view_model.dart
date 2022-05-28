@@ -10,6 +10,8 @@ import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../models/patient_model/patient_model.dart';
+
 final GlobalKey<RefreshIndicatorState> refreshKey =
     new GlobalKey<RefreshIndicatorState>();
 
@@ -101,6 +103,13 @@ class PatientDentalChartViewModel extends BaseViewModel {
     }
   }
 
+  void viewDentalNoteById(
+      {required Patient patient, required String selectedTooth}) {
+    navigationService.pushNamed(Routes.ViewDentalNoteByToothView,
+        arguments: ViewDentalNoteByToothViewArguments(
+            patient: patient, selectedTooth: selectedTooth));
+  }
+
   Future<void> getToothWithDentalCondition(
       {required String patientId, String? toothId}) async {
     var toothConditionList = await apiService.getDentalConditionList(
@@ -136,8 +145,7 @@ class PatientDentalChartViewModel extends BaseViewModel {
   }
 
   Future<void> init(String patientId) async {
-    dialogService.showDefaultLoadingDialog(
-        willPop: false, barrierDismissible: false);
+    dialogService.showDefaultLoadingDialog();
     await getDentalNotes(patientId: patientId);
     await getToothWithDentalCondition(patientId: patientId);
     navigationService.pop();

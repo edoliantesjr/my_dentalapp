@@ -12,6 +12,7 @@ import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/extensions/date_format_extension.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
+import 'package:dentalapp/models/notification/notification_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:dentalapp/ui/widgets/selection_date/selection_date.dart';
@@ -40,7 +41,9 @@ class CreateAppointmentViewModel extends BaseViewModel {
   AppointmentModel? latestAppointment;
 
   Future<void> setAppointment(
-      {required AppointmentModel appointment, required int popTime}) async {
+      {required AppointmentModel appointment,
+      required int popTime,
+      required String patientId}) async {
     try {
       if (selectedStartTime!.isAfter(selectedEndTime!)) {
         snackBarService.showSnackBar(
@@ -55,7 +58,19 @@ class CreateAppointmentViewModel extends BaseViewModel {
       if (selectedStartTime!.isBefore(selectedEndTime!)) {
         dialogService.showDefaultLoadingDialog(
             willPop: false, barrierDismissible: false);
-        await apiService.createAppointment(appointment);
+        final appointmentId = await apiService.createAppointment(appointment);
+        final notification = NotificationModel(
+          user_id: patientId,
+          notification_title: 'New Appointment',
+          notification_msg: 'You have new appointment '
+              'with Doctor ${appointment.dentist}'
+              ' on '
+              '${DateFormat.yMMMd().add_jm().format(appointment.date.toDateTime()!)} ',
+          notification_type: 'appointment',
+          isRead: false,
+        );
+        await apiService.saveNotification(
+            notification: notification, typeId: appointmentId);
         navigationService.popRepeated(popTime);
         toastService.showToast(message: 'Appointment added');
       }

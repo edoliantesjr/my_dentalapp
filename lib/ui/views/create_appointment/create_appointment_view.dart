@@ -89,6 +89,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                           AppointmentStatus.Pending.name,
                                     ),
                                     popTime: widget.popTimes,
+                                    patientId: widget.patient.id,
                                   );
                                 } else {
                                   model.snackBarService.showSnackBar(

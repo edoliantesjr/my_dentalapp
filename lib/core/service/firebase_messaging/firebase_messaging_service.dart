@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../models/notification_token/notification_model.dart';
+import '../../../models/notification_token/notification_token_model.dart';
 
 class FirebaseMessagingService {
   Future<void> sendTopicNotification({

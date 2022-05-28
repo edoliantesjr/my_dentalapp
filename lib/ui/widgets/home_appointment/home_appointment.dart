@@ -19,13 +19,11 @@ import '../../../core/service/navigation/navigation_service.dart';
 class HomeAppointment extends StatelessWidget {
   final List<AppointmentModel> myAppointments;
   final bool isBusy;
-  final Function(int index) deleteItem;
   final NavigationService navigationService;
   const HomeAppointment(
       {Key? key,
       required this.myAppointments,
       required this.isBusy,
-      required this.deleteItem,
       required this.navigationService})
       : super(key: key);
 
@@ -115,12 +113,11 @@ class HomeAppointment extends StatelessWidget {
                                 Routes.PatientInfoView,
                                 arguments: PatientInfoViewArguments(
                                     patient: myAppointments[i].patient)),
-                            onDelete: () => this.deleteItem(i),
                             imageUrl: myAppointments[i].patient.image,
                             serviceTitle:
                                 myAppointments[i].procedures![0].procedureName,
                             doctor: myAppointments[i].dentist,
-                            patient: myAppointments[i].patient.fullName,
+                            patient: myAppointments[i].patient,
                             appointmentDate: DateFormat.yMMMd()
                                 .format(myAppointments[i].date.toDateTime()!),
                             time:
@@ -136,14 +133,6 @@ class HomeAppointment extends StatelessWidget {
                   ),
                 ),
           SizedBox(height: 10),
-          // Visibility(
-          //   visible: !isBusy,
-          //   child: Center(
-          //       child: Text(
-          //     'Show more',
-          //     style: TextStyles.tsButton2(color: Palettes.kcBlueMain2),
-          //   )),
-          // ),
         ],
       ),
     );

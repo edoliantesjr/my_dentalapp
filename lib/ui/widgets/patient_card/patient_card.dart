@@ -55,12 +55,12 @@ class PatientCard extends StatelessWidget {
                       blurRadius: 1.5,
                       offset: Offset(0, 2)),
                 ]),
-            child: ClipRRect(
+            child:  ClipRRect(
               borderRadius: BorderRadius.circular(120),
               child: CachedNetworkImage(
                   imageUrl: image,
                   fit: BoxFit.cover,
-                  filterQuality: FilterQuality.high,
+                  filterQuality:  FilterQuality.high,
                   progressIndicatorBuilder: (context, url, progress) =>
                       CircularProgressIndicator(
                         value: progress.progress,

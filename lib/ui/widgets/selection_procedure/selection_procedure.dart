@@ -36,7 +36,7 @@ class SelectionProcedure extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   TextField(
-                    // onChanged: (value) => model.searchPatient(value),
+                    onChanged: (value) => model.searchProcedure(value),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(100),
@@ -132,7 +132,8 @@ class SelectionProcedure extends StatelessWidget {
                 returnValue: Procedure(
                     id: procedureList[index].id,
                     procedureName: procedureList[index].procedureName,
-                    price: procedureList[index].price),
+                    price: procedureList[index].price,
+                    searchIndex: []),
               ),
               id: procedureList[index].id ?? '',
               procedureName: procedureList[index].procedureName,

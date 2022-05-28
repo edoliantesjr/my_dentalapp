@@ -5,22 +5,29 @@ class Procedure extends Equatable {
   String? id;
   String procedureName;
   String? price;
+  List<dynamic> searchIndex;
   dynamic dateCreated;
 
   Procedure(
-      {this.id, required this.procedureName, this.price, this.dateCreated});
+      {this.id,
+      required this.procedureName,
+      required this.searchIndex,
+      this.price,
+      this.dateCreated});
 
   Map<String, dynamic> toJson({String? id, required dynamic dateCreated}) {
     return {
       'id': id,
       'procedureName': this.procedureName,
       'price': this.price,
-      'dateCreated': dateCreated
+      'dateCreated': dateCreated,
+      'searchIndex': this.searchIndex,
     };
   }
 
   factory Procedure.fromJson(Map<String, dynamic> map) {
     return Procedure(
+        searchIndex: map["searchIndex"] as List<dynamic>,
         id: map['id'] as String,
         procedureName: map['procedureName'] as String,
         price: (map['price']) != null ? map['price'] : '',

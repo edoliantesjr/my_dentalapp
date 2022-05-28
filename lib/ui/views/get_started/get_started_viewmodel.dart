@@ -19,7 +19,7 @@ class GetStartedViewModel extends BaseViewModel {
       title: 'Easy Appointment',
       image: 'assets/images/appointment.png',
       description:
-          "Cagape Dental App let's you set appointments fast and easy!",
+          "Maglinte Dental App let's you set appointments fast and easy!",
     ),
     GetStartedModel(
       title: 'Track Records',
@@ -31,7 +31,8 @@ class GetStartedViewModel extends BaseViewModel {
       title: 'Sales Management',
       image: 'assets/images/appointment.png',
       description:
-          "Cagape Dental App Let's you manage the clinic's sales and reports!",
+          "Maglinte Let's you view your treatment records, payments records, and"
+          "dental certificates records easily.!",
     ),
   ];
   void indexChange(index) {
@@ -51,5 +52,12 @@ class GetStartedViewModel extends BaseViewModel {
           isRunFirstTime: false, isLoggedIn: false, isAccountSetupDone: false);
       navigationService.pushReplacementNamed(Routes.Login);
     }
+  }
+
+  void skip() {
+    log.i('root route is now login');
+    sessionService.saveSession(
+        isRunFirstTime: false, isLoggedIn: false, isAccountSetupDone: false);
+    navigationService.pushReplacementNamed(Routes.Login);
   }
 }

@@ -11,7 +11,8 @@ import 'package:dentalapp/models/dental_notes/dental_notes.dart';
 import 'package:dentalapp/models/expense/expense.dart';
 import 'package:dentalapp/models/medical_history/medical_history.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
-import 'package:dentalapp/models/notification_token/notification_model.dart';
+import 'package:dentalapp/models/notification/notification_model.dart';
+import 'package:dentalapp/models/notification_token/notification_token_model.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/prescription/prescription.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
@@ -45,8 +46,11 @@ class ApiServiceImpl extends ApiService {
 
   final expenseReference = FirebaseFirestore.instance.collection('expenses');
 
-  final notificationTokens =
+  final notificationTokensRef =
       FirebaseFirestore.instance.collection('notificationTokens');
+
+  final notificationReference =
+      FirebaseFirestore.instance.collection('notifications');
 
   @override
   User? get currentFirebaseUser => FirebaseAuth.instance.currentUser;
@@ -204,10 +208,7 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<List<Procedure>> searchProcedure(String query) async {
     return await procedureReference
-        .where('procedureName', isGreaterThanOrEqualTo: query.toTitleCase())
-        .where('procedureName',
-            isLessThanOrEqualTo: query.toTitleCase() + '\uf8ff')
-        .orderBy('procedureName', descending: true)
+        .where("searchIndex", arrayContains: query)
         .get()
         .then((value) => value.docs
             .map((procedure) => Procedure.fromJson(procedure.data()))
@@ -215,13 +216,14 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
-  Future<void> createAppointment(AppointmentModel appointment) async {
+  Future<String> createAppointment(AppointmentModel appointment) async {
     final appointmentRef = await appointmentReference.doc();
 
-    return await appointmentRef.set(appointment.toJson(
+    await appointmentRef.set(appointment.toJson(
         patientId: appointment.patient.id,
         appointment_id: appointmentRef.id,
         dateCreated: FieldValue.serverTimestamp()));
+    return appointmentRef.id;
   }
 
   @override
@@ -672,7 +674,7 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future<void> saveUserFcmToken(NotificationToken notificationToken) async {
-    notificationTokens
+    notificationTokensRef
         .doc(notificationToken.uid)
         .set(notificationToken.toJson());
     debugPrint('Notification Token added: ${notificationToken.tokenId}');
@@ -723,5 +725,48 @@ class ApiServiceImpl extends ApiService {
       return QueryResult.error(
           'Unable To Update Image. No Internet Connection.');
     }
+  }
+
+  @override
+  Future<void> saveNotification(
+      {required NotificationModel notification, required String typeId}) async {
+    final notDoc = await notificationReference.doc();
+
+    await notDoc.set(
+      notification.toJson(id: typeId, timestamp: DateTime.now()),
+    );
+
+    debugPrint('notification sent');
+  }
+
+  @override
+  Future<void> deleteNotification({required String notificationId}) {
+    return notificationReference.doc(notificationId).delete();
+  }
+
+  @override
+  Future<void> markReadNotification({required String notificationId}) async {
+    return await notificationReference
+        .doc(notificationId)
+        .update({'isRead': true});
+  }
+
+  @override
+  Future<List<NotificationModel>> getNotification(
+      {required String userId}) async {
+    return notificationReference
+        .where('user_id', isEqualTo: userId)
+        .orderBy('dateCreated', descending: true)
+        .get()
+        .then((value) => value.docs
+            .map((e) => NotificationModel.fromMap(e.data()))
+            .toList());
+  }
+
+  @override
+  Stream listenToNotificationChanges({required String userId}) {
+    return notificationReference
+        .where("user_id", isEqualTo: userId)
+        .snapshots();
   }
 }

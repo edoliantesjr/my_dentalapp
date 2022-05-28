@@ -124,7 +124,7 @@ class DialogServiceImpl extends DialogService {
               borderRadius: BorderRadius.circular(10),
             ),
             padding: EdgeInsets.all(8.sp),
-            height: 280.sp,
+            height: 260.sp,
             width: 250.sp,
             child: Material(
               child: Column(
@@ -141,7 +141,7 @@ class DialogServiceImpl extends DialogService {
                             title,
                             style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 18,
+                                fontSize: 17,
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 18),
@@ -150,7 +150,7 @@ class DialogServiceImpl extends DialogService {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.grey.shade900,
-                              fontSize: 14,
+                              fontSize: 13,
                             ),
                           ),
                         ],

@@ -4,6 +4,7 @@ import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
+import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/dental_notes/dental_notes.dart';
 import 'package:dentalapp/models/payment/payment.dart';
 import 'package:dentalapp/ui/widgets/select_payment_type/select_payment_type.dart';
@@ -15,6 +16,7 @@ import 'package:stacked/stacked.dart';
 import '../../../app/app.router.dart';
 import '../../../main.dart';
 import '../../../models/medicine/medicine.dart';
+import '../../../models/notification/notification_model.dart';
 import '../../../models/user_model/user_model.dart';
 import '../../widgets/selection_date/selection_date.dart';
 
@@ -195,7 +197,16 @@ class AddPaymentViewModel extends BaseViewModel {
                   paymentId: paymentQueryRes.returnValue);
               navigationService.popUntilFirstAndPushNamed(Routes.ReceiptView,
                   arguments: ReceiptViewArguments(payment: paymentRec));
-
+              final notification = NotificationModel(
+                user_id: patientId,
+                notification_title:
+                    'Payment Record ${paymentRec.totalAmount.toCurrency}',
+                notification_msg: 'You have payment record saved on'
+                    ' ${DateFormat.yMMMd().add_jm().format(paymentRec.paymentDate.toDateTime()!)}',
+                notification_type: 'payment',
+                isRead: false,
+              );
+              await apiService.saveNotification(notification: notification,typeId: paymentRec.payment_id??'paymentId');
               snackBarService.showSnackBar(
                   message: paymentQueryRes.errorMessage ?? 'Payment Saved',
                   title: 'SUCCESS!');

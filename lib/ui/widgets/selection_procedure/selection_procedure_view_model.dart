@@ -10,7 +10,8 @@ class SelectionProcedureViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
 
-  List<Procedure>? procedureList;
+  List<Procedure> procedureList = [];
+  List<Procedure> tempProcedure = [];
   StreamSubscription? procedureStreamSub;
 
   @override
@@ -24,12 +25,30 @@ class SelectionProcedureViewModel extends BaseViewModel {
     apiService.getProcedureList().listen((event) {
       procedureStreamSub?.cancel();
       procedureStreamSub = apiService.getProcedureList().listen((event) async {
-        procedureList = await event;
+        tempProcedure.clear();
+        tempProcedure.addAll(event);
+        procedureList.clear();
+        procedureList.addAll(event);
         notifyListeners();
       });
     });
     await Future.delayed(Duration(milliseconds: 500));
     setBusy(false);
+  }
+
+  Future<void> searchProcedure(String query) async {
+    if (query.trimLeft().trimRight() != "") {
+      final procedure = await apiService.searchProcedure(query);
+      if (procedure != null) {
+        procedureList.clear();
+        procedureList.addAll(procedure);
+        notifyListeners();
+      }
+    } else {
+      procedureList.clear();
+      procedureList.addAll(tempProcedure);
+      notifyListeners();
+    }
   }
 
   void returnProcedure({required Procedure procedure}) {

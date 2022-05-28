@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
+import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +16,8 @@ import '../../../core/service/connectivity/connectivity_service.dart';
 import '../../../core/service/dialog/dialog_service.dart';
 import '../../../core/service/navigation/navigation_service.dart';
 import '../../../core/service/snack_bar/snack_bar_service.dart';
+import '../../../models/notification/notification_model.dart';
+import '../../../models/patient_model/patient_model.dart';
 import '../selection_list/selection_option.dart';
 
 class AppointmentCard extends StatefulWidget {
@@ -22,13 +25,12 @@ class AppointmentCard extends StatefulWidget {
   final String appointmentDate;
   final dynamic appointmentId;
   final String doctor;
-  final String patient;
+  final Patient patient;
   final AppointmentStatus appointmentStatus;
   final Function onPatientTap;
   final String serviceTitle;
   final String? time;
   final dynamic imageUrl;
-  final VoidCallback onDelete;
 
   const AppointmentCard({
     required this.key,
@@ -39,7 +41,6 @@ class AppointmentCard extends StatefulWidget {
     required this.patient,
     required this.appointmentStatus,
     required this.serviceTitle,
-    required this.onDelete,
     required this.imageUrl,
     this.time,
   }) : super(key: key);
@@ -55,6 +56,20 @@ class _AppointmentCardState extends State<AppointmentCard> {
   final dialogService = locator<DialogService>();
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
+  final toastService = locator<ToastService>();
+
+  Future<void> deleteAppointment(String appointmentId) async {
+    dialogService.showConfirmDialog(
+        title: 'Delete  appointment',
+        middleText:
+            'This action will delete the appointment permanently. Continue this action?',
+        onCancel: () => navigationService.pop(),
+        onContinue: () async {
+          await apiService.deleteAppointment(appointmentId: appointmentId);
+          navigationService.pop();
+          toastService.showToast(message: 'Appointment deleted');
+        });
+  }
 
   Future<void> updateAppointmentStatus(String appointmentId) async {
     final appointmentStatus =
@@ -75,6 +90,16 @@ class _AppointmentCardState extends State<AppointmentCard> {
         await apiService.updateAppointmentStatus(
             appointmentId: appointmentId, appointmentStatus: appointmentStatus);
         navigationService.pop();
+        final notification = NotificationModel(
+          user_id: widget.patient.id,
+          notification_title: 'Appointmet status: ${appointmentStatus}.',
+          notification_msg: 'Your Appointment on ${widget.appointmentDate}'
+              ' with ${widget.doctor} was ${appointmentStatus}',
+          notification_type: 'appointment',
+          isRead: false,
+        );
+        await apiService.saveNotification(
+            notification: notification, typeId: widget.appointmentId);
         snackBarService.showSnackBar(
             message: 'Appointment status was updated', title: 'Success!');
       } else {
@@ -96,7 +121,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
           color: Colors.transparent,
           onTap: (handler) async {
             // await handler(true);
-            this.widget.onDelete();
+            this.deleteAppointment(widget.appointmentId);
           },
           content: Container(
             height: 50,
@@ -147,7 +172,9 @@ class _AppointmentCardState extends State<AppointmentCard> {
         SwipeAction(
           widthSpace: 60,
           color: Colors.transparent,
-          onTap: (handler) {},
+          onTap: (handler) {
+            //
+          },
           content: Container(
             height: 50,
             width: 50,
@@ -194,7 +221,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
                           date: widget.appointmentDate,
                           serviceTitle: widget.serviceTitle,
                           doctor: widget.doctor,
-                          patient: widget.patient,
+                          patient: widget.patient.fullName,
                           appointmentStatus: widget.appointmentStatus,
                         )),
                       ],

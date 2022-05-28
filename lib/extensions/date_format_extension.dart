@@ -7,6 +7,8 @@ extension DateTimeExtension on DateTime {
 
   String toStringDateFormat() => DateFormat.yMMMd().format(this);
 
+  String toDateFormat() => DateFormat.yMMMd().add_jm().format(this);
+
   DateTime? toDateMonthDayOnly() =>
       DateFormat('yyyy-MM-dd').format(this).toDateTime();
 

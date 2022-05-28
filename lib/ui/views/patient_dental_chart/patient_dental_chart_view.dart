@@ -41,11 +41,36 @@ class PatientDentalChartView extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: ElevatedButton(
-                      onPressed: () => model.navigationService.pushNamed(
-                          Routes.AddPaymentView,
-                          arguments: AddPaymentViewArguments(patient: patient)),
-                      child: Text('Add Payment & Billing'))),
+                child: ElevatedButton.icon(
+                  icon: Icon(
+                    Icons.history,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => model.navigationService.pushNamed(
+                      Routes.ViewDentalNote,
+                      arguments: ViewDentalNoteArguments(patient: patient)),
+                  label: Text('View Dental Notes'),
+                  style: ElevatedButton.styleFrom(
+                    textStyle: TextStyles.tsBody2(),
+                    primary: Palettes.kcBlueMain1,
+                  ),
+                ),
+              ),
+              SizedBox(width: 4),
+              ElevatedButton.icon(
+                icon: Icon(
+                  Icons.money,
+                  color: Colors.white,
+                ),
+                onPressed: () => model.navigationService.pushNamed(
+                    Routes.AddPaymentView,
+                    arguments: AddPaymentViewArguments(patient: patient)),
+                label: Text('Add Payment'),
+                style: ElevatedButton.styleFrom(
+                  textStyle: TextStyles.tsBody2(),
+                  primary: Palettes.kcNeutral1,
+                ),
+              ),
             ],
           ),
         ],
@@ -76,6 +101,7 @@ class PatientDentalChartView extends StatelessWidget {
                   color: Colors.grey.shade200,
                 ),
                 duration: Duration(milliseconds: 200),
+                padding: EdgeInsets.all(2),
                 curve: Curves.easeIn,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -96,20 +122,20 @@ class PatientDentalChartView extends StatelessWidget {
                       ),
                     )),
                     Spacer(),
-                    TextButton.icon(
-                      onPressed: () => model.goToSetToothCondition(patient.id),
-                      icon: Icon(CupertinoIcons.add_circled),
-                      label: Text('Condition'),
-                      style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        backgroundColor: Palettes.kcNeutral1,
-                      ),
-                    ),
+                    // TextButton.icon(
+                    //   onPressed: () => model.goToSetToothCondition(patient.id),
+                    //   icon: Icon(CupertinoIcons.add_circled),
+                    //   label: Text('Condition'),
+                    //   style: TextButton.styleFrom(
+                    //     primary: Colors.white,
+                    //     backgroundColor: Palettes.kcNeutral1,
+                    //   ),
+                    // ),
                     SizedBox(width: 5),
                     TextButton.icon(
                       onPressed: () => model.goToSetDentalNote(patient.id),
                       icon: Icon(CupertinoIcons.add_circled),
-                      label: Text('Dental Notes'),
+                      label: Text(' Add Dental Note/ Treatment'),
                       style: TextButton.styleFrom(
                         primary: Colors.white,
                         backgroundColor: Palettes.kcBlueMain1,
@@ -158,8 +184,20 @@ class PatientDentalChartView extends StatelessWidget {
                                       model.toothIdFromA[index].toString()),
                                   isSelected: model.isSelected(
                                       model.toothIdFromA[index].toString()),
-                                  onTap: () => model.addToSelectedTooth(
-                                      model.toothIdFromA[index].toString()),
+                                  onTap: () {
+                                    if (model.hasHistory(model
+                                            .toothIdFromA[index]
+                                            .toString()) &&
+                                        !(model.isInSelectionMode)) {
+                                      model.viewDentalNoteById(
+                                          patient: patient,
+                                          selectedTooth:
+                                              model.toothIdFromA[index]);
+                                    } else {
+                                      model.addToSelectedTooth(
+                                          model.toothIdFromA[index].toString());
+                                    }
+                                  },
                                   isCenterTooth: model.checkCenterTooth1(
                                       model.toothIdFromA[index]),
                                   toothId: model.toothIdFromA[index],
@@ -182,8 +220,20 @@ class PatientDentalChartView extends StatelessWidget {
                                       model.toothIdFromT[index].toString()),
                                   hasRecord: model.hasHistory(
                                       model.toothIdFromT[index].toString()),
-                                  onTap: () => model.addToSelectedTooth(
-                                      model.toothIdFromT[index].toString()),
+                                  onTap: () {
+                                    if (model.hasHistory(model
+                                            .toothIdFromT[index]
+                                            .toString()) &&
+                                        !(model.isInSelectionMode)) {
+                                      model.viewDentalNoteById(
+                                          patient: patient,
+                                          selectedTooth:
+                                              model.toothIdFromT[index]);
+                                    } else {
+                                      model.addToSelectedTooth(
+                                          model.toothIdFromT[index].toString());
+                                    }
+                                  },
                                   isUpper: false,
                                   isCenterTooth: model.checkCenterTooth1(
                                       model.toothIdFromT[index]),
@@ -223,8 +273,19 @@ class PatientDentalChartView extends StatelessWidget {
                                 mainAxisExtent: 60,
                               ),
                               itemBuilder: (context, index) => ToothWidget(
-                                onTap: () => model.addToSelectedTooth(
-                                    model.toothIdFrom1[index].toString()),
+                                onTap: () {
+                                  if (model.hasHistory(model.toothIdFrom1[index]
+                                          .toString()) &&
+                                      !(model.isInSelectionMode)) {
+                                    model.viewDentalNoteById(
+                                        patient: patient,
+                                        selectedTooth: model.toothIdFrom1[index]
+                                            .toString());
+                                  } else {
+                                    model.addToSelectedTooth(
+                                        model.toothIdFrom1[index].toString());
+                                  }
+                                },
                                 isSelected: model.isSelected(
                                     model.toothIdFrom1[index].toString()),
                                 hasRecord: model.hasHistory(
@@ -260,8 +321,21 @@ class PatientDentalChartView extends StatelessWidget {
                                 mainAxisExtent: 60,
                               ),
                               itemBuilder: (context, index) => ToothWidget(
-                                onTap: () => model.addToSelectedTooth(
-                                    model.toothIdFrom32[index].toString()),
+                                onTap: () {
+                                  if (model.hasHistory(model
+                                          .toothIdFrom32[index]
+                                          .toString()) &&
+                                      !(model.isInSelectionMode)) {
+                                    model.viewDentalNoteById(
+                                        patient: patient,
+                                        selectedTooth: model
+                                            .toothIdFrom32[index]
+                                            .toString());
+                                  } else {
+                                    model.addToSelectedTooth(
+                                        model.toothIdFrom32[index].toString());
+                                  }
+                                },
                                 hasRecord: model.hasHistory(
                                     model.toothIdFrom32[index].toString()),
                                 isSelected: model.isSelected(

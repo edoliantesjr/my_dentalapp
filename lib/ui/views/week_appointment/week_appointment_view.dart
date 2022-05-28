@@ -65,12 +65,11 @@ class WeekAppointmentView extends StatelessWidget {
                     child: AppointmentCard(
                       key: ObjectKey(model.appointments[i]),
                       onPatientTap: () {},
-                      onDelete: () {},
                       imageUrl: model.appointments[i].patient.image,
                       serviceTitle:
                           model.appointments[i].procedures![0].procedureName,
                       doctor: model.appointments[i].dentist,
-                      patient: model.appointments[i].patient.fullName,
+                      patient: model.appointments[i].patient,
                       appointmentDate: DateFormat.yMMMd()
                           .format(model.appointments[i].date.toDateTime()!),
                       time:
