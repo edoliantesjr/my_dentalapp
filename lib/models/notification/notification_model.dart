@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dentalapp/extensions/string_extension.dart';
 
 class NotificationModel {
   dynamic id;
@@ -40,7 +40,7 @@ class NotificationModel {
       notification_msg: map['notification_msg'] as String,
       notification_type: map['notification_type'] as String,
       isRead: map['isRead'] as bool,
-      date_created: (map['date_created'] as Timestamp).toDate(),
+      date_created: (map['date_created']).toString().toDateTime(),
     );
   }
 }

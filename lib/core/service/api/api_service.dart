@@ -189,4 +189,10 @@ abstract class ApiService {
   Future<List<NotificationModel>> getNotification({required String userId});
 
   Stream listenToNotificationChanges({required String userId});
+
+  Future<int> getTotalMalePatient();
+
+  Future<int> getTotalFeMalePatient();
+
+  Future<AppointmentModel> getAppointmentById(String id);
 }

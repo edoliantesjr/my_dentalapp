@@ -54,7 +54,7 @@ class HomePageView extends StatelessWidget {
                     Routes.PaymentSelectPatientView,
                   ),
                   financeOnTap: () => model.navigationService.pushNamed(
-                    Routes.FinanceView,
+                    Routes.ReportView,
                   ),
                 ),
                 model.myAppointments.isNotEmpty

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../models/appointment_model/appointment_model.dart';
 import '../models/medical_history/medical_history.dart';
 import '../models/patient_model/patient_model.dart';
 import '../models/payment/payment.dart';
@@ -29,8 +30,9 @@ import '../ui/views/appointment_select_patient/appointment_select_patient_view.d
 import '../ui/views/appoitment_yearly_monthly/appointment_year_month_view.dart';
 import '../ui/views/create_appointment/create_appointment_view.dart';
 import '../ui/views/dental_certification/dental_certification_view.dart';
+import '../ui/views/dental_chart_legend/dental_chart_legend.dart';
 import '../ui/views/edit_patient/edit_patient_view.dart';
-import '../ui/views/finance/finance_view.dart';
+import '../ui/views/finance/reports_view.dart';
 import '../ui/views/get_started/get_started_view.dart';
 import '../ui/views/home/home_view.dart';
 import '../ui/views/login/login_view.dart';
@@ -93,12 +95,13 @@ class Routes {
   static const String AddPaymentView = '/add-payment-view';
   static const String NotificationView = '/notification-view';
   static const String AddExpenseView = '/add-expense-view';
-  static const String FinanceView = '/finance-view';
+  static const String ReportView = '/report-view';
   static const String ViewPatientAppointment = '/view-patient-appointment';
   static const String ViewPatientPayment = '/view-patient-payment';
   static const String AddPrescriptionView = '/add-prescription-view';
   static const String PrescriptionView = '/prescription-view';
   static const String EditPatientView = '/edit-patient-view';
+  static const String DentalChartLegend = '/dental-chart-legend';
   static const String ViewAppointmentByPeriod = '/view-appointment-by-period';
   static const String DentalCertificationView = '/dental-certification-view';
   static const String PaymentSelectPatientView = '/payment-select-patient-view';
@@ -144,12 +147,13 @@ class Routes {
     AddPaymentView,
     NotificationView,
     AddExpenseView,
-    FinanceView,
+    ReportView,
     ViewPatientAppointment,
     ViewPatientPayment,
     AddPrescriptionView,
     PrescriptionView,
     EditPatientView,
+    DentalChartLegend,
     ViewAppointmentByPeriod,
     DentalCertificationView,
     PaymentSelectPatientView,
@@ -200,12 +204,13 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.AddPaymentView, page: AddPaymentView),
     RouteDef(Routes.NotificationView, page: NotificationView),
     RouteDef(Routes.AddExpenseView, page: AddExpenseView),
-    RouteDef(Routes.FinanceView, page: FinanceView),
+    RouteDef(Routes.ReportView, page: ReportView),
     RouteDef(Routes.ViewPatientAppointment, page: ViewPatientAppointment),
     RouteDef(Routes.ViewPatientPayment, page: ViewPatientPayment),
     RouteDef(Routes.AddPrescriptionView, page: AddPrescriptionView),
     RouteDef(Routes.PrescriptionView, page: PrescriptionView),
     RouteDef(Routes.EditPatientView, page: EditPatientView),
+    RouteDef(Routes.DentalChartLegend, page: DentalChartLegend),
     RouteDef(Routes.ViewAppointmentByPeriod, page: ViewAppointmentByPeriod),
     RouteDef(Routes.DentalCertificationView, page: DentalCertificationView),
     RouteDef(Routes.PaymentSelectPatientView, page: PaymentSelectPatientView),
@@ -295,8 +300,14 @@ class StackedRouter extends RouterBase {
       );
     },
     AppointmentView: (data) {
+      var args = data.getArgs<AppointmentViewArguments>(
+        orElse: () => AppointmentViewArguments(),
+      );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const AppointmentView(),
+        builder: (context) => AppointmentView(
+          key: args.key,
+          appointment: args.appointment,
+        ),
         settings: data,
       );
     },
@@ -438,9 +449,9 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    FinanceView: (data) {
+    ReportView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const FinanceView(),
+        builder: (context) => const ReportView(),
         settings: data,
       );
     },
@@ -491,6 +502,12 @@ class StackedRouter extends RouterBase {
           key: args.key,
           patient: args.patient,
         ),
+        settings: data,
+      );
+    },
+    DentalChartLegend: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const DentalChartLegend(),
         settings: data,
       );
     },
@@ -675,6 +692,13 @@ class SetUpUserViewArguments {
   final String? userPhoto;
   SetUpUserViewArguments(
       {this.key, this.firstName, this.lastName, this.userPhoto});
+}
+
+/// AppointmentView arguments holder class
+class AppointmentViewArguments {
+  final Key? key;
+  final AppointmentModel? appointment;
+  AppointmentViewArguments({this.key, this.appointment});
 }
 
 /// CreateAppointmentView arguments holder class

@@ -38,7 +38,9 @@ import 'package:dentalapp/ui/views/appointment_select_patient/appointment_select
 import 'package:dentalapp/ui/views/appoitment_yearly_monthly/appointment_year_month_view.dart';
 import 'package:dentalapp/ui/views/create_appointment/create_appointment_view.dart';
 import 'package:dentalapp/ui/views/dental_certification/dental_certification_view.dart';
-import 'package:dentalapp/ui/views/finance/finance_view.dart';
+import 'package:dentalapp/ui/views/dental_chart_legend/dental_chart_legend.dart';
+import 'package:dentalapp/ui/views/finance/reports_view.dart';
+import 'package:dentalapp/ui/views/numeric_report/numeric_report.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
 import 'package:dentalapp/ui/views/home/home_view.dart';
 import 'package:dentalapp/ui/views/login/login_view.dart';
@@ -109,12 +111,13 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     MaterialRoute(page: NotificationView, name: 'NotificationView'),
     // MaterialRoute(page: ViewDentalNoteView, name: 'ViewDentalNoteView'),
     MaterialRoute(page: AddExpenseView, name: 'AddExpenseView'),
-    MaterialRoute(page: FinanceView, name: 'FinanceView'),
+    MaterialRoute(page: ReportView, name: 'ReportView'),
     MaterialRoute(page: ViewPatientAppointment, name: 'ViewPatientAppointment'),
     MaterialRoute(page: ViewPatientPayment, name: 'ViewPatientPayment'),
     MaterialRoute(page: AddPrescriptionView, name: 'AddPrescriptionView'),
     MaterialRoute(page: PrescriptionView, name: 'PrescriptionView'),
     MaterialRoute(page: EditPatientView, name: 'EditPatientView'),
+    MaterialRoute(page: DentalChartLegend, name: 'DentalChartLegend'),
     MaterialRoute(
         page: ViewAppointmentByPeriod, name: 'ViewAppointmentByPeriod'),
     MaterialRoute(

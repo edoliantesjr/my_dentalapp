@@ -730,7 +730,7 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<void> saveNotification(
       {required NotificationModel notification, required String typeId}) async {
-    final notDoc = await notificationReference.doc();
+    final notDoc = await notificationReference.doc(typeId);
 
     await notDoc.set(
       notification.toJson(id: typeId, timestamp: DateTime.now()),
@@ -756,7 +756,7 @@ class ApiServiceImpl extends ApiService {
       {required String userId}) async {
     return notificationReference
         .where('user_id', isEqualTo: userId)
-        .orderBy('dateCreated', descending: true)
+        .orderBy('date_created', descending: true)
         .get()
         .then((value) => value.docs
             .map((e) => NotificationModel.fromMap(e.data()))
@@ -768,5 +768,31 @@ class ApiServiceImpl extends ApiService {
     return notificationReference
         .where("user_id", isEqualTo: userId)
         .snapshots();
+  }
+
+  @override
+  Future<int> getTotalMalePatient() async {
+    final malePatients = await patientReference
+        .where('gender', isEqualTo: 'Male')
+        .get()
+        .then((value) => value.docs.map((e) => e).toList());
+    return malePatients.length;
+  }
+
+  @override
+  Future<int> getTotalFeMalePatient() async {
+    final femalePatients = await patientReference
+        .where('gender', isEqualTo: 'Female')
+        .get()
+        .then((value) => value.docs.map((e) => e).toList());
+    return femalePatients.length;
+  }
+
+  @override
+  Future<AppointmentModel> getAppointmentById(String id) {
+    return appointmentReference
+        .doc(id)
+        .get()
+        .then((value) => AppointmentModel.fromJson(value.data()!));
   }
 }

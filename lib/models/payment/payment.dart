@@ -58,12 +58,16 @@ class Payment {
     return Payment(
       payment_id: map['payment_id'] as String,
       dentist: map['dentist'] as String,
-      dentalNote: map['dentalNote']
-          .map((dentalNote) => DentalNotes.fromJson(dentalNote))
-          .toList(),
-      medicineList: map['medicineList']
-          .map((medicine) => Medicine.fromJson(medicine))
-          .toList(),
+      dentalNote: map['dentalNote'] != null
+          ? map['dentalNote']
+              .map((dentalNote) => DentalNotes.fromJson(dentalNote))
+              .toList()
+          : [],
+      medicineList: map['medicineList'] != null
+          ? map['medicineList']
+              .map((medicine) => Medicine.fromJson(medicine))
+              .toList()
+          : [],
       dentalNoteSubTotal: map['dentalNoteSubTotal'] as String,
       medicineSubTotal: map['medicineSubTotal'] as String,
       totalAmount: map['totalAmount'] as String,

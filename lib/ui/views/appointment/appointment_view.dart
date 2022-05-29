@@ -17,7 +17,8 @@ import 'package:stacked/stacked.dart';
 import '../../../constants/styles/palette_color.dart';
 
 class AppointmentView extends StatelessWidget {
-  const AppointmentView({Key? key}) : super(key: key);
+  final AppointmentModel? appointment;
+  const AppointmentView({Key? key, this.appointment}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,12 @@ class AppointmentView extends StatelessWidget {
         await model.getDateFromNtp();
         await model.getAppointmentByDate(dateToday);
         model.listenToAppointmentChanges();
+
+        if (appointment != null) {
+          model.selectedDate = appointment!.date.toDateTime()!;
+          model.getAppointmentByDate(model.selectedDate);
+          model.notifyListeners();
+        }
       },
       builder: (context, model, child) => Scaffold(
           appBar: AppBar(

@@ -50,10 +50,10 @@ class SalesDateCard extends StatelessWidget {
                         letterSpacing: 1.4,
                         color: borderColor,
                       )),
-                  Icon(
-                    Icons.arrow_forward_ios_sharp,
-                    color: borderColor,
-                  )
+                  // Icon(
+                  //   Icons.arrow_forward_ios_sharp,
+                  //   color: borderColor,
+                  // )
                 ],
               ),
             )

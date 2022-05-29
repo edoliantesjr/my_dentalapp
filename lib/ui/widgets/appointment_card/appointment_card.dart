@@ -94,7 +94,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
           user_id: widget.patient.id,
           notification_title: 'Appointmet status: ${appointmentStatus}.',
           notification_msg: 'Your Appointment on ${widget.appointmentDate}'
-              ' with ${widget.doctor} was ${appointmentStatus}',
+              ' with Doc. ${widget.doctor} was marked: ${appointmentStatus}',
           notification_type: 'appointment',
           isRead: false,
         );

@@ -201,12 +201,14 @@ class AddPaymentViewModel extends BaseViewModel {
                 user_id: patientId,
                 notification_title:
                     'Payment Record ${paymentRec.totalAmount.toCurrency}',
-                notification_msg: 'You have payment record saved on'
-                    ' ${DateFormat.yMMMd().add_jm().format(paymentRec.paymentDate.toDateTime()!)}',
+                notification_msg: 'Your payment on date'
+                    ' ${DateFormat.yMMMd().add_jm().format(paymentRec.paymentDate.toDateTime()!)} was saved',
                 notification_type: 'payment',
                 isRead: false,
               );
-              await apiService.saveNotification(notification: notification,typeId: paymentRec.payment_id??'paymentId');
+              await apiService.saveNotification(
+                  notification: notification,
+                  typeId: paymentRec.payment_id ?? 'paymentId');
               snackBarService.showSnackBar(
                   message: paymentQueryRes.errorMessage ?? 'Payment Saved',
                   title: 'SUCCESS!');

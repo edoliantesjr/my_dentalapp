@@ -30,7 +30,7 @@ class PatientDentalChartView extends StatelessWidget {
           centerTitle: true,
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () => model.goToChartLegend(),
                 icon: Icon(
                   Icons.info,
                   color: Colors.white,

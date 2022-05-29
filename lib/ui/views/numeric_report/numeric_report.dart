@@ -1,5 +1,5 @@
 import 'package:dentalapp/extensions/string_extension.dart';
-import 'package:dentalapp/ui/views/finance/finance_view_model.dart';
+import 'package:dentalapp/ui/views/numeric_report/numericReportViewModel.dart';
 import 'package:dentalapp/ui/widgets/sales_date_card/sales_date_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,13 +7,13 @@ import 'package:stacked/stacked.dart';
 
 import '../../../constants/styles/palette_color.dart';
 
-class FinanceView extends StatelessWidget {
-  const FinanceView({Key? key}) : super(key: key);
+class NumericReport extends StatelessWidget {
+  const NumericReport({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<FinanceViewModel>.reactive(
-      viewModelBuilder: () => FinanceViewModel(),
+    return ViewModelBuilder<NumericReportViewModel>.reactive(
+      viewModelBuilder: () => NumericReportViewModel(),
       onModelReady: (model) => model.init(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(

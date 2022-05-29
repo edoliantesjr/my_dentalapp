@@ -8,7 +8,7 @@ import 'package:stacked/stacked.dart';
 import '../../../app/app.locator.dart';
 import '../../../models/expense/expense.dart';
 
-class FinanceViewModel extends BaseViewModel {
+class NumericReportViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   final dialogService = locator<DialogService>();
 
