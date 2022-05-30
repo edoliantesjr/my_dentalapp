@@ -35,8 +35,9 @@ class PatientInfoView extends StatelessWidget {
                 titleSpacing: 0,
                 actions: [
                   IconButton(
-                    onPressed: () => model.navigationService
-                        .pushNamed(Routes.NotificationView),
+                    onPressed: () => model.navigationService.pushNamed(
+                        Routes.NotificationView,
+                        arguments: NotificationViewArguments(patient: patient)),
                     icon: Stack(
                       children: [
                         Icon(
@@ -44,25 +45,28 @@ class PatientInfoView extends StatelessWidget {
                           size: 28,
                           color: Colors.white,
                         ),
-                        Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Container(
-                              height: 18.sp,
-                              width: 18.sp,
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.redAccent),
-                              child: Text(
-                                '5+',
-                                style: GoogleFonts.roboto(
-                                  color: Colors.white,
-                                  fontSize: 12,
+                        Visibility(
+                          visible: model.notificationCount > 0,
+                          child: Positioned(
+                              top: 0,
+                              right: 0,
+                              child: Container(
+                                height: 18.sp,
+                                width: 18.sp,
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.redAccent),
+                                child: Text(
+                                  '${model.notificationCount}',
+                                  style: GoogleFonts.roboto(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                            ))
+                              )),
+                        )
                       ],
                     ),
                   ),

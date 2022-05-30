@@ -20,6 +20,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../models/notification/notification.dart';
+
 class CreateAppointmentViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
@@ -44,17 +46,42 @@ class CreateAppointmentViewModel extends BaseViewModel {
     try {
       dialogService.showDefaultLoadingDialog(
           willPop: false, barrierDismissible: false);
-      await apiService.createAppointment(appointment);
+      final appointmentId = await apiService.createAppointment(appointment);
       navigationService.popUntilNamed(Routes.ViewPatientAppointment);
       snackBarService.showSnackBar(
           message:
               'Appointment Request was added. Waiting for approval by the dentist',
           title: 'Success');
+      await getPersonnel();
+
+      for (UserModel user in personnel) {
+        final notification = NotificationModel(
+          user_id: user.userId,
+          notification_title: 'Appointment Request',
+          notification_msg:
+              'Patient ${appointment.patient.fullName.toUpperCase()}'
+              ' has requested an appointment with'
+              ' Doc. ${appointment.dentist} '
+              'on ${appointment.date.toString().toDateTime()!.toStringDateFormat()}.',
+          notification_type: 'appointment',
+          isRead: false,
+        );
+        await apiService.saveNotification(
+            notification: notification, typeId: appointmentId + user.userId);
+        debugPrint('notification sent on ${user.fullName}');
+      }
     } catch (e) {
       debugPrint(e.toString());
       navigationService.closeOverlay();
       toastService.showToast(message: "Something's wrong");
     }
+  }
+
+  List<UserModel> personnel = [];
+
+  Future<void> getPersonnel() async {
+    personnel = await apiService.getPersonnel();
+    notifyListeners();
   }
 
   void selectDate(TextEditingController controller) async {
@@ -80,8 +107,8 @@ class CreateAppointmentViewModel extends BaseViewModel {
       selectedStartTime =
           await bottomSheetService.openBottomSheet(SelectionTime(
         title: 'Set Start Time',
-        initialDateTime: DateTime.now(),
-        minimumDateTime: latestAppointment?.endTime.toDateTime() ?? null,
+        initialDateTime: DateTime(selectedAppointmentDate!.year,
+            selectedAppointmentDate!.month, selectedAppointmentDate!.day),
       ));
       if (selectedStartTime != null) {
         if (selectedEndTime != selectedStartTime) {
@@ -107,8 +134,8 @@ class CreateAppointmentViewModel extends BaseViewModel {
     if (selectedStartTime != null) {
       selectedEndTime = await bottomSheetService.openBottomSheet(SelectionTime(
         title: 'Set End Time',
-        initialDateTime: DateTime.now().add(Duration(hours: 1)),
-        minimumDateTime: DateTime.now().add(Duration(minutes: 1)),
+        initialDateTime: selectedStartTime!.add(Duration(minutes: 60)),
+        minimumDateTime: selectedStartTime!.add(Duration(minutes: 5)),
       ));
       if (selectedEndTime != null) {
         if (selectedStartTime != selectedEndTime) {

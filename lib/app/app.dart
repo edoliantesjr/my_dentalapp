@@ -73,6 +73,7 @@ import 'package:dentalapp/ui/widgets/success_view/success.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../ui/views/dental_chart_legend/dental_chart_legend.dart';
 import '../ui/views/edit_patient/edit_patient_view.dart';
 
 @StackedApp(
@@ -112,6 +113,7 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     MaterialRoute(page: PrescriptionView, name: 'PrescriptionView'),
     MaterialRoute(page: EditPatientView, name: 'EditPatientView'),
     MaterialRoute(page: ViewClinicPersonnel, name: 'ViewClinicPersonnel'),
+    MaterialRoute(page: DentalChartLegend, name: 'DentalChartLegend'),
     MaterialRoute(
         page: DentalCertificationView, name: 'DentalCertificationView'),
     MaterialRoute(

@@ -3,6 +3,7 @@ import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
+import 'package:dentalapp/models/user_model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,6 +16,9 @@ import '../../../core/service/connectivity/connectivity_service.dart';
 import '../../../core/service/dialog/dialog_service.dart';
 import '../../../core/service/navigation/navigation_service.dart';
 import '../../../core/service/snack_bar/snack_bar_service.dart';
+import '../../../core/service/toast/toast_service.dart';
+import '../../../models/notification/notification.dart';
+import '../../../models/patient_model/patient_model.dart';
 import '../selection_list/selection_option.dart';
 
 class AppointmentCard extends StatefulWidget {
@@ -22,13 +26,12 @@ class AppointmentCard extends StatefulWidget {
   final String appointmentDate;
   final dynamic appointmentId;
   final String doctor;
-  final String patient;
+  final Patient patient;
   final AppointmentStatus appointmentStatus;
   final Function onPatientTap;
   final String serviceTitle;
   final String? time;
   final dynamic imageUrl;
-  final VoidCallback onDelete;
 
   const AppointmentCard({
     required this.key,
@@ -39,7 +42,6 @@ class AppointmentCard extends StatefulWidget {
     required this.patient,
     required this.appointmentStatus,
     required this.serviceTitle,
-    required this.onDelete,
     required this.imageUrl,
     this.time,
   }) : super(key: key);
@@ -55,6 +57,44 @@ class _AppointmentCardState extends State<AppointmentCard> {
   final dialogService = locator<DialogService>();
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
+  final toastService = locator<ToastService>();
+  List<UserModel> personnel = [];
+
+  Future<void> getPersonnel() async {
+    personnel = await apiService.getPersonnel();
+  }
+
+  Future<void> deleteAppointment(String appointmentId) async {
+    if (widget.appointmentStatus.name == AppointmentStatus.OnRequest.name) {
+      dialogService.showConfirmDialog(
+          title: 'Delete  appointment',
+          middleText:
+              'This action will delete the appointment permanently. Continue this action?',
+          onCancel: () => navigationService.pop(),
+          onContinue: () async {
+            await apiService.deleteAppointment(appointmentId: appointmentId);
+            navigationService.pop();
+            toastService.showToast(message: 'Appointment deleted');
+            snackBarService.showSnackBar(
+                message: 'Appointment status was updated', title: 'Success!');
+            await getPersonnel();
+            for (UserModel user in personnel) {
+              final notification = NotificationModel(
+                user_id: user.userId,
+                notification_title: 'Appointment Removed',
+                notification_msg:
+                    'Appointment Request of ${widget.patient.fullName}'
+                    ' with Doc. ${widget.doctor} on ${widget.appointmentDate} was REMOVED.',
+                notification_type: 'appointment',
+                isRead: false,
+              );
+              await apiService.saveNotification(
+                  notification: notification, typeId: widget.appointmentId);
+              debugPrint('notification sent on ${user.fullName}');
+            }
+          });
+    }
+  }
 
   Future<void> updateAppointmentStatus(String appointmentId) async {
     final appointmentStatus =
@@ -75,8 +115,6 @@ class _AppointmentCardState extends State<AppointmentCard> {
         await apiService.updateAppointmentStatus(
             appointmentId: appointmentId, appointmentStatus: appointmentStatus);
         navigationService.pop();
-        snackBarService.showSnackBar(
-            message: 'Appointment status was updated', title: 'Success!');
       } else {
         navigationService.pop();
         snackBarService.showSnackBar(
@@ -95,8 +133,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
           widthSpace: 60,
           color: Colors.transparent,
           onTap: (handler) async {
-            // await handler(true);
-            this.widget.onDelete();
+            this.deleteAppointment(widget.appointmentId);
           },
           content: Container(
             height: 50,
@@ -147,7 +184,9 @@ class _AppointmentCardState extends State<AppointmentCard> {
         SwipeAction(
           widthSpace: 60,
           color: Colors.transparent,
-          onTap: (handler) {},
+          onTap: (handler) {
+            //
+          },
           content: Container(
             height: 50,
             width: 50,
@@ -194,7 +233,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
                           date: widget.appointmentDate,
                           serviceTitle: widget.serviceTitle,
                           doctor: widget.doctor,
-                          patient: widget.patient,
+                          patient: widget.patient.fullName,
                           appointmentStatus: widget.appointmentStatus,
                         )),
                       ],
@@ -307,7 +346,7 @@ class InfoWidget extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: FontNames.sfPro,
-                      fontSize: 14.sp,
+                      fontSize: 13.sp,
                       color: Palettes.kcNeutral1,
                       overflow: TextOverflow.ellipsis,
                       leadingDistribution: TextLeadingDistribution.proportional,
@@ -335,9 +374,7 @@ class InfoWidget extends StatelessWidget {
                 style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
               ),
               InkWell(
-                onTap: () {
-
-                },
+                onTap: () {},
                 child: Text(
                   patient,
                   style: TextStyle(

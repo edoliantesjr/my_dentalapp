@@ -62,14 +62,12 @@ class ViewPatientAppointment extends StatelessWidget {
                     itemBuilder: (context, i) => AppointmentCard(
                           key: ObjectKey(model.patientListOfAppointments[i]),
                           onPatientTap: () {},
-                          onDelete: () {},
                           imageUrl:
                               model.patientListOfAppointments[i].patient.image,
                           serviceTitle: model.patientListOfAppointments[i]
                               .procedures![0].procedureName,
                           doctor: model.patientListOfAppointments[i].dentist,
-                          patient: model
-                              .patientListOfAppointments[i].patient.fullName,
+                          patient: model.patientListOfAppointments[i].patient,
                           appointmentDate: DateFormat.yMMMd().format(model
                               .patientListOfAppointments[i].date
                               .toDateTime()!),

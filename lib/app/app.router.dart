@@ -27,6 +27,7 @@ import '../ui/views/appointment/appointment_view.dart';
 import '../ui/views/appointment_select_patient/appointment_select_patient_view.dart';
 import '../ui/views/create_appointment/create_appointment_view.dart';
 import '../ui/views/dental_certification/dental_certification_view.dart';
+import '../ui/views/dental_chart_legend/dental_chart_legend.dart';
 import '../ui/views/edit_patient/edit_patient_view.dart';
 import '../ui/views/finance/finance_view.dart';
 import '../ui/views/get_started/get_started_view.dart';
@@ -98,6 +99,7 @@ class Routes {
   static const String PrescriptionView = '/prescription-view';
   static const String EditPatientView = '/edit-patient-view';
   static const String ViewClinicPersonnel = '/view-clinic-personnel';
+  static const String DentalChartLegend = '/dental-chart-legend';
   static const String DentalCertificationView = '/dental-certification-view';
   static const String PaymentSelectPatientView = '/payment-select-patient-view';
   static const String SelectionDentist = '/selection-dentist';
@@ -149,6 +151,7 @@ class Routes {
     PrescriptionView,
     EditPatientView,
     ViewClinicPersonnel,
+    DentalChartLegend,
     DentalCertificationView,
     PaymentSelectPatientView,
     SelectionDentist,
@@ -205,6 +208,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.PrescriptionView, page: PrescriptionView),
     RouteDef(Routes.EditPatientView, page: EditPatientView),
     RouteDef(Routes.ViewClinicPersonnel, page: ViewClinicPersonnel),
+    RouteDef(Routes.DentalChartLegend, page: DentalChartLegend),
     RouteDef(Routes.DentalCertificationView, page: DentalCertificationView),
     RouteDef(Routes.PaymentSelectPatientView, page: PaymentSelectPatientView),
     RouteDef(Routes.SelectionDentist, page: SelectionDentist),
@@ -499,6 +503,12 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    DentalChartLegend: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => const DentalChartLegend(),
+        settings: data,
+      );
+    },
     DentalCertificationView: (data) {
       var args = data.getArgs<DentalCertificationViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
@@ -525,9 +535,13 @@ class StackedRouter extends RouterBase {
       );
     },
     NotificationView: (data) {
+      var args = data.getArgs<NotificationViewArguments>(nullOk: false);
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const NotificationView(),
+            NotificationView(
+          key: args.key,
+          patient: args.patient,
+        ),
         settings: data,
         transitionsBuilder: TransitionsBuilders.slideLeft,
         transitionDuration: const Duration(milliseconds: 200),
@@ -793,6 +807,13 @@ class DentalCertificationViewArguments {
   final Key? key;
   final Patient patient;
   DentalCertificationViewArguments({this.key, required this.patient});
+}
+
+/// NotificationView arguments holder class
+class NotificationViewArguments {
+  final Key? key;
+  final Patient patient;
+  NotificationViewArguments({this.key, required this.patient});
 }
 
 /// PaymentSelectDentalNoteView arguments holder class

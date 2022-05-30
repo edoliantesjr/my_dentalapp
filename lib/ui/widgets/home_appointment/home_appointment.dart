@@ -115,12 +115,11 @@ class HomeAppointment extends StatelessWidget {
                                 Routes.PatientInfoView,
                                 arguments: PatientInfoViewArguments(
                                     patient: myAppointments[i].patient)),
-                            onDelete: () => this.deleteItem(i),
                             imageUrl: myAppointments[i].patient.image,
                             serviceTitle:
                                 myAppointments[i].procedures![0].procedureName,
                             doctor: myAppointments[i].dentist,
-                            patient: myAppointments[i].patient.fullName,
+                            patient: myAppointments[i].patient,
                             appointmentDate: DateFormat.yMMMd()
                                 .format(myAppointments[i].date.toDateTime()!),
                             time:

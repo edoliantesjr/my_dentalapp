@@ -8,6 +8,7 @@ import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/core/service/url_launcher/url_launcher_service.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
@@ -18,6 +19,7 @@ import '../../../core/service/dialog/dialog_service.dart';
 import '../../../core/service/snack_bar/snack_bar_service.dart';
 import '../../../core/service/toast/toast_service.dart';
 import '../../../core/utility/image_selector.dart';
+import '../../../models/notification/notification.dart';
 import '../../widgets/selection_list/selection_option.dart';
 
 class PatientInfoViewModel extends BaseViewModel {
@@ -32,11 +34,20 @@ class PatientInfoViewModel extends BaseViewModel {
   final bottomSheetService = locator<BottomSheetService>();
   final snackBarService = locator<SnackBarService>();
   StreamSubscription? patientInfoSub;
+  StreamSubscription? notifSub;
+
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+
+  List<NotificationModel> notifications = [];
+
+  int notificationCount = 0;
 
   Patient? patient;
   void init({required Patient patient}) async {
     this.patient = patient;
     listenToPatientInfoChange(patient: patient);
+    getNotifications();
+    listenToNotificationChanges();
   }
 
   Future<void> getPatient({required Patient patient}) async {
@@ -53,6 +64,38 @@ class PatientInfoViewModel extends BaseViewModel {
         getPatient(patient: patient);
       });
     });
+  }
+
+  void computeTotalNotif() {
+    notificationCount = 0;
+    for (NotificationModel notif in notifications) {
+      if (notif.isRead == false) {
+        notificationCount += 1;
+        notifyListeners();
+      }
+    }
+    notifyListeners();
+  }
+
+  void listenToNotificationChanges() {
+    apiService.listenToNotificationChanges(userId: userId).listen((event) {
+      notifSub?.cancel();
+      notifSub = apiService
+          .listenToNotificationChanges(userId: userId)
+          .listen((event) {
+        getNotifications();
+      });
+    });
+  }
+
+  Future<void> getNotifications() async {
+    final notif = await apiService.getNotification(userId: userId);
+    if (notif != null) {
+      notifications.clear();
+      notifications.addAll(notif);
+      notifyListeners();
+      computeTotalNotif();
+    }
   }
 
   @override

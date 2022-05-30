@@ -177,6 +177,10 @@ class PatientDentalChartViewModel extends BaseViewModel {
             selectedTeeth: selectedTooth, patientId: patientId));
   }
 
+  void goToChartLegend() {
+    navigationService.pushNamed(Routes.DentalChartLegend);
+  }
+
   @override
   void dispose() {
     patientSub?.cancel();

@@ -1,4 +1,3 @@
-import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/patient_model/patient_model.dart';
@@ -29,7 +28,7 @@ class PatientDentalChartView extends StatelessWidget {
           centerTitle: true,
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () => model.goToChartLegend(),
                 icon: Icon(
                   Icons.info,
                   color: Colors.white,
