@@ -795,4 +795,13 @@ class ApiServiceImpl extends ApiService {
         .get()
         .then((value) => AppointmentModel.fromJson(value.data()!));
   }
+
+  @override
+  Future<List<Procedure>> getProcedures() {
+    return procedureReference
+        .orderBy('dateCreated', descending: true)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => Procedure.fromJson(e.data())).toList());
+  }
 }

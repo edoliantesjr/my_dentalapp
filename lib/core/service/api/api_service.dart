@@ -195,4 +195,6 @@ abstract class ApiService {
   Future<int> getTotalFeMalePatient();
 
   Future<AppointmentModel> getAppointmentById(String id);
+
+  Future<List<Procedure>> getProcedures();
 }

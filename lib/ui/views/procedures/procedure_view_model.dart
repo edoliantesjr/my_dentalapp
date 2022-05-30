@@ -7,11 +7,11 @@ import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:stacked/stacked.dart';
 
 class ProcedureViewModel extends BaseViewModel {
-
   final navigationService = locator<NavigationService>();
   final apiService = locator<ApiService>();
   StreamSubscription? procedureStreamSub;
   List<Procedure> procedureList = [];
+  List<Procedure> tempProcedure = [];
   bool isScrolledUp = true;
 
   void setFabSize({required bool isScrolledUp}) {
@@ -19,12 +19,47 @@ class ProcedureViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  Future<void> getProcedures() async {
+    final procedures = await apiService.getProcedures();
+    if (procedures != null) {
+      procedureList.clear();
+      procedureList.addAll(procedures);
+      tempProcedure.clear();
+      tempProcedure.addAll(procedures);
+
+      notifyListeners();
+    }
+    notifyListeners();
+  }
+
+  void init() async {
+    setBusy(true);
+    await getProcedures();
+    await Future.delayed(Duration(seconds: 1));
+    setBusy(false);
+    getProcedureList();
+  }
+
+  Future<void> searchProcedure(String query) async {
+    if (query.trimLeft().trimRight() != "") {
+      final procedure = await apiService.searchProcedure(query);
+      if (procedure != null) {
+        procedureList.clear();
+        procedureList.addAll(procedure);
+        notifyListeners();
+      }
+    } else {
+      procedureList.clear();
+      procedureList.addAll(tempProcedure);
+      notifyListeners();
+    }
+  }
+
   void getProcedureList() {
     apiService.getProcedureList().listen((event) {
       procedureStreamSub?.cancel();
       procedureStreamSub = apiService.getProcedureList().listen((procedures) {
-        procedureList = procedures;
-        notifyListeners();
+        getProcedures();
       });
     });
   }
