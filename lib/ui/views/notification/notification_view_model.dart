@@ -83,8 +83,8 @@ class NotificationViewModel extends BaseViewModel {
 
   Future<void> openNotification(NotificationModel notification) async {
     if (notification.notification_type == 'appointment') {
-      //
-      final appointment = await apiService.getAppointmentById(notification.id);
+      final appointmentId = notification.id.toString().split(' ').first;
+      final appointment = await apiService.getAppointmentById(appointmentId);
       navigationService.pushNamed(Routes.AppointmentView,
           arguments: AppointmentViewArguments(appointment: appointment));
     } else if (notification.notification_type == 'payment') {
