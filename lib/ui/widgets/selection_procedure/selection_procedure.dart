@@ -136,8 +136,7 @@ class SelectionProcedure extends StatelessWidget {
                     searchIndex: []),
               ),
               id: procedureList[index].id ?? '',
-              procedureName: procedureList[index].procedureName,
-              price: procedureList[index].price,
+              procedure: procedureList[index],
             ),
             separatorBuilder: (context, index) => Container(
               height: 10,

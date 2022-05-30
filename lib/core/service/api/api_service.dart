@@ -197,4 +197,6 @@ abstract class ApiService {
   Future<AppointmentModel> getAppointmentById(String id);
 
   Future<List<Procedure>> getProcedures();
+
+  Future<QueryResult> updateProcedure(Procedure procedure);
 }

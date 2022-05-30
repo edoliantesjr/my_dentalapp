@@ -11,6 +11,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
   final VoidCallback? onLogOutTap;
   final VoidCallback onTapUser;
   final VoidCallback? onNotificationTap;
+  final bool hasNotification;
   const CustomHomePageAppBar(
       {Key? key,
       required this.image,
@@ -18,7 +19,8 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
       required this.name,
       this.onNotificationTap,
       this.onLogOutTap,
-      required this.onTapUser})
+      required this.onTapUser,
+      required this.hasNotification})
       : super(key: key);
 
   @override
@@ -98,7 +100,9 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                 splashColor: Colors.transparent,
                 alignment: Alignment.centerRight,
                 icon: SvgPicture.asset(
-                  'assets/icons/Notification - Noti.svg',
+                  hasNotification
+                      ? 'assets/icons/Notification - Noti.svg'
+                      : 'assets/icons/Notification-clear.svg',
                 ),
               ),
               SizedBox(width: 10),

@@ -67,6 +67,16 @@ class _AppointmentCardState extends State<AppointmentCard> {
         onContinue: () async {
           await apiService.deleteAppointment(appointmentId: appointmentId);
           navigationService.pop();
+          final notification = NotificationModel(
+            user_id: widget.patient.id,
+            notification_title: 'Your appointment was DELETED',
+            notification_msg: 'Your Appointment on ${widget.appointmentDate}'
+                ' with Doc. ${widget.doctor} was and deleted',
+            notification_type: 'appointment',
+            isRead: false,
+          );
+          await apiService.saveNotification(
+              notification: notification, typeId: widget.appointmentId);
           toastService.showToast(message: 'Appointment deleted');
         });
   }
@@ -92,7 +102,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
         navigationService.pop();
         final notification = NotificationModel(
           user_id: widget.patient.id,
-          notification_title: 'Appointmet status: ${appointmentStatus}.',
+          notification_title: 'Appointment status: ${appointmentStatus}.',
           notification_msg: 'Your Appointment on ${widget.appointmentDate}'
               ' with Doc. ${widget.doctor} was marked: ${appointmentStatus}',
           notification_type: 'appointment',
@@ -117,7 +127,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
       key: this.widget.key,
       trailingActions: [
         SwipeAction(
-          widthSpace: 60,
+          widthSpace: 80,
           color: Colors.transparent,
           onTap: (handler) async {
             // await handler(true);
@@ -125,7 +135,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
           },
           content: Container(
             height: 50,
-            width: 50,
+            width: 60,
             alignment: Alignment.center,
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -169,27 +179,27 @@ class _AppointmentCardState extends State<AppointmentCard> {
             ),
           ),
         ),
-        SwipeAction(
-          widthSpace: 60,
-          color: Colors.transparent,
-          onTap: (handler) {
-            //
-          },
-          content: Container(
-            height: 50,
-            width: 50,
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Palettes.kcBlueMain2,
-            ),
-            child: SvgPicture.asset(
-              'assets/icons/Edit.svg',
-              color: Colors.white,
-            ),
-          ),
-        ),
+        // SwipeAction(
+        //   widthSpace: 60,
+        //   color: Colors.transparent,
+        //   onTap: (handler) {
+        //     //
+        //   },
+        //   content: Container(
+        //     height: 50,
+        //     width: 50,
+        //     alignment: Alignment.center,
+        //     padding: EdgeInsets.all(8),
+        //     decoration: BoxDecoration(
+        //       shape: BoxShape.circle,
+        //       color: Palettes.kcBlueMain2,
+        //     ),
+        //     child: SvgPicture.asset(
+        //       'assets/icons/Edit.svg',
+        //       color: Colors.white,
+        //     ),
+        //   ),
+        // ),
       ],
       child: Container(
         color: Colors.grey.shade50,

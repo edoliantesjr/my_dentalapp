@@ -40,7 +40,6 @@ import 'package:dentalapp/ui/views/create_appointment/create_appointment_view.da
 import 'package:dentalapp/ui/views/dental_certification/dental_certification_view.dart';
 import 'package:dentalapp/ui/views/dental_chart_legend/dental_chart_legend.dart';
 import 'package:dentalapp/ui/views/finance/reports_view.dart';
-import 'package:dentalapp/ui/views/numeric_report/numeric_report.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_view.dart';
 import 'package:dentalapp/ui/views/home/home_view.dart';
 import 'package:dentalapp/ui/views/login/login_view.dart';
@@ -63,6 +62,7 @@ import 'package:dentalapp/ui/views/select_medicine_view/select_medicine_view.dar
 import 'package:dentalapp/ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
 import 'package:dentalapp/ui/views/set_dental_note/set_dental_note_view.dart';
 import 'package:dentalapp/ui/views/set_tooth_condition/set_tooth_condition_view.dart';
+import 'package:dentalapp/ui/views/update_procedure/update_procedure_view.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_view.dart';
 import 'package:dentalapp/ui/views/user_view/user_view.dart';
 import 'package:dentalapp/ui/views/verify_email/verify_email_view.dart';
@@ -70,7 +70,6 @@ import 'package:dentalapp/ui/views/view_dental_note/view_dental_note.dart';
 import 'package:dentalapp/ui/views/view_dental_notes_by_tooth/view_dental_note_by_tooth_view.dart';
 import 'package:dentalapp/ui/views/view_patient_appointment/view_patient_appointment_view.dart';
 import 'package:dentalapp/ui/views/view_patient_payments/view_patient_payment.dart';
-import 'package:dentalapp/ui/views/view_tooth_dental_notes/view_tooth_dental_note_view.dart';
 import 'package:dentalapp/ui/widgets/selection_dentist/selection_dentist.dart';
 import 'package:dentalapp/ui/widgets/selection_procedure/selection_procedure.dart';
 import 'package:dentalapp/ui/widgets/success_view/success.dart';
@@ -182,6 +181,11 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     CustomRoute(
         page: ViewDentalNoteByToothView,
         name: 'ViewDentalNoteByToothView',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: UpdateProcedureView,
+        name: 'UpdateProcedureViews',
         transitionsBuilder: TransitionsBuilders.slideBottom,
         durationInMilliseconds: 300),
   ],

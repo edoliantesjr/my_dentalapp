@@ -281,21 +281,21 @@ class _AddPatientViewState extends State<AddPatientView> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Medical History'),
-                          ElevatedButton(
-                              onPressed: () => model.selectMedicalHistoryFile(),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Palettes.kcBlueMain2),
-                              child: Text(
-                                'Add Medical History',
-                                style: TextStyles.tsBody3(color: Colors.white),
-                              ))
-                        ],
-                      ),
+                      // SizedBox(height: 10),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Text('Medical History'),
+                      //     ElevatedButton(
+                      //         onPressed: () => model.selectMedicalHistoryFile(),
+                      //         style: ElevatedButton.styleFrom(
+                      //             primary: Palettes.kcBlueMain2),
+                      //         child: Text(
+                      //           'Add Medical History',
+                      //           style: TextStyles.tsBody3(color: Colors.white),
+                      //         ))
+                      //   ],
+                      // ),
                       SizedBox(height: 10),
                       Visibility(
                           visible: model.listOfMedicalHistory.isNotEmpty

@@ -27,6 +27,7 @@ class HomePageView extends StatelessWidget {
           onTapUser: () => model.goToUserView(model.currentUser!),
           onNotificationTap: () => model.goToNotificationView(),
           onLogOutTap: () => model.logOut(),
+          hasNotification: model.notificationCount > 0,
         ),
         body: RefreshIndicator(
           color: Palettes.kcBlueMain1,

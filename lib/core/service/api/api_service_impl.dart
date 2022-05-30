@@ -804,4 +804,16 @@ class ApiServiceImpl extends ApiService {
         .then((value) =>
             value.docs.map((e) => Procedure.fromJson(e.data())).toList());
   }
+
+  @override
+  Future<QueryResult> updateProcedure(Procedure procedure) async {
+    if (await connectivityService.checkConnectivity()) {
+      procedureReference.doc(procedure.id).set(procedure.toJson(
+          dateCreated: FieldValue.serverTimestamp(), id: procedure.id));
+      return QueryResult.success();
+    } else {
+      return QueryResult.error(
+          'No Internet Connection. Check your connection and try again');
+    }
+  }
 }

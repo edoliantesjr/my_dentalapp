@@ -144,16 +144,12 @@ class _ProceduresViewState extends State<ProceduresView> {
                       : model.procedureList.isNotEmpty
                           ? Container(
                               padding: EdgeInsets.symmetric(vertical: 10),
-                              color: Colors.grey.shade200,
                               child: ListView.separated(
                                 shrinkWrap: true,
                                 primary: false,
                                 itemBuilder: (context, index) => ProcedureCard(
-                                  procedureName:
-                                      model.procedureList[index].procedureName,
+                                  procedure: model.procedureList[index],
                                   id: model.procedureList[index].id!,
-                                  price: model
-                                      .procedureList[index].priceToCurrency,
                                 ),
                                 separatorBuilder: (context, index) => Container(
                                   height: 8,

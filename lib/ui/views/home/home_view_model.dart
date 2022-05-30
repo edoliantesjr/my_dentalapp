@@ -13,9 +13,11 @@ import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../core/service/connectivity/connectivity_service.dart';
+import '../../../models/notification/notification_model.dart';
 
 class HomePageViewModel extends BaseViewModel {
   final logger = getLogger('AppointmentModel', printCallingFunctionName: true);
@@ -32,10 +34,16 @@ class HomePageViewModel extends BaseViewModel {
   StreamSubscription? appointmentSubscription;
   UserModel? currentUser;
   List<AppointmentModel> myAppointments = [];
+  StreamSubscription? notifSub;
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+  List<NotificationModel> notifications = [];
+  int notificationCount = 0;
 
   Future<void> init() async {
     setBusy(true);
     getCurrentUser();
+    getNotifications();
+    listenToNotificationChanges();
     setBusy(false);
   }
 
@@ -43,6 +51,38 @@ class HomePageViewModel extends BaseViewModel {
   void dispose() {
     userSubscription?.cancel();
     super.dispose();
+  }
+
+  void computeTotalNotif() {
+    notificationCount = 0;
+    for (NotificationModel notif in notifications) {
+      if (notif.isRead == false) {
+        notificationCount += 1;
+        notifyListeners();
+      }
+    }
+    notifyListeners();
+  }
+
+  void listenToNotificationChanges() {
+    apiService.listenToNotificationChanges(userId: userId).listen((event) {
+      notifSub?.cancel();
+      notifSub = apiService
+          .listenToNotificationChanges(userId: userId)
+          .listen((event) {
+        getNotifications();
+      });
+    });
+  }
+
+  Future<void> getNotifications() async {
+    final notif = await apiService.getNotification(userId: userId);
+    if (notif != null) {
+      notifications.clear();
+      notifications.addAll(notif);
+      notifyListeners();
+      computeTotalNotif();
+    }
   }
 
   void getCurrentUser() {

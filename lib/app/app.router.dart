@@ -15,6 +15,7 @@ import '../models/appointment_model/appointment_model.dart';
 import '../models/medical_history/medical_history.dart';
 import '../models/patient_model/patient_model.dart';
 import '../models/payment/payment.dart';
+import '../models/procedure/procedure.dart';
 import '../models/user_model/user_model.dart';
 import '../ui/views/add_dental_certificate/add_certificate_view.dart';
 import '../ui/views/add_expense_item/add_expense_item_view.dart';
@@ -55,6 +56,7 @@ import '../ui/views/select_medicine_view/select_medicine_view.dart';
 import '../ui/views/selection_tooth_condition/selection_tooth_condition_view.dart';
 import '../ui/views/set_dental_note/set_dental_note_view.dart';
 import '../ui/views/set_tooth_condition/set_tooth_condition_view.dart';
+import '../ui/views/update_procedure/update_procedure_view.dart';
 import '../ui/views/update_user_info/setup_user_view.dart';
 import '../ui/views/user_view/user_view.dart';
 import '../ui/views/verify_email/verify_email_view.dart';
@@ -119,6 +121,7 @@ class Routes {
   static const String ViewDentalNote = '/view-dental-note';
   static const String ViewDentalNoteByToothView =
       '/view-dental-note-by-tooth-view';
+  static const String UpdateProcedureViews = '/update-procedure-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -169,6 +172,7 @@ class Routes {
     AddCertificateView,
     ViewDentalNote,
     ViewDentalNoteByToothView,
+    UpdateProcedureViews,
   };
 }
 
@@ -227,6 +231,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.AddCertificateView, page: AddCertificateView),
     RouteDef(Routes.ViewDentalNote, page: ViewDentalNote),
     RouteDef(Routes.ViewDentalNoteByToothView, page: ViewDentalNoteByToothView),
+    RouteDef(Routes.UpdateProcedureViews, page: UpdateProcedureView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -665,6 +670,19 @@ class StackedRouter extends RouterBase {
         transitionDuration: const Duration(milliseconds: 300),
       );
     },
+    UpdateProcedureView: (data) {
+      var args = data.getArgs<UpdateProcedureViewArguments>(nullOk: false);
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            UpdateProcedureView(
+          key: args.key,
+          procedure: args.procedure,
+        ),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
   };
 }
 
@@ -849,4 +867,11 @@ class ViewDentalNoteByToothViewArguments {
   final String selectedTooth;
   ViewDentalNoteByToothViewArguments(
       {this.key, required this.patient, required this.selectedTooth});
+}
+
+/// UpdateProcedureView arguments holder class
+class UpdateProcedureViewArguments {
+  final Key? key;
+  final Procedure procedure;
+  UpdateProcedureViewArguments({this.key, required this.procedure});
 }
