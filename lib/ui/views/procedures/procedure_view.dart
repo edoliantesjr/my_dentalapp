@@ -30,7 +30,7 @@ class _ProceduresViewState extends State<ProceduresView> {
     return ViewModelBuilder<ProcedureViewModel>.reactive(
       viewModelBuilder: () => ProcedureViewModel(),
       onModelReady: (model) {
-        model.getProcedureList();
+        model.init();
       },
       builder: (context, model, child) => Scaffold(
           appBar: AppBar(
@@ -61,80 +61,113 @@ class _ProceduresViewState extends State<ProceduresView> {
               }
               return true;
             },
-            child: ListView(
-              controller: procedureScrollController,
-              padding: EdgeInsets.symmetric(vertical: 15),
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
+            child: Container(
+              color: Colors.grey.shade200,
+              child: ListView(
+                controller: procedureScrollController,
+                children: [
+                  Container(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 15,
+                      ),
+                      child: Container(
+                        height: 50,
+                        width: double.maxFinite,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                onChanged: (value) =>
+                                    model.searchProcedure(value),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 5,
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                    borderSide: BorderSide(
+                                      color: Palettes.kcBlueMain1,
+                                      width: 1.8,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                    borderSide: BorderSide(
+                                      color: Palettes.kcBlueDark,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  prefixIcon: Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: SvgPicture.asset(
+                                      'assets/icons/Search.svg',
+                                    ),
+                                  ),
+                                  constraints: BoxConstraints(maxHeight: 43),
+                                  hintText: 'Search Procedure...',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  child: Container(
-                    height: 50,
-                    width: double.maxFinite,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            // onChanged: (value) => model.searchPatient(value),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 5,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(100),
-                                borderSide: BorderSide(
-                                  color: Palettes.kcBlueMain1,
-                                  width: 1.8,
+                  SizedBox(height: 10),
+                  model.isBusy
+                      ? Container(
+                          height: 500,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                CircularProgressIndicator(),
+                                SizedBox(
+                                  height: 10,
                                 ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(100),
-                                borderSide: BorderSide(
-                                  color: Palettes.kcBlueDark,
-                                  width: 1,
-                                ),
-                              ),
-                              prefixIcon: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: SvgPicture.asset(
-                                  'assets/icons/Search.svg',
-                                ),
-                              ),
-                              constraints: BoxConstraints(maxHeight: 43),
-                              hintText: 'Search Procedure...',
+                                Text('Fetching Data. Please wait...')
+                              ],
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  color: Colors.grey.shade200,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    primary: false,
-                    itemBuilder: (context, index) => ProcedureCard(
-                      procedureName: model.procedureList[index].procedureName,
-                      id: model.procedureList[index].id!,
-                      price: model.procedureList[index].priceToCurrency,
-                    ),
-                    separatorBuilder: (context, index) => Container(
-                      height: 8,
-                    ),
-                    itemCount: model.procedureList.length,
-                  ),
-                )
-              ],
+                        )
+                      : model.procedureList.isNotEmpty
+                          ? Container(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              color: Colors.grey.shade200,
+                              child: ListView.separated(
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder: (context, index) => ProcedureCard(
+                                  procedureName:
+                                      model.procedureList[index].procedureName,
+                                  id: model.procedureList[index].id!,
+                                  price: model
+                                      .procedureList[index].priceToCurrency,
+                                ),
+                                separatorBuilder: (context, index) => Container(
+                                  height: 8,
+                                ),
+                                itemCount: model.procedureList.length,
+                              ),
+                            )
+                          : Container(
+                              height: 500,
+                              child: Center(
+                                child: Text('No Procedures found...'),
+                              ),
+                            )
+                ],
+              ),
             ),
           )),
     );

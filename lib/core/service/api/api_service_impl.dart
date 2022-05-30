@@ -820,4 +820,13 @@ class ApiServiceImpl extends ApiService {
   Stream listenToUserChanges() {
     return userReference.snapshots();
   }
+
+  @override
+  Future<List<Procedure>> getProcedures() {
+    return procedureReference
+        .orderBy('dateCreated', descending: true)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => Procedure.fromJson(e.data())).toList());
+  }
 }

@@ -66,7 +66,7 @@ class NotificationView extends StatelessWidget {
                                 padding: EdgeInsets.all(8),
                                 color: model.notifications[index].isRead
                                     ? Colors.white
-                                    : Colors.grey.shade100,
+                                    : Colors.grey.shade300,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,

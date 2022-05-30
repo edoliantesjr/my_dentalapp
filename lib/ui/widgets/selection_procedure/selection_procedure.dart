@@ -36,7 +36,7 @@ class SelectionProcedure extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   TextField(
-                    // onChanged: (value) => model.searchPatient(value),
+                    onChanged: (value) => model.searchProcedure(value),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(100),
