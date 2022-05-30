@@ -67,7 +67,8 @@ class CreateAppointmentViewModel extends BaseViewModel {
           isRead: false,
         );
         await apiService.saveNotification(
-            notification: notification, typeId: appointmentId + user.userId);
+            notification: notification,
+            typeId: appointmentId + ' ' + user.userId);
         debugPrint('notification sent on ${user.fullName}');
       }
     } catch (e) {
