@@ -1,61 +1,69 @@
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/app/app.logger.dart';
 import 'package:dentalapp/app/app.router.dart';
-import 'package:dentalapp/constants/styles/palette_color.dart';
+import 'package:dentalapp/core/service/api/api_service.dart';
+import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
+import 'package:dentalapp/core/service/session_service/session_service.dart';
 import 'package:dentalapp/core/service/snack_bar/snack_bar_service.dart';
+import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:stacked/stacked.dart';
 
-import 'login_view.form.dart';
+import '../../../core/service/firebase_messaging/firebase_messaging_service.dart';
 
 class LoginViewModel extends FormViewModel {
   final navigationService = locator<NavigationService>();
   final validatorService = locator<ValidatorService>();
   final firebaseAuthService = locator<FirebaseAuthService>();
   final snackBarService = locator<SnackBarService>();
+  final dialogService = locator<DialogService>();
+  final apiService = locator<ApiService>();
+  final sessionService = locator<SessionService>();
+  final toastService = locator<ToastService>();
+  final fcmService = locator<FirebaseMessagingService>();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final log = getLogger('LoginViewModel');
+  final logger = getLogger('LoginViewModel');
   bool autoValidate = false;
   bool isObscure = true;
   bool isShowIconVisible = false;
 
-  Future<void> loginNow() async {
+  Future<void> loginNow(
+      {required String emailValue, required String passwordValue}) async {
     if (loginFormKey.currentState!.validate()) {
-      Get.dialog(
-          Center(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Palettes.kcNeutral1,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: EdgeInsets.all(8.sp),
-              height: 85.sp,
-              width: 80.sp,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          barrierColor: Palettes.kcLightAccentColor);
+      dialogService.showDefaultLoadingDialog(
+          barrierDismissible: false, willPop: false);
+
       var loginResult = await firebaseAuthService.loginWithEmail(
-          email: emailValue ?? '', password: passwordValue ?? '');
-      navigationService.closeOverlay();
-      if (loginResult.success) {
-        goToRegisterView();
+          email: emailValue.trim(), password: passwordValue);
+
+      if (loginResult != null) {
+        if (loginResult.success) {
+          final isAccountSetupDone = await apiService.checkUserStatus();
+          sessionService.saveSession(
+              isRunFirstTime: false,
+              isLoggedIn: true,
+              isAccountSetupDone: isAccountSetupDone);
+          logger.i('Checking User Account Details');
+          if (isAccountSetupDone) {
+            navigationService.popAllAndPushNamed(Routes.MainBodyView);
+            final notificationToken = await fcmService.saveFcmToken();
+            await apiService.saveUserFcmToken(notificationToken);
+          } else {
+            navigationService.popAllAndPushNamed(Routes.SetUpUserView);
+            final notificationToken = await fcmService.saveFcmToken();
+            await apiService.saveUserFcmToken(notificationToken);
+          }
+        } else {
+          navigationService.closeOverlay();
+          toastService.showToast(message: loginResult.errorMessage ?? '');
+        }
       } else {
-        snackBarService.showSnackBar(loginResult.errorMessage!);
+        setAutoValidate();
       }
-    } else {
-      setAutoValidate();
     }
   }
 
@@ -78,8 +86,8 @@ class LoginViewModel extends FormViewModel {
     }
   }
 
-  void setShowIconVisibility() {
-    if (passwordValue != null && passwordValue!.length > 1) {
+  void setShowIconVisibility(String passwordValue) {
+    if (passwordValue.length > 0) {
       isShowIconVisible = true;
       notifyListeners();
     } else {
@@ -90,4 +98,35 @@ class LoginViewModel extends FormViewModel {
 
   @override
   void setFormStatus() {}
+
+  Future<void> loginWithGoogle() async {
+    var loginResult = await firebaseAuthService.loginWithGoogle();
+    if (loginResult != null) {
+      if (loginResult.success) {
+        final isAccountSetupDone = await apiService.checkUserStatus();
+        sessionService.saveSession(
+          isRunFirstTime: false,
+          isLoggedIn: true,
+          isAccountSetupDone: isAccountSetupDone,
+        );
+        logger.i('Checking User Account Details');
+        if (isAccountSetupDone) {
+          navigationService.popAllAndPushNamed(Routes.MainBodyView);
+          final notificationToken = await fcmService.saveFcmToken();
+          await apiService.saveUserFcmToken(notificationToken);
+        } else {
+          navigationService.popAllAndPushNamed(Routes.SetUpUserView,
+              arguments: SetUpUserViewArguments(
+                firstName: loginResult.user?.displayName ?? '',
+                userPhoto: loginResult.user?.photoURL ?? '',
+              ));
+          final notificationToken = await fcmService.saveFcmToken();
+          await apiService.saveUserFcmToken(notificationToken);
+        }
+      } else {
+        navigationService.closeOverlay();
+        toastService.showToast(message: loginResult.errorMessage ?? '');
+      }
+    }
+  }
 }

@@ -53,13 +53,35 @@ mixin $RegisterView on StatelessWidget {
 }
 
 extension ValueProperties on FormViewModel {
-  String? get emailValue => this.formValueMap[EmailValueKey];
-  String? get passwordValue => this.formValueMap[PasswordValueKey];
-  String? get confirmPassValue => this.formValueMap[ConfirmPassValueKey];
+  String? get emailValue => this.formValueMap[EmailValueKey] as String?;
+  String? get passwordValue => this.formValueMap[PasswordValueKey] as String?;
+  String? get confirmPassValue =>
+      this.formValueMap[ConfirmPassValueKey] as String?;
 
   bool get hasEmail => this.formValueMap.containsKey(EmailValueKey);
   bool get hasPassword => this.formValueMap.containsKey(PasswordValueKey);
   bool get hasConfirmPass => this.formValueMap.containsKey(ConfirmPassValueKey);
+
+  bool get hasEmailValidationMessage =>
+      this.fieldsValidationMessages[EmailValueKey]?.isNotEmpty ?? false;
+  bool get hasPasswordValidationMessage =>
+      this.fieldsValidationMessages[PasswordValueKey]?.isNotEmpty ?? false;
+  bool get hasConfirmPassValidationMessage =>
+      this.fieldsValidationMessages[ConfirmPassValueKey]?.isNotEmpty ?? false;
+
+  String? get emailValidationMessage =>
+      this.fieldsValidationMessages[EmailValueKey];
+  String? get passwordValidationMessage =>
+      this.fieldsValidationMessages[PasswordValueKey];
+  String? get confirmPassValidationMessage =>
+      this.fieldsValidationMessages[ConfirmPassValueKey];
 }
 
-extension Methods on FormViewModel {}
+extension Methods on FormViewModel {
+  setEmailValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[EmailValueKey] = validationMessage;
+  setPasswordValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[PasswordValueKey] = validationMessage;
+  setConfirmPassValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[ConfirmPassValueKey] = validationMessage;
+}

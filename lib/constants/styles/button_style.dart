@@ -10,8 +10,9 @@ class ButtonStyles {
   static ElevatedButtonThemeData elevatedButtonThemeDataLight =
       ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      primary: Palettes.kcBlueMain1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 1,
+      primary: Palettes.kcPurpleMain,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       textStyle: TextStyle(
         fontSize: kfsButton1.sp,
         letterSpacing: 0.5,
@@ -23,20 +24,21 @@ class ButtonStyles {
       OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(2),
       ),
       textStyle: TextStyle(
         fontSize: kfsButton1.sp,
         letterSpacing: 0.5,
       ),
-      side: BorderSide(color: Palettes.kcBlueMain1, width: 1),
+      primary: Palettes.kcPurpleMain,
+      side: BorderSide(color: Palettes.kcPurpleMain, width: 1),
     ),
   );
 
   static ButtonStyle whiteButtonStyle({bool? isBold}) => TextButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         backgroundColor: Colors.white,
-        primary: Palettes.kcBlueMain1,
+        primary: Palettes.kcPurpleMain,
         textStyle: TextStyle(
           fontWeight:
               isBold != null && isBold ? FontWeight.w600 : FontWeight.normal,

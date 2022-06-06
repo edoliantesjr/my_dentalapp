@@ -1,49 +1,93 @@
+import 'dart:io';
+
 import 'package:dentalapp/constants/styles/palette_color.dart';
+import 'package:dentalapp/constants/styles/text_border_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/update_user_info/setup_user_viewmodel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
 
-import 'setup_user_view.form.dart';
+class SetUpUserView extends StatefulWidget {
+  final String? firstName;
+  final String? lastName;
+  final String? userPhoto;
+  SetUpUserView({Key? key, this.firstName, this.lastName, this.userPhoto})
+      : super(key: key);
 
-@FormView(fields: [
-  FormTextField(name: 'firstName'),
-  FormTextField(name: 'lastName'),
-  FormDropdownField(name: 'gender', items: [
-    StaticDropdownItem(title: 'Male', value: 'Male'),
-    StaticDropdownItem(title: 'Female', value: 'Female'),
-  ])
-])
-class SetUpUserView extends StatelessWidget with $SetUpUserView {
-  SetUpUserView({Key? key}) : super(key: key);
+  @override
+  State<SetUpUserView> createState() => _SetUpUserViewState();
+}
+
+class _SetUpUserViewState extends State<SetUpUserView> {
+  final dateOfBirthController = TextEditingController();
+  final genderController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final positionController = TextEditingController();
+  final phoneNumController = TextEditingController();
+
+  @override
+  void dispose() {
+    dateOfBirthController.dispose();
+    genderController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    positionController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    firstNameController.text = widget.firstName ?? '';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SetupUserViewModel>.reactive(
-      onModelReady: (model) => listenToFormUpdated(model),
       viewModelBuilder: () => SetupUserViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          persistentFooterButtons: [
-            Container(
-              height: 45,
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (model.setupFormKey.currentState!.validate()) {}
-                },
-                child: Text('Save'),
-              ),
-            )
-          ],
-          body: SafeArea(
-            child: Container(
-              color: Palettes.kcBlueMain1,
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
+          bottomSheet: Container(
+            height: 50,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(top: BorderSide(color: Palettes.kcNeutral5)),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            child: ElevatedButton(
+              onPressed: () {
+                if (model.setupFormKey.currentState!.validate()) {
+                  if (model.selectedImage == null) {
+                    model.snackBarService.showSnackBar(
+                        message:
+                            'Error: No Profile Image Selected. Please Try Again!',
+                        title: 'Missing Required Data');
+                  } else {
+                    model.saveUser(
+                      firstNameController.text,
+                      lastNameController.text,
+                      model.selectedBirthDate.toString(),
+                      model.selectedGender,
+                      positionController.text,
+                      phoneNumController.text,
+                    );
+                  }
+                }
+              },
+              child: Text('Save'),
+            ),
+          ),
+          body: Container(
+            color: Palettes.kcBlueMain1,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            child: SingleChildScrollView(
+              reverse: true,
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
@@ -57,21 +101,42 @@ class SetUpUserView extends StatelessWidget with $SetUpUserView {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Header(),
+                    SizedBox(height: 20),
+                    Text(
+                      'Profile Picture*',
+                    ),
+                    SizedBox(height: 10),
                     Container(
-                      height: 100,
-                      width: 100,
-                      margin: EdgeInsets.only(top: 20),
+                      height: 120,
+                      width: 120,
                       decoration: BoxDecoration(
-                          color: Palettes.kcLightGreyAccentColor,
-                          borderRadius: BorderRadius.circular(100)),
+                        color: Palettes.kcLightGreyAccentColor,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Palettes.kcNeutral3,
+                              blurRadius: 3,
+                              offset: Offset(1, 2))
+                        ],
+                      ),
                       child: IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset(
-                          'assets/icons/Camera.svg',
-                          height: 35,
-                          width: 35,
-                          fit: BoxFit.cover,
-                        ),
+                        padding: EdgeInsets.zero,
+                        onPressed: model.selectImageSource,
+                        icon: model.selectedImage != null
+                            ? CircleAvatar(
+                                radius: 59,
+                                backgroundColor:
+                                    Palettes.kcLightGreyAccentColor,
+                                backgroundImage: FileImage(
+                                  File(model.selectedImage!.path),
+                                ),
+                              )
+                            : SvgPicture.asset(
+                                'assets/icons/Camera.svg',
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
 
@@ -79,52 +144,86 @@ class SetUpUserView extends StatelessWidget with $SetUpUserView {
                     Expanded(
                       child: Form(
                           key: model.setupFormKey,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                SizedBox(height: 15),
-                                TextFormField(
-                                  validator: (value) => model.validatorService
-                                      .validateFirstName(value!),
-                                  textInputAction: TextInputAction.next,
-                                  decoration: InputDecoration(
-                                    hintText: 'Your first name',
-                                    labelText: 'First Name*',
-                                    labelStyle: TextStyles.tsBody1(
-                                        color: Palettes.kcNeutral1),
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.always,
-                                  ),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 15),
+                              TextFormField(
+                                controller: firstNameController,
+                                validator: (value) => model.validatorService
+                                    .validateFirstName(value!),
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  hintText: 'Your first name',
+                                  labelText: 'First Name*',
+                                  labelStyle: TextStyles.tsBody1(
+                                      color: Palettes.kcNeutral1),
+                                  enabledBorder: TextBorderStyles.normalBorder,
+                                  focusedBorder: TextBorderStyles.focusedBorder,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
                                 ),
-                                SizedBox(height: 10),
-                                TextFormField(
-                                  validator: (value) => model.validatorService
-                                      .validateLastName(value!),
-                                  textInputAction: TextInputAction.next,
-                                  decoration: InputDecoration(
-                                    hintText: 'Enter your last name',
-                                    labelText: 'Last Name*',
-                                    labelStyle: TextStyles.tsBody1(
-                                        color: Palettes.kcNeutral1),
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.always,
-                                  ),
+                              ),
+                              SizedBox(height: 10),
+                              TextFormField(
+                                controller: lastNameController,
+                                validator: (value) => model.validatorService
+                                    .validateLastName(value!),
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  hintText: 'Enter your last name',
+                                  labelText: 'Last Name*',
+                                  labelStyle: TextStyles.tsBody1(
+                                      color: Palettes.kcNeutral1),
+                                  enabledBorder: TextBorderStyles.normalBorder,
+                                  focusedBorder: TextBorderStyles.focusedBorder,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
                                 ),
-                                SizedBox(height: 10),
-                                TextFormField(
+                              ),
+                              SizedBox(height: 10),
+                              TextFormField(
+                                controller: phoneNumController,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                textCapitalization: TextCapitalization.words,
+                                enableInteractiveSelection: false,
+                                validator: (value) => model.validatorService
+                                    .validatePhoneNumber(value!),
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(11),
+                                ],
+                                decoration: InputDecoration(
+                                  hintText: '09xxxxxxxxx',
+                                  labelText: 'Contact Number*',
+                                  labelStyle: TextStyles.tsBody1(
+                                      color: Palettes.kcNeutral1),
+                                  enabledBorder: TextBorderStyles.normalBorder,
+                                  focusedBorder: TextBorderStyles.focusedBorder,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              GestureDetector(
+                                onTap: () => model
+                                    .setBirthDateValue(dateOfBirthController),
+                                child: TextFormField(
+                                  controller: dateOfBirthController,
+                                  enabled: false,
                                   validator: (value) => model.validatorService
                                       .validateDate(value!),
                                   textInputAction: TextInputAction.next,
-                                  onTap: () => model.selectDateOfBirth(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1950),
-                                      lastDate: DateTime.now()),
-                                  controller: model.dateOfBirth,
                                   keyboardType: TextInputType.datetime,
                                   decoration: InputDecoration(
+                                      errorBorder: TextBorderStyles.errorBorder,
+                                      errorStyle: TextStyles.errorTextStyle,
+                                      disabledBorder:
+                                          TextBorderStyles.normalBorder,
                                       hintText: 'MM/DD/YYYY',
                                       labelText: 'Date of Birth*',
+                                      // disabledBorder: ,
                                       labelStyle: TextStyles.tsBody1(
                                           color: Palettes.kcNeutral1),
                                       floatingLabelBehavior:
@@ -135,31 +234,68 @@ class SetUpUserView extends StatelessWidget with $SetUpUserView {
                                         fit: BoxFit.scaleDown,
                                       )),
                                 ),
-                                SizedBox(height: 10),
-                                DropdownButtonFormField<String>(
-                                  value: model.genderValue,
+                              ),
+                              SizedBox(height: 10),
+                              GestureDetector(
+                                onTap: () =>
+                                    model.setGenderValue(genderController),
+                                child: TextFormField(
+                                  controller: genderController,
                                   validator: (value) => model.validatorService
                                       .validateGender(value!),
-                                  iconEnabledColor: Palettes.kcBlueMain1,
-                                  elevation: 1,
+                                  textInputAction: TextInputAction.next,
+                                  enabled: false,
+                                  keyboardType: TextInputType.datetime,
                                   decoration: InputDecoration(
-                                    hintText: 'Your Gender',
-                                    labelText: 'Gender*',
-                                    labelStyle: TextStyles.tsBody1(
-                                        color: Palettes.kcNeutral1),
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.always,
-                                  ),
-                                  onChanged: (value) => model.setGender(value!),
-                                  items: GenderValueToTitleMap.keys
-                                      .map((value) => DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                              GenderValueToTitleMap[value]!)))
-                                      .toList(),
+                                      errorBorder: TextBorderStyles.errorBorder,
+                                      errorStyle: TextStyles.errorTextStyle,
+                                      disabledBorder:
+                                          TextBorderStyles.normalBorder,
+                                      hintText: 'Your Gender',
+                                      labelText: 'Gender*',
+                                      // disabledBorder: ,
+                                      labelStyle: TextStyles.tsBody1(
+                                          color: Palettes.kcNeutral1),
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      suffixIcon: Icon(
+                                        Icons.arrow_drop_down,
+                                        size: 24,
+                                        color: Palettes.kcBlueMain1,
+                                      )),
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(height: 10),
+                              GestureDetector(
+                                onTap: () =>
+                                    model.setPositionValue(positionController),
+                                child: TextFormField(
+                                  controller: positionController,
+                                  enabled: false,
+                                  validator: (value) => model.validatorService
+                                      .validatePosition(value!),
+                                  textInputAction: TextInputAction.next,
+                                  keyboardType: TextInputType.datetime,
+                                  decoration: InputDecoration(
+                                      errorBorder: TextBorderStyles.errorBorder,
+                                      errorStyle: TextStyles.errorTextStyle,
+                                      disabledBorder:
+                                          TextBorderStyles.normalBorder,
+                                      hintText: 'Your Position in the company',
+                                      labelText: 'Position*',
+                                      // disabledBorder: ,
+                                      labelStyle: TextStyles.tsBody1(
+                                          color: Palettes.kcNeutral1),
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      suffixIcon: Icon(
+                                        Icons.arrow_drop_down,
+                                        size: 24,
+                                        color: Palettes.kcBlueMain1,
+                                      )),
+                                ),
+                              ),
+                            ],
                           )),
                     ),
                   ],
@@ -186,10 +322,14 @@ class Header extends StatelessWidget {
           onTap: () {},
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 15),
-            child: SvgPicture.asset('assets/icons/arrow-back.svg'),
+            // child: SvgPicture.asset('assets/icons/arrow-back.svg'),
+            child: Text(
+              'Account setup',
+              style: TextStyles.tsHeading4(color: Palettes.kcNeutral1),
+            ),
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 1),
         Text(
           'Setup User Information!',
           style: TextStyles.tsHeading2(),

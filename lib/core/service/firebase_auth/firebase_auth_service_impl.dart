@@ -1,16 +1,15 @@
+import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/core/service/firebase_auth/firebase_auth_service.dart';
-import 'package:dentalapp/models/auth_response/auth_response_model.dart';
-import 'package:dentalapp/models/user_model/user_model.dart';
+import 'package:dentalapp/core/service/session_service/session_service.dart';
+import 'package:dentalapp/models/response_model/auth_response_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthServiceImpl extends FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final sessionService = locator<SessionService>();
   String errorMessage = '';
-
-  // final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-  // GoogleSignInAccount? googleSignInAccount;
-  // GoogleSignInAuthentication? googleSignInAuthentication;
 
   @override
   Future<AuthResponse> signUpWithEmail({
@@ -45,10 +44,14 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
   Future<AuthResponse> loginWithEmail(
       {required String email, required String password}) async {
     try {
-      final authResult = await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      return AuthResponse.success(authResult.user!);
-    } on FirebaseAuthException catch (e) {
+      UserCredential? authResult = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
+      if (authResult.user != null) {
+        return AuthResponse.success(authResult.user!);
+      } else {
+        return AuthResponse.error('Unknown error');
+      }
+    } on FirebaseException catch (e) {
       switch (e.code) {
         case "unknown":
           errorMessage = e.message!;
@@ -64,7 +67,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
           errorMessage = "Incorrect password. Please try again.";
           break;
         default:
-          errorMessage = e.message!;
+          errorMessage = 'Network Error';
           break;
       }
       return AuthResponse.error(errorMessage);
@@ -73,7 +76,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
 
   @override
   Future<bool> sendEmailVerification() async {
-    final currentUser = _firebaseAuth.currentUser;
+    final currentUser = await _firebaseAuth.currentUser;
     if (currentUser != null && !currentUser.emailVerified) {
       await currentUser.sendEmailVerification();
       return true;
@@ -84,15 +87,20 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
 
   @override
   Future<AuthResponse> loginWithGoogle() async {
-    final googleUser = await GoogleSignIn().signIn();
-    final googleAuth = await googleUser!.authentication;
-    final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+    final GoogleSignIn _googleSignIn = await GoogleSignIn(scopes: ['profile']);
+    final GoogleSignInAccount? googleSignInAccount =
+        await _googleSignIn.signIn();
 
-    UserCredential authResult =
-        await _firebaseAuth.signInWithCredential(credential);
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
-    if (authResult.credential != null) {
+      final authCredential = await GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken);
+      UserCredential authResult =
+          await _firebaseAuth.signInWithCredential(authCredential);
+      sendEmailVerification();
       return AuthResponse.success(authResult.user!);
     } else {
       return AuthResponse.error('Error Signing In');
@@ -107,19 +115,21 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
   @override
   Future<void> logOut() async {
     if (_firebaseAuth.currentUser != null) {
-      _firebaseAuth.signOut();
+      await _firebaseAuth.signOut();
+
+      sessionService.clearSession();
     }
   }
 
   @override
-  Future<void> createUserIfNotExist(UserModel user) {
-    // TODO: implement createUserIfNotExist
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> saveTokenToDatabase({required String token}) {
-    // TODO: implement saveTokenToDatabase
-    throw UnimplementedError();
+  Future<bool> reLoad() async {
+    try {
+      await _firebaseAuth.currentUser?.reload();
+      debugPrint(_firebaseAuth.currentUser?.email);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      debugPrint(e.message);
+      return false;
+    }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' show GlobalKey, NavigatorState;
 import 'package:get/get.dart';
 
 import 'navigation_service.dart';
@@ -56,14 +55,14 @@ class NavigationServiceImpl extends NavigationService {
 
   // Pops the back stack the number of times you indicate with [popTimes]
   @override
-  void popRepeated(int times) {
-    Get.close(times);
+  void popRepeated(int times, {int? id}) {
+    Get.close(times, id);
   }
 
   // Pops the current scope and indicates if you can pop again
   @override
-  bool pop({dynamic returnValue}) {
-    Get.back(result: returnValue);
+  bool pop({dynamic returnValue, int? id}) {
+    Get.back(result: returnValue, id: id);
     return Get.key.currentState?.canPop() ?? false;
   }
 
@@ -73,6 +72,8 @@ class NavigationServiceImpl extends NavigationService {
 
   @override
   void closeOverlay() {
-    Navigator.pop(Get.overlayContext!);
+    if (!Get.isOverlaysClosed) {
+      Navigator.pop(Get.overlayContext!);
+    }
   }
 }

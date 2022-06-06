@@ -2,7 +2,6 @@ import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/button_style.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'palette_color.dart';
 
@@ -11,22 +10,20 @@ class ThemeStyles {
 
   static ThemeData themeLight = ThemeData(
     fontFamily: FontNames.sfPro,
+    appBarTheme: AppBarTheme(
+      backgroundColor: Palettes.kcBlueMain1,
+      elevation: 0,
+    ),
     backgroundColor: Color(0xcb4987f5),
     colorScheme: ColorScheme.fromSwatch(
       accentColor: Palettes.kcBlueMain1,
       primarySwatch: primaryColorSwatch,
       primaryColorDark: primaryColorSwatch[900],
     ),
-    splashColor: Palettes.kcBlueAccentColor,
+    splashColor: Palettes.kcBlueMain1.withOpacity(0.2),
     hintColor: Palettes.kcHintColor,
     dividerColor: Palettes.kcHintColor,
-    textTheme: TextTheme(
-      bodyText2: TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: kfsBody2.sp,
-        letterSpacing: 0.5,
-      ),
-    ),
+    textTheme: TextTheme(bodyText2: TextStyles.tsBody2()),
     scaffoldBackgroundColor: Colors.white,
     elevatedButtonTheme: ButtonStyles.elevatedButtonThemeDataLight,
     outlinedButtonTheme: ButtonStyles.outlinedButtonThemeDataLight,

@@ -8,19 +8,20 @@ double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
 
 //FONT SIZES
-const kfsHeading1 = 32.0;
+const kfsHeading1 = 38.0;
+const kfsHeading0 = 32.0;
 const kfsHeading2 = 28.0;
 const kfsHeading3 = 23.0;
 const kfsHeading4 = 17.0;
 const kfsHeading5 = 14.0;
-const kfsButton1 = 17.0;
-const kfsButton2 = 12.0;
+const kfsButton1 = 15.0;
+const kfsButton2 = 13.0;
 const kfsCaption1 = 12.0;
 const kfsCaption2 = 11.0;
 const kfsBody1 = 18.0;
 const kfsBody2 = 14.0;
 const kfsBody3 = 13.0;
-const kfsSmall = 11.0;
+const kfsSmall = 12.0;
 
 //TEXT STYLES
 class TextStyles {
@@ -102,4 +103,6 @@ class TextStyles {
       fontFamily: FontNames.gilRoy,
       fontSize: kfsBody2.sp,
       color: Palettes.kcHintColor);
+
+  static const errorTextStyle = TextStyle(color: Color(0xFFD32F2F));
 }

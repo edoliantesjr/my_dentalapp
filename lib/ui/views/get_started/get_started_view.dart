@@ -2,10 +2,9 @@ import 'package:dentalapp/constants/styles/button_style.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/ui/views/get_started/get_started_viewmodel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:stacked/stacked.dart';
 
 class GetStartedView extends StatelessWidget {
@@ -29,23 +28,39 @@ class GetStartedView extends StatelessWidget {
                   Container(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () => model.skip(),
                       child: Text('Skip'),
                       style: TextButton.styleFrom(primary: Colors.white),
                     ),
-                  ),
-                  Spacer(
-                    flex: 1,
                   ),
                   Expanded(
                     flex: 8,
                     child: PageView.builder(
                       itemCount: model.listOfDetails.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      pageSnapping: false,
+                      controller: model.pageController,
+                      clipBehavior: Clip.none,
                       onPageChanged: (index) => model.indexChange(index),
-                      itemBuilder: (context, index) => CarouselItem(
-                          image: model.listOfDetails[index].image,
-                          title: model.listOfDetails[index].title,
-                          description: model.listOfDetails[index].description),
+                      itemBuilder: (context, index) =>
+                          AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: Duration(milliseconds: 800),
+                        child: SlideAnimation(
+                          curve: Curves.easeInOut,
+                          verticalOffset: 50,
+                          duration: Duration(milliseconds: 800),
+                          child: FadeInAnimation(
+                            curve: Curves.easeIn,
+                            duration: Duration(milliseconds: 500),
+                            child: CarouselItem(
+                                image: model.listOfDetails[index].image,
+                                title: model.listOfDetails[index].title,
+                                description:
+                                    model.listOfDetails[index].description),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   Spacer(),
@@ -56,7 +71,7 @@ class GetStartedView extends StatelessWidget {
                     height: 40.h,
                     child: ElevatedButton(
                       onPressed: model.goToLoginView,
-                      child: Text('Get Started'),
+                      child: Text(model.index <= 1 ? 'Next' : 'Get Started'),
                       style: ButtonStyles.whiteButtonStyle(isBold: true),
                     ),
                   ),
@@ -75,6 +90,7 @@ class CarouselItem extends StatelessWidget {
   final String image;
   final String title;
   final String description;
+
   const CarouselItem(
       {Key? key,
       required this.image,
@@ -85,14 +101,15 @@ class CarouselItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8),
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image(
             image: AssetImage(image),
-            height: 300.h,
-            width: 300.w,
+            height: 270.h,
+            width: 270.w,
           ),
           Text(
             title,
@@ -113,6 +130,7 @@ class CarouselItem extends StatelessWidget {
 //Row Page Indicator
 class RowPageIndicator extends StatelessWidget {
   final int index;
+
   const RowPageIndicator({Key? key, required this.index}) : super(key: key);
 
   @override
@@ -126,7 +144,7 @@ class RowPageIndicator extends StatelessWidget {
           width: 8.w,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: index == 0 ? Colors.white : Colors.blue[200]),
+              color: index == 0 ? Colors.white : Colors.purple[200]),
         ),
         Container(
           margin: EdgeInsets.only(right: 5),
@@ -134,14 +152,14 @@ class RowPageIndicator extends StatelessWidget {
           width: 8.w,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: index == 1 ? Colors.white : Colors.blue[200]),
+              color: index == 1 ? Colors.white : Colors.purple[200]),
         ),
         Container(
           height: 8.h,
           width: 8.w,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: index == 2 ? Colors.white : Colors.blue[200]),
+              color: index == 2 ? Colors.white : Colors.purple[200]),
         )
       ],
     );

@@ -20,9 +20,9 @@ abstract class NavigationService {
 
   void popUntilPredicate(RoutePredicate routePredicate);
 
-  void popRepeated(int times);
+  void popRepeated(int times, {int? id});
 
-  bool pop({dynamic returnValue});
+  bool pop({dynamic returnValue, int? id});
 
   void closeOverlay();
 }

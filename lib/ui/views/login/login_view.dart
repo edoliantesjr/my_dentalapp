@@ -1,29 +1,40 @@
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
+import 'package:dentalapp/constants/styles/text_border_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
-import 'package:dentalapp/ui/views/login/login_view.form.dart';
 import 'package:dentalapp/ui/views/login/login_view_viewmodel.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
 
-@FormView(fields: [
-  FormTextField(name: 'email'),
-  FormTextField(name: 'password'),
-])
-class LoginView extends StatelessWidget with $LoginView {
+class LoginView extends StatefulWidget {
   LoginView({Key? key}) : super(key: key);
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final emailFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    debugPrint('login_view.dart was disposed');
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
-      onModelReady: (model) => listenToFormUpdated(model),
-      onDispose: (model) {
-        disposeForm();
-        model.log.d('login form disposed');
-      },
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) {
         return Scaffold(
@@ -35,18 +46,14 @@ class LoginView extends StatelessWidget with $LoginView {
               color: Palettes.kcBlueMain1,
               child: Stack(
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      onPressed: () {
-                        model.navigationService.pop();
-                      },
-                      color: Colors.white,
-                      icon: SvgPicture.asset(
-                        'assets/icons/arrow-back-white.svg',
-                        height: 24,
-                        width: 24,
-                      ),
+                  DoubleBackToCloseApp(
+                    snackBar: SnackBar(
+                      content: Text('Press back again to exit'),
+                      duration: Duration(seconds: 1),
+                    ),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(),
                     ),
                   ),
                   Container(
@@ -56,18 +63,49 @@ class LoginView extends StatelessWidget with $LoginView {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
+                        topRight: Radius.circular(65),
                       ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                    child: ListView(
                       children: [
                         Form(
                           key: model.loginFormKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              SizedBox(height: 60.h),
+                              SizedBox(height: 20.h),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  'assets/icons/logo-blue-circle.png',
+                                  height: 80,
+                                  width: 80,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Maglinte Dental Clinic',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: FontNames.gilRoy,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.sp,
+                                    letterSpacing: 1,
+                                    wordSpacing: 1,
+                                    color: Palettes.kcBlueMain1,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Login',
+                                  style: TextStyles.tsHeading3(),
+                                ),
+                              ),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
@@ -76,7 +114,7 @@ class LoginView extends StatelessWidget with $LoginView {
                                       color: Palettes.kcNeutral2),
                                 ),
                               ),
-                              SizedBox(height: 10.h),
+                              SizedBox(height: 4.h),
 
                               //Email Text Field
                               TextFormField(
@@ -87,10 +125,12 @@ class LoginView extends StatelessWidget with $LoginView {
                                     ? AutovalidateMode.onUserInteraction
                                     : AutovalidateMode.disabled,
                                 validator: (value) => model.validatorService
-                                    .validateEmailAddress(value!),
+                                    .validateEmailAddress(value!.trim()),
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   hintText: 'Your Email Account',
+                                  enabledBorder: TextBorderStyles.normalBorder,
+                                  focusedBorder: TextBorderStyles.focusedBorder,
                                   prefixIconConstraints:
                                       BoxConstraints(minWidth: 20),
                                   prefixIcon: Container(
@@ -118,11 +158,16 @@ class LoginView extends StatelessWidget with $LoginView {
                                     : AutovalidateMode.disabled,
                                 textInputAction: TextInputAction.go,
                                 onChanged: (value) =>
-                                    model.setShowIconVisibility(),
-                                onEditingComplete: () => model.loginNow(),
+                                    model.setShowIconVisibility(
+                                        passwordController.text),
+                                onEditingComplete: () => model.loginNow(
+                                    emailValue: emailController.text,
+                                    passwordValue: passwordController.text),
                                 validator: (value) => model.validatorService
                                     .validatePassword(value!),
                                 decoration: InputDecoration(
+                                  enabledBorder: TextBorderStyles.normalBorder,
+                                  focusedBorder: TextBorderStyles.focusedBorder,
                                   hintText: 'Your Password',
                                   prefixIconConstraints:
                                       BoxConstraints(minWidth: 20),
@@ -149,7 +194,7 @@ class LoginView extends StatelessWidget with $LoginView {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 15.h),
+                              SizedBox(height: 10.h),
                               GestureDetector(
                                 onTap: () {},
                                 child: Text(
@@ -159,13 +204,15 @@ class LoginView extends StatelessWidget with $LoginView {
                                       color: Palettes.kcNeutral2),
                                 ),
                               ),
-                              SizedBox(height: 25.h),
+                              SizedBox(height: 20.h),
                               Container(
                                 height: 45.sp,
                                 width: screenWidth(context),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    model.loginNow();
+                                    model.loginNow(
+                                        emailValue: emailController.text,
+                                        passwordValue: passwordController.text);
                                   },
                                   child: Text('Login'),
                                 ),
@@ -175,6 +222,7 @@ class LoginView extends StatelessWidget with $LoginView {
                         ),
                         SocialLogin(
                           goToRegister: () => model.goToRegisterView(),
+                          loginWithGoogle: () => model.loginWithGoogle(),
                         ),
                       ],
                     ),
@@ -192,25 +240,28 @@ class LoginView extends StatelessWidget with $LoginView {
 
 class SocialLogin extends StatelessWidget {
   final VoidCallback goToRegister;
-  const SocialLogin({Key? key, required this.goToRegister}) : super(key: key);
+  final VoidCallback loginWithGoogle;
+  const SocialLogin(
+      {Key? key, required this.goToRegister, required this.loginWithGoogle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(top: 20.h),
+      margin: EdgeInsets.only(top: 15.h),
       child: Column(
         children: [
           Text(
             'Or login with..',
             style: TextStyles.tsBody2(color: Palettes.kcNeutral2),
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 15.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () => loginWithGoogle(),
                 child: Container(
                   height: 50.h,
                   width: 100.w,
@@ -223,22 +274,8 @@ class SocialLogin extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 20.h),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 50.h,
-                  width: 100.w,
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Palettes.kcNeutral5),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Image(image: AssetImage('assets/icons/facebook.png')),
-                ),
-              ),
             ],
           ),
-          SizedBox(height: 15.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -280,7 +317,7 @@ class LoginOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 11.h,
+      top: 9.5.h,
       left: 80.w,
       child: Image(
         image: AssetImage('assets/images/loginoverlay.png'),

@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class Palettes {
   //main colors
-  static const kcBlueMain1 = Color(0xff0065FF);
-  static const kcBlueMain2 = Color(0xff003CBF);
+  // 0xFF956CFB -purple color
+  // 0xFF007DFE -gcash color
+
+  static const kcBlueMain2 = Color(0xff0065FF);
+  static const kcBlueMain1 = Color(0xFF007DFE);
+  static const kcDarkerBlueMain1 = Color(0xFF022DB8);
+  static const kcPurpleMain=Color(0xFF956CFB);
   static const kcBlueDark = Color(0xff0F3D91);
 
 //Neutral Colors
@@ -16,9 +21,9 @@ class Palettes {
   static const kcHintColor = Color(0xFFBDBDBD);
 
 //Label Colors
-  static const kcCompleteColor = Color(0xff0CE07A);
+  static const kcCompleteColor = Color(0xff08a85c);
   static const kcOnGoingColor = kcBlueMain1;
-  static const kcPendingColor = Color(0xffFEAA48);
+  static const kcPendingColor = Color(0xffee9835);
   static const kcCancelledColor = Color(0xffF33060);
 
 //Accent Color

@@ -1,5 +1,6 @@
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
+import 'package:dentalapp/constants/styles/text_border_styles.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:dentalapp/ui/views/register/register_view.form.dart';
@@ -56,28 +57,62 @@ class RegisterView extends StatelessWidget with $RegisterView {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
+                        topRight: Radius.circular(65),
                       ),
                     ),
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          SizedBox(height: 15.h),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              'assets/icons/logo-blue-circle.png',
+                              height: 80,
+                              width: 80,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Maglinte Dental Clinic',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: FontNames.gilRoy,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.sp,
+                                letterSpacing: 1,
+                                wordSpacing: 1,
+                                color: Palettes.kcBlueMain1,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10),
                           RegisterFields(
-                              emailController: emailController,
-                              passwordController: passwordController,
-                              confirmPassController: confirmPassController,
-                              emailFNode: emailFocusNode,
-                              passFNode: passwordFocusNode,
-                              confirmPassFNode: confirmPassFocusNode,
-                              validatorService: model.validatorService,
-                              formKey: model.registerFormKey,
-                              register: () {
-                                if (model.registerFormKey.currentState!
-                                    .validate()) {
-                                  model.registerAccount();
-                                }
-                              }),
+                            emailController: emailController,
+                            passwordController: passwordController,
+                            confirmPassController: confirmPassController,
+                            emailFNode: emailFocusNode,
+                            passFNode: passwordFocusNode,
+                            confirmPassFNode: confirmPassFocusNode,
+                            validatorService: model.validatorService,
+                            formKey: model.registerFormKey,
+                            setShowIconVisibility: model.setShowIconVisibility,
+                            isVisible: model.isShowIconVisible,
+                            isObscure: model.isObscure,
+                            showHidePassword: model.showHidePassword,
+                            autoValidate: model.autoValidate,
+                            register: () {
+                              if (model.registerFormKey.currentState!
+                                  .validate()) {
+                                model.registerAccount();
+                              } else {
+                                model.setAutoValidate();
+                              }
+                            },
+                          ),
                           SocialLogin(
                             goToRegister: model.goToLogin,
                           ),
@@ -98,28 +133,38 @@ class RegisterView extends StatelessWidget with $RegisterView {
 
 //Required Fields For Register View
 class RegisterFields extends StatelessWidget {
-  final emailController;
-  final passwordController;
-  final confirmPassController;
-  final emailFNode;
-  final passFNode;
-  final confirmPassFNode;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController confirmPassController;
+  final FocusNode emailFNode;
+  final FocusNode passFNode;
+  final FocusNode confirmPassFNode;
   final ValidatorService validatorService;
   final VoidCallback register;
   final formKey;
+  final bool isVisible;
+  final bool isObscure;
+  final VoidCallback showHidePassword;
+  final bool autoValidate;
+  final VoidCallback setShowIconVisibility;
 
-  const RegisterFields(
-      {Key? key,
-      required this.emailController,
-      required this.passwordController,
-      required this.confirmPassController,
-      required this.emailFNode,
-      required this.passFNode,
-      required this.confirmPassFNode,
-      required this.validatorService,
-      required this.register,
-      required this.formKey})
-      : super(key: key);
+  const RegisterFields({
+    Key? key,
+    required this.emailController,
+    required this.passwordController,
+    required this.confirmPassController,
+    required this.emailFNode,
+    required this.passFNode,
+    required this.confirmPassFNode,
+    required this.validatorService,
+    required this.register,
+    required this.formKey,
+    required this.isVisible,
+    required this.isObscure,
+    required this.showHidePassword,
+    required this.autoValidate,
+    required this.setShowIconVisibility,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +173,6 @@ class RegisterFields extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 20.h),
           Text(
             'Register',
             style: TextStyles.tsHeading3(),
@@ -144,11 +188,17 @@ class RegisterFields extends StatelessWidget {
           TextFormField(
             controller: emailController,
             focusNode: emailFNode,
+            autovalidateMode: autoValidate
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
             textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
             validator: (value) => validatorService.validateEmailAddress(value!),
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 5),
+              enabledBorder: TextBorderStyles.normalBorder,
+              focusedBorder: TextBorderStyles.focusedBorder,
               prefixIconConstraints: BoxConstraints(minWidth: 20),
               prefixIcon: Container(
                 margin: EdgeInsets.only(right: 10),
@@ -171,13 +221,19 @@ class RegisterFields extends StatelessWidget {
           TextFormField(
             controller: passwordController,
             focusNode: passFNode,
+            autovalidateMode: autoValidate
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
             validator: (value) => validatorService.validatePassword(value!),
             onEditingComplete: () => confirmPassFNode.requestFocus(),
+            onChanged: (value) => setShowIconVisibility(),
             textInputAction: TextInputAction.next,
-            obscureText: true,
+            obscureText: isObscure,
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 16),
+              enabledBorder: TextBorderStyles.normalBorder,
+              focusedBorder: TextBorderStyles.focusedBorder,
               prefixIconConstraints: BoxConstraints(minWidth: 20),
               prefixIcon: Container(
                 margin: EdgeInsets.only(right: 10),
@@ -190,12 +246,18 @@ class RegisterFields extends StatelessWidget {
                       : Palettes.kcNeutral2,
                 ),
               ),
-              suffixIcon: IconButton(
-                  onPressed: () {},
-                  padding: EdgeInsets.zero,
-                  icon: SvgPicture.asset(
-                    'assets/icons/Show.svg',
-                  )),
+              suffixIcon: Visibility(
+                visible: isVisible,
+                child: IconButton(
+                    onPressed: () => showHidePassword(),
+                    padding: EdgeInsets.zero,
+                    icon: SvgPicture.asset(
+                      isObscure
+                          ? 'assets/icons/Show.svg'
+                          : 'assets/icons/Hide.svg',
+                      color: Palettes.kcBlueMain1,
+                    )),
+              ),
               hintText: 'Your Password',
               hintStyle: TextStyles.ktsHintTextStyle,
             ),
@@ -206,13 +268,19 @@ class RegisterFields extends StatelessWidget {
           TextFormField(
             controller: confirmPassController,
             focusNode: confirmPassFNode,
+            autovalidateMode: autoValidate
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
             validator: (value) => validatorService.validateConfirmPassword(
                 value!, passwordController.text),
+            onChanged: (value) => setShowIconVisibility(),
             textInputAction: TextInputAction.go,
-            obscureText: true,
+            obscureText: isObscure,
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 16),
+              enabledBorder: TextBorderStyles.normalBorder,
+              focusedBorder: TextBorderStyles.focusedBorder,
               prefixIconConstraints: BoxConstraints(minWidth: 20),
               prefixIcon: Container(
                 margin: EdgeInsets.only(right: 10),
@@ -225,12 +293,18 @@ class RegisterFields extends StatelessWidget {
                       : Palettes.kcNeutral2,
                 ),
               ),
-              suffixIcon: IconButton(
-                  onPressed: () {},
-                  padding: EdgeInsets.zero,
-                  icon: SvgPicture.asset(
-                    'assets/icons/Show.svg',
-                  )),
+              suffixIcon: Visibility(
+                visible: isVisible,
+                child: IconButton(
+                    onPressed: () => showHidePassword(),
+                    padding: EdgeInsets.zero,
+                    icon: SvgPicture.asset(
+                      isObscure
+                          ? 'assets/icons/Show.svg'
+                          : 'assets/icons/Hide.svg',
+                      color: Palettes.kcBlueMain1,
+                    )),
+              ),
               hintText: 'Confirm Password',
               hintStyle: TextStyles.ktsHintTextStyle,
             ),
@@ -262,44 +336,31 @@ class SocialLogin extends StatelessWidget {
       margin: EdgeInsets.only(top: 20.h),
       child: Column(
         children: [
-          Text(
-            'Or login with..',
-            style: TextStyles.tsBody2(color: Palettes.kcNeutral2),
-          ),
-          SizedBox(height: 20.h),
+          // Text(
+          //   'Or login with..',
+          //   style: TextStyles.tsBody2(color: Palettes.kcNeutral2),
+          // ),
+          // SizedBox(height: 20.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 50.h,
-                  width: 100.w,
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Palettes.kcNeutral5),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: SvgPicture.asset(
-                    'assets/icons/google.svg',
-                  ),
-                ),
-              ),
-              SizedBox(width: 20.h),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 50.h,
-                  width: 100.w,
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Palettes.kcNeutral5),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Image(image: AssetImage('assets/icons/facebook.png')),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {},
+              //   child: Container(
+              //     height: 50.h,
+              //     width: 100.w,
+              //     padding: EdgeInsets.all(6),
+              //     decoration: BoxDecoration(
+              //         border: Border.all(color: Palettes.kcNeutral5),
+              //         borderRadius: BorderRadius.circular(10)),
+              //     child: SvgPicture.asset(
+              //       'assets/icons/google.svg',
+              //     ),
+              //   ),
+              // ),
             ],
           ),
-          SizedBox(height: 15.h),
+          // SizedBox(height: 15.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
