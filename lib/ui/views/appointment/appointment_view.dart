@@ -90,41 +90,41 @@ class AppointmentView extends StatelessWidget {
                       ),
                       FilterChip(
                         label: Text(
-                          'Completed',
+                          'Approved',
                           style: TextStyle(
                               color: model.filter ==
-                                      AppointmentStatus.Completed.name
+                                      AppointmentStatus.Approved.name
                                   ? Colors.white
                                   : Colors.black),
                         ),
                         selected:
-                            model.filter == AppointmentStatus.Completed.name,
+                            model.filter == AppointmentStatus.Approved.name,
                         onSelected: (bool) => model.getAppointmentByCompleted(),
                         selectedColor: Palettes.kcCompleteColor,
                         checkmarkColor: Colors.white,
                       ),
+                      // FilterChip(
+                      //   label: Text('Pending',
+                      //       style: TextStyle(
+                      //           color: model.filter ==
+                      //                   AppointmentStatus.Pending.name
+                      //               ? Colors.white
+                      //               : Colors.black)),
+                      //   selected:
+                      //       model.filter == AppointmentStatus.Pending.name,
+                      //   onSelected: (bool) => model.getAppointmentByPending(),
+                      //   selectedColor: Palettes.kcPendingColor,
+                      //   checkmarkColor: Colors.white,
+                      // ),
                       FilterChip(
-                        label: Text('Pending',
+                        label: Text('Requests',
                             style: TextStyle(
                                 color: model.filter ==
-                                        AppointmentStatus.Pending.name
+                                        AppointmentStatus.Request.name
                                     ? Colors.white
                                     : Colors.black)),
                         selected:
-                            model.filter == AppointmentStatus.Pending.name,
-                        onSelected: (bool) => model.getAppointmentByPending(),
-                        selectedColor: Palettes.kcPendingColor,
-                        checkmarkColor: Colors.white,
-                      ),
-                      FilterChip(
-                        label: Text('Request',
-                            style: TextStyle(
-                                color: model.filter ==
-                                        AppointmentStatus.OnRequest.name
-                                    ? Colors.white
-                                    : Colors.black)),
-                        selected:
-                            model.filter == AppointmentStatus.OnRequest.name,
+                            model.filter == AppointmentStatus.Request.name,
                         onSelected: (bool) => model.getAppointmentByRequest(),
                         selectedColor: Colors.brown,
                         checkmarkColor: Colors.white,
