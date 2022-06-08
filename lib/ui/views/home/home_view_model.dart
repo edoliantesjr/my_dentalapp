@@ -134,7 +134,7 @@ class HomePageViewModel extends BaseViewModel {
       myAppointments.removeWhere((element) =>
           (element.appointment_status == AppointmentStatus.Declined.name) ||
           (element.appointment_status == AppointmentStatus.Cancelled.name) ||
-          (element.appointment_status == AppointmentStatus.Completed.name));
+          (element.appointment_status == AppointmentStatus.Approved.name));
       notifyListeners();
     }
   }

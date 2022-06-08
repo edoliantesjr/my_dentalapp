@@ -86,7 +86,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                       dentist: dentistTxtController.text,
                                       procedures: model.selectedProcedures,
                                       appointment_status:
-                                          AppointmentStatus.Pending.name,
+                                          AppointmentStatus.Approved.name,
                                     ),
                                     popTime: widget.popTimes,
                                     patientId: widget.patient.id,

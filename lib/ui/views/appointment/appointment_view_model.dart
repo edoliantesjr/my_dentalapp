@@ -75,38 +75,38 @@ class AppointmentViewModel extends BaseViewModel {
 
   void getAppointmentByCompleted() {
     setBusy(true);
-    setFilter(AppointmentStatus.Completed.name);
+    setFilter(AppointmentStatus.Approved.name);
     appointmentList.clear();
     appointmentList.addAll(tempList);
     for (AppointmentModel appointment in tempList) {
       appointmentList.removeWhere((element) =>
-          !(element.appointment_status == AppointmentStatus.Completed.name));
+          !(element.appointment_status == AppointmentStatus.Approved.name));
       notifyListeners();
     }
     setBusy(false);
   }
 
-  void getAppointmentByPending() {
-    setBusy(true);
-    setFilter(AppointmentStatus.Pending.name);
-    appointmentList.clear();
-    appointmentList.addAll(tempList);
-    for (AppointmentModel appointment in tempList) {
-      appointmentList.removeWhere((element) =>
-          !(element.appointment_status == AppointmentStatus.Pending.name));
-      notifyListeners();
-    }
-    setBusy(false);
-  }
+  // void getAppointmentByPending() {
+  //   setBusy(true);
+  //   setFilter(AppointmentStatus.Pending.name);
+  //   appointmentList.clear();
+  //   appointmentList.addAll(tempList);
+  //   for (AppointmentModel appointment in tempList) {
+  //     appointmentList.removeWhere((element) =>
+  //         !(element.appointment_status == AppointmentStatus.Pending.name));
+  //     notifyListeners();
+  //   }
+  //   setBusy(false);
+  // }
 
   void getAppointmentByRequest() {
     setBusy(true);
-    setFilter(AppointmentStatus.OnRequest.name);
+    setFilter(AppointmentStatus.Request.name);
     appointmentList.clear();
     appointmentList.addAll(tempList);
     for (AppointmentModel appointment in tempList) {
       appointmentList.removeWhere((element) =>
-          !(element.appointment_status == AppointmentStatus.OnRequest.name));
+          !(element.appointment_status == AppointmentStatus.Request.name));
       notifyListeners();
     }
     setBusy(false);

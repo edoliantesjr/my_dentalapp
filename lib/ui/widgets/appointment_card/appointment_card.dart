@@ -84,12 +84,14 @@ class _AppointmentCardState extends State<AppointmentCard> {
   Future<void> updateAppointmentStatus(String appointmentId) async {
     final appointmentStatus =
         await bottomSheetService.openBottomSheet(SelectionOption(
-      options: [
-        AppointmentStatus.Completed.name,
-        AppointmentStatus.Cancelled.name,
-        AppointmentStatus.Pending.name,
-        AppointmentStatus.Declined.name,
-      ],
+      options: widget.appointmentStatus.name == AppointmentStatus.Request.name
+          ? [
+              AppointmentStatus.Approved.options,
+              AppointmentStatus.Declined.options,
+            ]
+          : [
+              AppointmentStatus.Cancelled.options,
+            ],
       title: 'Set Appointment Status',
     ));
 
@@ -416,17 +418,17 @@ class InfoWidget extends StatelessWidget {
 
   Color selectAppointmentColor(AppointmentStatus appointmentStatus) {
     Color returnColor = Colors.red.shade900;
-    if (appointmentStatus == AppointmentStatus.Completed) {
+    if (appointmentStatus == AppointmentStatus.Approved) {
       returnColor = Palettes.kcCompleteColor;
     }
-    if (appointmentStatus == AppointmentStatus.Pending) {
-      returnColor = Palettes.kcPendingColor;
-    }
+    // if (appointmentStatus == AppointmentStatus.Pending) {
+    //   returnColor = Palettes.kcPendingColor;
+    // }
     if (appointmentStatus == AppointmentStatus.Cancelled) {
       returnColor = Palettes.kcCancelledColor;
     }
 
-    if (appointmentStatus == AppointmentStatus.OnRequest) {
+    if (appointmentStatus == AppointmentStatus.Request) {
       returnColor = Colors.brown;
     }
 
