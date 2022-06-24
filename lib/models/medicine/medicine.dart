@@ -22,10 +22,10 @@ class Medicine {
       {String? id, String? image, required dynamic dateCreated, String? qty}) {
     return {
       'id': id,
-      'medicineName': this.medicineName,
-      'price': this.price,
+      'medicineName': medicineName,
+      'price': price,
       'image': image ?? '',
-      'brandName': this.brandName ?? 'Not Set',
+      'brandName': brandName ?? 'Not Set',
       'dateCreated': dateCreated,
       'qty': this.qty ?? '1',
     };
@@ -45,8 +45,8 @@ class Medicine {
 
   final currency = NumberFormat("#,##0.00", "en_PH");
   String? get priceToCurrency {
-    if (this.price != '') {
-      return ' ₱${currency.format(double.tryParse(this.price ?? '0'))}';
+    if (price != '') {
+      return ' ₱${currency.format(double.tryParse(price ?? '0'))}';
     } else {
       return null;
     }

@@ -14,15 +14,15 @@ class ExpensesReportView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Expenses Report'),
+          title: const Text('Expenses Report'),
         ),
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Expenses Report',
                 style: GoogleFonts.quicksand(
@@ -35,15 +35,15 @@ class ExpensesReportView extends StatelessWidget {
                 'Scroll horizontally to show more',
                 style: TextStyle(color: Colors.grey.shade700),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               model.isBusy
-                  ? Container(
+                  ? SizedBox(
                       height: 500,
                       child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
+                          children: const [
                             CircularProgressIndicator(),
                             SizedBox(height: 5),
                             Text("Loading Data. Please wait...")
@@ -54,28 +54,28 @@ class ExpensesReportView extends StatelessWidget {
                   : Expanded(
                       child: Scrollbar(
                         thickness: 10,
-                        isAlwaysShown: true,
+                        thumbVisibility: true,
                         controller: null,
-                        radius: Radius.circular(20),
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListView(
-                              primary: true,
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                SizedBox(
-                                  width: 880,
-                                  child: charts.BarChart(
-                                    model.setSeriesList(),
-                                    animate: true,
-                                    barRendererDecorator:
-                                        new charts.BarLabelDecorator<String>(),
-                                    domainAxis: new charts.OrdinalAxisSpec(),
-                                  ),
+                        radius: const Radius.circular(20),
+                        child: Container(
+                          color: Colors.grey.shade100,
+                          padding: const EdgeInsets.all(6.0),
+                          child: ListView(
+                            primary: true,
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width - 38,
+                                child: charts.BarChart(
+                                  model.setSeriesList(),
+                                  vertical: false,
+                                  animate: true,
+                                  barRendererDecorator:
+                                      new charts.BarLabelDecorator<String>(),
+                                  domainAxis: new charts.OrdinalAxisSpec(),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

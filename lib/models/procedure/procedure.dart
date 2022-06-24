@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 
@@ -18,10 +20,10 @@ class Procedure extends Equatable {
   Map<String, dynamic> toJson({String? id, required dynamic dateCreated}) {
     return {
       'id': id,
-      'procedureName': this.procedureName,
-      'price': this.price,
+      'procedureName': procedureName,
+      'price': price,
       'dateCreated': dateCreated,
-      'searchIndex': this.searchIndex,
+      'searchIndex': searchIndex,
     };
   }
 
@@ -38,8 +40,8 @@ class Procedure extends Equatable {
 
   final currency = NumberFormat("#,##0.00", "en_PH");
   String? get priceToCurrency {
-    if (this.price != '') {
-      return ' ₱${currency.format(double.tryParse(this.price ?? '0'))}';
+    if (price != '') {
+      return ' ₱${currency.format(double.tryParse(price ?? '0'))}';
     } else {
       return null;
     }

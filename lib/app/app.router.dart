@@ -4,11 +4,12 @@
 // StackedRouterGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+// ignore: unused_import
 import 'package:stacked/stacked_annotations.dart';
 
 import '../models/appointment_model/appointment_model.dart';

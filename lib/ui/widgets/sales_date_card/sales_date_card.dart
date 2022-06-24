@@ -18,7 +18,7 @@ class SalesDateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => this.onTap(),
+      onTap: () => onTap(),
       splashColor: Colors.blueAccent,
       child: Container(
         padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),

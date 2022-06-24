@@ -14,18 +14,18 @@ class MedicalHistoryView extends StatelessWidget {
       onModelReady: (model) => model.getPatientMedicalHistory(patientId),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text('Medical History'),
+          title: const Text('Medical History'),
           centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {},
-          label: Text('Add Medical History'),
+          label: const Text('Add Medical History'),
         ),
         body: Container(
           color: Colors.grey.shade50,
           child: ListView(
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child:
@@ -87,8 +87,8 @@ class MedicalHistoryView extends StatelessWidget {
                     SizedBox(
                         height: MediaQuery.of(context).size.height - 120,
                         width: MediaQuery.of(context).size.width,
-                        child:
-                            Center(child: Text('No Medical History Found...'))),
+                        child: const Center(
+                            child: Text('No Medical History Found...'))),
               )
             ],
           ),

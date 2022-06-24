@@ -69,14 +69,13 @@ class AddPatientViewModel extends BaseViewModel {
   Future<void> setBirthDateValue(
       TextEditingController textEditingController) async {
     DateTime? selectedBirthDate =
-        await bottomSheetService.openBottomSheet(SelectionDate(
+        await bottomSheetService.openBottomSheet(const SelectionDate(
       title: 'Select birth date',
     ));
     tempBirthDate =
         selectedBirthDate != null ? selectedBirthDate : tempBirthDate;
     selectedBirthDate = tempBirthDate!;
     textEditingController.text = DateFormat.yMMMd().format(selectedBirthDate);
-    ;
     notifyListeners();
   }
 
@@ -126,7 +125,7 @@ class AddPatientViewModel extends BaseViewModel {
           patientId: patientRef.id, listOfMedicalHistory: listOfMedicalHistory);
 
       if (imageUploadResult.isUploaded && medHistoryUploadResult.isUploaded) {
-        final patientSearchIndex = await searchIndexService.setSearchIndex(
+        final patientSearchIndex = searchIndexService.setSearchIndex(
             string: '$firstName $lastName');
         final result = await apiService.addPatient(
           patientRef: patientRef,

@@ -21,11 +21,11 @@ class SessionServiceImpl extends SessionService {
 
   @override
   Future<SessionModel> getSession() async {
-    bool isRunFirstTime = await _myStorage.read('isRunFirstTime') ?? true;
-    bool isLoggedIn = await _myStorage.read('isLoggedIn') ?? true;
+    bool isRunFirstTime = _myStorage.read('isRunFirstTime') ?? true;
+    bool isLoggedIn = _myStorage.read('isLoggedIn') ?? true;
     bool isAccountSetupDone =
-        await _myStorage.read('isAccountSetupDone') ?? false;
-    AuthCredential? authCredential = await _myStorage.read('userCredential');
+        _myStorage.read('isAccountSetupDone') ?? false;
+    AuthCredential? authCredential = _myStorage.read('userCredential');
 
     return SessionModel(
         isRunFirstTime: isRunFirstTime,

@@ -84,7 +84,7 @@ class HomeAppointment extends StatelessWidget {
               SizedBox(width: 5),
             ],
           ),
-          this.isBusy
+          isBusy
               ? MyShimmer()
               : AnimationLimiter(
                   child: ListView.builder(

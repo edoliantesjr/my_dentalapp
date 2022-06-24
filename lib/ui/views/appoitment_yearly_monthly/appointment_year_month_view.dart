@@ -17,7 +17,7 @@ class ViewAppointmentByPeriod extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: model.index,
           onTap: (index) => model.changeIndex(index),
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.date_range),
               label: 'WeekLy',
@@ -50,7 +50,7 @@ class AppointmentIndexStackBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return IndexedStack(
       index: index,
-      children: [
+      children: const [
         WeekAppointmentView(),
 
         // PatientsView(),

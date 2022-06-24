@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
-  final selectedIndex;
+  final int selectedIndex;
   final Function(int index) setSelectedIndex;
 
-  CustomBottomNavigation(
+  const CustomBottomNavigation(
       {Key? key, required this.selectedIndex, required this.setSelectedIndex})
       : super(key: key);
 
@@ -26,7 +26,7 @@ class CustomBottomNavigation extends StatelessWidget {
               BoxShadow(
                   color: Colors.black.withOpacity(0.2),
                   blurRadius: 2,
-                  offset: Offset(1, 1)),
+                  offset: const Offset(1, 1)),
             ],
           ),
           child: BottomNavigationBar(
@@ -36,9 +36,9 @@ class CustomBottomNavigation extends StatelessWidget {
             currentIndex: selectedIndex,
             backgroundColor: Colors.transparent,
             showUnselectedLabels: true,
-            unselectedLabelStyle: TextStyle(fontSize: 10),
+            unselectedLabelStyle: const TextStyle(fontSize: 10),
             selectedLabelStyle:
-                TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
             fixedColor: Palettes.kcBlueMain1,
             items: [
               BottomNavigationBarItem(

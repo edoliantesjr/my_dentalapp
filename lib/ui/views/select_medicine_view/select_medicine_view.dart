@@ -19,7 +19,7 @@ class SelectMedicineView extends StatelessWidget {
         },
         builder: (context, model, widget) => Scaffold(
               appBar: AppBar(
-                title: Text('Select Dental Note'),
+                title: const Text('Select Dental Note'),
               ),
               persistentFooterButtons: [
                 Container(
@@ -27,7 +27,7 @@ class SelectMedicineView extends StatelessWidget {
                   width: double.maxFinite,
                   child: ElevatedButton(
                       onPressed: () => model.returnSelectedMedicine(),
-                      child: Text('Confirm')),
+                      child: const Text('Confirm')),
                 )
               ],
               body: Form(
@@ -35,7 +35,7 @@ class SelectMedicineView extends StatelessWidget {
                 child: Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
                   child: Column(
                     children: [
                       TextField(
@@ -46,43 +46,43 @@ class SelectMedicineView extends StatelessWidget {
                           ),
                           filled: true,
                           fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                             horizontal: 20,
                             vertical: 5,
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(100),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Palettes.kcBlueMain1,
                               width: 1.8,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(100),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Palettes.kcBlueDark,
                               width: 1,
                             ),
                           ),
                           prefixIcon: Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             child: SvgPicture.asset(
                               'assets/icons/Search.svg',
                             ),
                           ),
-                          constraints: BoxConstraints(maxHeight: 43),
+                          constraints: const BoxConstraints(maxHeight: 43),
                           hintText: 'Search Medicine...',
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Row(
                         children: [
                           Text(
                             'Medicine List',
                             style: TextStyles.tsHeading5(),
                           ),
-                          SizedBox(width: 2),
-                          Expanded(
+                          const SizedBox(width: 2),
+                          const Expanded(
                             child: Divider(
                               height: 1,
                               thickness: 1,
@@ -91,13 +91,13 @@ class SelectMedicineView extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       model.isBusy
                           ? Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
+                                children: const [
                                   CircularProgressIndicator(),
                                   SizedBox(height: 5),
                                   Text('Loading Data...'),
@@ -110,7 +110,7 @@ class SelectMedicineView extends StatelessWidget {
                                       interactive: true,
                                       thumbVisibility: true,
                                       thickness: 8,
-                                      radius: Radius.circular(40),
+                                      radius: const Radius.circular(40),
                                       child: ListView.separated(
                                         itemBuilder: (context, index) =>
                                             CartMedicineCard(
@@ -126,13 +126,13 @@ class SelectMedicineView extends StatelessWidget {
                                               model.selectedMedicines,
                                         ),
                                         separatorBuilder: (context, index) =>
-                                            Divider(
+                                            const Divider(
                                           color: Colors.black,
                                         ),
                                         itemCount: model.medicineList.length,
                                       ),
                                     )
-                                  : Center(child: Text('No Medicine Found...')))
+                                  : const Center(child: const Text('No Medicine Found...')))
                     ],
                   ),
                 ),

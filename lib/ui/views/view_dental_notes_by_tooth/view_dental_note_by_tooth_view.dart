@@ -20,21 +20,21 @@ class ViewDentalNoteByToothView extends StatelessWidget {
           model.getDentalNoteByID(selectedTooth, patient.id),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Treatment Records of Tooth ${selectedTooth}'),
+          title: Text('Treatment Records of Tooth $selectedTooth'),
         ),
         body: Container(
-          color: Color.fromARGB(117, 176, 156, 177),
+          color: const Color.fromARGB(117, 176, 156, 177),
           child: ListView(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             children: [
               model.isBusy
-                  ? Container(
+                  ? SizedBox(
                       height: 500,
                       child: Center(
                           child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                        children: const [
                           CircularProgressIndicator(),
                           Text('Loading..')
                         ],
@@ -48,9 +48,9 @@ class ViewDentalNoteByToothView extends StatelessWidget {
                               dentalNote: model.dentalNotes[index],
                               patient: patient),
                           separatorBuilder: (context, index) =>
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                           itemCount: model.dentalNotes.length)
-                      : Container(
+                      : const SizedBox(
                           height: 500,
                           child: Center(child: Text('No Treatment Records')),
                         )

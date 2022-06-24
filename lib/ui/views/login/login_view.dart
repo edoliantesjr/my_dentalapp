@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatefulWidget {
-  LoginView({Key? key}) : super(key: key);
+  const LoginView({Key? key}) : super(key: key);
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -205,7 +205,7 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               ),
                               SizedBox(height: 20.h),
-                              Container(
+                              SizedBox(
                                 height: 45.sp,
                                 width: screenWidth(context),
                                 child: ElevatedButton(

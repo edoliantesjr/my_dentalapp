@@ -16,7 +16,7 @@ class AddExpenseItemView extends StatelessWidget {
       viewModelBuilder: () => AddExpenseItemViewModel(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Add Expense Item'),
+          title: const Text('Add Expense Item'),
           centerTitle: true,
         ),
         persistentFooterButtons: [
@@ -25,7 +25,7 @@ class AddExpenseItemView extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () => model.returnExpenseItem(),
-                  child: Text('Add'),
+                  child: const Text('Add'),
                 ),
               ),
             ],
@@ -34,7 +34,7 @@ class AddExpenseItemView extends StatelessWidget {
         body: Form(
           key: model.addExpenseItemFormKey,
           child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
             children: [
               TextFormField(
                 controller: model.itemNameTxtController,
@@ -53,7 +53,7 @@ class AddExpenseItemView extends StatelessWidget {
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: model.itemQuantityTxtController,
                 enableInteractiveSelection: false,
@@ -72,7 +72,7 @@ class AddExpenseItemView extends StatelessWidget {
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: model.itemTotalAmountTxtController,
                 validator: (value) =>
@@ -94,7 +94,7 @@ class AddExpenseItemView extends StatelessWidget {
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),

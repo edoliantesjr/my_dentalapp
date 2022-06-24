@@ -22,7 +22,7 @@ class WeekAppointmentView extends StatelessWidget {
         debugPrint(model.selectedPeriod?.start.toString());
         debugPrint(model.selectedPeriod?.end.toString());
       },
-      builder: (context, model, widget) => Container(
+      builder: (context, model, widget) => SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView(

@@ -79,7 +79,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                   model.notifyListeners();
                 }
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ),
         ],
@@ -93,7 +93,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                   filePath: model.patientSelectedImage?.path,
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,7 +159,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                                   color: Palettes.kcNeutral1),
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.always,
-                              suffixIcon: Icon(
+                              suffixIcon: const Icon(
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color: Palettes.kcBlueMain1,
@@ -191,7 +191,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                                   color: Palettes.kcNeutral1),
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.always,
-                              suffixIcon: Icon(
+                              suffixIcon: const Icon(
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color: Palettes.kcBlueMain1,
@@ -242,7 +242,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -296,14 +296,14 @@ class _AddPatientViewState extends State<AddPatientView> {
                       //         ))
                       //   ],
                       // ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Visibility(
                           visible: model.listOfMedicalHistory.isNotEmpty
                               ? true
                               : false,
                           child: Container(
                             width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(8)),
@@ -345,16 +345,16 @@ class _AddPatientViewState extends State<AddPatientView> {
                                   .toList(),
                             ),
                           )),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Colors.grey, width: 1)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('In Case of Emergency : (Optional)'),
+                            const Text('In Case of Emergency : (Optional)'),
                             TextFormField(
                               controller: emergencyContactName,
                               textInputAction: TextInputAction.next,
@@ -391,7 +391,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       TextFormField(
                         controller: noteTxtController,
                         textInputAction: TextInputAction.done,
@@ -402,7 +402,7 @@ class _AddPatientViewState extends State<AddPatientView> {
                           fillColor: Colors.grey.shade200,
                           filled: true,
                           contentPadding:
-                              EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                              const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
                           labelStyle:
                               TextStyles.tsBody1(color: Palettes.kcNeutral1),
                           enabledBorder: TextBorderStyles.normalBorder,
@@ -436,8 +436,8 @@ class AddPatientHeader extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width,
           height: 55,
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          decoration: const BoxDecoration(
             color: Palettes.kcBlueMain1,
           ),
         ),
@@ -460,7 +460,7 @@ class AddPatientHeader extends StatelessWidget {
                       child: Container(
                         height: 110,
                         width: 110,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0xff00E1F0),
                           shape: BoxShape.circle,
                         ),
@@ -468,7 +468,7 @@ class AddPatientHeader extends StatelessWidget {
                             ? CircleAvatar(
                                 backgroundImage: FileImage(File(filePath!)),
                               )
-                            : CircleAvatar(
+                            : const CircleAvatar(
                                 backgroundImage:
                                     AssetImage('assets/images/avatar.png'),
                               ),
@@ -479,11 +479,11 @@ class AddPatientHeader extends StatelessWidget {
                     right: 0,
                     bottom: 5,
                     child: GestureDetector(
-                      onTap: () => this.onTap(),
+                      onTap: () => onTap(),
                       child: Container(
                         height: 35,
                         width: 35,
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           border:
                               Border.all(color: Colors.grey.shade50, width: 2),

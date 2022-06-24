@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -112,7 +114,7 @@ abstract class ApiService {
   Future<void> updateDentalAmountField(
       {required dynamic patientId,
       String? toothId,
-      required dental_noteId,
+      required dentalNoteId,
       required dynamic procedureId,
       required String price});
 

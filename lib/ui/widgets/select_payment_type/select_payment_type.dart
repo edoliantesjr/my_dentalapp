@@ -30,9 +30,9 @@ class SelectPaymentType extends StatelessWidget {
                         Container(
                           height: 50,
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           width: double.maxFinite,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Palettes.kcPurpleMain,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(8),
@@ -43,7 +43,7 @@ class SelectPaymentType extends StatelessWidget {
                             style: TextStyles.tsHeading4(color: Colors.white),
                           ),
                         ),
-                        Divider(
+                        const Divider(
                           color: Palettes.kcDarkerBlueMain1,
                           height: 1,
                           thickness: 1,
@@ -51,16 +51,16 @@ class SelectPaymentType extends StatelessWidget {
                         Expanded(
                           child: ListView.builder(
                               itemBuilder: (context, index) => Container(
-                                    margin: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
+                                    margin: const EdgeInsets.all(5),
+                                    decoration: const BoxDecoration(
                                         color: Colors.white,
                                         boxShadow: [
-                                          BoxShadow(
+                                          const BoxShadow(
                                               color: Colors.grey,
-                                              offset: Offset(1, 1)),
-                                          BoxShadow(
+                                              offset: const Offset(1, 1)),
+                                          const BoxShadow(
                                               color: Colors.grey,
-                                              offset: Offset(-1, -1)),
+                                              offset: const Offset(-1, -1)),
                                         ]),
                                     child: RadioListTile(
                                       tileColor: Colors.white,
@@ -72,7 +72,7 @@ class SelectPaymentType extends StatelessWidget {
                                       },
                                       selected: model.val == index,
                                       title: Text(model.paymentTypes[index]),
-                                      secondary: Icon(Icons.money),
+                                      secondary: const Icon(Icons.money),
                                       toggleable: true,
                                       controlAffinity:
                                           ListTileControlAffinity.trailing,
@@ -90,7 +90,7 @@ class SelectPaymentType extends StatelessWidget {
                                   model.returnPaymentType(
                                       model.paymentTypes[model.val]);
                                 },
-                                child: Text('Confirm'),
+                                child: const Text('Confirm'),
                               )),
                         )
                       ],

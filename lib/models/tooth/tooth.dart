@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dentalapp/models/procedure/procedure.dart';
 import 'package:dentalapp/models/tooth_condition/tooth_condition.dart';
 
@@ -20,12 +22,12 @@ class Tooth {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': this.id,
-      'index': this.index,
-      'toothStatus': this.toothCondition,
-      'procedures': this.procedures,
-      'payment_status': this.payment_status,
-      'payment_id': this.payment_id,
+      'id': id,
+      'index': index,
+      'toothStatus': toothCondition,
+      'procedures': procedures,
+      'payment_status': payment_status,
+      'payment_id': payment_id,
     };
   }
 

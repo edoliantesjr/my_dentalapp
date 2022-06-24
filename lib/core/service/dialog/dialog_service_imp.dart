@@ -16,11 +16,11 @@ class DialogServiceImpl extends DialogService {
         },
         title: message,
         content: Center(
-          child: Container(
+          child: SizedBox(
             height: 50,
             width: 50,
             child: Column(
-              children: [
+              children: const [
                 CircularProgressIndicator(
                   color: Colors.black,
                 ),
@@ -133,18 +133,18 @@ class DialogServiceImpl extends DialogService {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           top: 25, left: 20, right: 20, bottom: 0),
                       child: Column(
                         children: [
                           Text(
                             title,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(height: 18),
+                          const SizedBox(height: 18),
                           Text(
                             middleText,
                             textAlign: TextAlign.center,
@@ -157,24 +157,24 @@ class DialogServiceImpl extends DialogService {
                       ),
                     ),
                   ),
-                  Divider(height: 1),
+                  const Divider(height: 1),
                   TextButton(
                     onPressed: () => onContinue(),
                     child: mainOptionTxt == null
-                        ? Text('Confirm')
+                        ? const Text('Confirm')
                         : Text(mainOptionTxt),
                     style: TextButton.styleFrom(
                       primary: mainOptionColor,
-                      minimumSize: Size(double.maxFinite, 40),
+                      minimumSize: const Size(double.maxFinite, 40),
                     ),
                   ),
-                  Divider(height: 1),
+                  const Divider(height: 1),
                   TextButton(
                     onPressed: () => onCancel(),
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                     style: TextButton.styleFrom(
                       primary: Colors.grey.shade900,
-                      minimumSize: Size(double.maxFinite, 40),
+                      minimumSize: const Size(double.maxFinite, 40),
                     ),
                   ),
                 ],

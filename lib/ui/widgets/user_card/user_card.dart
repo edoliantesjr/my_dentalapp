@@ -17,7 +17,7 @@ class UserCard extends StatelessWidget {
           height: 130,
           child: Card(
             elevation: 2,
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -25,9 +25,9 @@ class UserCard extends StatelessWidget {
                   height: 130,
                   width: 130,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4),
-                      bottomLeft: Radius.circular(4),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: const Radius.circular(4),
+                      bottomLeft: const Radius.circular(4),
                     ),
                     child: CachedNetworkImage(
                       imageUrl: user.image,
@@ -38,11 +38,11 @@ class UserCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Row(
                           children: [
                             Expanded(
@@ -51,14 +51,14 @@ class UserCard extends StatelessWidget {
                                 style: TextStyles.tsHeading4(),
                               ),
                             ),
-                            SizedBox(width: 4),
+                            const SizedBox(width: 4),
                             user.active_status == 'active'
-                                ? Container(
+                                ? SizedBox(
                                     width: 53.sp,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
-                                      children: [
+                                      children: const [
                                         Icon(
                                           Icons.circle,
                                           size: 13,
@@ -78,11 +78,11 @@ class UserCard extends StatelessWidget {
                                         size: 13,
                                         color: Colors.grey.shade800,
                                       ),
-                                      SizedBox(width: 1),
-                                      Text('On Leave'),
+                                      const SizedBox(width: 1),
+                                      const Text('On Leave'),
                                     ],
                                   ),
-                            SizedBox(width: 4),
+                            const SizedBox(width: 4),
                           ],
                         ),
                         Text(

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -22,7 +24,7 @@ class ToothWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => this.onTap!(),
+      onTap: () => onTap!(),
       child: Column(
         children: [
           Visibility(

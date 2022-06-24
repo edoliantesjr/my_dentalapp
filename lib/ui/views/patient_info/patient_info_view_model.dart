@@ -83,45 +83,51 @@ class PatientInfoViewModel extends BaseViewModel {
   }
 
   void goToMedicalChart({required Patient? patient}) {
-    if (patient != null)
+    if (patient != null) {
       navigationService.pushNamed(Routes.PatientDentalChartView,
           arguments: PatientDentalChartViewArguments(patient: patient));
+    }
   }
 
   void goToViewPatientAppointmentView({required Patient? patient}) {
-    if (patient != null)
+    if (patient != null) {
       navigationService.pushNamed(Routes.ViewPatientAppointment,
           arguments: ViewPatientAppointmentArguments(patient: patient));
+    }
   }
 
   void goToViewPatientPaymentsView({required Patient? patient}) {
-    if (patient != null)
+    if (patient != null) {
       navigationService.pushNamed(Routes.ViewPatientPayment,
           arguments: ViewPatientPaymentArguments(patient: patient));
+    }
   }
 
   void goToPrescriptionView({required Patient? patient}) {
-    if (patient != null)
+    if (patient != null) {
       navigationService.pushNamed(Routes.PrescriptionView,
           arguments: PrescriptionViewArguments(patient: patient));
+    }
   }
 
   void goToDentalCertificateView({required Patient? patient}) {
-    if (patient != null)
+    if (patient != null) {
       navigationService.pushNamed(Routes.DentalCertificationView,
           arguments: DentalCertificationViewArguments(patient: patient));
+    }
   }
 
   void goToUpdatePatient({required Patient? patient}) {
-    if (patient != null)
+    if (patient != null) {
       navigationService.pushNamed(Routes.EditPatientView,
           arguments: EditPatientViewArguments(patient: patient));
+    }
   }
 
   Future<void> updatePatientImage() async {
     XFile? selectedImage;
     var selectedImageSource =
-        await bottomSheetService.openBottomSheet(SelectionOption(
+        await bottomSheetService.openBottomSheet(const SelectionOption(
       options: ['Gallery', 'Camera'],
       title: 'Select Image Source',
     ));
@@ -141,7 +147,7 @@ class PatientInfoViewModel extends BaseViewModel {
         final qRes = await apiService.updatePatientPhoto(
             image: imageResult.imageUrl!, patientID: patient!.id);
         if (qRes.success) {
-          await Future.delayed(Duration(seconds: 2));
+          await Future.delayed(const Duration(seconds: 2));
           snackBarService.showSnackBar(
               message: 'Patient Image Updated', title: 'Success');
         } else {

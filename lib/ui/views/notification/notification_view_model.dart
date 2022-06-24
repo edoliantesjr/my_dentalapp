@@ -25,13 +25,13 @@ class NotificationViewModel extends BaseViewModel {
   void init() async {
     setBusy(true);
     await getNotification();
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     listenToNotification();
     setBusy(false);
   }
 
   Future<void> getNotification() async {
-    debugPrint('User Id ${currentUserId}');
+    debugPrint('User Id $currentUserId');
     final notifs = await apiService.getNotification(
         userId: currentUserId.trimLeft().trimRight());
 

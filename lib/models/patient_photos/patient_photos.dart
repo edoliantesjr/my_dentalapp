@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class PatientPhotos {
   final dynamic id;
   final String img_url;
@@ -11,9 +13,9 @@ class PatientPhotos {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': this.id,
-      'img_url': this.img_url,
-      'date_created': this.date_created,
+      'id': id,
+      'img_url': img_url,
+      'date_created': date_created,
     };
   }
 

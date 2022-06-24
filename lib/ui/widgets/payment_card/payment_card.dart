@@ -15,7 +15,7 @@ class PaymentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.zero,
       ),
       child: Container(
@@ -48,7 +48,7 @@ class PaymentCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -68,8 +68,8 @@ class PaymentCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 4),
-                  Divider(
+                  const SizedBox(height: 4),
+                  const Divider(
                     thickness: 1,
                     height: 1,
                     color: Colors.grey,
@@ -93,12 +93,12 @@ class PaymentCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 1,
                     height: 1,
                     color: Colors.grey,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Row(
@@ -134,13 +134,13 @@ class PaymentCard extends StatelessWidget {
               onTap: () => onViewReceiptTap(),
               child: Container(
                 height: 40,
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 width: double.maxFinite,
                 color: Colors.grey.shade100,
                 alignment: Alignment.centerRight,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
+                  children: const [
                     Text('View Receipt'),
                     Icon(
                       Icons.arrow_forward,

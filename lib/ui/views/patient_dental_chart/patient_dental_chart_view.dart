@@ -21,17 +21,17 @@ class PatientDentalChartView extends StatelessWidget {
     return ViewModelBuilder<PatientDentalChartViewModel>.reactive(
       viewModelBuilder: () => PatientDentalChartViewModel(),
       onModelReady: (model) async {
-        await Future.delayed(Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
         refreshKey.currentState?.show();
       },
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text("Patient's Dental Chart"),
+          title: const Text("Patient's Dental Chart"),
           centerTitle: true,
           actions: [
             IconButton(
                 onPressed: () => model.goToChartLegend(),
-                icon: Icon(
+                icon: const Icon(
                   Icons.info,
                   color: Colors.white,
                 ))
@@ -42,30 +42,30 @@ class PatientDentalChartView extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton.icon(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.history,
                     color: Colors.white,
                   ),
                   onPressed: () => model.navigationService.pushNamed(
                       Routes.ViewDentalNote,
                       arguments: ViewDentalNoteArguments(patient: patient)),
-                  label: Text('View Dental Notes'),
+                  label: const Text('View Dental Notes'),
                   style: ElevatedButton.styleFrom(
                     textStyle: TextStyles.tsBody2(),
                     primary: Palettes.kcBlueMain1,
                   ),
                 ),
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               ElevatedButton.icon(
-                icon: Icon(
+                icon: const Icon(
                   Icons.money,
                   color: Colors.white,
                 ),
                 onPressed: () => model.navigationService.pushNamed(
                     Routes.AddPaymentView,
                     arguments: AddPaymentViewArguments(patient: patient)),
-                label: Text('Add Payment'),
+                label: const Text('Add Payment'),
                 style: ElevatedButton.styleFrom(
                   textStyle: TextStyles.tsBody2(),
                   primary: Palettes.kcNeutral1,
@@ -83,7 +83,7 @@ class PatientDentalChartView extends StatelessWidget {
             model.notifyListeners();
           },
           child: ListView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             children: [
               PatientCard(
                 image: patient.image,
@@ -100,19 +100,19 @@ class PatientDentalChartView extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
                 ),
-                duration: Duration(milliseconds: 200),
-                padding: EdgeInsets.all(2),
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.all(2),
                 curve: Curves.easeIn,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Center(
                         child: RichText(
                       text: TextSpan(
                         text: model.selectedTooth.length.toString(),
-                        children: [
+                        children: const [
                           TextSpan(
                               text: ' Tooth Selected',
                               style: TextStyle(
@@ -121,7 +121,7 @@ class PatientDentalChartView extends StatelessWidget {
                         style: TextStyles.tsHeading5(),
                       ),
                     )),
-                    Spacer(),
+                    const Spacer(),
                     // TextButton.icon(
                     //   onPressed: () => model.goToSetToothCondition(patient.id),
                     //   icon: Icon(CupertinoIcons.add_circled),
@@ -131,21 +131,21 @@ class PatientDentalChartView extends StatelessWidget {
                     //     backgroundColor: Palettes.kcNeutral1,
                     //   ),
                     // ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     TextButton.icon(
                       onPressed: () => model.goToSetDentalNote(patient.id),
-                      icon: Icon(CupertinoIcons.add_circled),
-                      label: Text(' Add Dental Note/ Treatment'),
+                      icon: const Icon(CupertinoIcons.add_circled),
+                      label: const Text(' Add Dental Note/ Treatment'),
                       style: TextButton.styleFrom(
                         primary: Colors.white,
                         backgroundColor: Palettes.kcBlueMain1,
                       ),
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                   ],
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Column(
@@ -156,17 +156,17 @@ class PatientDentalChartView extends StatelessWidget {
                       "Patient's Dental Chart",
                       style: TextStyles.tsHeading4(),
                     ),
-                    SizedBox(height: 3),
+                    const SizedBox(height: 3),
                     Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               border:
                                   Border.all(color: Colors.black, width: 2)),
                           child: Column(
                             children: [
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
 
                               //PEDIATRIC UPPER
                               GridView.builder(
@@ -174,7 +174,7 @@ class PatientDentalChartView extends StatelessWidget {
                                 shrinkWrap: true,
                                 primary: false,
                                 gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 10,
                                         mainAxisExtent: 60,
                                         crossAxisSpacing: 1),
@@ -203,7 +203,7 @@ class PatientDentalChartView extends StatelessWidget {
                                   toothId: model.toothIdFromA[index],
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
 
                               //PEDIATRIC LOWER
                               GridView.builder(
@@ -211,7 +211,7 @@ class PatientDentalChartView extends StatelessWidget {
                                 shrinkWrap: true,
                                 primary: false,
                                 gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisSpacing: 1,
                                         crossAxisCount: 10,
                                         mainAxisExtent: 60),
@@ -240,23 +240,23 @@ class PatientDentalChartView extends StatelessWidget {
                                   toothId: model.toothIdFromT[index],
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                             ],
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
 
                     //second row of teeth chart
                     Container(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 2)),
                       child: Column(
                         children: [
                           Text('Upper', style: TextStyles.tsHeading5()),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
 
                           //ADULT UPPER
                           Container(
@@ -268,7 +268,7 @@ class PatientDentalChartView extends StatelessWidget {
                               shrinkWrap: true,
                               primary: false,
                               gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 8,
                                 mainAxisExtent: 60,
                               ),
@@ -297,17 +297,17 @@ class PatientDentalChartView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
 
                           //ADULT LOWER
-                          Divider(
+                          const Divider(
                             thickness: 1,
                             color: Colors.black,
                           ),
                           Text('Lower', style: TextStyles.tsHeading5()),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Container(
-                            padding: EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
                             decoration: BoxDecoration(
                                 border:
                                     Border.all(color: Colors.black, width: 1)),
@@ -316,7 +316,7 @@ class PatientDentalChartView extends StatelessWidget {
                               shrinkWrap: true,
                               primary: false,
                               gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 8,
                                 mainAxisExtent: 60,
                               ),

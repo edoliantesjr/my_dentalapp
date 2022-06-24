@@ -20,7 +20,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     // navigation bar color
     statusBarColor: Palettes.kcBlueMain1,
   ));
@@ -28,10 +28,10 @@ void main() async {
 
   await Firebase.initializeApp();
   await GetStorage.init('MyLocalDB');
-  FirebaseFirestore.instance.settings = Settings(persistenceEnabled: false);
+  FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
   await getAppVersionNumber();
 
-  runApp(DentalApp());
+  runApp(const DentalApp());
 }
 
 final navigationService = locator<NavigationService>();

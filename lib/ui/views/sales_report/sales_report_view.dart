@@ -4,6 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
+import '../../../constants/styles/palette_color.dart';
+import '../../../constants/styles/text_border_styles.dart';
+import '../../../constants/styles/text_styles.dart';
+
 class SalesReportsView extends StatelessWidget {
   const SalesReportsView({Key? key}) : super(key: key);
 
@@ -15,36 +19,116 @@ class SalesReportsView extends StatelessWidget {
       builder: (context, model, widget) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Sales Report'),
+            title: const Text('Income Report'),
           ),
           body: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                SizedBox(height: 10),
-                Text(
-                  'Sales Report',
-                  style: GoogleFonts.quicksand(
-                    fontSize: 28,
-                    color: Colors.grey.shade900,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
                 Text(
                   'Scroll horizontally to show more',
                   style: TextStyle(color: Colors.grey.shade700),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        // onTap: () =>
+                        //     model.setBirthDateValue(birthDateTxtController),
+                        child: TextFormField(
+                          controller: model.firstDate,
+                          textCapitalization: TextCapitalization.words,
+                          textInputAction: TextInputAction.next,
+                          enabled: false,
+                          keyboardType: TextInputType.datetime,
+                          decoration: InputDecoration(
+                              errorBorder: TextBorderStyles.errorBorder,
+                              errorStyle: TextStyles.errorTextStyle,
+                              disabledBorder: TextBorderStyles.normalBorder,
+                              hintText: 'Enter Year',
+                              labelStyle: TextStyles.tsBody1(
+                                  color: Palettes.kcNeutral1),
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              suffixIcon: const Icon(
+                                Icons.arrow_drop_down,
+                                size: 24,
+                                color: Palettes.kcBlueMain1,
+                              )),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    const Text(
+                      'COMPARE',
+                      style:
+                          const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: GestureDetector(
+                        // onTap: () =>
+                        //     model.setBirthDateValue(birthDateTxtController),
+                        child: TextFormField(
+                          controller: model.secondDate,
+                          textCapitalization: TextCapitalization.words,
+                          textInputAction: TextInputAction.next,
+                          enabled: false,
+                          keyboardType: TextInputType.datetime,
+                          decoration: InputDecoration(
+                              errorBorder: TextBorderStyles.errorBorder,
+                              errorStyle: TextStyles.errorTextStyle,
+                              disabledBorder: TextBorderStyles.normalBorder,
+                              hintText: 'Enter Year',
+                              labelStyle: TextStyles.tsBody1(
+                                  color: Palettes.kcNeutral1),
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              suffixIcon: const Icon(
+                                Icons.arrow_drop_down,
+                                size: 24,
+                                color: Palettes.kcBlueMain1,
+                              )),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Container(
+                      height: 12,
+                      width: 12,
+                      color: Colors.orange.shade900,
+                    ),
+                    const SizedBox(width: 4),
+                    Text('${model.firstDate.text}'),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      height: 12,
+                      width: 12,
+                      color: Colors.blue,
+                    ),
+                    const SizedBox(width: 4),
+                    Text('${model.secondDate.text}'),
+                  ],
+                ),
                 model.isBusy
-                    ? Container(
+                    ? SizedBox(
                         height: 500,
                         child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
+                            children: const [
                               CircularProgressIndicator(),
                               SizedBox(height: 5),
                               Text("Loading Data. Please wait...")
@@ -53,32 +137,40 @@ class SalesReportsView extends StatelessWidget {
                         ),
                       )
                     : Expanded(
-                        child: Scrollbar(
-                          thickness: 10,
-                          isAlwaysShown: true,
-                          
-                          controller: null,
-                          radius: Radius.circular(20),
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListView(
-                                primary: true,
-                                scrollDirection: Axis.horizontal,
-                                children: [
-                                  SizedBox(
-                                    width: 880,
-                                    child: charts.BarChart(
-                                      model.setSeriesList(),
-                                      animate: true,
-                                      barRendererDecorator: new charts
-                                          .BarLabelDecorator<String>(),
-                                      domainAxis: new charts.OrdinalAxisSpec(),
+                        child: Container(
+                          color: Colors.grey.shade100,
+                          padding: const EdgeInsets.all(6),
+                          child: ListView(
+                            primary: true,
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width - 38,
+                                child: charts.BarChart(
+                                  model.setSeriesList(),
+                                  animate: true,
+                                  vertical: false,
+                                  barRendererDecorator:
+                                      new charts.BarLabelDecorator<String>(),
+                                  domainAxis: new charts.OrdinalAxisSpec(),
+                                  defaultInteractions: !MediaQuery.of(context)
+                                      .accessibleNavigation,
+                                  behaviors: [
+                                    new charts.DomainA11yExploreBehavior(
+                                      exploreModeTrigger:
+                                          charts.ExploreModeTrigger.pressHold,
+                                      exploreModeEnabledAnnouncement:
+                                          'Explore mode enabled',
+                                      exploreModeDisabledAnnouncement:
+                                          'Explore mode disabled',
+                                      minimumWidth: 1.0,
                                     ),
-                                  ),
-                                ],
+                                    new charts.DomainHighlighter(
+                                        charts.SelectionModelType.info),
+                                  ],
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),

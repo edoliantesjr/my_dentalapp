@@ -1,6 +1,7 @@
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/extensions/date_format_extension.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import "package:charts_flutter/flutter.dart" as charts;
@@ -15,18 +16,46 @@ class SalesReportViewModel extends BaseViewModel {
   List<Payment> paymentList = [];
   List<Sales> data = [];
 
+  final firstDate = TextEditingController(text: '${DateTime.now().year}');
+  final secondDate = TextEditingController(text: '${DateTime.now().year - 1}');
+
+  @override
+  void dispose() {
+    firstDate.dispose();
+    secondDate.dispose();
+    super.dispose();
+  }
+
   List<charts.Series<Sales, String>> setSeriesList() {
     return [
       new charts.Series<Sales, String>(
-        id: 'Patients',
+        id: 'Year 1',
         data: data,
         measureFn: (Sales sales, _) => sales.sales,
         domainFn: (Sales sales, _) => sales.month,
+        colorFn: (s, i) =>
+            charts.ColorUtil.fromDartColor(Colors.orange.shade900),
         outsideLabelStyleAccessorFn: (Sales row, _) =>
-            charts.TextStyleSpec(fontSize: 9),
+            charts.TextStyleSpec(fontSize: 8),
         labelAccessorFn: (Sales row, _) =>
             '${row.sales.toString().toCurrency!}',
-      )
+      ),
+      new charts.Series<Sales, String>(
+        id: 'Year 2',
+        data: [
+          Sales(
+              month: DateFormat.MMM().format(
+                DateTime(DateTime.now().year, 5),
+              ),
+              sales: 9000),
+        ],
+        measureFn: (Sales sales, _) => sales.sales,
+        domainFn: (Sales sales, _) => sales.month,
+        outsideLabelStyleAccessorFn: (Sales row, _) =>
+            charts.TextStyleSpec(fontSize: 8),
+        labelAccessorFn: (Sales row, _) =>
+            '${row.sales.toString().toCurrency!}',
+      ),
     ];
   }
 
@@ -54,13 +83,13 @@ class SalesReportViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-
   void computeJan() {
     double total = 0;
     final janDate = DateTime(DateTime.now().year, 1);
     for (Payment payment in paymentList) {
-      if (janDate.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (janDate.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final janData =
         Sales(month: DateFormat.MMM().format(janDate), sales: total);
@@ -72,8 +101,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 2);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final febData = Sales(month: DateFormat.MMM().format(date), sales: total);
     data.add(febData);
@@ -84,8 +114,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 3);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final marData = Sales(month: DateFormat.MMM().format(date), sales: total);
     data.add(marData);
@@ -96,8 +127,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 4);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final aprData = Sales(month: DateFormat.MMM().format(date), sales: total);
     data.add(aprData);
@@ -108,8 +140,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 5);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final mayData = Sales(month: DateFormat.MMM().format(date), sales: total);
     data.add(mayData);
@@ -120,8 +153,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 6);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final data = Sales(month: DateFormat.MMM().format(date), sales: total);
     this.data.add(data);
@@ -132,8 +166,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 7);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final data = Sales(month: DateFormat.MMM().format(date), sales: total);
     this.data.add(data);
@@ -144,8 +179,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 8);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final data = Sales(month: DateFormat.MMM().format(date), sales: total);
     this.data.add(data);
@@ -156,8 +192,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 9);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final data = Sales(month: DateFormat.MMM().format(date), sales: total);
     this.data.add(data);
@@ -168,8 +205,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 10);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final data = Sales(month: DateFormat.MMM().format(date), sales: total);
     this.data.add(data);
@@ -180,8 +218,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 11);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final data = Sales(month: DateFormat.MMM().format(date), sales: total);
     this.data.add(data);
@@ -192,8 +231,9 @@ class SalesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 12);
     for (Payment payment in paymentList) {
-      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!))
+      if (date.isSameDateMonth(payment.paymentDate.toDateTime()!)) {
         total += double.parse(payment.totalAmount);
+      }
     }
     final data = Sales(month: DateFormat.MMM().format(date), sales: total);
     this.data.add(data);

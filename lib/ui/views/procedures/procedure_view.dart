@@ -42,15 +42,15 @@ class _ProceduresViewState extends State<ProceduresView> {
             ),
           ),
           floatingActionButton: AnimatedContainer(
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             height: !model.isScrolledUp ? 56 : 48,
             child: FloatingActionButton.extended(
               heroTag: null,
               isExtended: model.isScrolledUp,
               onPressed: () =>
                   model.navigationService.pushNamed(Routes.AddProcedureView),
-              label: Text('Add Procedure'),
-              icon: Icon(Icons.add),
+              label: const Text('Add Procedure'),
+              icon: const Icon(Icons.add),
             ),
           ),
           body: NotificationListener<UserScrollNotification>(
@@ -74,7 +74,7 @@ class _ProceduresViewState extends State<ProceduresView> {
                         horizontal: 15,
                         vertical: 15,
                       ),
-                      child: Container(
+                      child: SizedBox(
                         height: 50,
                         width: double.maxFinite,
                         child: Row(
@@ -89,31 +89,31 @@ class _ProceduresViewState extends State<ProceduresView> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 20,
                                     vertical: 5,
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(100),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Palettes.kcBlueMain1,
                                       width: 1.8,
                                     ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(100),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Palettes.kcBlueDark,
                                       width: 1,
                                     ),
                                   ),
                                   prefixIcon: Padding(
-                                    padding: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
                                     child: SvgPicture.asset(
                                       'assets/icons/Search.svg',
                                     ),
                                   ),
-                                  constraints: BoxConstraints(maxHeight: 43),
+                                  constraints: const BoxConstraints(maxHeight: 43),
                                   hintText: 'Search Procedure...',
                                 ),
                               ),
@@ -123,15 +123,15 @@ class _ProceduresViewState extends State<ProceduresView> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   model.isBusy
-                      ? Container(
+                      ? SizedBox(
                           height: 500,
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
+                              children: const [
                                 CircularProgressIndicator(),
                                 SizedBox(
                                   height: 10,
@@ -143,7 +143,7 @@ class _ProceduresViewState extends State<ProceduresView> {
                         )
                       : model.procedureList.isNotEmpty
                           ? Container(
-                              padding: EdgeInsets.symmetric(vertical: 10),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
                               child: ListView.separated(
                                 shrinkWrap: true,
                                 primary: false,
@@ -157,10 +157,10 @@ class _ProceduresViewState extends State<ProceduresView> {
                                 itemCount: model.procedureList.length,
                               ),
                             )
-                          : Container(
+                          : const SizedBox(
                               height: 500,
-                              child: Center(
-                                child: Text('No Procedures found...'),
+                              child:  Center(
+                                child:  Text('No Procedures found...'),
                               ),
                             )
                 ],

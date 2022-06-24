@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/dialog/dialog_service.dart';
 import 'package:dentalapp/extensions/date_format_extension.dart';
@@ -55,16 +56,18 @@ class NumericReportViewModel extends BaseViewModel {
 
   void computeTotalRevenueByYear(String date) {
     for (Payment payment in paymentList) {
-      if (payment.paymentDate.toDateTime()?.year.toString == date) ;
-      revYear += double.parse(payment.totalAmount);
+      if (payment.paymentDate.toDateTime()?.year.toString == date) {
+        revYear += double.parse(payment.totalAmount);
+      }
       notifyListeners();
     }
   }
 
   void computeTotalRevenueByMonth() {
     for (Payment payment in paymentList) {
-      if (DateTime.now().isSameDateMonth(payment.paymentDate.toDateTime()!)) ;
-      revMonth += double.parse(payment.totalAmount);
+      if (DateTime.now().isSameDateMonth(payment.paymentDate.toDateTime()!)) {
+        revMonth += double.parse(payment.totalAmount);
+      }
       notifyListeners();
     }
   }

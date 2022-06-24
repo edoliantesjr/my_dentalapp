@@ -23,7 +23,7 @@ class MainBodyView extends StatelessWidget {
             selectedIndex: model.selectedIndex,
           ),
           body: DoubleBackToCloseApp(
-            snackBar: SnackBar(
+            snackBar: const SnackBar(
               content: Text('Press back again to exit'),
               duration: Duration(seconds: 1),
             ),
@@ -38,14 +38,15 @@ class MainBodyView extends StatelessWidget {
 }
 
 class IndexStackBody extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final index;
-  IndexStackBody({Key? key, required this.index}) : super(key: key);
+  const IndexStackBody({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return IndexedStack(
       index: index,
-      children: [
+      children:const [
         HomePageView(),
         AppointmentView(),
         PatientsView(),

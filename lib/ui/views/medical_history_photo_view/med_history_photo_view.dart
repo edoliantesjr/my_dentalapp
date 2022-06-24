@@ -19,20 +19,18 @@ class MedHistoryPhotoView extends StatelessWidget {
       viewModelBuilder: () => MedHistoryPhotoViewModel(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(),
-        body: Container(
-          child: PhotoViewGallery.builder(
-            pageController: model.pageController(initialIndex: initialIndex),
-            itemCount: medHistory.length,
-            builder: (context, index) {
-              return PhotoViewGalleryPageOptions(
-                key: ObjectKey(medHistory[index]),
-                imageProvider:
-                    CachedNetworkImageProvider(medHistory[index].image!),
-                initialScale: PhotoViewComputedScale.contained * 1,
-                heroAttributes: null,
-              );
-            },
-          ),
+        body: PhotoViewGallery.builder(
+          pageController: model.pageController(initialIndex: initialIndex),
+          itemCount: medHistory.length,
+          builder: (context, index) {
+            return PhotoViewGalleryPageOptions(
+              key: ObjectKey(medHistory[index]),
+              imageProvider:
+                  CachedNetworkImageProvider(medHistory[index].image!),
+              initialScale: PhotoViewComputedScale.contained * 1,
+              heroAttributes: null,
+            );
+          },
         ),
       ),
     );

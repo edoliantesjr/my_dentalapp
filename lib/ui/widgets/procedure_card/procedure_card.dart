@@ -69,7 +69,7 @@ class _ProcedureCardState extends State<ProcedureCard> {
           onTap: (handler) async {
             // await handler(true);
             if (widget.procedure.id != null) {
-              this.deleteProcedure(widget.procedure.id!);
+              deleteProcedure(widget.procedure.id!);
             } else {
               toastService.showToast(message: 'Something went wrong');
             }
@@ -78,7 +78,7 @@ class _ProcedureCardState extends State<ProcedureCard> {
             height: 50,
             width: 50,
             alignment: Alignment.center,
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.red.shade700,
@@ -91,12 +91,12 @@ class _ProcedureCardState extends State<ProcedureCard> {
           nestedAction: SwipeNestedAction(
             content: Container(
               height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: Colors.red.shade700,
               ),
-              child: Container(
+              child: SizedBox(
                 width: 95,
                 child: OverflowBox(
                   maxWidth: 95,
@@ -124,14 +124,14 @@ class _ProcedureCardState extends State<ProcedureCard> {
           widthSpace: 60,
           color: Colors.transparent,
           onTap: (handler) {
-            this.updateProcedure(widget.procedure);
+            updateProcedure(widget.procedure);
           },
           content: Container(
             height: 50,
             width: 50,
             alignment: Alignment.center,
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Palettes.kcBlueMain2,
             ),
@@ -145,11 +145,11 @@ class _ProcedureCardState extends State<ProcedureCard> {
       child: GestureDetector(
         onTap: () => widget.onTap != null ? widget.onTap!() : null,
         child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 8),
+            margin: const EdgeInsets.symmetric(horizontal: 8),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       color: Colors.grey, offset: Offset(0, 0), blurRadius: 1)
                 ]),
@@ -158,27 +158,27 @@ class _ProcedureCardState extends State<ProcedureCard> {
                 Container(
                     width: 5,
                     height: 60,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Palettes.kcDarkerBlueMain1,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(4),
                             bottomLeft: Radius.circular(4)))),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 9),
+                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 9),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         widget.procedure.procedureName,
-                        style: TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 20),
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Row(
                         children: [
-                          Text('Amnt. '),
+                          const Text('Amnt. '),
                           Text(
                             widget.procedure.priceToCurrency ?? 'Not Set',
                             style: TextStyles.tsBody2(color: Colors.deepOrange),

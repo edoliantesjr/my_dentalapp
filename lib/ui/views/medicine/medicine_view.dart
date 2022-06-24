@@ -42,15 +42,15 @@ class _MedicineViewState extends State<MedicineView> {
           ),
         ),
         floatingActionButton: AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           height: !model.isScrolledUp ? 56 : 48,
           child: FloatingActionButton.extended(
             heroTag: null,
             isExtended: model.isScrolledUp,
             onPressed: () =>
                 model.navigationService.pushNamed(Routes.AddMedicineView),
-            label: Text('Add Medicine'),
-            icon: Icon(Icons.add),
+            label: const Text('Add Medicine'),
+            icon: const Icon(Icons.add),
           ),
         ),
         body: NotificationListener<UserScrollNotification>(
@@ -64,13 +64,13 @@ class _MedicineViewState extends State<MedicineView> {
           },
           child: ListView(
             controller: medicineScrollController,
-            padding: EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.symmetric(vertical: 15),
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 15,
                 ),
-                child: Container(
+                child: SizedBox(
                   height: 50,
                   width: double.maxFinite,
                   child: Row(
@@ -84,31 +84,31 @@ class _MedicineViewState extends State<MedicineView> {
                             ),
                             filled: true,
                             fillColor: Colors.white,
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20,
                               vertical: 5,
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Palettes.kcBlueMain1,
                                 width: 1.8,
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Palettes.kcBlueDark,
                                 width: 1,
                               ),
                             ),
                             prefixIcon: Padding(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               child: SvgPicture.asset(
                                 'assets/icons/Search.svg',
                               ),
                             ),
-                            constraints: BoxConstraints(maxHeight: 43),
+                            constraints: const BoxConstraints(maxHeight: 43),
                             hintText: 'Search Medicine...',
                           ),
                         ),
@@ -117,7 +117,7 @@ class _MedicineViewState extends State<MedicineView> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Column(
                 children: [
                   Padding(
@@ -131,20 +131,22 @@ class _MedicineViewState extends State<MedicineView> {
                           style:
                               TextStyles.tsBody4(color: Colors.grey.shade800),
                         ),
-                        SizedBox(width: 4),
-                        Expanded(child: Divider()),
+                        const SizedBox(width: 4),
+                        const Expanded(child: Divider()),
                       ],
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     color: Colors.grey.shade100,
                     child: GridView.builder(
                       shrinkWrap: true,
                       primary: false,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: model.medicineList.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 5,
                         mainAxisSpacing: 5,
@@ -161,7 +163,7 @@ class _MedicineViewState extends State<MedicineView> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),

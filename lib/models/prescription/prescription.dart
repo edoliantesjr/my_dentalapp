@@ -12,9 +12,9 @@ class Prescription {
   Map<String, dynamic> toJson({required dynamic id}) {
     return {
       'id': id,
-      'date': this.date,
+      'date': date,
       'prescriptionItems':
-          this.prescriptionItems.map((e) => e.toJson()).toList(),
+          prescriptionItems.map((e) => e.toJson()).toList(),
     };
   }
 
@@ -47,9 +47,9 @@ class PrescriptionItem {
 
   Map<String, dynamic> toJson() {
     return {
-      'inscription': this.inscription,
-      'subscription': this.subscription,
-      'signatura': this.signatura,
+      'inscription': inscription,
+      'subscription': subscription,
+      'signatura': signatura,
     };
   }
 

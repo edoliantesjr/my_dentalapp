@@ -13,7 +13,7 @@ class AddPrescriptionItemView extends StatelessWidget {
       viewModelBuilder: () => AddPrescriptionItemViewModel(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Prescription Item'),
+          title: const Text('Prescription Item'),
         ),
         persistentFooterButtons: [
           Row(
@@ -21,7 +21,7 @@ class AddPrescriptionItemView extends StatelessWidget {
               Expanded(
                   child: ElevatedButton(
                       onPressed: () => model.returnPrescriptionItem(),
-                      child: Text('Done'))),
+                      child: const Text('Done'))),
             ],
           )
         ],
@@ -30,7 +30,7 @@ class AddPrescriptionItemView extends StatelessWidget {
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +43,7 @@ class AddPrescriptionItemView extends StatelessWidget {
                     maxLength: 40,
                     validator: (value) =>
                         model.validatorService.validateInscription(value!),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Type here the medicine prescribed',
                       labelText: 'Inscription*',
                       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -60,7 +60,7 @@ class AddPrescriptionItemView extends StatelessWidget {
                         model.validatorService.validateSubscription(value!),
                     maxLines: 3,
                     maxLength: 40,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Type here the direction for pharmacist',
                       labelText: 'Subscription*',
                       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -77,7 +77,7 @@ class AddPrescriptionItemView extends StatelessWidget {
                         model.validatorService.validateSignatura(value!),
                     maxLines: 3,
                     maxLength: 40,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Type here the direction for patient',
                       labelText: 'Signatura*',
                       floatingLabelBehavior: FloatingLabelBehavior.always,

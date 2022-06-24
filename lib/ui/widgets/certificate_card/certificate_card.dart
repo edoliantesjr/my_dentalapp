@@ -15,7 +15,7 @@ class CertificateCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.zero,
       ),
       child: Container(
@@ -44,10 +44,10 @@ class CertificateCard extends StatelessWidget {
                       color: Colors.grey.shade900,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 1,
                     height: 1,
                     color: Colors.grey,
@@ -86,13 +86,13 @@ class CertificateCard extends StatelessWidget {
               onTap: () => onViewCertTap(),
               child: Container(
                 height: 40,
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 width: double.maxFinite,
                 color: Colors.grey.shade100,
                 alignment: Alignment.centerRight,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
+                  children: const [
                     Text('View Certificate Document'),
                     Icon(
                       Icons.arrow_forward,

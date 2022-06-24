@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dentalapp/extensions/string_extension.dart';
 
 class NotificationModel {
@@ -23,11 +25,11 @@ class NotificationModel {
       {required dynamic id, required DateTime timestamp}) {
     return {
       'id': id,
-      'user_id': this.user_id,
-      'notification_title': this.notification_title,
-      'notification_msg': this.notification_msg,
-      'notification_type': this.notification_type,
-      'isRead': this.isRead,
+      'user_id': user_id,
+      'notification_title': notification_title,
+      'notification_msg': notification_msg,
+      'notification_type': notification_type,
+      'isRead': isRead,
       'date_created': timestamp.toString(),
     };
   }

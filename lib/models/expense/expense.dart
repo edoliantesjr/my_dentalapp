@@ -16,9 +16,9 @@ class Expense {
   Map<String, dynamic> toJson(dynamic id) {
     return {
       'id': id,
-      'amount': this.totalAmount,
-      'date': this.date,
-      'note': this.note,
+      'amount': totalAmount,
+      'date': date,
+      'note': note,
       'items': items.map((e) => e.toJson()).toList(),
     };
   }
@@ -51,10 +51,10 @@ class ExpenseItem {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': this.id,
-      'itemName': this.itemName,
-      'itemQty': this.itemQty,
-      'amount': this.amount,
+      'id': id,
+      'itemName': itemName,
+      'itemQty': itemQty,
+      'amount': amount,
     };
   }
 

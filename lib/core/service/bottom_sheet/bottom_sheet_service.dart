@@ -9,7 +9,7 @@ class BottomSheetService {
       elevation: 1,
       barrierColor: Palettes.kcNeutral1.withOpacity(0.3),
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20), topRight: Radius.circular(20)),
       ),

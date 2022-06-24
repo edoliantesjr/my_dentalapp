@@ -17,7 +17,7 @@ class AddExpenseView extends StatelessWidget {
       viewModelBuilder: () => AddExpensesViewModel(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Add Clinic Expenses'),
+          title: const Text('Add Clinic Expenses'),
           centerTitle: true,
         ),
         bottomNavigationBar: Container(
@@ -34,7 +34,7 @@ class AddExpenseView extends StatelessWidget {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 1,
                   blurRadius: 1,
-                  offset: Offset(0, 2), // changes position of shadow
+                  offset: const Offset(0, 2), // changes position of shadow
                 ),
               ]),
           height: 55,
@@ -53,7 +53,7 @@ class AddExpenseView extends StatelessWidget {
                       ),
                       Text(
                         '${model.totalAmount}'.toCurrency!,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.deepOrangeAccent,
                             fontSize: 18,
                             fontFamily: FontNames.sfPro,
@@ -68,7 +68,7 @@ class AddExpenseView extends StatelessWidget {
                 child: Container(
                   height: double.maxFinite,
                   color: Palettes.kcPurpleMain,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   alignment: Alignment.center,
                   child: Text(
                     'Save Expense',
@@ -82,13 +82,13 @@ class AddExpenseView extends StatelessWidget {
         floatingActionButton: Visibility(
           visible: !(MediaQuery.of(context).viewInsets.bottom != 0),
           child: FloatingActionButton.extended(
-              onPressed: model.goToAddExpenseItem, label: Text('Add Item')),
+              onPressed: model.goToAddExpenseItem, label: const Text('Add Item')),
         ),
         body: Form(
           key: model.addExpenseFormKey,
           child: Container(
             color: Colors.grey.shade50,
-            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 8),
             child: ListView(
               children: [
                 GestureDetector(
@@ -109,22 +109,22 @@ class AddExpenseView extends StatelessWidget {
                         labelStyle:
                             TextStyles.tsBody1(color: Palettes.kcNeutral1),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        suffixIcon: Icon(
+                        suffixIcon: const Icon(
                           Icons.arrow_drop_down,
                           size: 24,
                           color: Palettes.kcBlueMain1,
                         )),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     Text(
                       'List of Items',
                       style: TextStyles.tsButton2(),
                     ),
-                    SizedBox(width: 8),
-                    Expanded(
+                    const SizedBox(width: 8),
+                    const Expanded(
                       child: Divider(
                         height: 2,
                         color: Palettes.kcPurpleMain,
@@ -133,7 +133,7 @@ class AddExpenseView extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 model.listOfExpenseItem.isNotEmpty
                     ? ListView.separated(
                         shrinkWrap: true,
@@ -147,87 +147,85 @@ class AddExpenseView extends StatelessWidget {
                                     Container(
                                       width: 5,
                                       height: double.maxFinite - 1,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                           color: Palettes.kcDarkerBlueMain1,
                                           borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(4),
                                               bottomLeft: Radius.circular(4))),
                                     ),
-                                    Container(
-                                      child: Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              RichText(
-                                                text: TextSpan(
-                                                  text: 'Item Name: ',
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                  children: [
-                                                    TextSpan(
-                                                        text: model
-                                                            .listOfExpenseItem[
-                                                                index]
-                                                            .itemName,
-                                                        style: TextStyles
-                                                            .tsButton2()),
-                                                  ],
-                                                ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            RichText(
+                                              text: TextSpan(
+                                                text: 'Item Name: ',
+                                                style: const TextStyle(
+                                                    color: Colors.black),
+                                                children: [
+                                                  TextSpan(
+                                                      text: model
+                                                          .listOfExpenseItem[
+                                                              index]
+                                                          .itemName,
+                                                      style: TextStyles
+                                                          .tsButton2()),
+                                                ],
                                               ),
-                                              SizedBox(height: 5),
-                                              RichText(
-                                                text: TextSpan(
-                                                  text: 'Quantity: ',
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                  children: [
-                                                    TextSpan(
-                                                        text: model
-                                                            .listOfExpenseItem[
-                                                                index]
-                                                            .itemQty
-                                                            .toString(),
-                                                        style: TextStyles
-                                                            .tsButton2()),
-                                                  ],
-                                                ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            RichText(
+                                              text: TextSpan(
+                                                text: 'Quantity: ',
+                                                style: const TextStyle(
+                                                    color: Colors.black),
+                                                children: [
+                                                  TextSpan(
+                                                      text: model
+                                                          .listOfExpenseItem[
+                                                              index]
+                                                          .itemQty
+                                                          .toString(),
+                                                      style: TextStyles
+                                                          .tsButton2()),
+                                                ],
                                               ),
-                                              SizedBox(height: 5),
-                                              RichText(
-                                                  text: TextSpan(
-                                                      text: 'Amount: ',
-                                                      style: TextStyle(
-                                                          color: Colors.black),
-                                                      children: [
-                                                    TextSpan(
-                                                        text: model
-                                                            .listOfExpenseItem[
-                                                                index]
-                                                            .amount
-                                                            .toString()
-                                                            .toCurrency!,
-                                                        style: TextStyles
-                                                            .tsButton2(
-                                                          color: Colors
-                                                              .deepOrangeAccent,
-                                                        )),
-                                                  ])),
-                                            ],
-                                          ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            RichText(
+                                                text: TextSpan(
+                                                    text: 'Amount: ',
+                                                    style: const TextStyle(
+                                                        color: Colors.black),
+                                                    children: [
+                                                  TextSpan(
+                                                      text: model
+                                                          .listOfExpenseItem[
+                                                              index]
+                                                          .amount
+                                                          .toString()
+                                                          .toCurrency!,
+                                                      style: TextStyles
+                                                          .tsButton2(
+                                                        color: Colors
+                                                            .deepOrangeAccent,
+                                                      )),
+                                                ])),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                    VerticalDivider(
+                                    const VerticalDivider(
                                       color: Colors.grey,
                                       width: 2,
                                       thickness: 2,
                                     ),
-                                    VerticalDivider(
+                                    const VerticalDivider(
                                       color: Colors.white,
                                       width: 2,
                                       thickness: 2,
@@ -240,11 +238,11 @@ class AddExpenseView extends StatelessWidget {
                                         width: 45,
                                         decoration: BoxDecoration(
                                             color: Colors.red.shade800,
-                                            borderRadius: BorderRadius.only(
+                                            borderRadius: const BorderRadius.only(
                                                 topRight: Radius.circular(5),
                                                 bottomRight:
                                                     Radius.circular(5))),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.delete,
                                           color: Colors.white,
                                         ),
@@ -254,22 +252,22 @@ class AddExpenseView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                        separatorBuilder: (context, index) => SizedBox(
+                        separatorBuilder: (context, index) => const SizedBox(
                               height: 8,
                             ),
                         itemCount: model.listOfExpenseItem.length)
                     : Container(
                         color: Colors.grey.shade200,
                         height: 200,
-                        child: Center(child: Text('No Items Added')),
+                        child: const Center(child: Text('No Items Added')),
                       ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextFormField(
                   controller: model.noteTextController,
                   textInputAction: TextInputAction.done,
                   maxLines: 3,
                   maxLength: 80,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Type here',
                     labelText: 'Remark & Notes (Optional)',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -279,7 +277,7 @@ class AddExpenseView extends StatelessWidget {
                     focusedBorder: TextBorderStyles.focusedBorder,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
               ],
             ),
           ),

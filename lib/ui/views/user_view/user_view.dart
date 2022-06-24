@@ -27,12 +27,12 @@ class _UserViewState extends State<UserView> {
       onModelReady: (model) => model.init(widget.user),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('User Info'),
+          title: const Text('User Info'),
           actions: [
             TextButton.icon(
               onPressed: () => model.logout(),
-              icon: Icon(Icons.logout),
-              label: Text('Log Out'),
+              icon: const Icon(Icons.logout),
+              label: const Text('Log Out'),
               style: TextButton.styleFrom(primary: Colors.white),
             )
           ],
@@ -43,10 +43,10 @@ class _UserViewState extends State<UserView> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Palettes.kcBlueMain1,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: const Radius.circular(20),
                         bottomRight: Radius.circular(20))),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -63,7 +63,7 @@ class _UserViewState extends State<UserView> {
                                   border:
                                       Border.all(color: Colors.white, width: 2),
                                   borderRadius: BorderRadius.circular(100),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: Colors.grey,
                                       offset: Offset(1, 1),
@@ -90,7 +90,7 @@ class _UserViewState extends State<UserView> {
                                         color: Colors.grey.shade50, width: 1),
                                     borderRadius: BorderRadius.circular(40),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.camera_alt_outlined,
                                     size: 20,
                                   ),
@@ -133,7 +133,7 @@ class _UserViewState extends State<UserView> {
                             buttonWidth: 140,
                             itemHeight: 40,
                             alignment: Alignment.centerRight,
-                            buttonDecoration: BoxDecoration(
+                            buttonDecoration: const BoxDecoration(
                               color: Colors.white,
                             ),
                           ),
@@ -149,13 +149,13 @@ class _UserViewState extends State<UserView> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 alignment: Alignment.topLeft,
                 child: Column(
                   children: [
@@ -174,7 +174,7 @@ class _UserViewState extends State<UserView> {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: model.lastNameController,
                       validator: (value) =>
@@ -190,7 +190,7 @@ class _UserViewState extends State<UserView> {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: model.phoneNumController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -213,7 +213,7 @@ class _UserViewState extends State<UserView> {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     GestureDetector(
                       onTap: () => model.setBirthDateValue(),
                       child: TextFormField(
@@ -240,7 +240,7 @@ class _UserViewState extends State<UserView> {
                             )),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     GestureDetector(
                       onTap: () => model.setGenderValue(),
                       child: TextFormField(
@@ -260,14 +260,14 @@ class _UserViewState extends State<UserView> {
                             labelStyle:
                                 TextStyles.tsBody1(color: Palettes.kcNeutral1),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            suffixIcon: Icon(
+                            suffixIcon: const Icon(
                               Icons.arrow_drop_down,
                               size: 24,
                               color: Palettes.kcBlueMain1,
                             )),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     GestureDetector(
                       onTap: () => model.setPositionValue(),
                       child: TextFormField(
@@ -287,14 +287,14 @@ class _UserViewState extends State<UserView> {
                             labelStyle:
                                 TextStyles.tsBody1(color: Palettes.kcNeutral1),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            suffixIcon: Icon(
+                            suffixIcon: const Icon(
                               Icons.arrow_drop_down,
                               size: 24,
                               color: Palettes.kcBlueMain1,
                             )),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     SizedBox(
                       height: 40,
                       child: Row(
@@ -302,13 +302,13 @@ class _UserViewState extends State<UserView> {
                           Expanded(
                               child: ElevatedButton.icon(
                                   onPressed: () => model.updateUserInfo(),
-                                  icon: Icon(Icons.update),
-                                  label: Text('Update'))),
-                          SizedBox(width: 10),
+                                  icon: const Icon(Icons.update),
+                                  label: const Text('Update'))),
+                          const SizedBox(width: 10),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                   ],
                 ),
               )

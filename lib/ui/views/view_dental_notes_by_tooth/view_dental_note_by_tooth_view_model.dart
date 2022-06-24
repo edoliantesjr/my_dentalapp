@@ -17,7 +17,7 @@ class ViewDentalNoteByToothViewModel extends BaseViewModel {
     setBusy(true);
     final notes = await apiService.getDentalNotesList(
         patientId: patientId, toothId: selectedTooth);
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     if (notes != null) {
       dentalNotes.clear();
       dentalNotes = notes;

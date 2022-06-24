@@ -34,7 +34,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Container(
                 height: 50,
                 width: 50,
@@ -46,7 +46,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),
                       blurRadius: 2,
-                      offset: Offset(1, 2),
+                      offset: const Offset(1, 2),
                     )
                   ],
                 ),
@@ -63,14 +63,14 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                                 (context, url, progress) =>
                                     CircularProgressIndicator(
                               value: progress.progress,
-                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                              valueColor: const AlwaysStoppedAnimation(Colors.white),
                             ),
                           )
                         : Container(),
                   ),
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +83,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                     Visibility(
                       visible: position.isNotEmpty,
                       child: Text(
-                        position != 'Staff' ? 'Doc. $name' : '$name',
+                        position != 'Staff' ? 'Doc. $name' : name,
                         style: TextStyles.tsBody2(
                           color: Colors.white,
                         ),
@@ -93,7 +93,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                   ],
                 ),
               ),
-              SizedBox(width: 40),
+              const SizedBox(width: 40),
               IconButton(
                 onPressed: () => onNotificationTap!(),
                 padding: EdgeInsets.zero,
@@ -105,7 +105,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                       : 'assets/icons/Notification-clear.svg',
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               IconButton(
                 onPressed: () => onLogOutTap != null ? onLogOutTap!() : null,
                 padding: EdgeInsets.zero,
@@ -114,7 +114,7 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
             ],
           ),
         ),
@@ -123,5 +123,5 @@ class CustomHomePageAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size(0, 75);
+  Size get preferredSize => const Size(0, 75);
 }

@@ -21,6 +21,7 @@ import '../../../models/patient_model/patient_model.dart';
 import '../selection_list/selection_option.dart';
 
 class AppointmentCard extends StatefulWidget {
+  @override
   final Key key;
   final String appointmentDate;
   final dynamic appointmentId;
@@ -82,7 +83,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
   }
 
   Future<void> updateAppointmentStatus(String appointmentId) async {
-    final appointmentStatus =
+    final appointmentSelectedOption =
         await bottomSheetService.openBottomSheet(SelectionOption(
       options: widget.appointmentStatus.name == AppointmentStatus.Request.name
           ? [
@@ -91,9 +92,12 @@ class _AppointmentCardState extends State<AppointmentCard> {
             ]
           : [
               AppointmentStatus.Cancelled.options,
+              'RESCHEDULE',
             ],
       title: 'Set Appointment Status',
     ));
+
+    final appointmentStatus = setAppointmentReturn(appointmentSelectedOption);
 
     if (appointmentStatus != null) {
       if (await connectivityService.checkConnectivity()) {
@@ -104,9 +108,9 @@ class _AppointmentCardState extends State<AppointmentCard> {
         navigationService.pop();
         final notification = NotificationModel(
           user_id: widget.patient.id,
-          notification_title: 'Appointment status: ${appointmentStatus}.',
+          notification_title: 'Appointment status: $appointmentStatus.',
           notification_msg: 'Your Appointment on ${widget.appointmentDate}'
-              ' with Doc. ${widget.doctor} was marked: ${appointmentStatus}',
+              ' with Doc. ${widget.doctor} was marked: $appointmentStatus',
           notification_type: 'appointment',
           isRead: false,
         );
@@ -120,26 +124,44 @@ class _AppointmentCardState extends State<AppointmentCard> {
             message: 'Check your network connection and try again',
             title: 'Network Error');
       }
+    } else {
+      //todo: resched appointment
+    }
+  }
+
+  String? setAppointmentReturn(String appointmentSelectedOption) {
+    if (appointmentSelectedOption == AppointmentStatus.Approved.options) {
+      return AppointmentStatus.Approved.name;
+    } else if (appointmentSelectedOption == AppointmentStatus.Request.options) {
+      return AppointmentStatus.Request.name;
+    } else if (appointmentSelectedOption ==
+        AppointmentStatus.Cancelled.options) {
+      return AppointmentStatus.Cancelled.name;
+    } else if (appointmentSelectedOption ==
+        AppointmentStatus.Declined.options) {
+      return AppointmentStatus.Declined.name;
+    } else {
+      return null;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return SwipeActionCell(
-      key: this.widget.key,
+      key: widget.key,
       trailingActions: [
         SwipeAction(
           widthSpace: 80,
           color: Colors.transparent,
           onTap: (handler) async {
             // await handler(true);
-            this.deleteAppointment(widget.appointmentId);
+            deleteAppointment(widget.appointmentId);
           },
           content: Container(
             height: 50,
             width: 60,
             alignment: Alignment.center,
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.red.shade700,
@@ -152,12 +174,12 @@ class _AppointmentCardState extends State<AppointmentCard> {
           nestedAction: SwipeNestedAction(
             content: Container(
               height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: Colors.red.shade700,
               ),
-              child: Container(
+              child: SizedBox(
                 width: 95,
                 child: OverflowBox(
                   maxWidth: 95,
@@ -208,13 +230,13 @@ class _AppointmentCardState extends State<AppointmentCard> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 2),
           child: Container(
-            padding: EdgeInsets.only(top: 8, left: 8, right: 8),
+            padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
             height: 152,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
                 border: Border.all(color: Palettes.kcNeutral4),
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(color: Palettes.kcNeutral4, blurRadius: 2)
                 ]),
             child: Column(
@@ -226,10 +248,10 @@ class _AppointmentCardState extends State<AppointmentCard> {
                         DateWidget(
                           imageUrl: widget.imageUrl,
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                             child: InfoWidget(
-                          onPatientTap: () => this.widget.onPatientTap(),
+                          onPatientTap: () => widget.onPatientTap(),
                           date: widget.appointmentDate,
                           serviceTitle: widget.serviceTitle,
                           doctor: widget.doctor,
@@ -238,8 +260,8 @@ class _AppointmentCardState extends State<AppointmentCard> {
                         )),
                       ],
                     )),
-                SizedBox(height: 10),
-                Divider(height: 1, color: Palettes.kcNeutral2),
+                const SizedBox(height: 10),
+                const Divider(height: 1, color: Palettes.kcNeutral2),
                 Container(
                   height: 35,
                   alignment: Alignment.bottomCenter,
@@ -266,7 +288,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
                               style: TextStyles.tsButton2(
                                   color: Palettes.kcBlueMain2),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.arrow_forward,
                               color: Palettes.kcBlueMain2,
                               size: 18,
@@ -352,7 +374,7 @@ class InfoWidget extends StatelessWidget {
               ),
               Flexible(
                   child: Container(
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                 decoration: BoxDecoration(
                     color: selectAppointmentColor(appointmentStatus),
                     borderRadius: BorderRadius.circular(30)),
@@ -363,7 +385,7 @@ class InfoWidget extends StatelessWidget {
               )),
             ],
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Row(
             children: [
               Text(
@@ -371,10 +393,10 @@ class InfoWidget extends StatelessWidget {
                 style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
               ),
               InkWell(
-                onTap: () => this.onPatientTap(),
+                onTap: () => onPatientTap(),
                 child: Text(
                   patient,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Palettes.kcDarkerBlueMain1,
                     fontWeight: FontWeight.bold,
                     fontSize: 15.5,
@@ -385,7 +407,7 @@ class InfoWidget extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Row(
             children: [
               Text(
@@ -399,7 +421,7 @@ class InfoWidget extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           RichText(
             text: TextSpan(
                 text: 'Date: ',
@@ -421,9 +443,7 @@ class InfoWidget extends StatelessWidget {
     if (appointmentStatus == AppointmentStatus.Approved) {
       returnColor = Palettes.kcCompleteColor;
     }
-    // if (appointmentStatus == AppointmentStatus.Pending) {
-    //   returnColor = Palettes.kcPendingColor;
-    // }
+
     if (appointmentStatus == AppointmentStatus.Cancelled) {
       returnColor = Palettes.kcCancelledColor;
     }

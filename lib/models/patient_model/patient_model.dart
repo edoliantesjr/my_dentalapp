@@ -37,20 +37,20 @@ class Patient {
       {required String? patientId, required dynamic dateCreated}) {
     return {
       'id': patientId,
-      'image': this.image,
-      'firstName': this.firstName,
-      'lastName': this.lastName,
-      'fullName': this.fullName,
-      'gender': this.gender,
-      'birthDate': this.birthDate,
-      'phoneNum': this.phoneNum,
-      'address': this.address,
-      'allergies': this.allergies,
-      'notes': this.notes ?? '',
-      'emergencyContactName': this.emergencyContactName ?? '',
-      'emergencyContactNumber': this.emergencyContactNumber ?? '',
+      'image': image,
+      'firstName': firstName,
+      'lastName': lastName,
+      'fullName': fullName,
+      'gender': gender,
+      'birthDate': birthDate,
+      'phoneNum': phoneNum,
+      'address': address,
+      'allergies': allergies,
+      'notes': notes ?? '',
+      'emergencyContactName': emergencyContactName ?? '',
+      'emergencyContactNumber': emergencyContactNumber ?? '',
       'dateCreated': dateCreated,
-      'searchIndex': this.searchIndex,
+      'searchIndex': searchIndex,
     };
   }
 

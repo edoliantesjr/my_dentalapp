@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/models/user_model/user_model.dart';
@@ -72,7 +74,7 @@ class SelectionDentist extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Row(
-                    children: [
+                    children: const [
                       Text('List of Dentist'),
                       Expanded(child: Divider())
                     ],
@@ -107,7 +109,7 @@ class SelectionDentist extends StatelessWidget {
           height: 200,
           width: 200,
           child: Column(
-            children: [
+            children: const [
               SizedBox(
                 height: 35,
                 width: 35,

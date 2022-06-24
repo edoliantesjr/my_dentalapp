@@ -18,7 +18,7 @@ class AddCertificateView extends StatelessWidget {
       viewModelBuilder: () => AddCertificateViewModel(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Add Dental Certificate'),
+          title: const Text('Add Dental Certificate'),
         ),
         persistentFooterButtons: [
           Row(
@@ -26,14 +26,14 @@ class AddCertificateView extends StatelessWidget {
               Expanded(
                   child: ElevatedButton(
                       onPressed: () => model.saveDentalCertificate(patient),
-                      child: Text('Save & Generate PDF'))),
+                      child: const Text('Save & Generate PDF'))),
             ],
           )
         ],
         body: Form(
           key: model.addCertificateFormKey,
           child: ListView(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             children: [
               GestureDetector(
                 onTap: () => model.selectDate(),
@@ -53,14 +53,14 @@ class AddCertificateView extends StatelessWidget {
                       labelStyle:
                           TextStyles.tsBody1(color: Palettes.kcNeutral1),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.arrow_drop_down,
                         size: 24,
                         color: Palettes.kcBlueMain1,
                       )),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               GestureDetector(
                 onTap: () => model.selectProcedure(),
                 child: TextFormField(
@@ -79,7 +79,7 @@ class AddCertificateView extends StatelessWidget {
                       labelStyle:
                           TextStyles.tsBody1(color: Palettes.kcNeutral1),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.arrow_drop_down,
                         size: 24,
                         color: Palettes.kcBlueMain1,

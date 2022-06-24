@@ -80,12 +80,12 @@ class ViewPatientAppointment extends StatelessWidget {
                         ),
                     separatorBuilder: (context, index) => SizedBox(height: 6),
                     itemCount: model.patientListOfAppointments.length)
-                : Container(
+                : const SizedBox(
                     height: 500,
                     child: Center(
                         child: Text('No Appointments added on this patient ')),
                   ),
-            SizedBox(height: 100),
+            const SizedBox(height: 100),
           ],
         ),
       ),

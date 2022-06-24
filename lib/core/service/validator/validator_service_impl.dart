@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:dentalapp/core/service/validator/validator_service.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';

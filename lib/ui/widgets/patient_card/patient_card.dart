@@ -33,7 +33,7 @@ class PatientCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width - 50,
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 12,
         vertical: 10,
       ),
@@ -49,7 +49,7 @@ class PatientCard extends StatelessWidget {
                   color: Palettes.kcNeutral5,
                   width: 2,
                 ),
-                boxShadow: <BoxShadow>[
+                boxShadow: const <BoxShadow>[
                   BoxShadow(
                       color: Colors.grey,
                       blurRadius: 1.5,
@@ -64,13 +64,13 @@ class PatientCard extends StatelessWidget {
                   progressIndicatorBuilder: (context, url, progress) =>
                       CircularProgressIndicator(
                         value: progress.progress,
-                        valueColor: AlwaysStoppedAnimation(
+                        valueColor: const AlwaysStoppedAnimation(
                           Colors.white,
                         ),
                       )),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -95,7 +95,7 @@ class PatientCard extends StatelessWidget {
                             height: 21.sp,
                             alignment: Alignment.topCenter,
                             padding: const EdgeInsets.only(left: 4),
-                            child: Text(
+                            child: const Text(
                               '(New)',
                               overflow: TextOverflow.fade,
                               style: TextStyle(
@@ -128,7 +128,7 @@ class PatientCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Row(
                             children: [
                               SvgPicture.asset(
@@ -137,7 +137,7 @@ class PatientCard extends StatelessWidget {
                                 width: 18,
                                 color: Palettes.kcBlueDark,
                               ),
-                              SizedBox(width: 5),
+                              const SizedBox(width: 5),
                               Text(
                                 phone,
                                 style: TextStyles.tsBody2(
@@ -146,7 +146,7 @@ class PatientCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 1),
+                          const SizedBox(height: 1),
                           Row(
                             children: [
                               SvgPicture.asset(
@@ -155,7 +155,7 @@ class PatientCard extends StatelessWidget {
                                 width: 20,
                                 color: Palettes.kcBlueDark,
                               ),
-                              SizedBox(width: 5),
+                              const SizedBox(width: 5),
                               Text(
                                 address,
                                 overflow: TextOverflow.ellipsis,
@@ -165,7 +165,7 @@ class PatientCard extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(height: 1),
+                          const SizedBox(height: 1),
                           Row(
                             children: [
                               SvgPicture.asset(
@@ -174,7 +174,7 @@ class PatientCard extends StatelessWidget {
                                 width: 18,
                                 color: Palettes.kcBlueDark,
                               ),
-                              SizedBox(width: 5),
+                              const SizedBox(width: 5),
                               Text(
                                 birthDate ?? '',
                                 style: TextStyles.tsBody2(

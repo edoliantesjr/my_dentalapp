@@ -14,9 +14,9 @@ class ToothCondition {
   Map<String, dynamic> toJson({required id}) {
     return {
       'id': id,
-      'toothCondition': this.toothCondition,
-      'date': this.date,
-      'selectedTooth': this.selectedTooth,
+      'toothCondition': toothCondition,
+      'date': date,
+      'selectedTooth': selectedTooth,
     };
   }
 

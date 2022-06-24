@@ -66,7 +66,7 @@ class GetStartedView extends StatelessWidget {
                   Spacer(),
                   RowPageIndicator(index: model.index),
                   Spacer(),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: 40.h,
                     child: ElevatedButton(

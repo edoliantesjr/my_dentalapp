@@ -59,7 +59,7 @@ class SetDentalNoteViewModel extends BaseViewModel {
     dialogService.showDefaultLoadingDialog(
         barrierDismissible: false, willPop: false);
     for (String tooth in selectedTeeth) {
-      debugPrint('adding ${tooth}');
+      debugPrint('adding $tooth');
       await apiService.addToothDentalNotes(
           toothId: tooth,
           patientId: patientId,

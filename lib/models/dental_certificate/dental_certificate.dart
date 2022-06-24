@@ -16,8 +16,8 @@ class DentalCertificate {
     return {
       'id': id,
       'dateCreated': dateCreated,
-      'procedure': this.procedure,
-      'date': this.date,
+      'procedure': procedure,
+      'date': date,
     };
   }
 

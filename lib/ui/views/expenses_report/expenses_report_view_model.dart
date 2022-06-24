@@ -62,8 +62,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 1);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -75,8 +76,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 2);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -88,8 +90,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 3);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -101,8 +104,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 4);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -114,8 +118,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 5);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -127,8 +132,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 6);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -140,8 +146,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 7);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -153,8 +160,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 8);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -166,8 +174,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 9);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -179,8 +188,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 10);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -192,8 +202,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 11);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);
@@ -205,8 +216,9 @@ class ExpensesReportViewModel extends BaseViewModel {
     double total = 0;
     final date = DateTime(DateTime.now().year, 12);
     for (Expense expense in expenses) {
-      if (date.isSameDateMonth(expense.date.toDateTime()!))
+      if (date.isSameDateMonth(expense.date.toDateTime()!)) {
         total += expense.totalAmount;
+      }
     }
     final data =
         ExpenseReport(month: DateFormat.MMM().format(date), expenses: total);

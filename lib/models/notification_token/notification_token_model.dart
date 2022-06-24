@@ -9,8 +9,8 @@ class NotificationToken {
 
   Map<String, dynamic> toJson() {
     return {
-      'uid': this.uid,
-      'tokenId': this.tokenId,
+      'uid': uid,
+      'tokenId': tokenId,
     };
   }
 

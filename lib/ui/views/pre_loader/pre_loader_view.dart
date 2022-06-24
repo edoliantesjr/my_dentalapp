@@ -27,7 +27,7 @@ class PreLoaderView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                         height: 130,
                         width: 130,
                         // decoration: BoxDecoration(

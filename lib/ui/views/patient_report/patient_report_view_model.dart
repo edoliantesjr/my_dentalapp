@@ -74,7 +74,7 @@ class PatientReportViewModel extends BaseViewModel {
     await getTotalMalePatients();
     computeTotalPatient();
     await setByPatientsByGenderData();
-    await setSeriesList();
+    setSeriesList();
     setBusy(false);
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dentalapp/models/medicine/medicine.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,7 @@ class CartMedicineCard extends StatefulWidget {
   final bool isChecked;
   final List<Medicine> selectedMedicines;
   final VoidCallback notifyChange;
-  CartMedicineCard(
+  const CartMedicineCard(
       {Key? key,
       required this.medicine,
       required this.isChecked,

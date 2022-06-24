@@ -31,7 +31,7 @@ class _AddProcedureViewState extends State<AddProcedureView> {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Add Procedure'),
+          title: const Text('Add Procedure'),
         ),
         persistentFooterButtons: [
           SizedBox(
@@ -44,13 +44,13 @@ class _AddProcedureViewState extends State<AddProcedureView> {
                         price: procedurePrice.text);
                   }
                 },
-                child: Text('Save')),
+                child: const Text('Save')),
           )
         ],
         body: Form(
           key: addProcedureFormKey,
           child: ListView(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
             children: [
               TextFormField(
                 controller: procedureName,
@@ -67,7 +67,7 @@ class _AddProcedureViewState extends State<AddProcedureView> {
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: procedurePrice,
                 // validator: (value) =>

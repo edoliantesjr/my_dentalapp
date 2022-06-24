@@ -27,7 +27,7 @@ class ReceiptView extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             color: Palettes.kcBlueMain1,
             alignment: Alignment.center,
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width - 80,
               child: Column(
                 mainAxisSize: MainAxisSize.max,

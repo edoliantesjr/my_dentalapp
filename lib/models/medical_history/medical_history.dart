@@ -11,9 +11,9 @@ class MedicalHistory {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': this.id,
-      'date': this.date,
-      'file': this.image,
+      'id': id,
+      'date': date,
+      'file': image,
     };
   }
 

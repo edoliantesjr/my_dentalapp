@@ -10,6 +10,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../models/patient_model/patient_model.dart';
 
+// ignore: must_be_immutable
 class PatientInfoView extends StatelessWidget {
   Patient patient;
   PatientInfoView({Key? key, required this.patient}) : super(key: key);
@@ -26,7 +27,7 @@ class PatientInfoView extends StatelessWidget {
               backgroundColor: Colors.grey.shade50,
               appBar: AppBar(
                 titleSpacing: 0,
-                title: Text(
+                title: const Text(
                   'Patient Info',
                   style: TextStyle(color: Colors.white, fontSize: 21),
                 ),
@@ -38,7 +39,7 @@ class PatientInfoView extends StatelessWidget {
                 child: ListView(
                   controller: model.scrollController,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 200,
                       child: Stack(
                         children: [
@@ -102,7 +103,7 @@ class PatientInfoView extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(40),
                                         ),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.camera_alt_outlined,
                                           size: 25,
                                         ),
@@ -114,7 +115,7 @@ class PatientInfoView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Center(
                       child: Column(
                         children: [
@@ -130,7 +131,7 @@ class PatientInfoView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 12),
@@ -149,7 +150,7 @@ class PatientInfoView extends StatelessWidget {
                                     style:
                                         TextStyles.tsBody3(color: Colors.white),
                                   ),
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.phone,
                                     size: 16,
                                   ),
@@ -157,7 +158,7 @@ class PatientInfoView extends StatelessWidget {
                                       primary: Palettes.kcBlueDark),
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Expanded(
                                   child: ElevatedButton.icon(
                                 onPressed: () =>
@@ -167,14 +168,14 @@ class PatientInfoView extends StatelessWidget {
                                   style:
                                       TextStyles.tsBody3(color: Colors.white),
                                 ),
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.send,
                                   size: 16,
                                 ),
                                 style: ElevatedButton.styleFrom(
                                     primary: Palettes.kcNeutral1),
                               )),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               SizedBox(
                                 width: 60,
                                 child: ElevatedButton(
@@ -194,7 +195,7 @@ class PatientInfoView extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 10),
+                                    const SizedBox(height: 10),
                                     Row(
                                       children: [
                                         SvgPicture.asset(
@@ -203,7 +204,7 @@ class PatientInfoView extends StatelessWidget {
                                           width: 19,
                                           color: Colors.black,
                                         ),
-                                        SizedBox(width: 10),
+                                        const SizedBox(width: 10),
                                         Text(
                                           model.patient!.phoneNum,
                                           style: TextStyles.tsBody2(
@@ -212,7 +213,7 @@ class PatientInfoView extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                     Row(
                                       children: [
                                         SvgPicture.asset(
@@ -221,7 +222,7 @@ class PatientInfoView extends StatelessWidget {
                                           width: 21,
                                           color: Colors.black,
                                         ),
-                                        SizedBox(width: 9),
+                                        const SizedBox(width: 9),
                                         Expanded(
                                           child: Text(
                                             model.patient!.address,
@@ -233,7 +234,7 @@ class PatientInfoView extends StatelessWidget {
                                         )
                                       ],
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                     Row(
                                       children: [
                                         SvgPicture.asset(
@@ -242,7 +243,7 @@ class PatientInfoView extends StatelessWidget {
                                           width: 19,
                                           color: Colors.black,
                                         ),
-                                        SizedBox(width: 10),
+                                        const SizedBox(width: 10),
                                         Text(
                                           model.patient!.birthDate
                                               .toDateTime()!
@@ -253,7 +254,7 @@ class PatientInfoView extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                     Row(
                                       children: [
                                         Icon(
@@ -262,7 +263,7 @@ class PatientInfoView extends StatelessWidget {
                                               : Icons.female,
                                           size: 22,
                                         ),
-                                        SizedBox(width: 8),
+                                        const SizedBox(width: 8),
                                         Text(
                                           patient.gender,
                                           style: TextStyles.tsBody2(
@@ -278,18 +279,18 @@ class PatientInfoView extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Text('Emerg. Contact Name:'),
+                                  const Text('Emerg. Contact Name:'),
                                   Text(model.patient!.emergencyContactName ??
                                       'None'),
-                                  SizedBox(height: 8),
-                                  Text('Emerg. Contact #:'),
+                                  const SizedBox(height: 8),
+                                  const Text('Emerg. Contact #:'),
                                   Text(model.patient!.emergencyContactNumber ??
                                       'None'),
                                 ],
                               )
                             ],
                           ),
-                          SizedBox(height: 12),
+                          const SizedBox(height: 12),
                           // SizedBox(
                           //   height: 30,
                           //   child: Row(
@@ -337,7 +338,7 @@ class PatientInfoView extends StatelessWidget {
                           //   ),
                           // ),
                           // SizedBox(height: 8),
-                          Divider(),
+                          const Divider(),
                           // Card(
                           //   shadowColor: Colors.grey.shade500,
                           //   child: ListTile(
@@ -359,7 +360,7 @@ class PatientInfoView extends StatelessWidget {
                           //     ),
                           //   ),
                           // ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
@@ -369,19 +370,19 @@ class PatientInfoView extends StatelessWidget {
                                 'assets/icons/Filter.svg',
                                 color: Colors.black,
                               ),
-                              title: Text(
+                              title: const Text(
                                 'Dental Chart',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
-                              trailing: Icon(
+                              trailing: const Icon(
                                 Icons.arrow_right,
                                 size: 35,
                                 color: Colors.blue,
                               ),
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
@@ -391,19 +392,19 @@ class PatientInfoView extends StatelessWidget {
                                 'assets/icons/Pills.svg',
                                 color: Colors.black,
                               ),
-                              title: Text(
+                              title: const Text(
                                 'Prescription',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
-                              trailing: Icon(
+                              trailing: const Icon(
                                 Icons.arrow_right,
                                 size: 35,
                                 color: Colors.blue,
                               ),
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
@@ -413,56 +414,56 @@ class PatientInfoView extends StatelessWidget {
                                 'assets/icons/Calendar.svg',
                                 color: Colors.black,
                               ),
-                              title: Text(
+                              title: const Text(
                                 'Appointments',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
-                              trailing: Icon(
+                              trailing: const Icon(
                                 Icons.arrow_right,
                                 size: 35,
                                 color: Colors.blue,
                               ),
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
                               onTap: () => model.goToViewPatientPaymentsView(
                                   patient: patient),
-                              leading: Icon(
+                              leading: const Icon(
                                 Icons.money,
                                 color: Colors.black,
                               ),
-                              title: Text(
+                              title: const Text(
                                 'Payments',
-                                style: TextStyle(
+                                style:  TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
-                              trailing: Icon(
+                              trailing: const Icon(
                                 Icons.arrow_right,
                                 size: 35,
                                 color: Colors.blue,
                               ),
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Card(
                             shadowColor: Colors.grey.shade500,
                             child: ListTile(
                               onTap: () => model.goToDentalCertificateView(
                                   patient: patient),
-                              leading: Icon(
+                              leading: const Icon(
                                 Icons.receipt,
                                 color: Colors.black,
                               ),
-                              title: Text(
+                              title: const Text(
                                 'Dental Certificate',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
-                              trailing: Icon(
+                              trailing: const Icon(
                                 Icons.arrow_right,
                                 size: 35,
                                 color: Colors.blue,

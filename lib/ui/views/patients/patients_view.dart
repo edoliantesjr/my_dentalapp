@@ -30,21 +30,21 @@ class PatientsView extends StatelessWidget {
           ),
         ),
         floatingActionButton: AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           height: !model.isScrolledUp ? 56 : 48,
           child: FloatingActionButton.extended(
             heroTag: null,
             isExtended: model.isScrolledUp,
             onPressed: () =>
                 model.navigationService.pushNamed(Routes.AddPatientView),
-            label: Text('Add Patient'),
-            icon: Icon(Icons.add),
+            label: const Text('Add Patient'),
+            icon: const Icon(Icons.add),
           ),
         ),
         body: RefreshIndicator(
           color: Palettes.kcBlueMain1,
           onRefresh: () async {
-            await Future.delayed(Duration(seconds: 1));
+            await Future.delayed(const Duration(seconds: 1));
           },
           child: NotificationListener<UserScrollNotification>(
             onNotification: (notification) {
@@ -57,7 +57,7 @@ class PatientsView extends StatelessWidget {
             },
             child: CustomScrollView(
               controller: model.scrollController,
-              physics: AlwaysScrollableScrollPhysics(
+              physics: const AlwaysScrollableScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics(),
               ),
               slivers: [
@@ -65,7 +65,7 @@ class PatientsView extends StatelessWidget {
                   controller: model.stickController,
                   overlapsContent: false,
                   header: Container(
-                    padding: EdgeInsets.only(bottom: 15, left: 15, right: 15),
+                    padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
                     color: Palettes.kcBlueMain1,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -79,26 +79,26 @@ class PatientsView extends StatelessWidget {
                             ),
                             filled: true,
                             fillColor: Colors.white,
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20,
                               vertical: 5,
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Palettes.kcBlueMain1,
                                 width: 1.8,
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.white,
                                 width: 1,
                               ),
                             ),
                             prefixIcon: Padding(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               child: SvgPicture.asset(
                                 'assets/icons/Search.svg',
                               ),
@@ -106,30 +106,30 @@ class PatientsView extends StatelessWidget {
                             suffixIcon: GestureDetector(
                               onTap: () {},
                               child: Padding(
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 child: SvgPicture.asset(
                                   'assets/icons/Filter.svg',
                                 ),
                               ),
                             ),
-                            constraints: BoxConstraints(maxHeight: 43),
+                            constraints: const BoxConstraints(maxHeight: 43),
                             hintText: 'Search by Last Name, First Name',
                           ),
                         ),
                       ],
                     ),
                   ),
-                  sliver: model.patientList.length != 0
+                  sliver: model.patientList.isNotEmpty
                       ? SliverList(
                           delegate:
                               SliverChildBuilderDelegate((context, index) {
                             return AnimationConfiguration.staggeredList(
                               position: index,
                               child: SlideAnimation(
-                                duration: Duration(milliseconds: 400),
+                                duration: const Duration(milliseconds: 400),
                                 horizontalOffset: 100,
                                 child: Container(
-                                  margin: EdgeInsets.only(top: 8, bottom: 8),
+                                  margin: const EdgeInsets.only(top: 8, bottom: 8),
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
@@ -175,7 +175,7 @@ class PatientsView extends StatelessWidget {
                       : SliverToBoxAdapter(
                           child: SizedBox(
                             height: MediaQuery.of(context).size.height / 2,
-                            child: Center(
+                            child: const Center(
                               child: Text('No Patients Found'),
                             ),
                           ),

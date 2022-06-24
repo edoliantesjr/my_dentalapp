@@ -36,7 +36,7 @@ class _AddMedicineViewState extends State<AddMedicineView> {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Add Medicine'),
+          title: const Text('Add Medicine'),
         ),
         persistentFooterButtons: [
           Row(
@@ -51,15 +51,15 @@ class _AddMedicineViewState extends State<AddMedicineView> {
                               price: medicinePrice.text);
                         }
                       },
-                      child: Text('Save'))),
+                      child: const Text('Save'))),
             ],
           )
         ],
         body: Form(
           key: addMedicineFormKey,
           child: ListView(
-            physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -118,7 +118,7 @@ class _AddMedicineViewState extends State<AddMedicineView> {
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: brandName,
                 validator: (value) =>
@@ -134,7 +134,7 @@ class _AddMedicineViewState extends State<AddMedicineView> {
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: medicinePrice,
                 textInputAction: TextInputAction.next,

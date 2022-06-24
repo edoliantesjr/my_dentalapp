@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dentalapp/models/medicine/medicine.dart';
 
 import '../dental_notes/dental_notes.dart';
@@ -34,23 +36,22 @@ class Payment {
   Map<String, dynamic> toJson(dynamic id) {
     return {
       'payment_id': id,
-      'dentist': this.dentist,
-      'dentalNote': this
-          .dentalNote
+      'dentist': dentist,
+      'dentalNote': dentalNote
           ?.map((e) => e.toJson(id: e.id, procedureId: e.procedure.id))
           .toList(),
       'medicineList': medicineList
           ?.map((e) =>
               e.toJson(dateCreated: e.dateCreated, id: e.id, image: e.image))
           .toList(),
-      'dentalNoteSubTotal': this.dentalNoteSubTotal,
-      'medicineSubTotal': this.medicineSubTotal,
-      'totalAmount': this.totalAmount,
-      'payment_type': this.payment_type,
-      'patient_id': this.patient_id,
-      'patient_name': this.patient_name,
-      'paymentDate': this.paymentDate,
-      'remarks': this.remarks,
+      'dentalNoteSubTotal': dentalNoteSubTotal,
+      'medicineSubTotal': medicineSubTotal,
+      'totalAmount': totalAmount,
+      'payment_type': payment_type,
+      'patient_id': patient_id,
+      'patient_name': patient_name,
+      'paymentDate': paymentDate,
+      'remarks': remarks,
     };
   }
 

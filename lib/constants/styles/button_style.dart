@@ -31,7 +31,7 @@ class ButtonStyles {
         letterSpacing: 0.5,
       ),
       primary: Palettes.kcPurpleMain,
-      side: BorderSide(color: Palettes.kcPurpleMain, width: 1),
+      side:const  BorderSide(color: Palettes.kcPurpleMain, width: 1),
     ),
   );
 

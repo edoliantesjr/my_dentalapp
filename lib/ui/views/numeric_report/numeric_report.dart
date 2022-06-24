@@ -17,15 +17,15 @@ class NumericReport extends StatelessWidget {
       onModelReady: (model) => model.init(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Reports'),
+          title: const Text('Reports'),
           centerTitle: true,
         ),
         body: Container(
           color: Colors.grey.shade200,
           child: ListView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             children: [
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 color: Colors.white,
                 child: Column(
@@ -36,7 +36,7 @@ class NumericReport extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         width: double.maxFinite,
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             border: Border(
                                 left: BorderSide(
@@ -65,7 +65,7 @@ class NumericReport extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
                       '${model.totalRevenue}'.toCurrency!,
                       style: GoogleFonts.montserrat(
@@ -96,7 +96,7 @@ class NumericReport extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Container(
                 color: Colors.white,
                 child: Column(
@@ -107,7 +107,7 @@ class NumericReport extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         width: double.maxFinite,
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             border: Border(
                                 left: BorderSide(
@@ -136,7 +136,7 @@ class NumericReport extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
                       '${model.totalExpenses}'.toCurrency!,
                       style: GoogleFonts.montserrat(
@@ -167,7 +167,7 @@ class NumericReport extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
             ],
           ),
         ),

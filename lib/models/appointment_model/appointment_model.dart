@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dentalapp/models/patient_model/patient_model.dart';
 import 'package:dentalapp/models/procedure/procedure.dart';
 
@@ -34,14 +36,13 @@ class AppointmentModel {
     return {
       'appointment_id': appointment_id,
       'patient':
-          this.patient.toJson(patientId: patientId, dateCreated: dateCreated),
-      'date': this.date,
-      'startTime': this.startTime,
-      'endTime': this.endTime,
-      'dentist': this.dentist,
-      'appointment_status': this.appointment_status,
-      'procedures': this
-          .procedures
+          patient.toJson(patientId: patientId, dateCreated: dateCreated),
+      'date': date,
+      'startTime': startTime,
+      'endTime': endTime,
+      'dentist': dentist,
+      'appointment_status': appointment_status,
+      'procedures': procedures
           ?.map((e) => e.toJson(dateCreated: e.dateCreated, id: e.id))
           .toList(),
       // ?.map((e) => e?.toJson(dateCreated: this.date)),

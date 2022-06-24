@@ -29,10 +29,11 @@ class SelectionDentistViewModel extends BaseViewModel {
   }
 
   setReturnDentist(UserModel user) {
-    if (user.active_status == 'active')
+    if (user.active_status == 'active') {
       navigationService.pop(returnValue: user);
-    else
+    } else {
       snackBarService.showSnackBar(
           message: 'Doctor is on Leave', title: 'Cannot be selected');
+    }
   }
 }

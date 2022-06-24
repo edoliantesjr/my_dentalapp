@@ -76,7 +76,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
 
   @override
   Future<bool> sendEmailVerification() async {
-    final currentUser = await _firebaseAuth.currentUser;
+    final currentUser = _firebaseAuth.currentUser;
     if (currentUser != null && !currentUser.emailVerified) {
       await currentUser.sendEmailVerification();
       return true;
@@ -87,7 +87,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
 
   @override
   Future<AuthResponse> loginWithGoogle() async {
-    final GoogleSignIn _googleSignIn = await GoogleSignIn(scopes: ['profile']);
+    final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile']);
     final GoogleSignInAccount? googleSignInAccount =
         await _googleSignIn.signIn();
 
@@ -95,7 +95,7 @@ class FirebaseAuthServiceImpl extends FirebaseAuthService {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
 
-      final authCredential = await GoogleAuthProvider.credential(
+      final authCredential = GoogleAuthProvider.credential(
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken);
       UserCredential authResult =

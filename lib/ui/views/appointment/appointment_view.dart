@@ -59,7 +59,7 @@ class AppointmentView extends StatelessWidget {
           floatingActionButton: FloatingActionButton.extended(
             heroTag: null,
             onPressed: model.goToSelectPatient,
-            label: Text('Add Appointment'),
+            label: const Text('Add Appointment'),
           ),
           body: Container(
             color: Colors.grey.shade50,
@@ -87,10 +87,10 @@ class AppointmentView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Divider(height: 1, color: Colors.grey),
+                const Divider(height: 1, color: Colors.grey),
                 Container(
                   color: Colors.grey.shade200,
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   child: Wrap(
                     spacing: 4,
                     children: [
@@ -101,7 +101,7 @@ class AppointmentView extends StatelessWidget {
                                     ? Colors.white
                                     : Colors.black)),
                         selected: model.filter == 'ALL',
-                        onSelected: (bool) => model.getAppointmentByAll(),
+                        onSelected: (b) => model.getAppointmentByAll(),
                         selectedColor: Palettes.kcBlueMain1,
                         checkmarkColor: Colors.white,
                       ),
@@ -116,7 +116,7 @@ class AppointmentView extends StatelessWidget {
                         ),
                         selected:
                             model.filter == AppointmentStatus.Approved.name,
-                        onSelected: (bool) => model.getAppointmentByCompleted(),
+                        onSelected: (b) => model.getAppointmentByCompleted(),
                         selectedColor: Palettes.kcCompleteColor,
                         checkmarkColor: Colors.white,
                       ),
@@ -157,7 +157,7 @@ class AppointmentView extends StatelessWidget {
                         ),
                         selected:
                             model.filter == AppointmentStatus.Declined.name,
-                        onSelected: (bool) => model.getAppointmentByDeclined(),
+                        onSelected: (b) => model.getAppointmentByDeclined(),
                         selectedColor: Colors.red,
                         checkmarkColor: Colors.white,
                       ),
@@ -177,10 +177,10 @@ class AppointmentView extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(height: 1, color: Colors.grey),
+                const Divider(height: 1, color: Colors.grey),
                 Container(
                   color: Colors.grey.shade50,
-                  padding: EdgeInsets.symmetric(horizontal: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
                   child: model.appointmentList.isNotEmpty
                       ? appointmentCardHelper(
                           appointmentList: model.appointmentList,
@@ -190,10 +190,10 @@ class AppointmentView extends StatelessWidget {
                           navigator: model.navigationService)
                       : Container(
                           height: 500,
-                          child: Center(
-                              child: Text('No Appointment for this date.'))),
+                          child: const Center(
+                              child: const Text('No Appointment for this date.'))),
                 ),
-                SizedBox(height: 100),
+                const SizedBox(height: 100),
               ],
             ),
           )),
@@ -206,27 +206,27 @@ class AppointmentView extends StatelessWidget {
       required NavigationService navigator,
       required Function(int index) onDeleteItem}) {
     if (isBusy) {
-      return MyShimmer();
+      return const MyShimmer();
     } else {
       return AnimationLimiter(
         child: ListView.builder(
           shrinkWrap: true,
           primary: false,
           // physics: NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           itemCount: appointmentList.length,
           itemBuilder: (context, i) => AnimationConfiguration.staggeredList(
             position: i,
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             child: SlideAnimation(
               verticalOffset: 90.0,
               // horizontalOffset: 300,
               curve: Curves.easeInOut,
-              duration: Duration(milliseconds: 850),
+              duration: const Duration(milliseconds: 850),
               child: FadeInAnimation(
                 curve: Curves.easeInOut,
-                delay: Duration(milliseconds: 350),
-                duration: Duration(milliseconds: 1000),
+                delay: const Duration(milliseconds: 350),
+                duration: const Duration(milliseconds: 1000),
                 child: AppointmentCard(
                   key: ObjectKey(appointmentList[i]),
                   onPatientTap: () => navigator.pushNamed(

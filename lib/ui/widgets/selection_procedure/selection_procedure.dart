@@ -73,7 +73,7 @@ class SelectionProcedure extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Row(
-                    children: [
+                    children: const [
                       Text('List of Procedures'),
                       Expanded(child: Divider())
                     ],
@@ -105,7 +105,7 @@ class SelectionProcedure extends StatelessWidget {
           height: 200,
           width: 200,
           child: Column(
-            children: [
+            children: const [
               SizedBox(
                 height: 35,
                 width: 35,
@@ -133,7 +133,7 @@ class SelectionProcedure extends StatelessWidget {
                     id: procedureList[index].id,
                     procedureName: procedureList[index].procedureName,
                     price: procedureList[index].price,
-                    searchIndex: []),
+                    searchIndex: const []),
               ),
               id: procedureList[index].id ?? '',
               procedure: procedureList[index],

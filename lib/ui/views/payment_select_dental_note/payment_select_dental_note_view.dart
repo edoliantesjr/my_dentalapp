@@ -18,7 +18,7 @@ class PaymentSelectDentalNoteView extends StatelessWidget {
       onModelReady: (model) => model.init(patientId),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Select Dental Note'),
+          title: const Text('Select Dental Note'),
           centerTitle: true,
         ),
         persistentFooterButtons: [
@@ -27,7 +27,7 @@ class PaymentSelectDentalNoteView extends StatelessWidget {
             width: double.maxFinite,
             child: ElevatedButton(
                 onPressed: () => model.returnSelectedDentalNote(),
-                child: Text('Confirm')),
+                child: const Text('Confirm')),
           )
         ],
         body: Form(
@@ -35,7 +35,7 @@ class PaymentSelectDentalNoteView extends StatelessWidget {
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
             child: Column(
               children: [
                 Row(
@@ -44,8 +44,8 @@ class PaymentSelectDentalNoteView extends StatelessWidget {
                       'Unpaid Dental Note List',
                       style: TextStyles.tsHeading5(),
                     ),
-                    SizedBox(width: 2),
-                    Expanded(
+                    const SizedBox(width: 2),
+                    const Expanded(
                       child: Divider(
                         height: 1,
                         thickness: 1,
@@ -54,13 +54,13 @@ class PaymentSelectDentalNoteView extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Container(
                   color: Colors.grey.shade200,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('Select All'),
+                      const Text('Select All'),
                       Checkbox(
                         value: model.selectAll,
                         onChanged: (value) {
@@ -70,13 +70,13 @@ class PaymentSelectDentalNoteView extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 model.isBusy
                     ? Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
+                          children: const [
                             CircularProgressIndicator(),
                             SizedBox(height: 5),
                             Text('Loading Data...'),
@@ -84,7 +84,7 @@ class PaymentSelectDentalNoteView extends StatelessWidget {
                         ),
                       )
                     : Expanded(
-                        child: model.listOfUnpaidDentalNotes.length > 0
+                        child: model.listOfUnpaidDentalNotes.isNotEmpty
                             ? ListView.separated(
                                 shrinkWrap: true,
                                 primary: false,
@@ -103,10 +103,10 @@ class PaymentSelectDentalNoteView extends StatelessWidget {
                                       model.listOfUnpaidDentalNotes,
                                 ),
                                 separatorBuilder: (context, index) =>
-                                    SizedBox(height: 8),
+                                    const SizedBox(height: 8),
                                 itemCount: model.listOfUnpaidDentalNotes.length,
                               )
-                            : Center(
+                            : const Center(
                                 child: Text('No Dental Notes Found...'),
                               )),
               ],

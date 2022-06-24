@@ -13,16 +13,16 @@ extension DateTimeExtension on DateTime {
       DateFormat('yyyy-MM-dd').format(this).toDateTime();
 
   bool isSameDate(DateTime other) {
-    return this.year == other.year &&
-        this.month == other.month &&
-        this.day == other.day;
+    return year == other.year &&
+        month == other.month &&
+        day == other.day;
   }
 
   bool isSameDateMonth(DateTime other) {
-    return this.year == other.year && this.month == other.month;
+    return year == other.year && month == other.month;
   }
 
   bool isSameYear(DateTime other) {
-    return this.year == other.year;
+    return year == other.year;
   }
 }

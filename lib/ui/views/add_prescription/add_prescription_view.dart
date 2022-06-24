@@ -19,25 +19,25 @@ class AddPrescriptionView extends StatelessWidget {
       viewModelBuilder: () => AddPrescriptionViewModel(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Add Prescription'),
+          title: const Text('Add Prescription'),
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => model.addPrescriptionItem(),
-            label: Text('Add Prescription Item')),
+            label: const Text('Add Prescription Item')),
         persistentFooterButtons: [
           Row(
             children: [
               Expanded(
                   child: ElevatedButton(
                       onPressed: () => model.savePrescription(patient.id),
-                      child: Text('Save'))),
+                      child: const Text('Save'))),
             ],
           )
         ],
         body: Form(
           key: model.addPrescriptionFormKey,
           child: ListView(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
             children: [
               GestureDetector(
                 onTap: () => model.selectDate(),
@@ -57,22 +57,22 @@ class AddPrescriptionView extends StatelessWidget {
                       labelStyle:
                           TextStyles.tsBody1(color: Palettes.kcNeutral1),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.arrow_drop_down,
                         size: 24,
                         color: Palettes.kcBlueMain1,
                       )),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Text(
                     'List of Direction',
                     style: TextStyles.tsButton2(),
                   ),
-                  SizedBox(width: 8),
-                  Expanded(
+                  const SizedBox(width: 8),
+                  const Expanded(
                     child: Divider(
                       height: 2,
                       color: Palettes.kcPurpleMain,
@@ -81,7 +81,7 @@ class AddPrescriptionView extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               model.prescriptionItem.isNotEmpty
                   ? ListView.separated(
                       shrinkWrap: true,
@@ -89,15 +89,15 @@ class AddPrescriptionView extends StatelessWidget {
                       itemBuilder: (context, index) => PrescriptionItemCard(
                         prescriptionItem: model.prescriptionItem[index],
                       ),
-                      separatorBuilder: (context, index) => SizedBox(height: 5),
+                      separatorBuilder: (context, index) => const SizedBox(height: 5),
                       itemCount: model.prescriptionItem.length,
                     )
                   : Container(
                       color: Colors.grey.shade200,
                       height: 200,
-                      child: Center(child: Text('No Directions')),
+                      child: const Center(child: Text('No Directions')),
                     ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
             ],
           ),
         ),

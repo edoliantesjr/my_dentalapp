@@ -95,7 +95,7 @@ class UserViewModel extends BaseViewModel {
 
   Future<void> setGenderValue() async {
     final selectedGender =
-        await bottomSheetService.openBottomSheet(SelectionOption(
+        await bottomSheetService.openBottomSheet(const SelectionOption(
       options: ['Male', 'Female'],
       title: 'Select your gender',
     ));
@@ -106,7 +106,7 @@ class UserViewModel extends BaseViewModel {
 
   Future<void> setBirthDateValue() async {
     final selectedBirthDate =
-        await bottomSheetService.openBottomSheet(SelectionDate(
+        await bottomSheetService.openBottomSheet(const SelectionDate(
       title: 'Select birth date',
     ));
     if (selectedBirthDate != null) {
@@ -118,7 +118,7 @@ class UserViewModel extends BaseViewModel {
 
   Future<void> setPositionValue() async {
     String? selectedPosition =
-        await bottomSheetService.openBottomSheet(SelectionOption(
+        await bottomSheetService.openBottomSheet(const SelectionOption(
       options: ['Doctor', "Staff"],
       title: 'Select your position',
     ));
@@ -136,7 +136,7 @@ class UserViewModel extends BaseViewModel {
         onCancel: () => navigationService.pop(),
         onContinue: () async {
           if (updateUserFormKey.currentState!.validate()) {
-            final userSearchIndex = await searchIndexService.setSearchIndex(
+            final userSearchIndex =  searchIndexService.setSearchIndex(
                 string:
                     '${firstNameController.text} ${lastNameController.text}');
             final user = UserModel(currentUser!.userId,
@@ -146,7 +146,7 @@ class UserViewModel extends BaseViewModel {
                 email: currentUser!.email,
                 image: currentUser!.image,
                 position: positionController.text,
-                dateOfBirth: birthDate.toString() ?? currentUser!.dateOfBirth,
+                dateOfBirth: birthDate.toString() ,
                 gender: genderController.text,
                 appointments: [],
                 fcmToken: [],
@@ -184,7 +184,7 @@ class UserViewModel extends BaseViewModel {
   Future<void> updateUserImage() async {
     XFile? selectedImage;
     var selectedImageSource =
-        await bottomSheetService.openBottomSheet(SelectionOption(
+        await bottomSheetService.openBottomSheet(const SelectionOption(
       options: ['Gallery', 'Camera'],
       title: 'Select Image Source',
     ));
@@ -204,7 +204,7 @@ class UserViewModel extends BaseViewModel {
         final qRes = await apiService.updateUserPhoto(
             image: imageResult.imageUrl!, userId: currentUser!.userId);
         if (qRes.success) {
-          await Future.delayed(Duration(seconds: 2));
+          await Future.delayed(const Duration(seconds: 2));
           snackBarService.showSnackBar(
               message: 'User Image Updated', title: 'Success');
         } else {

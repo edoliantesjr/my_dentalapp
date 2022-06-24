@@ -24,7 +24,7 @@ class AddProcedureViewModel extends BaseViewModel {
         barrierDismissible: false, willPop: false);
     try {
       final procedureIndex =
-          await searchIndexService.setSearchIndex(string: procedureName);
+           searchIndexService.setSearchIndex(string: procedureName);
       await apiService.addProcedure(
           procedure: Procedure(
         searchIndex: procedureIndex,

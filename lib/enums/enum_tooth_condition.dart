@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 enum EnumToothCondition {
   Carries_Indicated_For_Filling,
   Carries_Indicated_For_Extraction,

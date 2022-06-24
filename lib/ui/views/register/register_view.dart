@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_border_styles.dart';
@@ -310,7 +312,7 @@ class RegisterFields extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20.h),
-          Container(
+          SizedBox(
             height: 45.sp,
             width: screenWidth(context),
             child: ElevatedButton(
@@ -343,7 +345,7 @@ class SocialLogin extends StatelessWidget {
           // SizedBox(height: 20.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               // GestureDetector(
               //   onTap: () {},
               //   child: Container(

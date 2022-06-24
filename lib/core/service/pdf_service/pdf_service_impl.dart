@@ -33,7 +33,7 @@ class PdfServiceImp extends PdfService {
                   fontSize: 14,
                 )),
             pw.Text('Poblacion, Bilar, Bohol',
-                style: pw.TextStyle(
+                style: const pw.TextStyle(
                   fontSize: 13,
                 )),
             pw.SizedBox(height: 25),
@@ -53,7 +53,7 @@ class PdfServiceImp extends PdfService {
                             )),
                       ]),
                   pw.Text('Dental Surgeon',
-                      style: pw.TextStyle(
+                      style: const pw.TextStyle(
                         fontSize: 12,
                       )),
                   pw.SizedBox(height: 4),
@@ -81,13 +81,13 @@ class PdfServiceImp extends PdfService {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text('To whom it may concern:',
-                          style: pw.TextStyle(
+                          style: const pw.TextStyle(
                             fontSize: 12,
                           )),
                       pw.SizedBox(height: 8),
                       pw.Wrap(spacing: 4, runSpacing: 4, children: [
                         pw.Text('This is to certify that patient ',
-                            style: pw.TextStyle(
+                            style: const pw.TextStyle(
                               fontSize: 12,
                             )),
                         pw.Text('${patient.firstName}, ${patient.lastName} ',
@@ -96,7 +96,7 @@ class PdfServiceImp extends PdfService {
                               fontWeight: pw.FontWeight.bold,
                             )),
                         pw.Text('has undergone the procedure - ',
-                            style: pw.TextStyle(
+                            style: const pw.TextStyle(
                               fontSize: 12,
                             )),
                         pw.Text('${dentalCertificate.procedure.toUpperCase()} ',
@@ -105,7 +105,7 @@ class PdfServiceImp extends PdfService {
                               fontWeight: pw.FontWeight.bold,
                             )),
                         pw.Text('on ',
-                            style: pw.TextStyle(
+                            style: const pw.TextStyle(
                               fontSize: 12,
                             )),
                         pw.Text(
@@ -127,7 +127,7 @@ class PdfServiceImp extends PdfService {
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
                     children: [
                       pw.Container(
-                        padding: pw.EdgeInsets.all(4),
+                        padding: const pw.EdgeInsets.all(4),
                         decoration: pw.BoxDecoration(
                             border: pw.Border(
                                 bottom: pw.BorderSide(
@@ -156,7 +156,7 @@ class PdfServiceImp extends PdfService {
     final pdf = pw.Document();
     pdf.addPage(
       pw.Page(
-        pageFormat: PdfPageFormat(
+        pageFormat: const PdfPageFormat(
             4 * PdfPageFormat.inch, 7 * PdfPageFormat.inch,
             marginAll: 0.2 * PdfPageFormat.cm),
         build: (pw.Context context) {
@@ -172,7 +172,7 @@ class PdfServiceImp extends PdfService {
                       fontSize: 14,
                     )),
                 pw.Text('Poblacion, Bilar, Bohol',
-                    style: pw.TextStyle(
+                    style: const pw.TextStyle(
                       fontSize: 13,
                     )),
                 pw.SizedBox(height: 15),
@@ -193,13 +193,13 @@ class PdfServiceImp extends PdfService {
                                   )),
                             ]),
                         pw.Text('Dental Surgeon',
-                            style: pw.TextStyle(
+                            style: const pw.TextStyle(
                               fontSize: 12,
                             )),
                         pw.SizedBox(height: 4),
                         pw.Text(
                             'Date: ${DateFormat.yMMMd().add_jm().format(prescription.date.toDateTime()!)}',
-                            style: pw.TextStyle(
+                            style: const pw.TextStyle(
                               fontSize: 12,
                             )),
                       ]),
@@ -242,7 +242,7 @@ class PdfServiceImp extends PdfService {
                                       'Disp. ' +
                                           prescription.prescriptionItems[index]
                                               .subscription,
-                                      style: pw.TextStyle(
+                                      style: const pw.TextStyle(
                                         fontSize: 12,
                                       ),
                                     ),
@@ -250,7 +250,7 @@ class PdfServiceImp extends PdfService {
                                       'Sig. ' +
                                           prescription.prescriptionItems[index]
                                               .signatura,
-                                      style: pw.TextStyle(
+                                      style: const pw.TextStyle(
                                         fontSize: 12,
                                       ),
                                     ),
@@ -268,7 +268,7 @@ class PdfServiceImp extends PdfService {
                         crossAxisAlignment: pw.CrossAxisAlignment.center,
                         children: [
                           pw.Container(
-                            padding: pw.EdgeInsets.all(4),
+                            padding: const pw.EdgeInsets.all(4),
                             decoration: pw.BoxDecoration(
                                 border: pw.Border(
                                     bottom: pw.BorderSide(
@@ -293,6 +293,7 @@ class PdfServiceImp extends PdfService {
     throw UnimplementedError();
   }
 
+  // ignore: annotate_overrides
   Future<void> savePdfFile(
       {required String fileName, required Uint8List byteList}) async {
     final output = await getExternalStorageDirectory();

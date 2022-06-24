@@ -1,6 +1,5 @@
 import 'package:dentalapp/ui/views/expenses_report/expenses_report_view.dart';
 import 'package:dentalapp/ui/views/finance/reports_view_model.dart';
-import 'package:dentalapp/ui/views/numeric_report/numeric_report.dart';
 import 'package:dentalapp/ui/views/patient_report/patient_report_view.dart';
 import 'package:dentalapp/ui/views/sales_report/sales_report_view.dart';
 import 'package:flutter/material.dart';
@@ -18,20 +17,20 @@ class ReportView extends StatelessWidget {
           currentIndex: model.currentIndex,
           onTap: (index) => model.changeIndex(index),
           iconSize: 28,
-          items: [
+          items:const [
             BottomNavigationBarItem(
               icon: Icon(Icons.people),
               label: 'Patients',
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.bar_chart_rounded), label: 'Sales'),
+                icon: Icon(Icons.bar_chart_rounded), label: 'Income'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.stacked_line_chart), label: 'Expenses'),
           ],
         ),
         body: IndexedStack(
           index: model.currentIndex,
-          children: [
+          children:const [
             PatientReportView(),
             SalesReportsView(),
             ExpensesReportView(),

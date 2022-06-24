@@ -21,7 +21,7 @@ class PaymentSelectPatientView extends StatelessWidget {
         onModelReady: (model) => model.init(),
         builder: (context, model, widget) => Scaffold(
               appBar: AppBar(
-                title: Text('Select Patient For Payment'),
+                title: const Text('Select Patient For Payment'),
               ),
               body: Container(
                 height: MediaQuery.of(context).size.height,
@@ -30,17 +30,17 @@ class PaymentSelectPatientView extends StatelessWidget {
                 child: RefreshIndicator(
                   color: Palettes.kcBlueMain1,
                   onRefresh: () async {
-                    await Future.delayed(Duration(seconds: 1));
+                    await Future.delayed(const Duration(seconds: 1));
                   },
                   child: CustomScrollView(
-                    physics: AlwaysScrollableScrollPhysics(
+                    physics: const AlwaysScrollableScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics(),
                     ),
                     slivers: [
                       SliverStickyHeader(
                         overlapsContent: false,
                         header: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 15, vertical: 15),
                           color: Palettes.kcBlueMain1,
                           child: Column(
@@ -56,26 +56,26 @@ class PaymentSelectPatientView extends StatelessWidget {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 20,
                                     vertical: 5,
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(100),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Palettes.kcBlueMain1,
                                       width: 1.8,
                                     ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(100),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.white,
                                       width: 1,
                                     ),
                                   ),
                                   prefixIcon: Padding(
-                                    padding: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
                                     child: SvgPicture.asset(
                                       'assets/icons/Search.svg',
                                     ),
@@ -83,13 +83,13 @@ class PaymentSelectPatientView extends StatelessWidget {
                                   suffixIcon: GestureDetector(
                                     onTap: () {},
                                     child: Padding(
-                                      padding: EdgeInsets.all(8),
+                                      padding: const EdgeInsets.all(8),
                                       child: SvgPicture.asset(
                                         'assets/icons/Filter.svg',
                                       ),
                                     ),
                                   ),
-                                  constraints: BoxConstraints(maxHeight: 43),
+                                  constraints: const BoxConstraints(maxHeight: 43),
                                   hintText: 'Search by Last Name, First Name',
                                 ),
                               ),
@@ -103,11 +103,11 @@ class PaymentSelectPatientView extends StatelessWidget {
                                   return AnimationConfiguration.staggeredList(
                                     position: index,
                                     child: SlideAnimation(
-                                      duration: Duration(milliseconds: 400),
+                                      duration: const Duration(milliseconds: 400),
                                       horizontalOffset: 100,
                                       child: Container(
                                         margin:
-                                            EdgeInsets.only(top: 8, bottom: 8),
+                                            const EdgeInsets.only(top: 8, bottom: 8),
                                         decoration: BoxDecoration(
                                           boxShadow: [
                                             BoxShadow(
@@ -159,7 +159,7 @@ class PaymentSelectPatientView extends StatelessWidget {
                                 child: SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height / 2,
-                                  child: Center(
+                                  child: const Center(
                                     child: Text('No Patients Found'),
                                   ),
                                 ),

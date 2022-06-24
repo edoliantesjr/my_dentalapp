@@ -13,7 +13,7 @@ class SetUpUserView extends StatefulWidget {
   final String? firstName;
   final String? lastName;
   final String? userPhoto;
-  SetUpUserView({Key? key, this.firstName, this.lastName, this.userPhoto})
+  const SetUpUserView({Key? key, this.firstName, this.lastName, this.userPhoto})
       : super(key: key);
 
   @override
@@ -53,11 +53,11 @@ class _SetUpUserViewState extends State<SetUpUserView> {
           bottomSheet: Container(
             height: 50,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               border: Border(top: BorderSide(color: Palettes.kcNeutral5)),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: ElevatedButton(
               onPressed: () {
                 if (model.setupFormKey.currentState!.validate()) {
@@ -78,7 +78,7 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                   }
                 }
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ),
           body: Container(
@@ -91,8 +91,8 @@ class _SetUpUserViewState extends State<SetUpUserView> {
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
                         BorderRadius.only(topRight: Radius.circular(30))),
@@ -100,16 +100,16 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Header(),
-                    SizedBox(height: 20),
-                    Text(
+                    const Header(),
+                    const SizedBox(height: 20),
+                    const Text(
                       'Profile Picture*',
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
                       height: 120,
                       width: 120,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Palettes.kcLightGreyAccentColor,
                         shape: BoxShape.circle,
                         boxShadow: [
@@ -146,7 +146,7 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                           key: model.setupFormKey,
                           child: Column(
                             children: [
-                              SizedBox(height: 15),
+                              const SizedBox(height: 15),
                               TextFormField(
                                 controller: firstNameController,
                                 validator: (value) => model.validatorService
@@ -163,7 +163,7 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                       FloatingLabelBehavior.always,
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               TextFormField(
                                 controller: lastNameController,
                                 validator: (value) => model.validatorService
@@ -180,7 +180,7 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                       FloatingLabelBehavior.always,
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               TextFormField(
                                 controller: phoneNumController,
                                 autovalidateMode:
@@ -205,7 +205,7 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                       FloatingLabelBehavior.always,
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               GestureDetector(
                                 onTap: () => model
                                     .setBirthDateValue(dateOfBirthController),
@@ -235,7 +235,7 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                       )),
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               GestureDetector(
                                 onTap: () =>
                                     model.setGenderValue(genderController),
@@ -258,14 +258,14 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                           color: Palettes.kcNeutral1),
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always,
-                                      suffixIcon: Icon(
+                                      suffixIcon: const Icon(
                                         Icons.arrow_drop_down,
                                         size: 24,
                                         color: Palettes.kcBlueMain1,
                                       )),
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               GestureDetector(
                                 onTap: () =>
                                     model.setPositionValue(positionController),
@@ -288,7 +288,7 @@ class _SetUpUserViewState extends State<SetUpUserView> {
                                           color: Palettes.kcNeutral1),
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always,
-                                      suffixIcon: Icon(
+                                      suffixIcon: const Icon(
                                         Icons.arrow_drop_down,
                                         size: 24,
                                         color: Palettes.kcBlueMain1,
@@ -321,7 +321,7 @@ class Header extends StatelessWidget {
         InkWell(
           onTap: () {},
           child: Container(
-            margin: EdgeInsets.symmetric(vertical: 15),
+            margin: const EdgeInsets.symmetric(vertical: 15),
             // child: SvgPicture.asset('assets/icons/arrow-back.svg'),
             child: Text(
               'Account setup',
@@ -329,7 +329,7 @@ class Header extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 1),
+        const SizedBox(height: 1),
         Text(
           'Setup User Information!',
           style: TextStyles.tsHeading2(),

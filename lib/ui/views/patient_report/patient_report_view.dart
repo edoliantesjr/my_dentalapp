@@ -15,7 +15,7 @@ class PatientReportView extends StatelessWidget {
       viewModelBuilder: () => PatientReportViewModel(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Patient Report'),
+          title: const Text('Patient Report'),
         ),
         body: SafeArea(
           child: model.isBusy
@@ -23,7 +23,7 @@ class PatientReportView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                    children: const [
                       CircularProgressIndicator(),
                       SizedBox(height: 5),
                       Text("Loading Data. Please wait...")
@@ -31,7 +31,7 @@ class PatientReportView extends StatelessWidget {
                   ),
                 )
               : Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   child: Column(
@@ -59,7 +59,7 @@ class PatientReportView extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
@@ -89,10 +89,10 @@ class PatientReportView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),

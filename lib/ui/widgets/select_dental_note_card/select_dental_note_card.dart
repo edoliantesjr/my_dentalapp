@@ -46,7 +46,7 @@ class _SelectDentalNoteCardState extends State<SelectDentalNoteCard> {
   Future<void> updateDentalAmount() async {
     await apiService.updateDentalAmountField(
         patientId: widget.patientId,
-        dental_noteId: widget.dentalNote.id,
+        dentalNoteId: widget.dentalNote.id,
         procedureId: widget.dentalNote.procedure.id,
         price: priceTextController.text);
   }

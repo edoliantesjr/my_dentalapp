@@ -18,14 +18,14 @@ class ViewDentalNote extends StatelessWidget {
       onModelReady: (model) => model.getDentalNotes(patient.id),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Treatment Records'),
+          title: const Text('Treatment Records'),
         ),
         body: Container(
-          color: Color.fromARGB(143, 234, 218, 236),
+          color: const Color.fromARGB(143, 234, 218, 236),
           child: ListView(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             children: [
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Text(
@@ -35,8 +35,8 @@ class ViewDentalNote extends StatelessWidget {
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(width: 4),
-                  Expanded(
+                  const SizedBox(width: 4),
+                  const Expanded(
                     child: Divider(
                       height: 2,
                       thickness: 2,
@@ -45,15 +45,15 @@ class ViewDentalNote extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               model.isBusy
-                  ? Container(
+                  ? SizedBox(
                       height: 500,
                       child: Center(
                           child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                        children: const [
                           CircularProgressIndicator(),
                           Text('Loading')
                         ],
@@ -67,11 +67,11 @@ class ViewDentalNote extends StatelessWidget {
                               dentalNote: model.dentalNotes[index],
                               patient: patient),
                           separatorBuilder: (context, index) =>
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                           itemCount: model.dentalNotes.length)
-                      : Container(
+                      : SizedBox(
                           height: 500,
-                          child: Center(
+                          child: const Center(
                               child: Text('No Dental Notes/ Treatment Record')),
                         ),
             ],

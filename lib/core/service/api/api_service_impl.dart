@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 import 'dart:io';
 
@@ -87,7 +89,7 @@ class ApiServiceImpl extends ApiService {
   Future<ImageUploadResult> uploadProfileImage(
       {required File imageToUpload, required String imageFileName}) async {
     try {
-      final profileImageRef = await FirebaseStorage.instance
+      final profileImageRef = FirebaseStorage.instance
           .ref('users/${currentFirebaseUser!.uid}/profile-image/profile.jpg');
       final uploadTask = profileImageRef.putFile(imageToUpload);
       await uploadTask;
@@ -101,7 +103,7 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future<DocumentReference> createPatientID() async {
-    return await patientReference.doc();
+    return patientReference.doc();
   }
 
   @override
@@ -158,7 +160,7 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future? addMedicine({required Medicine medicine, String? image}) async {
-    final medicineRef = await medicineReference.doc();
+    final medicineRef = medicineReference.doc();
     return medicineRef.set(medicine.toJson(
         id: medicineRef.id,
         image: image ?? '',
@@ -167,7 +169,7 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future? addProcedure({required Procedure procedure}) async {
-    final procedureRef = await procedureReference.doc();
+    final procedureRef = procedureReference.doc();
     return procedureRef.set(procedure.toJson(
         id: procedureRef.id, dateCreated: FieldValue.serverTimestamp()));
   }
@@ -217,7 +219,7 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future<String> createAppointment(AppointmentModel appointment) async {
-    final appointmentRef = await appointmentReference.doc();
+    final appointmentRef = appointmentReference.doc();
 
     await appointmentRef.set(appointment.toJson(
         patientId: appointment.patient.id,
@@ -231,7 +233,7 @@ class ApiServiceImpl extends ApiService {
       {required File imageToUpload, required String genericName}) async {
     try {
       final profileImageRef =
-          await FirebaseStorage.instance.ref('medicines/').child(genericName);
+          FirebaseStorage.instance.ref('medicines/').child(genericName);
       final uploadTask = profileImageRef.putFile(imageToUpload);
       await uploadTask;
       final imageUrl = await uploadTask.snapshot.ref.getDownloadURL();
@@ -334,8 +336,8 @@ class ApiServiceImpl extends ApiService {
       required String patientId,
       required String fileName}) async {
     try {
-      final profileImageRef = await FirebaseStorage.instance
-          .ref('patients/${patientId}/medical-history/')
+      final profileImageRef = FirebaseStorage.instance
+          .ref('patients/$patientId/medical-history/')
           .child(fileName);
       final uploadTask = profileImageRef.putFile(imageToUpload);
       await uploadTask;
@@ -358,10 +360,8 @@ class ApiServiceImpl extends ApiService {
       {required String toothId,
       required dynamic patientId,
       required ToothCondition toothCondition}) async {
-    final toothDoc = await patientReference
-        .doc(patientId)
-        .collection('dental_conditions')
-        .doc();
+    final toothDoc =
+        patientReference.doc(patientId).collection('dental_conditions').doc();
     return await toothDoc.set(toothCondition.toJson(id: toothDoc.id));
   }
 
@@ -372,7 +372,7 @@ class ApiServiceImpl extends ApiService {
       required DentalNotes dentalNotes,
       required dynamic procedureId}) async {
     final toothDoc =
-        await patientReference.doc(patientId).collection('dental_notes').doc();
+        patientReference.doc(patientId).collection('dental_notes').doc();
     return await toothDoc
         .set(dentalNotes.toJson(id: toothDoc.id, procedureId: procedureId));
   }
@@ -446,21 +446,21 @@ class ApiServiceImpl extends ApiService {
   Future<void> updateDentalAmountField(
       {required patientId,
       String? toothId,
-      required dental_noteId,
+      required dentalNoteId,
       required procedureId,
       required String price}) async {
-    final queryRes = await patientReference
+     await patientReference
         .doc(patientId)
         .collection('dental_notes')
-        .doc(dental_noteId)
-        .update({'procedure.price': "$price"});
+        .doc(dentalNoteId)
+        .update({'procedure.price': price});
   }
 
   @override
   Future<QueryResult> addPayment({required Payment payment}) async {
     if (await connectivityService.checkConnectivity()) {
-      final paymentDoc = await paymentReference.doc();
-      final paymentRes = await paymentDoc.set(payment.toJson(paymentDoc.id));
+      final paymentDoc = paymentReference.doc();
+       await paymentDoc.set(payment.toJson(paymentDoc.id));
       return QueryResult.success(returnValue: paymentDoc.id);
     } else {
       return QueryResult.error('Check your network and try again!');
@@ -491,7 +491,7 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<QueryResult> addExpense({required Expense expense}) async {
     if (await connectivityService.checkConnectivity()) {
-      final expenseDoc = await expenseReference.doc();
+      final expenseDoc = expenseReference.doc();
 
       await expenseDoc.set(expense.toJson(expenseDoc.id));
       return QueryResult.success();
@@ -574,10 +574,8 @@ class ApiServiceImpl extends ApiService {
   Future<QueryResult> addPrescription(
       {required Prescription prescription, required patientId}) async {
     if (await connectivityService.checkConnectivity()) {
-      final prescriptionDoc = await patientReference
-          .doc(patientId)
-          .collection('prescription')
-          .doc();
+      final prescriptionDoc =
+          patientReference.doc(patientId).collection('prescription').doc();
       await prescriptionDoc.set(prescription.toJson(id: prescriptionDoc.id));
       return QueryResult.success();
     } else {
@@ -609,7 +607,7 @@ class ApiServiceImpl extends ApiService {
       {required DentalCertificate dentalCertificate,
       required Patient patient}) async {
     if (await connectivityService.checkConnectivity()) {
-      final certDoc = await patientReference
+      final certDoc = patientReference
           .doc(patient.id)
           .collection('dental_certificate')
           .doc();
@@ -730,7 +728,7 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<void> saveNotification(
       {required NotificationModel notification, required String typeId}) async {
-    final notDoc = await notificationReference.doc(typeId);
+    final notDoc = notificationReference.doc(typeId);
 
     await notDoc.set(
       notification.toJson(id: typeId, timestamp: DateTime.now()),

@@ -17,7 +17,7 @@ class FirebaseMessagingService {
     required String route,
   }) async {
     final url = Uri.parse('https://fcm.googleapis.com/fcm/send');
-    final serverToken = "AAAA22iuutQ:APA91bGbn4jlDT20iy0d5mwuQTauOJYUby3W"
+    const serverToken = "AAAA22iuutQ:APA91bGbn4jlDT20iy0d5mwuQTauOJYUby3W"
         "E3IZ9WveHFOOoy1BNZalFUqI2iHL3m8kTLaGVeNxOPD-PiJqigOu321Nu7q_h5Wn8eIPNEq9X9YI90IteSjflr4s-7gylXd8KLwKMtNf";
     final headers = <String, String>{
       'Content-Type': 'application/json',

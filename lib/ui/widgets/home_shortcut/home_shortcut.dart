@@ -29,15 +29,15 @@ class HomeShortcut extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Container(
             height: 120,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Palettes.kcBlueMain1,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30))),
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: const Radius.circular(30),
+                    bottomRight: const Radius.circular(30))),
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -49,21 +49,21 @@ class HomeShortcut extends StatelessWidget {
                     width: 20,
                     color: Colors.white,
                   ),
-                  SizedBox(width: 2),
+                  const SizedBox(width: 2),
                   Text(
                     'Shortcuts',
                     style: TextStyles.tsHeading4(color: Colors.white),
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Container(
                 height: 150,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                           color: Colors.grey,
                           blurRadius: 4,
@@ -79,7 +79,7 @@ class HomeShortcut extends StatelessWidget {
                           children: [
                             Expanded(
                               child: InkWell(
-                                onTap: () => this.addProcedureOnTap!(),
+                                onTap: () => addProcedureOnTap!(),
                                 child: Container(
                                   alignment: Alignment.center,
                                   child: Column(
@@ -91,7 +91,7 @@ class HomeShortcut extends StatelessWidget {
                                         width: 25,
                                         color: Palettes.kcDarkerBlueMain1,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       Text('Add Procedure',
                                           style: TextStyles.tsBody4())
                                     ],
@@ -99,7 +99,7 @@ class HomeShortcut extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            VerticalDivider(width: 1),
+                            const VerticalDivider(width: 1),
                             Expanded(
                               child: InkWell(
                                 onTap: addPatientOnTap,
@@ -114,7 +114,7 @@ class HomeShortcut extends StatelessWidget {
                                         width: 25,
                                         color: Palettes.kcDarkerBlueMain1,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Add Patient',
                                         style: TextStyles.tsBody4(),
@@ -124,7 +124,7 @@ class HomeShortcut extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            VerticalDivider(width: 1),
+                            const VerticalDivider(width: 1),
                             Expanded(
                               child: InkWell(
                                 onTap: () => addMedicineOnTap!(),
@@ -139,7 +139,7 @@ class HomeShortcut extends StatelessWidget {
                                         width: 25,
                                         color: Palettes.kcDarkerBlueMain1,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Add Medicine',
                                         style: TextStyles.tsBody4(),
@@ -152,7 +152,7 @@ class HomeShortcut extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Divider(height: 1),
+                      const Divider(height: 1),
                       Expanded(
                         child: Row(
                           children: [
@@ -170,7 +170,7 @@ class HomeShortcut extends StatelessWidget {
                                         width: 25,
                                         color: Palettes.kcDarkerBlueMain1,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Reports',
                                         style: TextStyles.tsBody4(),
@@ -180,7 +180,7 @@ class HomeShortcut extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            VerticalDivider(width: 1),
+                            const VerticalDivider(width: 1),
                             Expanded(
                               child: InkWell(
                                 onTap: addPaymentOnTap,
@@ -195,7 +195,7 @@ class HomeShortcut extends StatelessWidget {
                                         width: 25,
                                         color: Palettes.kcDarkerBlueMain1,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Add Payment',
                                         style: TextStyles.tsBody4(),
@@ -205,7 +205,7 @@ class HomeShortcut extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            VerticalDivider(width: 1),
+                            const VerticalDivider(width: 1),
                             Expanded(
                               child: InkWell(
                                 onTap: () => addExpensesOnTap!(),
@@ -220,7 +220,7 @@ class HomeShortcut extends StatelessWidget {
                                         width: 25,
                                         color: Palettes.kcDarkerBlueMain1,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Add Expenses',
                                         style: TextStyles.tsBody4(),

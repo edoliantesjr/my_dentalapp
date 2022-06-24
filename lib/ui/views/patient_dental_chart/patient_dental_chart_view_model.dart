@@ -13,7 +13,7 @@ import 'package:stacked/stacked.dart';
 import '../../../models/patient_model/patient_model.dart';
 
 final GlobalKey<RefreshIndicatorState> refreshKey =
-    new GlobalKey<RefreshIndicatorState>();
+     GlobalKey<RefreshIndicatorState>();
 
 class PatientDentalChartViewModel extends BaseViewModel {
   final centerTooth1 = ['E', 'F', 'P', 'O'];
@@ -66,32 +66,35 @@ class PatientDentalChartViewModel extends BaseViewModel {
   bool checkCenterTooth1(String toothID) {
     if (centerTooth1.contains(toothID)) {
       return true;
-    } else
+    } else {
       return false;
+    }
   }
 
   bool checkCenterTooth2(String toothID) {
     if (centerTooth2.contains(toothID)) {
       return true;
-    } else
+    } else {
       return false;
+    }
   }
 
   bool isSelected(String toothID) {
     if (selectedTooth.contains(toothID)) {
       return true;
-    } else
+    } else {
       return false;
+    }
   }
 
   void addToSelectedTooth(String toothId) {
     if (selectedTooth.contains(toothId)) {
       selectedTooth.remove(toothId);
-      print(toothId + ' isDeleted');
+      debugPrint(toothId + ' isDeleted');
       notifyListeners();
     } else {
       selectedTooth.add(toothId);
-      print(toothId + ' isAdded');
+      debugPrint(toothId + ' isAdded');
       notifyListeners();
     }
     if (selectedTooth.isEmpty) {

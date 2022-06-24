@@ -15,14 +15,14 @@ class MyShimmer extends StatelessWidget {
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 18),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           height: 130,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
               border: Border.all(color: Palettes.kcNeutral6),
               color: Colors.white,
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(color: Palettes.kcNeutral4, blurRadius: 1)
               ]),
           child: Row(
@@ -31,12 +31,12 @@ class MyShimmer extends StatelessWidget {
                 loading: true,
                 startColor: Colors.grey.shade300,
                 endColor: Colors.grey.shade200,
-                child: SizedBox(
+                child: const SizedBox(
                   width: 70,
                   height: 100,
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -46,37 +46,37 @@ class MyShimmer extends StatelessWidget {
                       loading: true,
                       startColor: Colors.grey.shade400,
                       endColor: Colors.grey.shade200,
-                      child: SizedBox(
+                      child: const SizedBox(
                         height: 14,
                         width: 100,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     SkeletonLoader(
                       loading: true,
                       startColor: Colors.grey.shade400,
                       endColor: Colors.grey.shade200,
-                      child: SizedBox(
+                      child: const SizedBox(
                         height: 14,
                         width: 100,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     SkeletonLoader(
                       loading: true,
                       startColor: Colors.grey.shade400,
                       endColor: Colors.grey.shade200,
-                      child: SizedBox(
+                      child: const SizedBox(
                         height: 14,
                         width: 100,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     SkeletonLoader(
                       loading: true,
                       startColor: Colors.grey.shade400,
                       endColor: Colors.grey.shade200,
-                      child: SizedBox(
+                      child: const SizedBox(
                         height: 14,
                         width: 100,
                       ),

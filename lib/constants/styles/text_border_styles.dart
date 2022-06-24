@@ -10,6 +10,6 @@ class TextBorderStyles {
       borderRadius: BorderRadius.zero,
       borderSide: BorderSide(color: Color(0xFFD32F2F), width: 1));
 
-  static final focusedBorder = UnderlineInputBorder(
+  static const focusedBorder =  UnderlineInputBorder(
       borderSide: BorderSide(color: Palettes.kcPurpleMain, width: 2));
 }

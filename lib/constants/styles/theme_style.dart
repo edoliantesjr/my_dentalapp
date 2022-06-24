@@ -10,11 +10,11 @@ class ThemeStyles {
 
   static ThemeData themeLight = ThemeData(
     fontFamily: FontNames.sfPro,
-    appBarTheme: AppBarTheme(
+    appBarTheme:const  AppBarTheme(
       backgroundColor: Palettes.kcBlueMain1,
       elevation: 0,
     ),
-    backgroundColor: Color(0xcb4987f5),
+    backgroundColor:const  Color(0xcb4987f5),
     colorScheme: ColorScheme.fromSwatch(
       accentColor: Palettes.kcBlueMain1,
       primarySwatch: primaryColorSwatch,
@@ -30,8 +30,8 @@ class ThemeStyles {
   );
 }
 
-final mainColor = 0xff0065FF;
-final MaterialColor primaryColorSwatch = MaterialColor(mainColor, <int, Color>{
+const mainColor = 0xff0065FF;
+const MaterialColor primaryColorSwatch =  MaterialColor(mainColor, <int, Color>{
   50: Color(0xFF80b2ff),
   100: Color(0xFF66a3ff),
   200: Color(0xFF4d93ff),

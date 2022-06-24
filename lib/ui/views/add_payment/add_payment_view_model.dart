@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures, non_constant_identifier_names
+
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/core/service/bottom_sheet/bottom_sheet_service.dart';
@@ -67,7 +69,7 @@ class AddPaymentViewModel extends BaseViewModel {
   }
 
   void showSelectPaymentType() async {
-    selectedPaymentType = await Get.dialog(SelectPaymentType());
+    selectedPaymentType = await Get.dialog(const SelectPaymentType());
     paymentTypeTxtController.text = selectedPaymentType;
   }
 
