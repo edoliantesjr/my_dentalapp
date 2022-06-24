@@ -1,8 +1,8 @@
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:dentalapp/ui/views/expenses_report/expenses_report_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 class ExpensesReportView extends StatelessWidget {
   const ExpensesReportView({Key? key}) : super(key: key);
@@ -71,8 +71,8 @@ class ExpensesReportView extends StatelessWidget {
                                   vertical: false,
                                   animate: true,
                                   barRendererDecorator:
-                                      new charts.BarLabelDecorator<String>(),
-                                  domainAxis: new charts.OrdinalAxisSpec(),
+                                      charts.BarLabelDecorator<String>(),
+                                  domainAxis: const charts.OrdinalAxisSpec(),
                                 ),
                               ),
                             ],

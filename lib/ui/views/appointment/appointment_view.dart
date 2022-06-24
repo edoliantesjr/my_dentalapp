@@ -142,7 +142,7 @@ class AppointmentView extends StatelessWidget {
                                     : Colors.black)),
                         selected:
                             model.filter == AppointmentStatus.Request.name,
-                        onSelected: (bool) => model.getAppointmentByRequest(),
+                        onSelected: (b) => model.getAppointmentByRequest(),
                         selectedColor: Colors.brown,
                         checkmarkColor: Colors.white,
                       ),
@@ -170,7 +170,7 @@ class AppointmentView extends StatelessWidget {
                                     : Colors.black)),
                         selected:
                             model.filter == AppointmentStatus.Cancelled.name,
-                        onSelected: (bool) => model.getAppointmentByCancelled(),
+                        onSelected: (b) => model.getAppointmentByCancelled(),
                         selectedColor: Palettes.kcCancelledColor,
                         checkmarkColor: Colors.white,
                       ),
@@ -188,10 +188,10 @@ class AppointmentView extends StatelessWidget {
                           onDeleteItem: (index) =>
                               model.deleteAppointment(index),
                           navigator: model.navigationService)
-                      : Container(
+                      : const SizedBox(
                           height: 500,
-                          child: const Center(
-                              child: const Text('No Appointment for this date.'))),
+                          child: Center(
+                              child: Text('No Appointment for this date.'))),
                 ),
                 const SizedBox(height: 100),
               ],

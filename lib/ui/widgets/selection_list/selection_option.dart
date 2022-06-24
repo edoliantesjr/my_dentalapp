@@ -17,12 +17,12 @@ class SelectionOption extends StatelessWidget {
     return ViewModelBuilder<SelectionOptionViewModel>.reactive(
         viewModelBuilder: () => SelectionOptionViewModel(),
         builder: (context, model, child) => ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 250),
+              constraints: const BoxConstraints(maxHeight: 250),
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(color: Palettes.kcHintColor))),
                     child: Row(
@@ -37,7 +37,7 @@ class SelectionOption extends StatelessWidget {
                         ),
                         Text(
                           title ?? '',
-                          style: TextStyle(fontSize: 18),
+                          style: const TextStyle(fontSize: 18),
                         ),
                         TextButton(
                           onPressed: () => model.setReturnOption(options),

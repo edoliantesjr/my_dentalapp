@@ -33,7 +33,7 @@ class UpdateProcedureViewModel extends BaseViewModel {
 
   void init(Procedure procedure) async {
     setBusy(true);
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     procedureNameTxtController.text = procedure.procedureName;
     amountTxtController.text = procedure.price ?? 'Not Set';
     setBusy(false);
@@ -51,7 +51,7 @@ class UpdateProcedureViewModel extends BaseViewModel {
   void updateProcedure(String procedureId) async {
     dialogService.showDefaultLoadingDialog(
         barrierDismissible: false, willPop: true);
-    final procedureIndex = await searchIndexService.setSearchIndex(
+    final procedureIndex = searchIndexService.setSearchIndex(
         string: procedureNameTxtController.text);
     final procedure = Procedure(
       id: procedureId,

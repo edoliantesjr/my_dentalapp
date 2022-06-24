@@ -449,7 +449,7 @@ class ApiServiceImpl extends ApiService {
       required dentalNoteId,
       required procedureId,
       required String price}) async {
-     await patientReference
+    await patientReference
         .doc(patientId)
         .collection('dental_notes')
         .doc(dentalNoteId)
@@ -460,7 +460,7 @@ class ApiServiceImpl extends ApiService {
   Future<QueryResult> addPayment({required Payment payment}) async {
     if (await connectivityService.checkConnectivity()) {
       final paymentDoc = paymentReference.doc();
-       await paymentDoc.set(payment.toJson(paymentDoc.id));
+      await paymentDoc.set(payment.toJson(paymentDoc.id));
       return QueryResult.success(returnValue: paymentDoc.id);
     } else {
       return QueryResult.error('Check your network and try again!');
@@ -473,7 +473,7 @@ class ApiServiceImpl extends ApiService {
       String? toothId,
       required dental_noteId,
       required bool isPaid}) async {
-    final queryRes = await patientReference
+    await patientReference
         .doc(patientId)
         .collection('dental_notes')
         .doc(dental_noteId)
@@ -542,7 +542,7 @@ class ApiServiceImpl extends ApiService {
       required String appointmentStatus}) async {
     try {
       if (await connectivityService.checkConnectivity()) {
-        final queryRes = await appointmentReference
+        await appointmentReference
             .doc(appointmentId)
             .update({'appointment_status': appointmentStatus});
         return QueryResult.success();

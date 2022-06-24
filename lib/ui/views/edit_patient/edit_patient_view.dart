@@ -36,7 +36,7 @@ class _EditPatientViewModelState extends State<EditPatientView> {
             width: MediaQuery.of(context).size.width,
             child: ElevatedButton(
               onPressed: () => model.performUpdate(widget.patient),
-              child: Text('Update'),
+              child: const Text('Update'),
             ),
           ),
         ],
@@ -46,7 +46,8 @@ class _EditPatientViewModelState extends State<EditPatientView> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +108,7 @@ class _EditPatientViewModelState extends State<EditPatientView> {
                                   color: Palettes.kcNeutral1),
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.always,
-                              suffixIcon: Icon(
+                              suffixIcon: const Icon(
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color: Palettes.kcBlueMain1,
@@ -137,7 +138,7 @@ class _EditPatientViewModelState extends State<EditPatientView> {
                                   color: Palettes.kcNeutral1),
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.always,
-                              suffixIcon: Icon(
+                              suffixIcon: const Icon(
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color: Palettes.kcBlueMain1,
@@ -183,7 +184,7 @@ class _EditPatientViewModelState extends State<EditPatientView> {
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -220,16 +221,16 @@ class _EditPatientViewModelState extends State<EditPatientView> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Colors.grey, width: 1)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('In Case of Emergency : (Optional)'),
+                            const Text('In Case of Emergency : (Optional)'),
                             TextFormField(
                               controller:
                                   model.emergencyContactNameTxtController,
@@ -268,7 +269,7 @@ class _EditPatientViewModelState extends State<EditPatientView> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       TextFormField(
                         controller: model.noteTxtController,
                         maxLines: 3,
@@ -278,8 +279,8 @@ class _EditPatientViewModelState extends State<EditPatientView> {
                           labelText: 'Notes (Optional)',
                           fillColor: Colors.grey.shade200,
                           filled: true,
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 2, vertical: 5),
                           labelStyle:
                               TextStyles.tsBody1(color: Palettes.kcNeutral1),
                           enabledBorder: TextBorderStyles.normalBorder,

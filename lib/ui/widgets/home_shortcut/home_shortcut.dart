@@ -31,9 +31,9 @@ class HomeShortcut extends StatelessWidget {
             height: 120,
             decoration: const BoxDecoration(
                 color: Palettes.kcBlueMain1,
-                borderRadius: const BorderRadius.only(
-                    bottomLeft: const Radius.circular(30),
-                    bottomRight: const Radius.circular(30))),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30))),
           ),
         ),
         Padding(
@@ -59,7 +59,8 @@ class HomeShortcut extends StatelessWidget {
               const SizedBox(height: 8),
               Container(
                 height: 150,
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),

@@ -20,15 +20,15 @@ class ViewPatientPayment extends StatelessWidget {
       },
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text("Patient's Payments Record"),
+          title: const Text("Patient's Payments Record"),
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => model.goToAddBilling(patient),
-            label: Text('Add Billing/Payment')),
+            label: const Text('Add Billing/Payment')),
         body: ListView(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Text(
@@ -38,8 +38,8 @@ class ViewPatientPayment extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 4),
-                Expanded(
+                const SizedBox(width: 4),
+                const Expanded(
                   child: Divider(
                     height: 2,
                     thickness: 2,
@@ -48,7 +48,7 @@ class ViewPatientPayment extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             model.patientPaymentList.isNotEmpty
                 ? ListView.separated(
                     shrinkWrap: true,
@@ -57,16 +57,17 @@ class ViewPatientPayment extends StatelessWidget {
                           onViewReceiptTap: () => model.goToReceipt(index),
                           payment: model.patientPaymentList[index],
                         ),
-                    separatorBuilder: (context, index) => SizedBox(height: 8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
                     itemCount: model.patientPaymentList.length)
                 : Container(
                     height: 500,
                     color: Colors.grey.shade100,
-                    child: Center(
+                    child: const Center(
                       child: Text('No Payment record'),
                     ),
                   ),
-            SizedBox(height: 100),
+            const SizedBox(height: 100),
           ],
         ),
       ),

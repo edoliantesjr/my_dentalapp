@@ -55,8 +55,8 @@ class RegisterView extends StatelessWidget with $RegisterView {
                     width: MediaQuery.of(context).size.width,
                     height: double.infinity,
                     margin: EdgeInsets.only(top: 150.h),
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(65),
@@ -75,7 +75,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                               width: 80,
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Align(
                             alignment: Alignment.center,
                             child: Text(
@@ -91,7 +91,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           RegisterFields(
                             emailController: emailController,
                             passwordController: passwordController,
@@ -122,7 +122,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
                       ),
                     ),
                   ),
-                  LoginOverlay()
+                  const LoginOverlay()
                 ],
               ),
             ),
@@ -198,12 +198,12 @@ class RegisterFields extends StatelessWidget {
             validator: (value) => validatorService.validateEmailAddress(value!),
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(top: 5),
+              contentPadding: const EdgeInsets.only(top: 5),
               enabledBorder: TextBorderStyles.normalBorder,
               focusedBorder: TextBorderStyles.focusedBorder,
-              prefixIconConstraints: BoxConstraints(minWidth: 20),
+              prefixIconConstraints: const BoxConstraints(minWidth: 20),
               prefixIcon: Container(
-                margin: EdgeInsets.only(right: 10),
+                margin: const EdgeInsets.only(right: 10),
                 height: 24.h,
                 width: 24.w,
                 child: SvgPicture.asset(
@@ -233,12 +233,12 @@ class RegisterFields extends StatelessWidget {
             obscureText: isObscure,
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(top: 16),
+              contentPadding: const EdgeInsets.only(top: 16),
               enabledBorder: TextBorderStyles.normalBorder,
               focusedBorder: TextBorderStyles.focusedBorder,
-              prefixIconConstraints: BoxConstraints(minWidth: 20),
+              prefixIconConstraints: const BoxConstraints(minWidth: 20),
               prefixIcon: Container(
-                margin: EdgeInsets.only(right: 10),
+                margin: const EdgeInsets.only(right: 10),
                 height: 25.h,
                 width: 25.w,
                 child: SvgPicture.asset(
@@ -280,12 +280,12 @@ class RegisterFields extends StatelessWidget {
             obscureText: isObscure,
             style: TextStyles.tsBody1(),
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(top: 16),
+              contentPadding: const EdgeInsets.only(top: 16),
               enabledBorder: TextBorderStyles.normalBorder,
               focusedBorder: TextBorderStyles.focusedBorder,
-              prefixIconConstraints: BoxConstraints(minWidth: 20),
+              prefixIconConstraints: const BoxConstraints(minWidth: 20),
               prefixIcon: Container(
-                margin: EdgeInsets.only(right: 10),
+                margin: const EdgeInsets.only(right: 10),
                 height: 25.h,
                 width: 25.w,
                 child: SvgPicture.asset(
@@ -317,7 +317,7 @@ class RegisterFields extends StatelessWidget {
             width: screenWidth(context),
             child: ElevatedButton(
               onPressed: () => register(),
-              child: Text('Register'),
+              child: const Text('Register'),
             ),
           ),
         ],
@@ -376,7 +376,7 @@ class SocialLogin extends StatelessWidget {
                   height: 40.h,
                   alignment: Alignment.center,
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(color: Palettes.kcBlueMain2))),
                     child: Text(
@@ -408,7 +408,7 @@ class LoginOverlay extends StatelessWidget {
       top: -12.5.h,
       right: 60,
       child: Image(
-        image: AssetImage('assets/images/register-overlay.png'),
+        image: const AssetImage('assets/images/register-overlay.png'),
         height: 180.h,
         width: 180.h,
       ),

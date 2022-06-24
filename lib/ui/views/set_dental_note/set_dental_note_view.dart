@@ -21,8 +21,8 @@ class SetDentalNoteView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           systemOverlayStyle:
-              SystemUiOverlayStyle(statusBarColor: Palettes.kcBlueMain1),
-          title: Text('Set Dental Note'),
+              const SystemUiOverlayStyle(statusBarColor: Palettes.kcBlueMain1),
+          title: const Text('Set Dental Note'),
         ),
         persistentFooterButtons: [
           Padding(
@@ -30,14 +30,14 @@ class SetDentalNoteView extends StatelessWidget {
             child: SizedBox(
               width: double.maxFinite,
               child: ElevatedButton.icon(
-                label: Text('Save'),
+                label: const Text('Save'),
                 onPressed: () {
                   if (model.setDentalNoteFormKey.currentState!.validate()) {
                     model.addDentalNote(
                         patientId: patientId, selectedTeeth: selectedTeeth);
                   }
                 },
-                icon: Icon(Icons.save),
+                icon: const Icon(Icons.save),
               ),
             ),
           ),
@@ -45,15 +45,15 @@ class SetDentalNoteView extends StatelessWidget {
         body: Form(
           key: model.setDentalNoteFormKey,
           child: ListView(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             children: [
               Text(
                 'Selected ${selectedTeeth.length > 1 ? 'Teeth' : 'Tooth'}: ',
                 style: TextStyles.tsButton1(),
               ),
-              SizedBox(height: 3),
+              const SizedBox(height: 3),
               Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   border: Border.all(color: Palettes.kcNeutral1, width: 2),
@@ -62,7 +62,7 @@ class SetDentalNoteView extends StatelessWidget {
                   shrinkWrap: true,
                   primary: false,
                   itemCount: selectedTeeth.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 10,
                     mainAxisExtent: 30,
                     crossAxisSpacing: 4,
@@ -80,7 +80,7 @@ class SetDentalNoteView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               GestureDetector(
                 onTap: () => model.selectDate(),
                 child: TextFormField(
@@ -96,8 +96,8 @@ class SetDentalNoteView extends StatelessWidget {
                       disabledBorder: TextBorderStyles.normalBorder,
                       hintText: 'MM/DD/YYYY',
                       labelText: 'Appointment Date*',
-                      labelStyle:
-                          TextStyle(fontSize: 21, color: Palettes.kcNeutral1),
+                      labelStyle: const TextStyle(
+                          fontSize: 21, color: Palettes.kcNeutral1),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       suffixIcon: SvgPicture.asset(
                         'assets/icons/Calendar.svg',
@@ -106,7 +106,7 @@ class SetDentalNoteView extends StatelessWidget {
                       )),
                 ),
               ),
-              SizedBox(height: 9),
+              const SizedBox(height: 9),
               GestureDetector(
                 onTap: () => model.goToSelectProcedure(),
                 child: TextFormField(
@@ -116,7 +116,7 @@ class SetDentalNoteView extends StatelessWidget {
                   textInputAction: TextInputAction.next,
                   enabled: false,
                   keyboardType: TextInputType.datetime,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       errorBorder: TextBorderStyles.errorBorder,
                       errorStyle: TextStyles.errorTextStyle,
                       disabledBorder: TextBorderStyles.normalBorder,
@@ -132,12 +132,12 @@ class SetDentalNoteView extends StatelessWidget {
                       )),
                 ),
               ),
-              SizedBox(height: 22),
+              const SizedBox(height: 22),
               TextFormField(
                 textInputAction: TextInputAction.done,
                 maxLines: 5,
                 maxLength: 300,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Type here',
                   labelText: 'Note (Optional)',
                   floatingLabelBehavior: FloatingLabelBehavior.always,

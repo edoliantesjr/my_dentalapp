@@ -79,12 +79,12 @@ class SetupUserViewModel extends BaseViewModel {
 
   Future<void> setBirthDateValue(
       TextEditingController textEditingController) async {
-    selectedBirthDate = await bottomSheetService.openBottomSheet(SelectionDate(
-          title: 'Select birth date',
-        )) ??
-        '';
-    tempBirthDate =
-        selectedBirthDate != null ? selectedBirthDate : tempBirthDate;
+    selectedBirthDate =
+        await bottomSheetService.openBottomSheet(const SelectionDate(
+              title: 'Select birth date',
+            )) ??
+            '';
+    tempBirthDate = selectedBirthDate ?? tempBirthDate;
     selectedBirthDate = tempBirthDate!;
     textEditingController.text = DateFormat.yMMMd().format(selectedBirthDate!);
     debugPrint('Selected Date is $tempBirthDate');
@@ -129,8 +129,8 @@ class SetupUserViewModel extends BaseViewModel {
     try {
       if (imageUploadResult.isUploaded) {
         logger.i('Image Uploaded');
-        final userSearchIndex = await searchIndexService.setSearchIndex(
-            string: '$firstName $lastName');
+        final userSearchIndex =
+            searchIndexService.setSearchIndex(string: '$firstName $lastName');
         final userProfile = UserModel(
           apiService.currentFirebaseUser!.uid,
           firstName: firstName,

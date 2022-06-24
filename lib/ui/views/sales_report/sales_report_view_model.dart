@@ -1,10 +1,10 @@
+import "package:charts_flutter/flutter.dart" as charts;
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/extensions/date_format_extension.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
-import "package:charts_flutter/flutter.dart" as charts;
 
 import '../../../app/app.locator.dart';
 import '../../../models/payment/payment.dart';
@@ -28,7 +28,7 @@ class SalesReportViewModel extends BaseViewModel {
 
   List<charts.Series<Sales, String>> setSeriesList() {
     return [
-      new charts.Series<Sales, String>(
+      charts.Series<Sales, String>(
         id: 'Year 1',
         data: data,
         measureFn: (Sales sales, _) => sales.sales,
@@ -36,11 +36,10 @@ class SalesReportViewModel extends BaseViewModel {
         colorFn: (s, i) =>
             charts.ColorUtil.fromDartColor(Colors.orange.shade900),
         outsideLabelStyleAccessorFn: (Sales row, _) =>
-            charts.TextStyleSpec(fontSize: 8),
-        labelAccessorFn: (Sales row, _) =>
-            '${row.sales.toString().toCurrency!}',
+            const charts.TextStyleSpec(fontSize: 8),
+        labelAccessorFn: (Sales row, _) => row.sales.toString().toCurrency!,
       ),
-      new charts.Series<Sales, String>(
+      charts.Series<Sales, String>(
         id: 'Year 2',
         data: [
           Sales(
@@ -52,9 +51,8 @@ class SalesReportViewModel extends BaseViewModel {
         measureFn: (Sales sales, _) => sales.sales,
         domainFn: (Sales sales, _) => sales.month,
         outsideLabelStyleAccessorFn: (Sales row, _) =>
-            charts.TextStyleSpec(fontSize: 8),
-        labelAccessorFn: (Sales row, _) =>
-            '${row.sales.toString().toCurrency!}',
+            const charts.TextStyleSpec(fontSize: 8),
+        labelAccessorFn: (Sales row, _) => row.sales.toString().toCurrency!,
       ),
     ];
   }
@@ -74,7 +72,7 @@ class SalesReportViewModel extends BaseViewModel {
     computeOct();
     computeNov();
     computeDec();
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     setBusy(false);
   }
 

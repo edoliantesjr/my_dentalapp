@@ -34,7 +34,7 @@ class ToothWidget extends StatelessWidget {
           Container(
             height: 38,
             width: 38,
-            padding: EdgeInsets.all(3),
+            padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: checkHistory(isSelected, hasRecord),
               border: isCenterTooth

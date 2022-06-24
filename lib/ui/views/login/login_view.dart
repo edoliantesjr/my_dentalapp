@@ -47,7 +47,7 @@ class _LoginViewState extends State<LoginView> {
               child: Stack(
                 children: [
                   DoubleBackToCloseApp(
-                    snackBar: SnackBar(
+                    snackBar: const SnackBar(
                       content: Text('Press back again to exit'),
                       duration: Duration(seconds: 1),
                     ),
@@ -59,8 +59,8 @@ class _LoginViewState extends State<LoginView> {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.only(top: 150.h),
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(65),
@@ -82,7 +82,7 @@ class _LoginViewState extends State<LoginView> {
                                   width: 80,
                                 ),
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               Align(
                                 alignment: Alignment.center,
                                 child: Text(
@@ -98,7 +98,7 @@ class _LoginViewState extends State<LoginView> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
@@ -132,9 +132,9 @@ class _LoginViewState extends State<LoginView> {
                                   enabledBorder: TextBorderStyles.normalBorder,
                                   focusedBorder: TextBorderStyles.focusedBorder,
                                   prefixIconConstraints:
-                                      BoxConstraints(minWidth: 20),
+                                      const BoxConstraints(minWidth: 20),
                                   prefixIcon: Container(
-                                    margin: EdgeInsets.only(right: 10),
+                                    margin: const EdgeInsets.only(right: 10),
                                     height: 22.h,
                                     width: 21.w,
                                     child: SvgPicture.asset(
@@ -170,9 +170,9 @@ class _LoginViewState extends State<LoginView> {
                                   focusedBorder: TextBorderStyles.focusedBorder,
                                   hintText: 'Your Password',
                                   prefixIconConstraints:
-                                      BoxConstraints(minWidth: 20),
+                                      const BoxConstraints(minWidth: 20),
                                   prefixIcon: Container(
-                                    margin: EdgeInsets.only(right: 10),
+                                    margin: const EdgeInsets.only(right: 10),
                                     child: SvgPicture.asset(
                                       'assets/icons/Lock.svg',
                                       color: passwordFocusNode.hasFocus
@@ -214,7 +214,7 @@ class _LoginViewState extends State<LoginView> {
                                         emailValue: emailController.text,
                                         passwordValue: passwordController.text);
                                   },
-                                  child: Text('Login'),
+                                  child: const Text('Login'),
                                 ),
                               ),
                             ],
@@ -227,7 +227,7 @@ class _LoginViewState extends State<LoginView> {
                       ],
                     ),
                   ),
-                  LoginOverlay()
+                  const LoginOverlay()
                 ],
               ),
             ),
@@ -289,7 +289,7 @@ class SocialLogin extends StatelessWidget {
                   height: 40.h,
                   alignment: Alignment.center,
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(color: Palettes.kcBlueMain2))),
                     child: Text(
@@ -320,7 +320,7 @@ class LoginOverlay extends StatelessWidget {
       top: 9.5.h,
       left: 80.w,
       child: Image(
-        image: AssetImage('assets/images/loginoverlay.png'),
+        image: const AssetImage('assets/images/loginoverlay.png'),
         height: 210.h,
         width: 210.w,
         fit: BoxFit.contain,

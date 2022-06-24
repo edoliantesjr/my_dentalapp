@@ -35,7 +35,7 @@ class ProcedureViewModel extends BaseViewModel {
   void init() async {
     setBusy(true);
     await getProcedures();
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     setBusy(false);
     getProcedureList();
   }

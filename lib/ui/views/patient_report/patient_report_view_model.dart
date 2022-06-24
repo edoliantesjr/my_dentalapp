@@ -1,8 +1,7 @@
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-
-import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../../../app/app.locator.dart';
 
@@ -50,7 +49,7 @@ class PatientReportViewModel extends BaseViewModel {
 
   List<charts.Series<PatientByGender, int>> setSeriesList() {
     return [
-      new charts.Series<PatientByGender, int>(
+      charts.Series<PatientByGender, int>(
         id: 'Patients',
         domainFn: (PatientByGender gender, _) => gender.total,
         measureFn: (PatientByGender gender, _) => gender.total,

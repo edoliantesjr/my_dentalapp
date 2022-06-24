@@ -69,7 +69,7 @@ class RegisterViewModel extends FormViewModel {
 
   void setShowIconVisibility() {
     if (hasPassword) {
-      if (passwordValue != null && passwordValue!.length > 0) {
+      if (passwordValue != null && passwordValue!.isNotEmpty) {
         isShowIconVisible = true;
         notifyListeners();
       } else {

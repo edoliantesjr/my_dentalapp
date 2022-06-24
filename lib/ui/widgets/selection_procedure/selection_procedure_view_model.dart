@@ -32,7 +32,7 @@ class SelectionProcedureViewModel extends BaseViewModel {
         notifyListeners();
       });
     });
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     setBusy(false);
   }
 

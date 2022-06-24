@@ -19,7 +19,7 @@ class UpdateProcedureView extends StatelessWidget {
       onModelReady: (model) => model.init(procedure),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Update Procedure'),
+          title: const Text('Update Procedure'),
           centerTitle: true,
         ),
         persistentFooterButtons: [
@@ -31,17 +31,18 @@ class UpdateProcedureView extends StatelessWidget {
                     model.performUpdate(procedure.id!);
                   }
                 },
-                child: Text('Save Changes')),
+                child: const Text('Save Changes')),
           )
         ],
         body: model.isBusy
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Form(
                 key: model.updateFormKey,
                 child: ListView(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                   children: [
                     TextFormField(
                       controller: model.procedureNameTxtController,
@@ -59,7 +60,7 @@ class UpdateProcedureView extends StatelessWidget {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: model.amountTxtController,
                       validator: (value) =>

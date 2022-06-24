@@ -69,9 +69,9 @@ class ViewDentalNote extends StatelessWidget {
                           separatorBuilder: (context, index) =>
                               const SizedBox(height: 8),
                           itemCount: model.dentalNotes.length)
-                      : SizedBox(
+                      : const SizedBox(
                           height: 500,
-                          child: const Center(
+                          child: Center(
                               child: Text('No Dental Notes/ Treatment Record')),
                         ),
             ],

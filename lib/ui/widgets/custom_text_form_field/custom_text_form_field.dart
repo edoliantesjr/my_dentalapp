@@ -43,7 +43,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
         key: key,
         controller: controller,
-        focusNode: focusNode ?? null,
+        focusNode: focusNode,
         validator: (value) => validator(value ?? ''),
         textInputAction: textInputAction,
         keyboardType: textInputType ?? TextInputType.text,

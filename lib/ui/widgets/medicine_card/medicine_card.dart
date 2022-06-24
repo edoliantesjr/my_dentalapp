@@ -22,7 +22,7 @@ class MedicineCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.all(1),
+      padding: const EdgeInsets.all(1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -31,8 +31,8 @@ class MedicineCard extends StatelessWidget {
             width: double.maxFinite,
             child: showMedImage(image),
           ),
-          Divider(height: 1),
-          SizedBox(height: 1),
+          const Divider(height: 1),
+          const SizedBox(height: 1),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2.0),
             child: FittedBox(
@@ -58,7 +58,7 @@ class MedicineCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2.0),
               child: Text(
-                '${price ?? 'Not Set'}',
+                price ?? 'Not Set',
                 style: TextStyles.tsBody2(color: Colors.deepOrange),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -91,7 +91,7 @@ class MedicineCard extends StatelessWidget {
             LinearProgressIndicator(
           color: Colors.grey.shade100,
           value: progress.progress,
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+          valueColor: const AlwaysStoppedAnimation<Color>(Colors.grey),
         ),
       );
     }

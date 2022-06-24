@@ -76,7 +76,7 @@ class Payment {
       patient_id: map['patient_id'] as String,
       patient_name: map['patient_name'],
       paymentDate: map['paymentDate'],
-      remarks: map['remarks'] != null ? map['remarks'] : '',
+      remarks: map['remarks'] ?? '',
     );
   }
 }

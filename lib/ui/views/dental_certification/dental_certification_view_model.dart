@@ -34,7 +34,7 @@ class DentalCertification extends BaseViewModel {
   void getDentalCertificates({required Patient patient}) async {
     final cert = await apiService.getDentalCert(patient: patient);
     dialogService.showDefaultLoadingDialog();
-    await Future.delayed(Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 300));
     dentalCertificates.clear();
     dentalCertificates.addAll(cert);
     navigationService.pop();

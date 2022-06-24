@@ -24,7 +24,7 @@ class FirebaseMessagingService {
       'Authorization': 'Key= $serverToken'
     };
 
-    final response = await http.post(url,
+    await http.post(url,
         headers: headers,
         body: jsonEncode(<String, dynamic>{
           'notification': <String, dynamic>{},

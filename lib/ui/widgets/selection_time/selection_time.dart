@@ -22,11 +22,11 @@ class SelectionTime extends StatelessWidget {
       viewModelBuilder: () => SelectionTimeViewModel(),
       builder: (context, model, child) => Container(
         height: 280,
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border:
                       Border(bottom: BorderSide(color: Palettes.kcHintColor))),
               child: Row(
@@ -41,7 +41,7 @@ class SelectionTime extends StatelessWidget {
                   ),
                   Text(
                     title ?? '',
-                    style: TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 18),
                   ),
                   TextButton(
                     onPressed: () =>

@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
@@ -351,90 +353,88 @@ class InfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  serviceTitle,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: FontNames.sfPro,
-                      fontSize: 13.sp,
-                      color: Palettes.kcNeutral1,
-                      overflow: TextOverflow.ellipsis,
-                      leadingDistribution: TextLeadingDistribution.proportional,
-                      letterSpacing: 0.5),
-                ),
-              ),
-              Flexible(
-                  child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                decoration: BoxDecoration(
-                    color: selectAppointmentColor(appointmentStatus),
-                    borderRadius: BorderRadius.circular(30)),
-                child: Text(
-                  appointmentStatus.name,
-                  style: TextStyles.tsButton2(color: Colors.white),
-                ),
-              )),
-            ],
-          ),
-          const SizedBox(height: 5),
-          Row(
-            children: [
-              Text(
-                'Patient: ',
-                style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
-              ),
-              InkWell(
-                onTap: () => onPatientTap(),
-                child: Text(
-                  patient,
-                  style: const TextStyle(
-                    color: Palettes.kcDarkerBlueMain1,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                serviceTitle,
+                style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15.5,
-                    decoration: TextDecoration.underline,
-                    wordSpacing: .2,
-                  ),
+                    fontFamily: FontNames.sfPro,
+                    fontSize: 13.sp,
+                    color: Palettes.kcNeutral1,
+                    overflow: TextOverflow.ellipsis,
+                    leadingDistribution: TextLeadingDistribution.proportional,
+                    letterSpacing: 0.5),
+              ),
+            ),
+            Flexible(
+                child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+              decoration: BoxDecoration(
+                  color: selectAppointmentColor(appointmentStatus),
+                  borderRadius: BorderRadius.circular(30)),
+              child: Text(
+                appointmentStatus.name,
+                style: TextStyles.tsButton2(color: Colors.white),
+              ),
+            )),
+          ],
+        ),
+        const SizedBox(height: 5),
+        Row(
+          children: [
+            Text(
+              'Patient: ',
+              style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
+            ),
+            InkWell(
+              onTap: () => onPatientTap(),
+              child: Text(
+                patient,
+                style: const TextStyle(
+                  color: Palettes.kcDarkerBlueMain1,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.5,
+                  decoration: TextDecoration.underline,
+                  wordSpacing: .2,
                 ),
-              )
-            ],
-          ),
-          const SizedBox(height: 5),
-          Row(
-            children: [
-              Text(
-                'Dentist: ',
-                style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
               ),
-              Text(
-                doctor,
-                style: TextStyles.tsHeading5(),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
-          const SizedBox(height: 5),
-          RichText(
-            text: TextSpan(
-                text: 'Date: ',
-                style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
-                children: [
-                  TextSpan(
-                    text: date,
-                    style: TextStyles.tsHeading5(),
-                  )
-                ]),
-          )
-        ],
-      ),
+            )
+          ],
+        ),
+        const SizedBox(height: 5),
+        Row(
+          children: [
+            Text(
+              'Dentist: ',
+              style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
+            ),
+            Text(
+              doctor,
+              style: TextStyles.tsHeading5(),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        RichText(
+          text: TextSpan(
+              text: 'Date: ',
+              style: TextStyles.tsHeading5(color: Palettes.kcNeutral1),
+              children: [
+                TextSpan(
+                  text: date,
+                  style: TextStyles.tsHeading5(),
+                )
+              ]),
+        )
+      ],
     );
   }
 

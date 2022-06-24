@@ -26,8 +26,8 @@ class UserCard extends StatelessWidget {
                   width: 130,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.only(
-                      topLeft: const Radius.circular(4),
-                      bottomLeft: const Radius.circular(4),
+                      topLeft: Radius.circular(4),
+                      bottomLeft: Radius.circular(4),
                     ),
                     child: CachedNetworkImage(
                       imageUrl: user.image,
@@ -38,7 +38,8 @@ class UserCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

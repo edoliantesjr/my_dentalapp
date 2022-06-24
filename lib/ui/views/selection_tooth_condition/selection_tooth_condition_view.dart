@@ -18,9 +18,9 @@ class SelectionToothCondition extends StatelessWidget {
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          systemOverlayStyle:
-              SystemUiOverlayStyle(statusBarColor: Palettes.kcDarkerBlueMain1),
-          title: Text('Select Tooth Condition'),
+          systemOverlayStyle: const SystemUiOverlayStyle(
+              statusBarColor: Palettes.kcDarkerBlueMain1),
+          title: const Text('Select Tooth Condition'),
           backgroundColor: Palettes.kcDarkerBlueMain1,
           foregroundColor: Colors.white,
         ),
@@ -36,8 +36,8 @@ class SelectionToothCondition extends StatelessWidget {
                       'List of Tooth Condition',
                       style: TextStyles.tsBody2(color: Colors.white),
                     ),
-                    SizedBox(width: 4),
-                    Expanded(
+                    const SizedBox(width: 4),
+                    const Expanded(
                         child: Divider(
                       height: 2,
                       thickness: 1,
@@ -46,7 +46,7 @@ class SelectionToothCondition extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Expanded(
                 child: Scrollbar(
                   thickness: 7,
@@ -55,15 +55,15 @@ class SelectionToothCondition extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.grey.shade50,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(30),
                           topLeft: Radius.circular(30)),
                     ),
-                    padding: EdgeInsets.only(top: 20, left: 2, right: 2),
+                    padding: const EdgeInsets.only(top: 20, left: 2, right: 2),
                     child: ListView.separated(
                       shrinkWrap: true,
                       primary: false,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) => InkWell(
                         onTap: () => model.returnSelectedToothCondition(
                             model.toothConditionList[index]),
@@ -76,14 +76,14 @@ class SelectionToothCondition extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 model.toothConditionList[index],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 17, fontFamily: FontNames.sfPro),
                               ),
                             ),
                           ),
                         ),
                       ),
-                      separatorBuilder: (context, index) => SizedBox(
+                      separatorBuilder: (context, index) => const SizedBox(
                         height: 2,
                       ),
                       itemCount: model.toothConditionList.length,

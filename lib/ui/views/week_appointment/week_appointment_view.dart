@@ -35,12 +35,12 @@ class WeekAppointmentView extends StatelessWidget {
 
               onChanged: model.selectDateChange,
               datePickerStyles: DatePickerRangeStyles(
-                selectedPeriodMiddleDecoration: BoxDecoration(
+                selectedPeriodMiddleDecoration: const BoxDecoration(
                     color: Palettes.kcPurpleMain, shape: BoxShape.rectangle),
               ),
               // eventDecorationBuilder: _eventDecorationBuilder,
             ),
-            Divider(
+            const Divider(
               height: 2,
               thickness: 2,
             ),
@@ -48,20 +48,20 @@ class WeekAppointmentView extends StatelessWidget {
               shrinkWrap: true,
               primary: false,
               // physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               itemCount: model.appointments.length,
               itemBuilder: (context, i) => AnimationConfiguration.staggeredList(
                 position: i,
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: SlideAnimation(
                   verticalOffset: 90.0,
                   // horizontalOffset: 300,
                   curve: Curves.easeInOut,
-                  duration: Duration(milliseconds: 850),
+                  duration: const Duration(milliseconds: 850),
                   child: FadeInAnimation(
                     curve: Curves.easeInOut,
-                    delay: Duration(milliseconds: 350),
-                    duration: Duration(milliseconds: 1000),
+                    delay: const Duration(milliseconds: 350),
+                    duration: const Duration(milliseconds: 1000),
                     child: AppointmentCard(
                       key: ObjectKey(model.appointments[i]),
                       onPatientTap: () {},

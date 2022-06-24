@@ -18,15 +18,15 @@ class PrescriptionView extends StatelessWidget {
       onModelReady: (model) => model.listenToPrescriptionSub(patient.id),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text("Patient's Prescription"),
+          title: const Text("Patient's Prescription"),
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => model.goToAddPrescription(patient),
-            label: Text('Add Prescription')),
+            label: const Text('Add Prescription')),
         body: ListView(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Text(
@@ -36,8 +36,8 @@ class PrescriptionView extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 4),
-                Expanded(
+                const SizedBox(width: 4),
+                const Expanded(
                   child: Divider(
                     height: 2,
                     thickness: 2,
@@ -46,7 +46,7 @@ class PrescriptionView extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             model.prescriptionList.isNotEmpty
                 ? ListView.separated(
                     shrinkWrap: true,
@@ -58,7 +58,8 @@ class PrescriptionView extends StatelessWidget {
                                   prescription: model.prescriptionList[i],
                                   patient: patient),
                         ),
-                    separatorBuilder: (context, index) => SizedBox(height: 6),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 6),
                     itemCount: model.prescriptionList.length)
                 : const SizedBox(
                     height: 500,

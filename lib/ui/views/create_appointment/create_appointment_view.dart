@@ -62,11 +62,11 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                     Expanded(
                         child: ElevatedButton(
                       onPressed: model.navigationService.pop,
-                      child: Text('Cancel'),
+                      child: const Text('Cancel'),
                       style: ElevatedButton.styleFrom(
                           primary: Colors.red.shade700),
                     )),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
@@ -74,7 +74,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                             onPressed: () {
                               if (createAppointmentFormKey.currentState!
                                   .validate()) {
-                                if (!(model.selectedProcedures.length <= 0)) {
+                                if (model.selectedProcedures.isNotEmpty) {
                                   model.setAppointment(
                                     appointment: AppointmentModel(
                                       patient: widget.patient,
@@ -98,7 +98,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                 }
                               }
                             },
-                            child: Text('Save'))),
+                            child: const Text('Save'))),
                   ],
                 )
               ],
@@ -106,9 +106,10 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                 key: createAppointmentFormKey,
                 child: SafeArea(
                   child: ListView(
-                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                     children: [
-                      Divider(),
+                      const Divider(),
                       SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Text(
@@ -130,8 +131,8 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                             .toString(),
                         dateCreated: widget.patient.dateCreated!,
                       ),
-                      Divider(),
-                      SizedBox(height: 10),
+                      const Divider(),
+                      const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Column(
@@ -166,20 +167,19 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                     )),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Procedure*',
                                 ),
                                 ActionChip(
-                                  label: Text(
-                                      model.selectedProcedures.length <= 0
-                                          ? 'Select'
-                                          : 'Add more'),
+                                  label: Text(model.selectedProcedures.isEmpty
+                                      ? 'Select'
+                                      : 'Add more'),
                                   labelPadding:
-                                      EdgeInsets.symmetric(horizontal: 8),
+                                      const EdgeInsets.symmetric(horizontal: 8),
                                   labelStyle:
                                       TextStyles.tsBody2(color: Colors.white),
                                   backgroundColor: Palettes.kcBlueMain1,
@@ -192,14 +192,14 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                               ],
                             ),
                             Visibility(
-                              visible: model.selectedProcedures.length > 0
+                              visible: model.selectedProcedures.isNotEmpty
                                   ? true
                                   : false,
                               child: Container(
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         color: Palettes.kcBlueMain1, width: 1)),
-                                padding: EdgeInsets.all(4),
+                                padding: const EdgeInsets.all(4),
                                 child: Wrap(
                                   spacing: 4,
                                   children: model.selectedProcedures
@@ -209,14 +209,15 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                                 Colors.deepPurple.shade50,
                                             labelStyle: TextStyles.tsBody2(
                                                 color: Colors.deepPurple),
-                                            labelPadding: EdgeInsets.all(1),
+                                            labelPadding:
+                                                const EdgeInsets.all(1),
                                             onDeleted: () => model
                                                 .deleteSelectedProcedure(e),
                                             deleteIcon: CircleAvatar(
                                                 radius: 10,
                                                 backgroundColor:
                                                     Colors.red.shade700,
-                                                child: Icon(
+                                                child: const Icon(
                                                   Icons.close,
                                                   color: Colors.white,
                                                   size: 16,
@@ -247,7 +248,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             GestureDetector(
                               onTap: () =>
                                   model.selectEndTime(endTimeTxtController),
@@ -269,7 +270,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             GestureDetector(
                               onTap: () =>
                                   model.openDentistModal(dentistTxtController),
@@ -291,14 +292,14 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                         color: Palettes.kcNeutral1),
                                     floatingLabelBehavior:
                                         FloatingLabelBehavior.always,
-                                    suffixIcon: Icon(
+                                    suffixIcon: const Icon(
                                       Icons.arrow_drop_down,
                                       size: 24,
                                       color: Palettes.kcBlueMain1,
                                     )),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             TextFormField(
                               controller: remarksTxtController,
                               decoration: InputDecoration(

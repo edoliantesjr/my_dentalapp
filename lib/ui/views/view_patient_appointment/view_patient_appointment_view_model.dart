@@ -33,7 +33,7 @@ class ViewPatientAppointmentViewModel extends BaseViewModel {
   }
 
   void init({required dynamic patientId}) async {
-    await Future.delayed(Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 300));
     dialogService.showDefaultLoadingDialog(
         willPop: false, barrierDismissible: false);
     if (await connectivityService.checkConnectivity()) {

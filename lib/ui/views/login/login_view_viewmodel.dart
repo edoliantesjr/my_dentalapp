@@ -87,7 +87,7 @@ class LoginViewModel extends FormViewModel {
   }
 
   void setShowIconVisibility(String passwordValue) {
-    if (passwordValue.length > 0) {
+    if (passwordValue.isNotEmpty) {
       isShowIconVisible = true;
       notifyListeners();
     } else {

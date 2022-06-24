@@ -24,8 +24,8 @@ class SuccessView extends StatelessWidget {
             body: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              color: Color(0xff136AFB),
-              padding: EdgeInsets.all(20),
+              color: const Color(0xff136AFB),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -35,12 +35,10 @@ class SuccessView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          child: Image.asset(
-                            'assets/images/success.png',
-                            height: 350,
-                            width: 350,
-                          ),
+                        Image.asset(
+                          'assets/images/success.png',
+                          height: 350,
+                          width: 350,
                         ),
                         Text(
                           'Success!',
@@ -55,7 +53,7 @@ class SuccessView extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () => model.navigationService
                           .popAllAndPushNamed(Routes.MainBodyView),
-                      child: Text(
+                      child: const Text(
                         "Let's start the app",
                         textAlign: TextAlign.center,
                       ),

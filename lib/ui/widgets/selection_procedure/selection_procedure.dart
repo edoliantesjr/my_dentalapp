@@ -19,22 +19,22 @@ class SelectionProcedure extends StatelessWidget {
       builder: (context, model, child) => SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size(double.maxFinite, 155),
+            preferredSize: const Size(double.maxFinite, 155),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     'Select Procedure',
                     style: TextStyle(
                       fontSize: 28,
                       fontFamily: FontNames.gilRoy,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextField(
                     onChanged: (value) => model.searchProcedure(value),
                     decoration: InputDecoration(
@@ -43,35 +43,35 @@ class SelectionProcedure extends StatelessWidget {
                       ),
                       filled: true,
                       fillColor: Colors.white,
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 5,
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(100),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Palettes.kcBlueMain1,
                           width: 1.8,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(100),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Palettes.kcNeutral1,
                           width: 1,
                         ),
                       ),
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         child: SvgPicture.asset(
                           'assets/icons/Search.svg',
                         ),
                       ),
-                      constraints: BoxConstraints(maxHeight: 43),
+                      constraints: const BoxConstraints(maxHeight: 43),
                       hintText: 'Search Procedure...',
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Row(
                     children: const [
                       Text('List of Procedures'),
@@ -118,13 +118,13 @@ class SelectionProcedure extends StatelessWidget {
         ),
       );
     } else {
-      if (procedureList!.length <= 0) {
-        return Center(
+      if (procedureList!.isEmpty) {
+        return const Center(
           child: Text('No Procedures Found...'),
         );
       } else {
         return Container(
-          padding: EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10),
           color: Colors.grey.shade200,
           child: ListView.separated(
             itemBuilder: (context, index) => ProcedureCard(
@@ -142,7 +142,7 @@ class SelectionProcedure extends StatelessWidget {
               height: 10,
             ),
             itemCount: procedureList.length,
-            padding: EdgeInsets.only(bottom: 20, top: 5),
+            padding: const EdgeInsets.only(bottom: 20, top: 5),
           ),
         );
       }

@@ -35,7 +35,8 @@ class SelectMedicineView extends StatelessWidget {
                 child: Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
                   child: Column(
                     children: [
                       TextField(
@@ -132,7 +133,8 @@ class SelectMedicineView extends StatelessWidget {
                                         itemCount: model.medicineList.length,
                                       ),
                                     )
-                                  : const Center(child: const Text('No Medicine Found...')))
+                                  : const Center(
+                                      child: Text('No Medicine Found...')))
                     ],
                   ),
                 ),

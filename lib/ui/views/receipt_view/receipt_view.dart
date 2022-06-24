@@ -18,7 +18,7 @@ class ReceiptView extends StatelessWidget {
       viewModelBuilder: () => ReceiptViewModel(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('Payment Complete'),
+          title: const Text('Payment Complete'),
         ),
         body: Screenshot(
           controller: model.screenShotController,
@@ -32,7 +32,7 @@ class ReceiptView extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
@@ -40,8 +40,8 @@ class ReceiptView extends StatelessWidget {
                           onPressed: () => model.downloadReceipt(
                               MediaQuery.of(context).devicePixelRatio,
                               payment.payment_id),
-                          icon: Icon(Icons.download),
-                          label: Text('Download image'),
+                          icon: const Icon(Icons.download),
+                          label: const Text('Download image'),
                           style: TextButton.styleFrom(
                             primary: Colors.white,
                           ),
@@ -52,8 +52,8 @@ class ReceiptView extends StatelessWidget {
                           onPressed: () => model.downloadReceipt(
                               MediaQuery.of(context).devicePixelRatio,
                               payment.payment_id),
-                          icon: Icon(Icons.download),
-                          label: Text('Download pdf'),
+                          icon: const Icon(Icons.download),
+                          label: const Text('Download pdf'),
                           style: TextButton.styleFrom(
                             primary: Colors.white,
                           ),
@@ -63,42 +63,43 @@ class ReceiptView extends StatelessWidget {
                   ),
                   Container(
                     color: Colors.white,
-                    padding: EdgeInsets.only(left: 10, right: 10, top: 20),
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 20),
                     child: ListView(
                       shrinkWrap: true,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.check_circle,
                           size: 20,
                           color: Colors.green,
                         ),
-                        Text(
+                        const Text(
                           'Successfully Recorded the payment of patient',
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Center(
                           child: Text(
-                            '${payment.patient_name}',
-                            style: TextStyle(
+                            payment.patient_name,
+                            style: const TextStyle(
                               color: Palettes.kcDarkerBlueMain1,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         payment.dentalNote!.isNotEmpty
                             ? Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Divider(
+                                  const Divider(
                                     height: 1,
                                     thickness: 1,
                                     color: Colors.grey,
                                   ),
-                                  Text('Dental Notes'),
+                                  const Text('Dental Notes'),
                                   ListView.separated(
                                       shrinkWrap: true,
                                       primary: false,
@@ -121,7 +122,7 @@ class ReceiptView extends StatelessWidget {
                                                                 .selectedTooth,
                                                       )
                                                     ],
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       color: Colors.black,
                                                     )),
                                               ),
@@ -132,23 +133,23 @@ class ReceiptView extends StatelessWidget {
                                             ],
                                           ),
                                       separatorBuilder: (context, index) =>
-                                          Divider(height: 1),
+                                          const Divider(height: 1),
                                       itemCount: payment.dentalNote!.length),
                                 ],
                               )
                             : Container(),
-                        Divider(
+                        const Divider(
                           height: 1,
                           thickness: 1,
                           color: Colors.grey,
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         payment.medicineList!.isNotEmpty
                             ? Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Medicines'),
+                                  const Text('Medicines'),
                                   ListView.separated(
                                       shrinkWrap: true,
                                       primary: false,
@@ -180,32 +181,32 @@ class ReceiptView extends StatelessWidget {
                                                                         .toString())
                                                           ]),
                                                     ],
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       color: Colors.black,
                                                       overflow:
                                                           TextOverflow.fade,
                                                     )),
                                               ),
-                                              Text(
-                                                  '${model.computeMedTotal(payment.medicineList![index])}')
+                                              Text(model.computeMedTotal(
+                                                  payment.medicineList![index]))
                                             ],
                                           ),
                                       separatorBuilder: (context, index) =>
-                                          Divider(height: 1),
+                                          const Divider(height: 1),
                                       itemCount: payment.medicineList!.length),
                                 ],
                               )
                             : Container(),
-                        Divider(
+                        const Divider(
                           height: 1,
                           color: Colors.grey,
                           thickness: 1,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Dental Note SubTotal: '),
+                            const Text('Dental Note SubTotal: '),
                             Text(payment.dentalNoteSubTotal
                                 .toString()
                                 .toCurrency!),
@@ -214,14 +215,14 @@ class ReceiptView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Medicine SubTotal: '),
+                            const Text('Medicine SubTotal: '),
                             Text(payment.medicineSubTotal
                                 .toString()
                                 .toCurrency!),
                           ],
                         ),
-                        SizedBox(height: 10),
-                        Divider(
+                        const SizedBox(height: 10),
+                        const Divider(
                           height: 1,
                           color: Colors.grey,
                           thickness: 2,
@@ -231,33 +232,33 @@ class ReceiptView extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Total Amount Due: '),
+                              const Text('Total Amount Due: '),
                               Text(payment.totalAmount.toString().toCurrency!),
                             ],
                           ),
                         ),
-                        Divider(
+                        const Divider(
                           height: 1,
                           color: Colors.grey,
                           thickness: 2,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Center(
                           child: RichText(
                               text: TextSpan(
                                   text: 'Ref. No.: ',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                   children: [
                                 TextSpan(
                                     text: payment.payment_id,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.normal))
                               ])),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Center(
                           child: Image.asset(
                             'assets/icons/logo-blue-circle.png',
@@ -265,8 +266,8 @@ class ReceiptView extends StatelessWidget {
                             width: 40,
                           ),
                         ),
-                        Center(child: Text('Maglinte Dental Clinic')),
-                        SizedBox(height: 8),
+                        const Center(child: Text('Maglinte Dental Clinic')),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   ),

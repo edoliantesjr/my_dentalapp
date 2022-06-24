@@ -45,8 +45,8 @@ class _UserViewState extends State<UserView> {
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                     color: Palettes.kcBlueMain1,
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: const Radius.circular(20),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20))),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

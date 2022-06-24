@@ -7,7 +7,7 @@ class DentalChartLegend extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dental Chart Label Info'),
+        title: const Text('Dental Chart Label Info'),
       ),
       body: ListView(
         children: [

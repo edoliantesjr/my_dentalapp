@@ -118,88 +118,87 @@ class _CartMedicineCardState extends State<CartMedicineCard> {
             Column(
               children: [
                 showMedImage(widget.medicine.image),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 //design for add and minus quantity
-                Container(
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () => decrementQty(),
-                        child: Container(
-                          width: 29,
-                          height: 25,
-                          color: Colors.black,
-                          child: Center(
-                              child: Text('-',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16))),
-                        ),
-                      ),
-                      Container(
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => decrementQty(),
+                      child: Container(
                         width: 29,
                         height: 25,
-                        color: Colors.white,
-                        child: Center(
-                          child: TextFormField(
-                            onChanged: (value) => updateQtyOfSelectedMedicine(
-                                widget.selectedMedicines,
-                                widget.medicine.id ?? '',
-                                value),
-                            onSaved: (value) => updateQtyOfSelectedMedicine(
-                                widget.selectedMedicines,
-                                widget.medicine.id ?? '',
-                                value!),
-                            controller: qtyTxtController,
-                            textAlign: TextAlign.center,
-                            enableInteractiveSelection: false,
-                            validator: (value) =>
-                                validatorService.validateQty(value!),
-                            keyboardType: TextInputType.number,
-                            autovalidateMode: AutovalidateMode.always,
-                            decoration: InputDecoration(
-                              errorStyle: TextStyle(height: 0),
-                              contentPadding: EdgeInsets.zero,
-                              fillColor: Colors.white,
-                              filled: true,
-                              constraints:
-                                  BoxConstraints(maxHeight: 60, minHeight: 40),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(0),
-                                  borderSide: BorderSide(color: Colors.black)),
-                              focusedBorder: OutlineInputBorder(
+                        color: Colors.black,
+                        child: const Center(
+                            child: Text('-',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16))),
+                      ),
+                    ),
+                    Container(
+                      width: 29,
+                      height: 25,
+                      color: Colors.white,
+                      child: Center(
+                        child: TextFormField(
+                          onChanged: (value) => updateQtyOfSelectedMedicine(
+                              widget.selectedMedicines,
+                              widget.medicine.id ?? '',
+                              value),
+                          onSaved: (value) => updateQtyOfSelectedMedicine(
+                              widget.selectedMedicines,
+                              widget.medicine.id ?? '',
+                              value!),
+                          controller: qtyTxtController,
+                          textAlign: TextAlign.center,
+                          enableInteractiveSelection: false,
+                          validator: (value) =>
+                              validatorService.validateQty(value!),
+                          keyboardType: TextInputType.number,
+                          autovalidateMode: AutovalidateMode.always,
+                          decoration: InputDecoration(
+                            errorStyle: const TextStyle(height: 0),
+                            contentPadding: EdgeInsets.zero,
+                            fillColor: Colors.white,
+                            filled: true,
+                            constraints: const BoxConstraints(
+                                maxHeight: 60, minHeight: 40),
+                            enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(0),
                                 borderSide:
-                                    BorderSide(color: Colors.black, width: 2),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(0),
-                                borderSide:
-                                    BorderSide(color: Colors.red, width: 2),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(0),
-                                borderSide:
-                                    BorderSide(color: Colors.red, width: 2),
-                              ),
+                                    const BorderSide(color: Colors.black)),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(0),
+                              borderSide: const BorderSide(
+                                  color: Colors.black, width: 2),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(0),
+                              borderSide:
+                                  const BorderSide(color: Colors.red, width: 2),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(0),
+                              borderSide:
+                                  const BorderSide(color: Colors.red, width: 2),
                             ),
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () => incrementQty(),
-                        child: Container(
-                          width: 29,
-                          height: 25,
-                          color: Colors.black,
-                          child: Center(
-                              child: Text(
-                            '+',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          )),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    GestureDetector(
+                      onTap: () => incrementQty(),
+                      child: Container(
+                        width: 29,
+                        height: 25,
+                        color: Colors.black,
+                        child: const Center(
+                            child: Text(
+                          '+',
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        )),
+                      ),
+                    )
+                  ],
                 ),
               ],
             ),
@@ -217,12 +216,12 @@ class _CartMedicineCardState extends State<CartMedicineCard> {
                     widget.medicine.medicineName,
                     style: TextStyles.tsBody2(color: Colors.black54),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     widget.medicine.priceToCurrency ?? '0',
                     textAlign: TextAlign.left,
                     softWrap: true,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.deepOrangeAccent,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,

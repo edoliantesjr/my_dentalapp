@@ -30,7 +30,7 @@ class ViewPatientPaymentViewModel extends BaseViewModel {
 
   Future<void> getPatientPayment({required String patientId}) async {
     if (await connectivityService.checkConnectivity()) {
-      await Future.delayed(Duration(milliseconds: 300));
+      await Future.delayed(const Duration(milliseconds: 300));
       dialogService.showDefaultLoadingDialog();
       final payments =
           await apiService.getPaymentByPatient(patientId: patientId);

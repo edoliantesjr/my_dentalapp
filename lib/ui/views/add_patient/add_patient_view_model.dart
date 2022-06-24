@@ -72,8 +72,7 @@ class AddPatientViewModel extends BaseViewModel {
         await bottomSheetService.openBottomSheet(const SelectionDate(
       title: 'Select birth date',
     ));
-    tempBirthDate =
-        selectedBirthDate != null ? selectedBirthDate : tempBirthDate;
+    tempBirthDate = selectedBirthDate ?? tempBirthDate;
     selectedBirthDate = tempBirthDate!;
     textEditingController.text = DateFormat.yMMMd().format(selectedBirthDate);
     notifyListeners();
@@ -125,8 +124,8 @@ class AddPatientViewModel extends BaseViewModel {
           patientId: patientRef.id, listOfMedicalHistory: listOfMedicalHistory);
 
       if (imageUploadResult.isUploaded && medHistoryUploadResult.isUploaded) {
-        final patientSearchIndex = searchIndexService.setSearchIndex(
-            string: '$firstName $lastName');
+        final patientSearchIndex =
+            searchIndexService.setSearchIndex(string: '$firstName $lastName');
         final result = await apiService.addPatient(
           patientRef: patientRef,
           patient: Patient(

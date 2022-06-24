@@ -19,12 +19,12 @@ class PaymentDentalNoteCard extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
             color: Colors.grey.shade300,
-            offset: Offset(1, 1),
+            offset: const Offset(1, 1),
             spreadRadius: 2,
             blurRadius: 1),
         BoxShadow(
             color: Colors.grey.shade300,
-            offset: Offset(-1, -1),
+            offset: const Offset(-1, -1),
             spreadRadius: 2,
             blurRadius: 1),
       ]),
@@ -71,7 +71,7 @@ class PaymentDentalNoteCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       RichText(
                           text: TextSpan(
                               text: 'Procedure: ',
@@ -83,7 +83,7 @@ class PaymentDentalNoteCard extends StatelessWidget {
                                 style:
                                     TextStyles.tsHeading5(color: Colors.black))
                           ])),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       RichText(
                           text: TextSpan(
                               text: 'Date Rendered: ',
@@ -97,7 +97,7 @@ class PaymentDentalNoteCard extends StatelessWidget {
                                 style:
                                     TextStyles.tsHeading5(color: Colors.black))
                           ])),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       RichText(
                           text: TextSpan(
                               text: 'Amount: ',
@@ -106,11 +106,11 @@ class PaymentDentalNoteCard extends StatelessWidget {
                               children: [
                             TextSpan(
                                 text: dentalNote.procedure.priceToCurrency,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.deepOrangeAccent,
                                     fontSize: 16))
                           ])),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                     ],
                   ),
                 ),
@@ -119,7 +119,7 @@ class PaymentDentalNoteCard extends StatelessWidget {
                 height: 30,
                 width: 30,
                 alignment: Alignment.center,
-                padding: EdgeInsets.all(2),
+                padding: const EdgeInsets.all(2),
                 color: Colors.red.shade800,
                 child: Text(
                   'X',

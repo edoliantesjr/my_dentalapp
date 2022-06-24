@@ -21,7 +21,7 @@ class DentalNoteCard extends StatelessWidget {
     return Card(
       margin: EdgeInsets.zero,
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -44,7 +44,7 @@ class DentalNoteCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -72,20 +72,21 @@ class DentalNoteCard extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   Text(
                     DateFormat.yMMMd()
                         .add_jm()
                         .format(dentalNote.date.toDateTime()!),
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       color: Colors.amber.shade900,
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -95,7 +96,7 @@ class DentalNoteCard extends StatelessWidget {
                           width: 14,
                           fit: BoxFit.fitWidth,
                         ),
-                        SizedBox(width: 6),
+                        const SizedBox(width: 6),
                         Text(
                           dentalNote.selectedTooth,
                           overflow: TextOverflow.ellipsis,
@@ -108,22 +109,23 @@ class DentalNoteCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       color: Palettes.kcBlueMain1,
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.medical_services,
                           color: Colors.white,
                           size: 14,
                         ),
-                        SizedBox(width: 6),
+                        const SizedBox(width: 6),
                         Text(
                           dentalNote.procedure.procedureName,
                           overflow: TextOverflow.ellipsis,
@@ -135,7 +137,7 @@ class DentalNoteCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
@@ -143,16 +145,17 @@ class DentalNoteCard extends StatelessWidget {
                           ? Palettes.kcBlueMain1
                           : Palettes.kcHintColor,
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.payment,
                           color: Colors.white,
                           size: 14,
                         ),
-                        SizedBox(width: 6),
+                        const SizedBox(width: 6),
                         Text(
                           dentalNote.isPaid ? 'Paid' : 'Not Paid',
                           overflow: TextOverflow.ellipsis,
@@ -164,7 +167,7 @@ class DentalNoteCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 6),
+                  const SizedBox(height: 6),
                 ],
               ),
             ),

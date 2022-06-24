@@ -30,8 +30,8 @@ class PrescriptionViewModel extends BaseViewModel {
         await apiService.getPatientPrescription(patientId: patientId);
 
     dialogService.showDefaultLoadingDialog();
-    await Future.delayed(Duration(milliseconds: 500));
-    prescriptionList=prescriptionL;
+    await Future.delayed(const Duration(milliseconds: 500));
+    prescriptionList = prescriptionL;
     navigationService.pop();
     notifyListeners();
   }

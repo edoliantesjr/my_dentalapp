@@ -35,7 +35,7 @@ class PaymentMedicineCard extends StatelessWidget {
                     medicine.medicineName,
                     style: TextStyles.tsBody2(color: Colors.black54),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -43,7 +43,7 @@ class PaymentMedicineCard extends StatelessWidget {
                         medicine.priceToCurrency ?? '0',
                         textAlign: TextAlign.left,
                         softWrap: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.deepOrangeAccent,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,

@@ -1,3 +1,4 @@
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/core/service/api/api_service.dart';
 import 'package:dentalapp/extensions/date_format_extension.dart';
@@ -6,7 +7,6 @@ import 'package:dentalapp/models/expense/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 class ExpensesReportViewModel extends BaseViewModel {
   //
@@ -19,7 +19,7 @@ class ExpensesReportViewModel extends BaseViewModel {
 
   List<charts.Series<ExpenseReport, String>> setSeriesList() {
     return [
-      new charts.Series<ExpenseReport, String>(
+      charts.Series<ExpenseReport, String>(
         id: 'Patients',
         data: data,
         measureFn: (ExpenseReport expense, _) => expense.expenses,
@@ -27,9 +27,9 @@ class ExpensesReportViewModel extends BaseViewModel {
         colorFn: (ExpenseReport expense, _) =>
             charts.ColorUtil.fromDartColor(Colors.deepOrange),
         outsideLabelStyleAccessorFn: (ExpenseReport row, _) =>
-            charts.TextStyleSpec(fontSize: 9),
+            const charts.TextStyleSpec(fontSize: 9),
         labelAccessorFn: (ExpenseReport row, _) =>
-            '${row.expenses.toString().toCurrency!}',
+            row.expenses.toString().toCurrency!,
       )
     ];
   }
@@ -49,7 +49,7 @@ class ExpensesReportViewModel extends BaseViewModel {
     computeOct();
     computeNov();
     computeDec();
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     setBusy(false);
   }
 

@@ -26,15 +26,15 @@ class ViewPatientAppointment extends StatelessWidget {
       },
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text("Patient's Appointments"),
+          title: const Text("Patient's Appointments"),
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => model.addAppointment(patient),
-            label: Text('Add Appointment')),
+            label: const Text('Add Appointment')),
         body: ListView(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Text(
@@ -44,8 +44,8 @@ class ViewPatientAppointment extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 4),
-                Expanded(
+                const SizedBox(width: 4),
+                const Expanded(
                   child: Divider(
                     height: 2,
                     thickness: 2,
@@ -54,7 +54,7 @@ class ViewPatientAppointment extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             model.patientListOfAppointments.isNotEmpty
                 ? ListView.separated(
                     shrinkWrap: true,
@@ -78,7 +78,8 @@ class ViewPatientAppointment extends StatelessWidget {
                           appointmentId:
                               model.patientListOfAppointments[i].appointment_id,
                         ),
-                    separatorBuilder: (context, index) => SizedBox(height: 6),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 6),
                     itemCount: model.patientListOfAppointments.length)
                 : const SizedBox(
                     height: 500,

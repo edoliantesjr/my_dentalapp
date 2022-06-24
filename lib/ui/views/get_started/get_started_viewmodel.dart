@@ -43,7 +43,7 @@ class GetStartedViewModel extends BaseViewModel {
   void goToLoginView() {
     if (index <= 1) {
       pageController.nextPage(
-          duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
       index++;
       notifyListeners();
     } else {

@@ -21,8 +21,8 @@ class SetToothConditionView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           systemOverlayStyle:
-              SystemUiOverlayStyle(statusBarColor: Palettes.kcBlueMain1),
-          title: Text('Set Tooth Condition'),
+              const SystemUiOverlayStyle(statusBarColor: Palettes.kcBlueMain1),
+          title: const Text('Set Tooth Condition'),
         ),
         persistentFooterButtons: [
           Padding(
@@ -30,14 +30,14 @@ class SetToothConditionView extends StatelessWidget {
             child: SizedBox(
               width: double.maxFinite,
               child: ElevatedButton.icon(
-                label: Text('Save'),
+                label: const Text('Save'),
                 onPressed: () {
                   if (model.setToothConditionFormKey.currentState!.validate()) {
                     model.addToothCondition(
                         patientId: patientId, selectedTeeth: selectedTeeth);
                   }
                 },
-                icon: Icon(Icons.save),
+                icon: const Icon(Icons.save),
               ),
             ),
           ),
@@ -45,14 +45,14 @@ class SetToothConditionView extends StatelessWidget {
         body: Form(
           key: model.setToothConditionFormKey,
           child: ListView(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             children: [
               Text(
                 'Selected ${selectedTeeth.length > 1 ? 'Teeth' : 'Tooth'}: ',
                 style: TextStyles.tsButton1(),
               ),
               Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   border: Border.all(color: Palettes.kcNeutral1, width: 2),
@@ -61,7 +61,7 @@ class SetToothConditionView extends StatelessWidget {
                   shrinkWrap: true,
                   primary: false,
                   itemCount: selectedTeeth.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 10,
                     mainAxisExtent: 30,
                     crossAxisSpacing: 4,
@@ -79,7 +79,7 @@ class SetToothConditionView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               GestureDetector(
                 onTap: () => model.selectDate(),
                 child: TextFormField(
@@ -95,8 +95,8 @@ class SetToothConditionView extends StatelessWidget {
                       disabledBorder: TextBorderStyles.normalBorder,
                       hintText: 'MM/DD/YYYY',
                       labelText: 'Appointment Date*',
-                      labelStyle:
-                          TextStyle(fontSize: 21, color: Palettes.kcNeutral1),
+                      labelStyle: const TextStyle(
+                          fontSize: 21, color: Palettes.kcNeutral1),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       suffixIcon: SvgPicture.asset(
                         'assets/icons/Calendar.svg',
@@ -105,7 +105,7 @@ class SetToothConditionView extends StatelessWidget {
                       )),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               GestureDetector(
                 onTap: () => model.goToSelectToothCondition(),
                 child: TextFormField(
@@ -115,7 +115,7 @@ class SetToothConditionView extends StatelessWidget {
                   textInputAction: TextInputAction.next,
                   enabled: false,
                   keyboardType: TextInputType.datetime,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       errorBorder: TextBorderStyles.errorBorder,
                       errorStyle: TextStyles.errorTextStyle,
                       disabledBorder: TextBorderStyles.normalBorder,

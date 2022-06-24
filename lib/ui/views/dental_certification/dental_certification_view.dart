@@ -19,15 +19,15 @@ class DentalCertificationView extends StatelessWidget {
       onModelReady: (model) => model.listenToGetDentalCert(patient: patient),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text("Patient's Certification"),
+          title: const Text("Patient's Certification"),
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () => model.goToAddCertificate(patient),
-            label: Text('Add Dental Certificate')),
+            label: const Text('Add Dental Certificate')),
         body: ListView(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Text(
@@ -37,8 +37,8 @@ class DentalCertificationView extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 4),
-                Expanded(
+                const SizedBox(width: 4),
+                const Expanded(
                   child: Divider(
                     height: 2,
                     thickness: 2,
@@ -47,7 +47,7 @@ class DentalCertificationView extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             model.dentalCertificates.isNotEmpty
                 ? ListView.separated(
                     shrinkWrap: true,
@@ -57,14 +57,15 @@ class DentalCertificationView extends StatelessWidget {
                         onViewCertTap: () => model.openCertificate(
                             certificate: model.dentalCertificates[index],
                             patient: patient)),
-                    separatorBuilder: (context, index) => SizedBox(height: 10),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 10),
                     itemCount: model.dentalCertificates.length,
                   )
-                : Container(
+                : const SizedBox(
                     height: 500,
                     child: Center(child: Text('No Saved Dental Certification')),
                   ),
-            SizedBox(height: 100),
+            const SizedBox(height: 100),
           ],
         ),
       ),

@@ -12,7 +12,7 @@ class ViewAppointmentByPeriod extends StatelessWidget {
       viewModelBuilder: () => AppointmentYearMonthViewModel(),
       builder: (context, model, widget) => Scaffold(
         appBar: AppBar(
-          title: Text('View Appointments By Period'),
+          title: const Text('View Appointments By Period'),
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: model.index,
@@ -28,7 +28,7 @@ class ViewAppointmentByPeriod extends StatelessWidget {
                 icon: Icon(Icons.date_range), label: 'Yearly'),
           ],
         ),
-        body: Container(
+        body: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: SafeArea(
@@ -43,8 +43,9 @@ class ViewAppointmentByPeriod extends StatelessWidget {
 }
 
 class AppointmentIndexStackBody extends StatelessWidget {
-  final index;
-  AppointmentIndexStackBody({Key? key, required this.index}) : super(key: key);
+  final int index;
+  const AppointmentIndexStackBody({Key? key, required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -10,8 +10,8 @@ class WeekAppointmentViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
 
   DateTime selectedDate = DateTime.now();
-  final DateTime firstDate = DateTime.now().subtract(Duration(days: 45));
-  final DateTime lastDate = DateTime.now().add(Duration(days: 45));
+  final DateTime firstDate = DateTime.now().subtract(const Duration(days: 45));
+  final DateTime lastDate = DateTime.now().add(const Duration(days: 45));
   DatePeriod? selectedPeriod;
 
   List<AppointmentModel> appointments = [];

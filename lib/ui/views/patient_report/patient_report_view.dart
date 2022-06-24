@@ -1,7 +1,6 @@
-import 'package:charts_flutter/flutter.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:dentalapp/ui/views/patient_report/patient_report_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 

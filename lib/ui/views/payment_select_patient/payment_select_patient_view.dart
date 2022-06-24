@@ -89,25 +89,27 @@ class PaymentSelectPatientView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  constraints: const BoxConstraints(maxHeight: 43),
+                                  constraints:
+                                      const BoxConstraints(maxHeight: 43),
                                   hintText: 'Search by Last Name, First Name',
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        sliver: model.patientList.length != 0
+                        sliver: model.patientList.isNotEmpty
                             ? SliverList(
                                 delegate: SliverChildBuilderDelegate(
                                     (context, index) {
                                   return AnimationConfiguration.staggeredList(
                                     position: index,
                                     child: SlideAnimation(
-                                      duration: const Duration(milliseconds: 400),
+                                      duration:
+                                          const Duration(milliseconds: 400),
                                       horizontalOffset: 100,
                                       child: Container(
-                                        margin:
-                                            const EdgeInsets.only(top: 8, bottom: 8),
+                                        margin: const EdgeInsets.only(
+                                            top: 8, bottom: 8),
                                         decoration: BoxDecoration(
                                           boxShadow: [
                                             BoxShadow(

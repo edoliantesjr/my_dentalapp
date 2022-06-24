@@ -21,11 +21,11 @@ class SalesDateCard extends StatelessWidget {
       onTap: () => onTap(),
       splashColor: Colors.blueAccent,
       child: Container(
-        padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+        padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   border: Border(
                       left: BorderSide(

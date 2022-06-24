@@ -1,8 +1,7 @@
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:dentalapp/ui/views/sales_report/sales_report_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../../../constants/styles/palette_color.dart';
 import '../../../constants/styles/text_border_styles.dart';
@@ -66,7 +65,7 @@ class SalesReportsView extends StatelessWidget {
                     const Text(
                       'COMPARE',
                       style:
-                          const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+                          TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
@@ -107,7 +106,7 @@ class SalesReportsView extends StatelessWidget {
                       color: Colors.orange.shade900,
                     ),
                     const SizedBox(width: 4),
-                    Text('${model.firstDate.text}'),
+                    Text(model.firstDate.text),
                   ],
                 ),
                 Row(
@@ -118,7 +117,7 @@ class SalesReportsView extends StatelessWidget {
                       color: Colors.blue,
                     ),
                     const SizedBox(width: 4),
-                    Text('${model.secondDate.text}'),
+                    Text(model.secondDate.text),
                   ],
                 ),
                 model.isBusy
@@ -151,12 +150,12 @@ class SalesReportsView extends StatelessWidget {
                                   animate: true,
                                   vertical: false,
                                   barRendererDecorator:
-                                      new charts.BarLabelDecorator<String>(),
-                                  domainAxis: new charts.OrdinalAxisSpec(),
+                                      charts.BarLabelDecorator<String>(),
+                                  domainAxis: const charts.OrdinalAxisSpec(),
                                   defaultInteractions: !MediaQuery.of(context)
                                       .accessibleNavigation,
                                   behaviors: [
-                                    new charts.DomainA11yExploreBehavior(
+                                    charts.DomainA11yExploreBehavior(
                                       exploreModeTrigger:
                                           charts.ExploreModeTrigger.pressHold,
                                       exploreModeEnabledAnnouncement:
@@ -165,7 +164,7 @@ class SalesReportsView extends StatelessWidget {
                                           'Explore mode disabled',
                                       minimumWidth: 1.0,
                                     ),
-                                    new charts.DomainHighlighter(
+                                    charts.DomainHighlighter(
                                         charts.SelectionModelType.info),
                                   ],
                                 ),

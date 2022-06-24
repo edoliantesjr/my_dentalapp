@@ -39,7 +39,7 @@ class PreLoaderView extends StatelessWidget {
                             child: Image.asset(
                               'assets/icons/logo-blue-circle.png',
                             ))),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     ElasticIn(
                       child: Text(
                         'Maglinte Dental Clinic',
@@ -54,8 +54,8 @@ class PreLoaderView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15),
-                    CircularProgressIndicator(
+                    const SizedBox(height: 15),
+                    const CircularProgressIndicator(
                       color: Palettes.kcBlueMain1,
                       strokeWidth: 5,
                     ),

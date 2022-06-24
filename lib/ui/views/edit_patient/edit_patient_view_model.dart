@@ -110,7 +110,7 @@ class EditPatientViewModel extends BaseViewModel {
   Future<void> setBirthDateValue(
       TextEditingController textEditingController) async {
     DateTime? birthDate =
-        await bottomSheetService.openBottomSheet(SelectionDate(
+        await bottomSheetService.openBottomSheet(const SelectionDate(
       title: 'Select birth date',
     ));
     if (birthDate != null) {
@@ -122,7 +122,7 @@ class EditPatientViewModel extends BaseViewModel {
   }
 
   Future<void> updatePatient(Patient patient) async {
-    final patientSearchIndex = await searchIndexService.setSearchIndex(
+    final patientSearchIndex = searchIndexService.setSearchIndex(
         string: '${firstNameTxtController.text} ${lastNameTxtController.text}');
 
     final updatedPatient = Patient(

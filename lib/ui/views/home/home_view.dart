@@ -35,7 +35,8 @@ class HomePageView extends StatelessWidget {
             model.init();
           },
           child: SingleChildScrollView(
-            physics: ScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            physics:
+                const ScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             child: Column(
               children: [
                 HomeShortcut(

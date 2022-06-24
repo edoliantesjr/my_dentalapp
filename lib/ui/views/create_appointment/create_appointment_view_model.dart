@@ -131,8 +131,8 @@ class CreateAppointmentViewModel extends BaseViewModel {
     if (selectedStartTime != null) {
       selectedEndTime = await bottomSheetService.openBottomSheet(SelectionTime(
         title: 'Set End Time',
-        initialDateTime: selectedStartTime!.add(Duration(minutes: 60)),
-        minimumDateTime: selectedStartTime!.add(Duration(minutes: 5)),
+        initialDateTime: selectedStartTime!.add(const Duration(minutes: 60)),
+        minimumDateTime: selectedStartTime!.add(const Duration(minutes: 5)),
       ));
       if (selectedEndTime != null) {
         if (selectedStartTime != selectedEndTime) {

@@ -30,7 +30,7 @@ class HomeAppointment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       color: Colors.grey.shade50,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,9 +40,9 @@ class HomeAppointment extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               SvgPicture.asset('assets/icons/Calendar.svg'),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               Expanded(
                 child: Container(
                   height: 22,
@@ -81,32 +81,32 @@ class HomeAppointment extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
             ],
           ),
           isBusy
-              ? MyShimmer()
+              ? const MyShimmer()
               : AnimationLimiter(
                   child: ListView.builder(
                     shrinkWrap: true,
                     primary: false,
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.all(5),
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(5),
                     itemCount:
                         myAppointments.length > 5 ? 5 : myAppointments.length,
                     itemBuilder: (context, i) =>
                         AnimationConfiguration.staggeredList(
                       position: i,
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       child: SlideAnimation(
                         verticalOffset: 90.0,
                         // horizontalOffset: 300,
                         curve: Curves.easeInOut,
-                        duration: Duration(milliseconds: 850),
+                        duration: const Duration(milliseconds: 850),
                         child: FadeInAnimation(
                           curve: Curves.easeInOut,
-                          delay: Duration(milliseconds: 350),
-                          duration: Duration(milliseconds: 1000),
+                          delay: const Duration(milliseconds: 350),
+                          duration: const Duration(milliseconds: 1000),
                           child: AppointmentCard(
                             key: ObjectKey(myAppointments[i]),
                             onPatientTap: () => navigationService.pushNamed(
@@ -132,7 +132,7 @@ class HomeAppointment extends StatelessWidget {
                     ),
                   ),
                 ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
         ],
       ),
     );

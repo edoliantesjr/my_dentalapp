@@ -29,7 +29,7 @@ class GetStartedView extends StatelessWidget {
                     alignment: Alignment.topRight,
                     child: TextButton(
                       onPressed: () => model.skip(),
-                      child: Text('Skip'),
+                      child: const Text('Skip'),
                       style: TextButton.styleFrom(primary: Colors.white),
                     ),
                   ),
@@ -37,7 +37,7 @@ class GetStartedView extends StatelessWidget {
                     flex: 8,
                     child: PageView.builder(
                       itemCount: model.listOfDetails.length,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       pageSnapping: false,
                       controller: model.pageController,
                       clipBehavior: Clip.none,
@@ -45,14 +45,14 @@ class GetStartedView extends StatelessWidget {
                       itemBuilder: (context, index) =>
                           AnimationConfiguration.staggeredList(
                         position: index,
-                        duration: Duration(milliseconds: 800),
+                        duration: const Duration(milliseconds: 800),
                         child: SlideAnimation(
                           curve: Curves.easeInOut,
                           verticalOffset: 50,
-                          duration: Duration(milliseconds: 800),
+                          duration: const Duration(milliseconds: 800),
                           child: FadeInAnimation(
                             curve: Curves.easeIn,
-                            duration: Duration(milliseconds: 500),
+                            duration: const Duration(milliseconds: 500),
                             child: CarouselItem(
                                 image: model.listOfDetails[index].image,
                                 title: model.listOfDetails[index].title,
@@ -63,9 +63,9 @@ class GetStartedView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   RowPageIndicator(index: model.index),
-                  Spacer(),
+                  const Spacer(),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: 40.h,
@@ -101,7 +101,7 @@ class CarouselItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -139,7 +139,7 @@ class RowPageIndicator extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(right: 5),
+          margin: const EdgeInsets.only(right: 5),
           height: 8.h,
           width: 8.w,
           decoration: BoxDecoration(
@@ -147,7 +147,7 @@ class RowPageIndicator extends StatelessWidget {
               color: index == 0 ? Colors.white : Colors.purple[200]),
         ),
         Container(
-          margin: EdgeInsets.only(right: 5),
+          margin: const EdgeInsets.only(right: 5),
           height: 8.h,
           width: 8.w,
           decoration: BoxDecoration(

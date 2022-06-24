@@ -55,12 +55,12 @@ class SelectPaymentType extends StatelessWidget {
                                     decoration: const BoxDecoration(
                                         color: Colors.white,
                                         boxShadow: [
-                                          const BoxShadow(
+                                          BoxShadow(
                                               color: Colors.grey,
-                                              offset: const Offset(1, 1)),
-                                          const BoxShadow(
+                                              offset: Offset(1, 1)),
+                                          BoxShadow(
                                               color: Colors.grey,
-                                              offset: const Offset(-1, -1)),
+                                              offset: Offset(-1, -1)),
                                         ]),
                                     child: RadioListTile(
                                       tileColor: Colors.white,

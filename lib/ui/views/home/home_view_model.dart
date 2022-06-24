@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:async';
 
 import 'package:dentalapp/app/app.locator.dart';
@@ -89,10 +91,10 @@ class HomePageViewModel extends BaseViewModel {
     apiService.getUserAccountDetails().listen((event) async {
       userSubscription =
           apiService.getUserAccountDetails().listen((user) async {
-        await Future.delayed(Duration(milliseconds: 500));
+        await Future.delayed(const Duration(milliseconds: 500));
         dialogService.showDefaultLoadingDialog();
         currentUser = user;
-        await Future.delayed(Duration(milliseconds: 500));
+        await Future.delayed(const Duration(milliseconds: 500));
         navigationService.pop();
         notifyListeners();
       });
