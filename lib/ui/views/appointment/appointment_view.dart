@@ -3,7 +3,6 @@ import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/core/service/navigation/navigation_service.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
-import 'package:dentalapp/extensions/date_format_extension.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/ui/views/appointment/appointment_view_model.dart';
@@ -27,15 +26,15 @@ class AppointmentView extends StatelessWidget {
       onModelReady: (model) async {
         final dateToday =
             DateFormat('yyyy-MM-dd').format(DateTime.now()).toDateTime();
-        await model.getDateFromNtp();
-        await model.getAppointmentByDate(dateToday);
-        model.listenToAppointmentChanges();
+        // await model.getDateFromNtp();
+        // model.listenToAppointmentChanges();
 
         if (appointment != null) {
           model.selectedDate = appointment!.date.toDateTime()!;
-          model.getAppointmentByDate(model.selectedDate);
-          model.notifyListeners();
         }
+        await model.getAppointmentByDate(model.selectedDate);
+        model.listenToAppointmentChanges();
+        model.notifyListeners();
       },
       builder: (context, model, child) => Scaffold(
           appBar: AppBar(
@@ -120,19 +119,6 @@ class AppointmentView extends StatelessWidget {
                         selectedColor: Palettes.kcCompleteColor,
                         checkmarkColor: Colors.white,
                       ),
-                      // FilterChip(
-                      //   label: Text('Pending',
-                      //       style: TextStyle(
-                      //           color: model.filter ==
-                      //                   AppointmentStatus.Pending.name
-                      //               ? Colors.white
-                      //               : Colors.black)),
-                      //   selected:
-                      //       model.filter == AppointmentStatus.Pending.name,
-                      //   onSelected: (bool) => model.getAppointmentByPending(),
-                      //   selectedColor: Palettes.kcPendingColor,
-                      //   checkmarkColor: Colors.white,
-                      // ),
                       FilterChip(
                         label: Text('Request',
                             style: TextStyle(
@@ -233,17 +219,7 @@ class AppointmentView extends StatelessWidget {
                       Routes.PatientInfoView,
                       arguments: PatientInfoViewArguments(
                           patient: appointmentList[i].patient)),
-                  imageUrl: appointmentList[i].patient.image,
-                  serviceTitle: appointmentList[i].procedures![0].procedureName,
-                  doctor: appointmentList[i].dentist,
-                  patient: appointmentList[i].patient,
-                  appointmentDate: DateFormat.yMMMd()
-                      .format(appointmentList[i].date.toDateTime()!),
-                  time:
-                      '${appointmentList[i].startTime.toDateTime()!.toTime()}-${appointmentList[i].endTime.toDateTime()!.toTime()}',
-                  appointmentStatus: getAppointmentStatus(
-                      appointmentList[i].appointment_status),
-                  appointmentId: appointmentList[i].appointment_id,
+                  appointment: appointmentList[i],
                 ),
               ),
             ),

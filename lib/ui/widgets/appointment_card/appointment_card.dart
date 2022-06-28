@@ -1,15 +1,19 @@
 // ignore_for_file: overridden_fields
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/core/service/toast/toast_service.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
+import 'package:dentalapp/extensions/date_format_extension.dart';
+import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
+import 'package:intl/intl.dart';
 
 import '../../../app/app.locator.dart';
 import '../../../core/service/api/api_service.dart';
@@ -18,34 +22,17 @@ import '../../../core/service/connectivity/connectivity_service.dart';
 import '../../../core/service/dialog/dialog_service.dart';
 import '../../../core/service/navigation/navigation_service.dart';
 import '../../../core/service/snack_bar/snack_bar_service.dart';
+import '../../../models/appointment_model/appointment_model.dart';
 import '../../../models/notification/notification_model.dart';
-import '../../../models/patient_model/patient_model.dart';
 import '../selection_list/selection_option.dart';
 
 class AppointmentCard extends StatefulWidget {
-  @override
-  final Key key;
-  final String appointmentDate;
-  final dynamic appointmentId;
-  final String doctor;
-  final Patient patient;
-  final AppointmentStatus appointmentStatus;
+  final AppointmentModel appointment;
   final Function onPatientTap;
-  final String serviceTitle;
-  final String? time;
-  final dynamic imageUrl;
-
   const AppointmentCard({
-    required this.key,
-    required this.appointmentId,
+    Key? key,
+    required this.appointment,
     required this.onPatientTap,
-    required this.appointmentDate,
-    required this.doctor,
-    required this.patient,
-    required this.appointmentStatus,
-    required this.serviceTitle,
-    required this.imageUrl,
-    this.time,
   }) : super(key: key);
 
   @override
@@ -71,63 +58,62 @@ class _AppointmentCardState extends State<AppointmentCard> {
           await apiService.deleteAppointment(appointmentId: appointmentId);
           navigationService.pop();
           final notification = NotificationModel(
-            user_id: widget.patient.id,
+            user_id: widget.appointment.patient.id,
             notification_title: 'Your appointment was DELETED',
-            notification_msg: 'Your Appointment on ${widget.appointmentDate}'
-                ' with Doc. ${widget.doctor} was and deleted',
+            notification_msg: 'Your Appointment on ${widget.appointment.date}'
+                ' with Doc. ${widget.appointment.dentist} was and deleted',
             notification_type: 'appointment',
             isRead: false,
           );
           await apiService.saveNotification(
-              notification: notification, typeId: widget.appointmentId);
+              notification: notification,
+              typeId: widget.appointment.appointment_id!);
           toastService.showToast(message: 'Appointment deleted');
         });
   }
 
-  Future<void> updateAppointmentStatus(String appointmentId) async {
+  Future<void> updateAppointmentStatus(AppointmentModel appointment) async {
     final appointmentSelectedOption =
         await bottomSheetService.openBottomSheet(SelectionOption(
-      options: widget.appointmentStatus.name == AppointmentStatus.Request.name
-          ? [
-              AppointmentStatus.Approved.options,
-              AppointmentStatus.Declined.options,
-            ]
-          : [
-              AppointmentStatus.Cancelled.options,
-              'RESCHEDULE',
-            ],
+      options: setAppointmentOption(),
       title: 'Set Appointment Status',
     ));
 
-    final appointmentStatus = setAppointmentReturn(appointmentSelectedOption);
+    if (appointmentSelectedOption != null) {
+      final appointmentStatus = setAppointmentReturn(appointmentSelectedOption);
 
-    if (appointmentStatus != null) {
-      if (await connectivityService.checkConnectivity()) {
-        dialogService.showDefaultLoadingDialog(
-            barrierDismissible: false, willPop: false);
-        await apiService.updateAppointmentStatus(
-            appointmentId: appointmentId, appointmentStatus: appointmentStatus);
-        navigationService.pop();
-        final notification = NotificationModel(
-          user_id: widget.patient.id,
-          notification_title: 'Appointment status: $appointmentStatus.',
-          notification_msg: 'Your Appointment on ${widget.appointmentDate}'
-              ' with Doc. ${widget.doctor} was marked: $appointmentStatus',
-          notification_type: 'appointment',
-          isRead: false,
-        );
-        await apiService.saveNotification(
-            notification: notification, typeId: widget.appointmentId);
-        snackBarService.showSnackBar(
-            message: 'Appointment status was updated', title: 'Success!');
+      if (appointmentStatus != null) {
+        if (await connectivityService.checkConnectivity()) {
+          dialogService.showDefaultLoadingDialog(
+              barrierDismissible: false, willPop: false);
+          await apiService.updateAppointmentStatus(
+              appointmentId: appointment.appointment_id!,
+              appointmentStatus: appointmentStatus);
+          navigationService.pop();
+          final notification = NotificationModel(
+            user_id: widget.appointment.patient.id,
+            notification_title: 'Appointment status: $appointmentStatus.',
+            notification_msg: 'Your Appointment on ${widget.appointment.date}'
+                ' with Doc. ${widget.appointment.dentist} was marked: $appointmentStatus',
+            notification_type: 'appointment',
+            isRead: false,
+          );
+          await apiService.saveNotification(
+              notification: notification,
+              typeId: widget.appointment.appointment_id!);
+          snackBarService.showSnackBar(
+              message: 'Appointment status was updated', title: 'Success!');
+        } else {
+          navigationService.pop();
+          snackBarService.showSnackBar(
+              message: 'Check your network connection and try again',
+              title: 'Network Error');
+        }
       } else {
-        navigationService.pop();
-        snackBarService.showSnackBar(
-            message: 'Check your network connection and try again',
-            title: 'Network Error');
+        navigationService.pushNamed(Routes.AppointmentRescheduleView,
+            arguments:
+                AppointmentRescheduleViewArguments(appointment: appointment));
       }
-    } else {
-      //todo: resched appointment
     }
   }
 
@@ -147,17 +133,49 @@ class _AppointmentCardState extends State<AppointmentCard> {
     }
   }
 
+  List<String> setAppointmentOption() {
+    List<String> options = [];
+    if (widget.appointment.appointment_status ==
+        AppointmentStatus.Request.name) {
+      options = [
+        AppointmentStatus.Approved.options,
+        AppointmentStatus.Declined.options,
+      ];
+    }
+    if (widget.appointment.appointment_status ==
+        AppointmentStatus.Approved.name) {
+      options = [
+        AppointmentStatus.Cancelled.options,
+        'RESCHEDULE',
+      ];
+    }
+    if (widget.appointment.appointment_status ==
+        AppointmentStatus.Cancelled.name) {
+      options = [
+        'RESCHEDULE',
+      ];
+    }
+    if (widget.appointment.appointment_status ==
+        AppointmentStatus.Declined.name) {
+      options = [
+        'RESCHEDULE',
+      ];
+    }
+
+    return options;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SwipeActionCell(
-      key: widget.key,
+      key: ObjectKey(widget.appointment.appointment_id!),
       trailingActions: [
         SwipeAction(
           widthSpace: 80,
           color: Colors.transparent,
           onTap: (handler) async {
             // await handler(true);
-            deleteAppointment(widget.appointmentId);
+            deleteAppointment(widget.appointment.appointment_id!);
           },
           content: Container(
             height: 50,
@@ -248,17 +266,21 @@ class _AppointmentCardState extends State<AppointmentCard> {
                     child: Row(
                       children: [
                         DateWidget(
-                          imageUrl: widget.imageUrl,
+                          imageUrl: widget.appointment.patient.image,
                         ),
                         const SizedBox(width: 10),
                         Expanded(
                             child: InfoWidget(
                           onPatientTap: () => widget.onPatientTap(),
-                          date: widget.appointmentDate,
-                          serviceTitle: widget.serviceTitle,
-                          doctor: widget.doctor,
-                          patient: widget.patient.fullName,
-                          appointmentStatus: widget.appointmentStatus,
+                          date: DateFormat.yMMMd()
+                              .format(widget.appointment.date.toDateTime()!),
+                          serviceTitle: widget
+                              .appointment.procedures!.first.procedureName
+                              .toString(),
+                          doctor: widget.appointment.dentist,
+                          patient: widget.appointment.patient.fullName,
+                          appointmentStatus: getAppointmentStatus(
+                              widget.appointment.appointment_status),
                         )),
                       ],
                     )),
@@ -275,14 +297,14 @@ class _AppointmentCardState extends State<AppointmentCard> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'TIME: ${widget.time}',
+                            'TIME: ${widget.appointment.startTime.toDateTime()!.toTime()}-${widget.appointment.endTime.toDateTime()!.toTime()}',
                             style: TextStyles.tsButton2(),
                           ),
                         ),
                       ),
                       InkWell(
                         onTap: () =>
-                            updateAppointmentStatus(widget.appointmentId),
+                            updateAppointmentStatus(widget.appointment),
                         child: Row(
                           children: [
                             Text(

@@ -17,6 +17,16 @@ class ExpensesReportViewModel extends BaseViewModel {
 
   List<ExpenseReport> data = [];
 
+  final firstDate = TextEditingController(text: '${DateTime.now().year}');
+  final secondDate = TextEditingController(text: '${DateTime.now().year - 1}');
+
+  @override
+  void dispose() {
+    firstDate.dispose();
+    secondDate.dispose();
+    super.dispose();
+  }
+
   List<charts.Series<ExpenseReport, String>> setSeriesList() {
     return [
       charts.Series<ExpenseReport, String>(

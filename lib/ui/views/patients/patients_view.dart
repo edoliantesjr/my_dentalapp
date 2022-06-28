@@ -7,7 +7,6 @@ import 'package:dentalapp/ui/views/patients/patients_view_model.dart';
 import 'package:dentalapp/ui/widgets/patient_card/patient_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -57,7 +56,7 @@ class PatientsView extends StatelessWidget {
             },
             child: CustomScrollView(
               controller: model.scrollController,
-              physics: const AlwaysScrollableScrollPhysics(
+              physics: const BouncingScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics(),
               ),
               slivers: [
@@ -65,7 +64,8 @@ class PatientsView extends StatelessWidget {
                   controller: model.stickController,
                   overlapsContent: false,
                   header: Container(
-                    padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
+                    padding:
+                        const EdgeInsets.only(bottom: 15, left: 15, right: 15),
                     color: Palettes.kcBlueMain1,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -123,50 +123,35 @@ class PatientsView extends StatelessWidget {
                       ? SliverList(
                           delegate:
                               SliverChildBuilderDelegate((context, index) {
-                            return AnimationConfiguration.staggeredList(
-                              position: index,
-                              child: SlideAnimation(
-                                duration: const Duration(milliseconds: 400),
-                                horizontalOffset: 100,
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 8, bottom: 8),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.shade600,
-                                        blurRadius: 1,
-                                      )
-                                    ],
-                                  ),
-                                  child: Material(
-                                    color: Colors.white,
-                                    child: InkWell(
-                                      onTap: () =>
-                                          model.goToPatientInfoView(index),
-                                      child: PatientCard(
-                                        key: ObjectKey(
-                                            model.patientList[index].id),
-                                        name: model.patientList[index].fullName,
-                                        image: model.patientList[index].image,
-                                        phone:
-                                            model.patientList[index].phoneNum,
-                                        address:
-                                            model.patientList[index].address,
-                                        birthDate: DateFormat.yMMMd().format(
-                                            model.patientList[index].birthDate
-                                                .toDateTime()!),
-                                        age: AgeCalculator.age(
-                                                model.patientList[index]
-                                                    .birthDate
-                                                    .toDateTime()!,
-                                                today: DateTime.now())
-                                            .years
-                                            .toString(),
-                                        dateCreated: model
-                                            .patientList[index].dateCreated!,
-                                      ),
-                                    ),
-                                  ),
+                            return Container(
+                              margin: const EdgeInsets.only(top: 4, bottom: 4),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade600,
+                                    blurRadius: 1,
+                                  )
+                                ],
+                              ),
+                              child: GestureDetector(
+                                onTap: () => model.goToPatientInfoView(index),
+                                child: PatientCard(
+                                  key: ObjectKey(model.patientList[index].id),
+                                  name: model.patientList[index].fullName,
+                                  image: model.patientList[index].image,
+                                  phone: model.patientList[index].phoneNum,
+                                  address: model.patientList[index].address,
+                                  birthDate: DateFormat.yMMMd().format(model
+                                      .patientList[index].birthDate
+                                      .toDateTime()!),
+                                  age: AgeCalculator.age(
+                                          model.patientList[index].birthDate
+                                              .toDateTime()!,
+                                          today: DateTime.now())
+                                      .years
+                                      .toString(),
+                                  dateCreated:
+                                      model.patientList[index].dateCreated!,
                                 ),
                               ),
                             );

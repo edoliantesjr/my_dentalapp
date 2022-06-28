@@ -10,7 +10,9 @@ class SelectionDate extends StatelessWidget {
   final String? title;
   final DateTime? initialDate;
   final DateTime? maxDate;
-  const SelectionDate({Key? key, this.title, this.initialDate, this.maxDate})
+  final DateTime? minDate;
+  const SelectionDate(
+      {Key? key, this.title, this.minDate, this.initialDate, this.maxDate})
       : super(key: key);
 
   @override
@@ -54,8 +56,9 @@ class SelectionDate extends StatelessWidget {
             Expanded(
                 child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
-              initialDateTime: initialDate ?? model.defaultStartDate,
+              initialDateTime: minDate ?? initialDate ?? model.defaultStartDate,
               maximumDate: maxDate ?? model.dateTimeNow,
+              minimumDate: minDate,
               onDateTimeChanged: (DateTime dateTime) =>
                   model.setSelectedDate(dateTime),
             ))

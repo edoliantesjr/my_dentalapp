@@ -46,10 +46,10 @@ class AppointmentViewModel extends BaseViewModel {
     navigationService.pushNamed(Routes.ViewAppointmentByPeriod);
   }
 
-  Future<void> getAppointmentByDate(DateTime? dateTime) async {
+  Future<void> getAppointmentByDate(DateTime dateTime) async {
     setBusy(true);
     setFilter('ALL');
-    selectedDate = dateTime ?? DateTime.now();
+    selectedDate = dateTime;
     tempList = await apiService.getAppointmentAccordingToDate(date: dateTime);
     appointmentList.clear();
     appointmentList.addAll(tempList);
@@ -62,6 +62,7 @@ class AppointmentViewModel extends BaseViewModel {
       appointmentSub =
           apiService.listenToAppointmentChanges().listen((event) async {
         await getAppointmentByDate(selectedDate);
+        notifyListeners();
       });
     });
   }

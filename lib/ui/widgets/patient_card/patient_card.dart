@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dentalapp/app/app.locator.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
-import 'package:dentalapp/core/service/url_launcher/url_launcher_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,7 +14,7 @@ class PatientCard extends StatelessWidget {
   final String? age;
   final String? birthDate;
   final DateTime dateCreated;
-  PatientCard(
+  const PatientCard(
       {Key? key,
       required this.image,
       required this.name,
@@ -27,12 +25,11 @@ class PatientCard extends StatelessWidget {
       required this.dateCreated})
       : super(key: key);
 
-  final urlLauncherService = locator<URLLauncherService>();
-
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width - 50,
+      color: const Color(0xffffffff),
       padding: const EdgeInsets.symmetric(
         horizontal: 12,
         vertical: 10,
@@ -40,34 +37,19 @@ class PatientCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 120,
-            height: 120,
+            width: 130,
+            height: 130,
             decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey,
-                border: Border.all(
-                  color: Palettes.kcNeutral5,
-                  width: 2,
-                ),
-                boxShadow: const <BoxShadow>[
-                  BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 1.5,
-                      offset: Offset(0, 2)),
-                ]),
-            child:  ClipRRect(
-              borderRadius: BorderRadius.circular(120),
-              child: CachedNetworkImage(
-                  imageUrl: image,
-                  fit: BoxFit.cover,
-                  filterQuality:  FilterQuality.high,
-                  progressIndicatorBuilder: (context, url, progress) =>
-                      CircularProgressIndicator(
-                        value: progress.progress,
-                        valueColor: const AlwaysStoppedAnimation(
-                          Colors.white,
-                        ),
-                      )),
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: CachedNetworkImageProvider(image),
+                fit: BoxFit.cover,
+              ),
+              color: Colors.grey.shade400,
+              border: Border.all(
+                color: Colors.grey.shade400,
+                width: 3,
+              ),
             ),
           ),
           const SizedBox(width: 10),

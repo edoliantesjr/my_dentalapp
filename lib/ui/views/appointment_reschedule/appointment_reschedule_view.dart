@@ -5,54 +5,29 @@ import 'package:dentalapp/constants/styles/text_styles.dart';
 import 'package:dentalapp/enums/appointment_status.dart';
 import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
-import 'package:dentalapp/models/patient_model/patient_model.dart';
-import 'package:dentalapp/ui/views/create_appointment/create_appointment_view_model.dart';
 import 'package:dentalapp/ui/widgets/patient_card/patient_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
-class CreateAppointmentView extends StatefulWidget {
-  final Patient patient;
-  final int popTimes;
-  const CreateAppointmentView(
-      {required this.patient, required this.popTimes, Key? key})
+import 'appointment_reschedule_view_model.dart';
+
+class AppointmentRescheduleView extends StatelessWidget {
+  final AppointmentModel appointment;
+  const AppointmentRescheduleView({Key? key, required this.appointment})
       : super(key: key);
 
   @override
-  State<CreateAppointmentView> createState() => _CreateAppointmentViewState();
-}
-
-class _CreateAppointmentViewState extends State<CreateAppointmentView> {
-  final createAppointmentFormKey = GlobalKey<FormState>();
-
-  final dateTxtController = TextEditingController();
-  final startTimeTxtController = TextEditingController();
-  final endTimeTxtController = TextEditingController();
-  final dentistTxtController = TextEditingController();
-  final remarksTxtController = TextEditingController();
-  final procedureTxtController = TextEditingController();
-
-  @override
-  void dispose() {
-    dateTxtController.dispose();
-    startTimeTxtController.dispose();
-    endTimeTxtController.dispose();
-    dentistTxtController.dispose();
-    remarksTxtController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<CreateAppointmentViewModel>.reactive(
-        viewModelBuilder: () => CreateAppointmentViewModel(),
+    return ViewModelBuilder<AppointmentRescheduleViewModel>.reactive(
+        viewModelBuilder: () => AppointmentRescheduleViewModel(),
+        onModelReady: (model) => model.init(appointment),
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
                 centerTitle: true,
                 title: Text(
-                  'Add Schedule',
+                  'ReSchedule Appointment',
                   style: TextStyles.tsHeading3(color: Colors.white),
                 ),
               ),
@@ -72,24 +47,26 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                     Expanded(
                         child: ElevatedButton(
                             onPressed: () {
-                              if (createAppointmentFormKey.currentState!
+                              if (model.createAppointmentFormKey.currentState!
                                   .validate()) {
                                 if (model.selectedProcedures.isNotEmpty) {
-                                  model.setAppointment(
+                                  model.reSchedAppointment(
                                     appointment: AppointmentModel(
-                                      patient: widget.patient,
+                                      appointment_id:
+                                          appointment.appointment_id,
+                                      patient: appointment.patient,
                                       date: model.selectedAppointmentDate
                                           .toString(),
                                       startTime:
                                           model.selectedStartTime.toString(),
                                       endTime: model.selectedEndTime.toString(),
-                                      dentist: dentistTxtController.text,
+                                      dentist: model.dentistTxtController.text,
                                       procedures: model.selectedProcedures,
                                       appointment_status:
                                           AppointmentStatus.Approved.name,
                                     ),
-                                    popTime: widget.popTimes,
-                                    patientId: widget.patient.id,
+                                    popTime: 1,
+                                    patientId: appointment.patient.id,
                                   );
                                 } else {
                                   model.snackBarService.showSnackBar(
@@ -103,7 +80,7 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                 )
               ],
               body: Form(
-                key: createAppointmentFormKey,
+                key: model.createAppointmentFormKey,
                 child: SafeArea(
                   child: ListView(
                     padding:
@@ -118,18 +95,18 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                             textAlign: TextAlign.center,
                           )),
                       PatientCard(
-                        image: widget.patient.image,
-                        name: widget.patient.fullName,
-                        phone: widget.patient.phoneNum,
-                        address: widget.patient.address,
-                        birthDate: DateFormat.yMMMd()
-                            .format(widget.patient.birthDate.toDateTime()!),
+                        image: appointment.patient.image,
+                        name: appointment.patient.fullName,
+                        phone: appointment.patient.phoneNum,
+                        address: appointment.patient.address,
+                        birthDate: DateFormat.yMMMd().format(
+                            appointment.patient.birthDate.toDateTime()!),
                         age: AgeCalculator.age(
-                                widget.patient.birthDate.toDateTime()!,
+                                appointment.patient.birthDate.toDateTime()!,
                                 today: DateTime.now())
                             .years
                             .toString(),
-                        dateCreated: widget.patient.dateCreated!,
+                        dateCreated: appointment.patient.dateCreated!,
                       ),
                       const Divider(),
                       const SizedBox(height: 10),
@@ -140,9 +117,9 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             GestureDetector(
-                              onTap: () => model.selectDate(dateTxtController),
+                              onTap: () => model.selectDate(),
                               child: TextFormField(
-                                controller: dateTxtController,
+                                controller: model.dateTxtController,
                                 enabled: false,
                                 validator: (value) =>
                                     model.validatorService.validateDate(value!),
@@ -185,10 +162,8 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                                   backgroundColor: Palettes.kcBlueMain1,
                                   tooltip: 'Select Procedure',
                                   onPressed: () =>
-                                      model.openProcedureFullScreenModal(
-                                    procedureTxtController,
-                                  ),
-                                )
+                                      model.openProcedureFullScreenModal(),
+                                ),
                               ],
                             ),
                             Visibility(
@@ -228,10 +203,9 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () =>
-                                  model.selectStartTime(startTimeTxtController),
+                              onTap: () => model.selectStartTime(),
                               child: TextFormField(
-                                controller: startTimeTxtController,
+                                controller: model.startTimeTxtController,
                                 enabled: false,
                                 validator: (value) => model.validatorService
                                     .validateStartTime(value!),
@@ -250,10 +224,9 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                             ),
                             const SizedBox(height: 10),
                             GestureDetector(
-                              onTap: () =>
-                                  model.selectEndTime(endTimeTxtController),
+                              onTap: () => model.selectEndTime(),
                               child: TextFormField(
-                                controller: endTimeTxtController,
+                                controller: model.endTimeTxtController,
                                 enabled: false,
                                 validator: (value) => model.validatorService
                                     .validateEndTime(value!),
@@ -272,10 +245,9 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                             ),
                             const SizedBox(height: 10),
                             GestureDetector(
-                              onTap: () =>
-                                  model.openDentistModal(dentistTxtController),
+                              onTap: () => model.openDentistModal(),
                               child: TextFormField(
-                                controller: dentistTxtController,
+                                controller: model.dentistTxtController,
                                 textInputAction: TextInputAction.next,
                                 enabled: false,
                                 validator: (value) => model.validatorService
@@ -300,19 +272,6 @@ class _CreateAppointmentViewState extends State<CreateAppointmentView> {
                               ),
                             ),
                             const SizedBox(height: 10),
-                            // TextFormField(
-                            //   controller: remarksTxtController,
-                            //   decoration: InputDecoration(
-                            //     hintText: 'Type here',
-                            //     labelText: 'Remarks (Optional)',
-                            //     labelStyle: TextStyles.tsBody1(
-                            //         color: Palettes.kcNeutral1),
-                            //     enabledBorder: TextBorderStyles.normalBorder,
-                            //     focusedBorder: TextBorderStyles.focusedBorder,
-                            //     floatingLabelBehavior:
-                            //         FloatingLabelBehavior.always,
-                            //   ),
-                            // ),
                           ],
                         ),
                       )

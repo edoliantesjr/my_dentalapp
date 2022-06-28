@@ -1,13 +1,9 @@
 import 'package:dentalapp/constants/styles/palette_color.dart';
-import 'package:dentalapp/extensions/date_format_extension.dart';
-import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../enums/appointment_status.dart';
 import '../../widgets/appointment_card/appointment_card.dart';
 import 'week_appointment_view_model.dart';
 
@@ -65,19 +61,7 @@ class WeekAppointmentView extends StatelessWidget {
                     child: AppointmentCard(
                       key: ObjectKey(model.appointments[i]),
                       onPatientTap: () {},
-                      imageUrl: model.appointments[i].patient.image,
-                      serviceTitle:
-                          model.appointments[i].procedures![0].procedureName,
-                      doctor: model.appointments[i].dentist,
-                      patient: model.appointments[i].patient,
-                      appointmentDate: DateFormat.yMMMd()
-                          .format(model.appointments[i].date.toDateTime()!),
-                      time:
-                          '${model.appointments[i].startTime.toDateTime()!.toTime()}'
-                          '-${model.appointments[i].endTime.toDateTime()!.toTime()}',
-                      appointmentStatus: getAppointmentStatus(
-                          model.appointments[i].appointment_status),
-                      appointmentId: model.appointments[i].appointment_id,
+                      appointment: model.appointments[i],
                     ),
                   ),
                 ),

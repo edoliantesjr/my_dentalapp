@@ -21,7 +21,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
-class CreateAppointmentViewModel extends BaseViewModel {
+class AppointmentRescheduleViewModel extends BaseViewModel {
   final apiService = locator<ApiService>();
   final navigationService = locator<NavigationService>();
   final toastService = locator<ToastService>();
@@ -30,6 +30,25 @@ class CreateAppointmentViewModel extends BaseViewModel {
   final snackBarService = locator<SnackBarService>();
   final dialogService = locator<DialogService>();
 
+  final createAppointmentFormKey = GlobalKey<FormState>();
+
+  final dateTxtController = TextEditingController();
+  final startTimeTxtController = TextEditingController();
+  final endTimeTxtController = TextEditingController();
+  final dentistTxtController = TextEditingController();
+  final remarksTxtController = TextEditingController();
+  final procedureTxtController = TextEditingController();
+
+  @override
+  void dispose() {
+    dateTxtController.dispose();
+    startTimeTxtController.dispose();
+    endTimeTxtController.dispose();
+    dentistTxtController.dispose();
+    remarksTxtController.dispose();
+    super.dispose();
+  }
+
   String? tempDate;
   List<Procedure> selectedProcedures = [];
   DateTime? selectedAppointmentDate;
@@ -37,10 +56,23 @@ class CreateAppointmentViewModel extends BaseViewModel {
   DateTime? selectedEndTime;
   DateTime? tempStartTime;
   DateTime? tempEndTime;
-  UserModel? myDentist;
-  AppointmentModel? latestAppointment;
+  String myDentist = '';
 
-  Future<void> setAppointment(
+  void init(AppointmentModel appointment) {
+    //
+    selectedProcedures = List.from(appointment.procedures ?? []);
+    selectedAppointmentDate = appointment.date.toDateTime();
+    selectedStartTime = appointment.startTime.toDateTime();
+    selectedEndTime = appointment.endTime.toDateTime();
+    myDentist = appointment.dentist;
+    // dateTxtController.text =
+    //     DateFormat.yMMMd().format(selectedAppointmentDate!);
+    startTimeTxtController.text = DateFormat.jm().format(selectedStartTime!);
+    endTimeTxtController.text = DateFormat.jm().format(selectedEndTime!);
+    dentistTxtController.text = myDentist;
+  }
+
+  Future<void> reSchedAppointment(
       {required AppointmentModel appointment,
       required int popTime,
       required String patientId}) async {
@@ -61,18 +93,18 @@ class CreateAppointmentViewModel extends BaseViewModel {
         final appointmentId = await apiService.createAppointment(appointment);
         final notification = NotificationModel(
           user_id: patientId,
-          notification_title: 'New Appointment',
-          notification_msg: 'You have new appointment '
+          notification_title: 'Appointment Rescheduled',
+          notification_msg: 'Your Appointment '
               'with Doctor ${appointment.dentist}'
-              ' on '
+              ' has been rescheduled and set on '
               '${DateFormat.yMMMd().add_jm().format(appointment.date.toDateTime()!)} ',
           notification_type: 'appointment',
           isRead: false,
         );
         await apiService.saveNotification(
             notification: notification, typeId: appointmentId);
-        navigationService.popRepeated(popTime);
-        toastService.showToast(message: 'Appointment added');
+        navigationService.popRepeated(2);
+        toastService.showToast(message: 'Appointment has been rescheduled!');
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -81,7 +113,7 @@ class CreateAppointmentViewModel extends BaseViewModel {
     }
   }
 
-  void selectDate(TextEditingController controller) async {
+  void selectDate() async {
     selectedAppointmentDate =
         await bottomSheetService.openBottomSheet(SelectionDate(
       title: 'Set Appointment date',
@@ -95,12 +127,13 @@ class CreateAppointmentViewModel extends BaseViewModel {
     selectedAppointmentDate = tempDate?.toDateTime()?.toDateMonthDayOnly() ??
         selectedAppointmentDate?.toDateMonthDayOnly();
     if (selectedAppointmentDate != null) {
-      controller.text = DateFormat.yMMMd().format(selectedAppointmentDate!);
+      dateTxtController.text =
+          DateFormat.yMMMd().format(selectedAppointmentDate!);
     }
     notifyListeners();
   }
 
-  void selectStartTime(TextEditingController controller) async {
+  void selectStartTime() async {
     if (selectedAppointmentDate != null) {
       selectedStartTime =
           await bottomSheetService.openBottomSheet(SelectionTime(
@@ -111,12 +144,13 @@ class CreateAppointmentViewModel extends BaseViewModel {
       if (selectedStartTime != null) {
         if (selectedEndTime != selectedStartTime) {
           tempStartTime = selectedStartTime;
-          controller.text = DateFormat.jm().format(selectedStartTime!);
+          startTimeTxtController.text =
+              DateFormat.jm().format(selectedStartTime!);
         } else {
           snackBarService.showSnackBar(
               message: 'Start time cannot be the same with End time',
               title: 'Warning');
-          controller.text = '';
+          startTimeTxtController.text = '';
         }
       } else {
         selectedStartTime = tempStartTime;
@@ -128,7 +162,7 @@ class CreateAppointmentViewModel extends BaseViewModel {
     }
   }
 
-  void selectEndTime(TextEditingController controller) async {
+  void selectEndTime() async {
     if (selectedStartTime != null) {
       selectedEndTime = await bottomSheetService.openBottomSheet(SelectionTime(
         title: 'Set End Time',
@@ -138,12 +172,12 @@ class CreateAppointmentViewModel extends BaseViewModel {
       if (selectedEndTime != null) {
         if (selectedStartTime != selectedEndTime) {
           tempEndTime = selectedEndTime;
-          controller.text = DateFormat.jm().format(selectedEndTime!);
+          endTimeTxtController.text = DateFormat.jm().format(selectedEndTime!);
         } else {
           snackBarService.showSnackBar(
               message: 'Start time cannot be the same with End time',
               title: 'Warning');
-          controller.text = '';
+          endTimeTxtController.text = '';
         }
       } else {
         selectedEndTime = tempEndTime;
@@ -155,7 +189,7 @@ class CreateAppointmentViewModel extends BaseViewModel {
     }
   }
 
-  void openProcedureFullScreenModal(TextEditingController controller) async {
+  void openProcedureFullScreenModal() async {
     Procedure? tempProcedure =
         await navigationService.pushNamed(Routes.SelectionProcedure);
     if (tempProcedure != null) {
@@ -170,12 +204,12 @@ class CreateAppointmentViewModel extends BaseViewModel {
     }
   }
 
-  void openDentistModal(TextEditingController controller) async {
+  void openDentistModal() async {
     UserModel? selectedDentist =
         await navigationService.pushNamed(Routes.SelectionDentist);
     if (selectedDentist != null) {
-      myDentist = selectedDentist;
-      controller.text = selectedDentist.fullName;
+      myDentist = selectedDentist.fullName;
+      dentistTxtController.text = myDentist;
       notifyListeners();
     }
   }

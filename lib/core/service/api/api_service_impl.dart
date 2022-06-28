@@ -219,13 +219,23 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future<String> createAppointment(AppointmentModel appointment) async {
-    final appointmentRef = appointmentReference.doc();
+    if (appointment.appointment_id != null) {
+      await appointmentReference.doc(appointment.appointment_id).set(
+          appointment.toJson(
+              patientId: appointment.patient.id,
+              appointment_id: appointment.appointment_id!,
+              dateCreated: FieldValue.serverTimestamp()));
+      final appointmentId = appointment.appointment_id!;
+      return appointmentId;
+    } else {
+      final appointmentRef = appointmentReference.doc();
 
-    await appointmentRef.set(appointment.toJson(
-        patientId: appointment.patient.id,
-        appointment_id: appointmentRef.id,
-        dateCreated: FieldValue.serverTimestamp()));
-    return appointmentRef.id;
+      await appointmentRef.set(appointment.toJson(
+          patientId: appointment.patient.id,
+          appointment_id: appointmentRef.id,
+          dateCreated: FieldValue.serverTimestamp()));
+      return appointmentRef.id;
+    }
   }
 
   @override

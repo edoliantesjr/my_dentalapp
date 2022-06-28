@@ -2,9 +2,6 @@ import 'package:dentalapp/app/app.router.dart';
 import 'package:dentalapp/constants/font_name/font_name.dart';
 import 'package:dentalapp/constants/styles/palette_color.dart';
 import 'package:dentalapp/constants/styles/text_styles.dart';
-import 'package:dentalapp/enums/appointment_status.dart';
-import 'package:dentalapp/extensions/date_format_extension.dart';
-import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/models/appointment_model/appointment_model.dart';
 import 'package:dentalapp/ui/widgets/appointment_card/appointment_card.dart';
 import 'package:dentalapp/ui/widgets/custom_shimmer/custom_shimmer.dart';
@@ -12,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 
 import '../../../core/service/navigation/navigation_service.dart';
 
@@ -113,19 +109,7 @@ class HomeAppointment extends StatelessWidget {
                                 Routes.PatientInfoView,
                                 arguments: PatientInfoViewArguments(
                                     patient: myAppointments[i].patient)),
-                            imageUrl: myAppointments[i].patient.image,
-                            serviceTitle:
-                                myAppointments[i].procedures![0].procedureName,
-                            doctor: myAppointments[i].dentist,
-                            patient: myAppointments[i].patient,
-                            appointmentDate: DateFormat.yMMMd()
-                                .format(myAppointments[i].date.toDateTime()!),
-                            time:
-                                '${myAppointments[i].startTime.toDateTime()!.toTime()}-'
-                                '${myAppointments[i].endTime.toDateTime()!.toTime()}',
-                            appointmentStatus: getAppointmentStatus(
-                                myAppointments[i].appointment_status),
-                            appointmentId: myAppointments[i].appointment_id,
+                            appointment: myAppointments[i],
                           ),
                         ),
                       ),

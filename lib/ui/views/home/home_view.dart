@@ -65,11 +65,9 @@ class HomePageView extends StatelessWidget {
                         isBusy: model.isBusy,
                         navigationService: model.navigationService,
                       )
-                    : const Center(
-                        child: SizedBox(
-                          height: 100,
-                          child: Text('No Appointments for today'),
-                        ),
+                    : const SizedBox(
+                        height: 400,
+                        child: Center(child: Text('No Appointments for today')),
                       ),
               ],
             ),

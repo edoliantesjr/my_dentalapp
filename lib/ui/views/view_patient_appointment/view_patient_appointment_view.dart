@@ -1,13 +1,9 @@
 import 'package:dentalapp/constants/styles/palette_color.dart';
-import 'package:dentalapp/extensions/date_format_extension.dart';
-import 'package:dentalapp/extensions/string_extension.dart';
 import 'package:dentalapp/ui/views/view_patient_appointment/view_patient_appointment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../enums/appointment_status.dart';
 import '../../../models/patient_model/patient_model.dart';
 import '../../widgets/appointment_card/appointment_card.dart';
 
@@ -62,21 +58,7 @@ class ViewPatientAppointment extends StatelessWidget {
                     itemBuilder: (context, i) => AppointmentCard(
                           key: ObjectKey(model.patientListOfAppointments[i]),
                           onPatientTap: () {},
-                          imageUrl:
-                              model.patientListOfAppointments[i].patient.image,
-                          serviceTitle: model.patientListOfAppointments[i]
-                              .procedures![0].procedureName,
-                          doctor: model.patientListOfAppointments[i].dentist,
-                          patient: model.patientListOfAppointments[i].patient,
-                          appointmentDate: DateFormat.yMMMd().format(model
-                              .patientListOfAppointments[i].date
-                              .toDateTime()!),
-                          time:
-                              '${model.patientListOfAppointments[i].startTime.toDateTime()!.toTime()}-${model.patientListOfAppointments[i].endTime.toDateTime()!.toTime()}',
-                          appointmentStatus: getAppointmentStatus(model
-                              .patientListOfAppointments[i].appointment_status),
-                          appointmentId:
-                              model.patientListOfAppointments[i].appointment_id,
+                          appointment: model.patientListOfAppointments[i],
                         ),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 6),

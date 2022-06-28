@@ -4,7 +4,7 @@
 // StackedFormGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs, unnecessary_this, constant_identifier_names
+// ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';

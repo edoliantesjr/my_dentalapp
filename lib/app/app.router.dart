@@ -4,12 +4,10 @@
 // StackedRouterGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs, constant_identifier_names
+// ignore_for_file: public_member_api_docs
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-// ignore: unused_import
 import 'package:stacked/stacked_annotations.dart';
 
 import '../models/appointment_model/appointment_model.dart';
@@ -28,6 +26,7 @@ import '../ui/views/add_prescription/add_prescription_view.dart';
 import '../ui/views/add_prescription_item/add_prescription_item_view.dart';
 import '../ui/views/add_procedure/add_procedure_view.dart';
 import '../ui/views/appointment/appointment_view.dart';
+import '../ui/views/appointment_reschedule/appointment_reschedule_view.dart';
 import '../ui/views/appointment_select_patient/appointment_select_patient_view.dart';
 import '../ui/views/appoitment_yearly_monthly/appointment_year_month_view.dart';
 import '../ui/views/create_appointment/create_appointment_view.dart';
@@ -89,7 +88,6 @@ class Routes {
   static const String CreateAppointmentView = '/create-appointment-view';
   static const String AddMedicineView = '/add-medicine-view';
   static const String AddProcedureView = '/add-procedure-view';
-  static const String PatientInfoView = '/patient-info-view';
   static const String MedicalHistoryView = '/medical-history-view';
   static const String MedHistoryPhotoView = '/med-history-photo-view';
   static const String PatientDentalChartView = '/patient-dental-chart-view';
@@ -123,6 +121,9 @@ class Routes {
   static const String ViewDentalNoteByToothView =
       '/view-dental-note-by-tooth-view';
   static const String UpdateProcedureViews = '/update-procedure-view';
+  static const String AppointmentRescheduleView =
+      '/appointment-reschedule-view';
+  static const String PatientInfoView = '/patient-info-view';
   static const all = <String>{
     PreLoader,
     GetStarted,
@@ -142,7 +143,6 @@ class Routes {
     CreateAppointmentView,
     AddMedicineView,
     AddProcedureView,
-    PatientInfoView,
     MedicalHistoryView,
     MedHistoryPhotoView,
     PatientDentalChartView,
@@ -174,6 +174,8 @@ class Routes {
     ViewDentalNote,
     ViewDentalNoteByToothView,
     UpdateProcedureViews,
+    AppointmentRescheduleView,
+    PatientInfoView,
   };
 }
 
@@ -200,7 +202,6 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.CreateAppointmentView, page: CreateAppointmentView),
     RouteDef(Routes.AddMedicineView, page: AddMedicineView),
     RouteDef(Routes.AddProcedureView, page: AddProcedureView),
-    RouteDef(Routes.PatientInfoView, page: PatientInfoView),
     RouteDef(Routes.MedicalHistoryView, page: MedicalHistoryView),
     RouteDef(Routes.MedHistoryPhotoView, page: MedHistoryPhotoView),
     RouteDef(Routes.PatientDentalChartView, page: PatientDentalChartView),
@@ -233,6 +234,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.ViewDentalNote, page: ViewDentalNote),
     RouteDef(Routes.ViewDentalNoteByToothView, page: ViewDentalNoteByToothView),
     RouteDef(Routes.UpdateProcedureViews, page: UpdateProcedureView),
+    RouteDef(Routes.AppointmentRescheduleView, page: AppointmentRescheduleView),
+    RouteDef(Routes.PatientInfoView, page: PatientInfoView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -250,11 +253,8 @@ class StackedRouter extends RouterBase {
       );
     },
     LoginView: (data) {
-      var args = data.getArgs<LoginViewArguments>(
-        orElse: () => LoginViewArguments(),
-      );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => LoginView(key: args.key),
+        builder: (context) => const LoginView(),
         settings: data,
       );
     },
@@ -367,16 +367,6 @@ class StackedRouter extends RouterBase {
     AddProcedureView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => const AddProcedureView(),
-        settings: data,
-      );
-    },
-    PatientInfoView: (data) {
-      var args = data.getArgs<PatientInfoViewArguments>(nullOk: false);
-      return CupertinoPageRoute<dynamic>(
-        builder: (context) => PatientInfoView(
-          key: args.key,
-          patient: args.patient,
-        ),
         settings: data,
       );
     },
@@ -684,18 +674,39 @@ class StackedRouter extends RouterBase {
         transitionDuration: const Duration(milliseconds: 300),
       );
     },
+    AppointmentRescheduleView: (data) {
+      var args =
+          data.getArgs<AppointmentRescheduleViewArguments>(nullOk: false);
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            AppointmentRescheduleView(
+          key: args.key,
+          appointment: args.appointment,
+        ),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
+    PatientInfoView: (data) {
+      var args = data.getArgs<PatientInfoViewArguments>(nullOk: false);
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            PatientInfoView(
+          key: args.key,
+          patient: args.patient,
+        ),
+        settings: data,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    },
   };
 }
 
 /// ************************************************************************
 /// Arguments holder classes
 /// *************************************************************************
-
-/// LoginView arguments holder class
-class LoginViewArguments {
-  final Key? key;
-  LoginViewArguments({this.key});
-}
 
 /// RegisterView arguments holder class
 class RegisterViewArguments {
@@ -727,13 +738,6 @@ class CreateAppointmentViewArguments {
   final Key? key;
   CreateAppointmentViewArguments(
       {required this.patient, required this.popTimes, this.key});
-}
-
-/// PatientInfoView arguments holder class
-class PatientInfoViewArguments {
-  final Key? key;
-  final Patient patient;
-  PatientInfoViewArguments({this.key, required this.patient});
 }
 
 /// MedicalHistoryView arguments holder class
@@ -875,4 +879,18 @@ class UpdateProcedureViewArguments {
   final Key? key;
   final Procedure procedure;
   UpdateProcedureViewArguments({this.key, required this.procedure});
+}
+
+/// AppointmentRescheduleView arguments holder class
+class AppointmentRescheduleViewArguments {
+  final Key? key;
+  final AppointmentModel appointment;
+  AppointmentRescheduleViewArguments({this.key, required this.appointment});
+}
+
+/// PatientInfoView arguments holder class
+class PatientInfoViewArguments {
+  final Key? key;
+  final Patient patient;
+  PatientInfoViewArguments({this.key, required this.patient});
 }

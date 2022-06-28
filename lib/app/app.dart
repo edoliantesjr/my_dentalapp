@@ -76,6 +76,7 @@ import 'package:dentalapp/ui/widgets/success_view/success.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
+import '../ui/views/appointment_reschedule/appointment_reschedule_view.dart';
 import '../ui/views/edit_patient/edit_patient_view.dart';
 
 @StackedApp(
@@ -100,7 +101,6 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     MaterialRoute(page: CreateAppointmentView, name: 'CreateAppointmentView'),
     MaterialRoute(page: AddMedicineView, name: 'AddMedicineView'),
     MaterialRoute(page: AddProcedureView, name: 'AddProcedureView'),
-    CupertinoRoute(page: PatientInfoView, name: 'PatientInfoView'),
     MaterialRoute(page: MedicalHistoryView, name: 'MedicalHistoryView'),
     MaterialRoute(page: MedHistoryPhotoView, name: 'MedHistoryPhotoView'),
     MaterialRoute(page: PatientDentalChartView, name: 'PatientDentalChartView'),
@@ -186,6 +186,16 @@ import '../ui/views/edit_patient/edit_patient_view.dart';
     CustomRoute(
         page: UpdateProcedureView,
         name: 'UpdateProcedureViews',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: AppointmentRescheduleView,
+        name: 'AppointmentRescheduleView',
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 300),
+    CustomRoute(
+        page: PatientInfoView,
+        name: 'PatientInfoView',
         transitionsBuilder: TransitionsBuilders.slideBottom,
         durationInMilliseconds: 300),
   ],
